@@ -1,27 +1,33 @@
 ---
-import Header from "../components/Header.astro"
+import Header from "../components/Header.astro";
 
 interface Props {
-	title: string;
-	description?: string;
-	
+  title: string;
+  description?: string;
 }
 
-const { title, description = "Discover the Chef in You with TasteBuddy", } = Astro.props;
+const { title, description = "Discover the Chef in You with TasteBuddy" } =
+  Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta property="og:description" content={description} />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.png" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-    <body class="min-h-screen grid grid-rows-[auto,1fr,auto] bg-black">
-        <Header />
-        <slot />
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta property="og:description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen grid grid-rows-[auto,1fr,auto] bg-black">
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <footer class="p-4 text-left">
+      <a href="/" class="text-white hover:underline mr-4">Home</a>
+      <a href="/privacy" class="text-white hover:underline">Privacy Policy</a>
+    </footer>
+  </body>
 </html>
