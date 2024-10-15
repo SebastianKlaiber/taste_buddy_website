@@ -1,29 +1,43 @@
 ---
-import {Image} from "astro:assets"
+import { Image } from "astro:assets";
 import BetaForm from "../components/BetaForm.astro";
-import Layout from '../layouts/Layout.astro';
-import Main from '../components/Main.astro';
-import H1 from '../components/H1.astro';
+import Layout from "../layouts/Layout.astro";
+import Main from "../components/Main.astro";
+import H1 from "../components/H1.astro";
 ---
 
 <Layout title="Welcome to Taste Buddy">
-	<Main>
-		<H1 text="Discover the Chef in You with TasteBuddy" />
+  <Main>
+    <H1 text="Discover the Chef in You with TasteBuddy" />
 
-		<p class="text-gray-300 text-l mb-24 max-sm:mb-14 text-center">
-            TasteBuddy is your ultimate culinary companion, available soon on both Android and iOS.<br/>Create, organize and manage your recipes with ease, all in one place. Whether you're a seasoned chef or a home cook, our intuitive app helps you explore new dishes and refine your favorites.<br/><br/>Dive into Cooking Mode to enjoy step-by-step guidance and hands-free operation, making every cooking session a breeze.
-        </p>
-		<p class="text-gray-300 text-l mb-8 max-sm:mb-14 text-center">
-			Be among the first to experience TasteBuddy by joining our beta test! Sign up now and help us shape the future of cooking. Transform your kitchen into a culinary haven with TasteBuddy!
-		</p>
-		<Image
-		src="/images/screenshots.png"
-		alt="taste buddy screenshots"
-		width={1280}
-		height={64}
-		format="png"
-	
-	/>
-	<BetaForm />
-	</Main>
+    <p class="text-gray-300 text-l mb-24 max-sm:mb-14 text-center">
+      TasteBuddy is your ultimate culinary companion, available soon on both
+      Android and iOS.<br />Create, organize and manage your recipes with ease,
+      all in one place. Whether you're a seasoned chef or a home cook, our
+      intuitive app helps you explore new dishes and refine your favorites.<br
+      /><br />Dive into Cooking Mode to enjoy step-by-step guidance and
+      hands-free operation, making every cooking session a breeze.
+    </p>
+    <p class="text-gray-300 text-l mb-8 max-sm:mb-14 text-center">
+      Be among the first to experience TasteBuddy by joining our beta test! Sign
+      up now and help us shape the future of cooking. Transform your kitchen
+      into a culinary haven with TasteBuddy!
+    </p>
+    <div class="flex justify-center mb-8">
+      <a href="https://apps.apple.com/app/id6554007741">
+        <img
+          src="public/images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+          alt="Download on the App Store"
+          class="h-16 w-auto hover:scale-105 transition-transform duration-300"
+        />
+      </a>
+    </div>
+    <Image
+      src="/images/screenshots.png"
+      alt="taste buddy screenshots"
+      width={1280}
+      height={64}
+      format="png"
+    />
+  </Main>
 </Layout>
