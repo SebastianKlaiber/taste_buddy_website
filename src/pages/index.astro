@@ -7,37 +7,88 @@ import H1 from "../components/H1.astro";
 import { AstroSeo } from '@astrolib/seo';
 ---
 <AstroSeo
-  title="Recipe Organizer"
-  description="Recipe Keeper TasteBuddy"
+  title="TasteBuddy - Your Personal Recipe Organizer & Cooking Assistant App"
+  description="Organize, create and manage your recipes with TasteBuddy, the ultimate cooking companion app. Features hands-free cooking mode, step-by-step guidance, and intuitive recipe management. Available on iOS."
+  openGraph={{
+    title: 'TasteBuddy - Smart Recipe Organization App',
+    description: 'Transform your cooking experience with TasteBuddy. Organize recipes, get step-by-step guidance, and enjoy hands-free cooking mode. Download now on iOS.',
+    images: [{ url: '/images/screenshots.png' }],
+  }}
+  twitter={{
+    card: 'summary_large_image',
+    title: 'TasteBuddy - Recipe Management Made Simple',
+    description: 'Your personal recipe assistant for organized, stress-free cooking. Available on iOS.',
+    image: '/images/screenshots.png',
+  }}
 />
 
-<Layout title="Welcome to Taste Buddy">
+<Layout title="TasteBuddy - Smart Recipe Organization & Cooking Assistant">
   <Main>
-    <H1 text="Recipe Organizer - Discover the Chef in You with TasteBuddy" />
+    <H1 text="TasteBuddy: Your Smart Recipe Organizer & Cooking Assistant" />
 
-    <p class="text-gray-300 text-l mb-24 max-sm:mb-14 text-center">
-      TasteBuddy is your ultimate culinary companion, available on iOS and soon on Android.
-      <br />Create, organize and manage your recipes with ease,
-      all in one place. Whether you're a seasoned chef or a home cook, our
-      intuitive app helps you explore new dishes and refine your favorites.<br
-      /><br />Dive into Cooking Mode to enjoy step-by-step guidance and
-      hands-free operation, making every cooking session a breeze.
-    </p>
+    <div class="recipe-app-description">
+      <p class="text-gray-300 text-l mb-24 max-sm:mb-14 text-center">
+        Transform your cooking journey with TasteBuddy, the premium recipe management app available on iOS and coming soon to Android.
+        <br />
+        <p class="features-heading text-gray-300 block font-semibold text-center ">Key Features:</p>
+        <br />
+        <ul class="text-gray-300">
+          <li>✓ Effortless recipe creation and organization</li>
+          <li>✓ Smart recipe management system</li>
+          <li>✓ Hands-free cooking mode with voice control</li>
+          <li>✓ Step-by-step guided cooking instructions</li>
+        </ul>
+        <br />
+       <p class="text-gray-300 block text-center">Perfect for both professional chefs and home cooking enthusiasts, TasteBuddy streamlines your culinary experience with intuitive features and user-friendly design.</p> 
+        <br />
+        <p class="text-gray-300 text-center">Experience the future of cooking with our innovative Cooking Mode, featuring voice-controlled navigation and detailed step-by-step guidance for stress-free meal preparation.</p>
+        <br />
+      </p>
+    </div>
+
     <div class="flex justify-center mb-8">
-      <a href="https://apps.apple.com/app/id6554007741">
+      <a 
+        href="https://apps.apple.com/app/id6554007741"
+        aria-label="Download TasteBuddy on the App Store"
+        class="app-store-link"
+      >
         <img
           src="images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
-          alt="Download on the App Store"
+          alt="Download TasteBuddy on the App Store"
           class="h-16 w-auto hover:scale-105 transition-transform duration-300"
         />
       </a>
     </div>
+
     <Image
       src="/images/screenshots.png"
-      alt="taste buddy screenshots"
+      alt="TasteBuddy App Screenshots - Recipe Organization and Cooking Mode Features"
       width={1280}
       height={64}
       format="png"
+      class="app-screenshots"
     />
   </Main>
 </Layout>
+
+<style>
+  .recipe-app-description ul {
+    list-style-type: none;
+    padding-left: 0;
+    text-align: center;
+  }
+  
+  .recipe-app-description ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  .features-heading {
+    margin-top: 1rem;
+    display: block;
+  }
+  
+  .app-screenshots {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+</style>
