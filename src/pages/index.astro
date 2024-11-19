@@ -54,14 +54,41 @@ import { AstroSeo } from '@astrolib/seo';
       </a>
     </div>
 
-    <Image
-      src="/images/screenshots.png"
-      alt="TasteBuddy App Screenshots - Recipe Organization and Cooking Mode Features"
-      width={1280}
-      height={64}
-      format="png"
-      class="app-screenshots"
-    />
+    <div class="screenshots-grid">
+      <Image
+        src="/images/01_EN@1x.png"
+        alt="TasteBuddy App Screenshot - Recipe List View"
+        width={320}
+        height={640}
+        format="png"
+        class="app-screenshot"
+      />
+      <Image
+        src="/images/02_EN@1x.png"
+        alt="TasteBuddy App Screenshot - Recipe Detail View"
+        width={320}
+        height={640}
+        format="png"
+        class="app-screenshot"
+      />
+      <Image
+        src="/images/03_EN@1x.png"
+        alt="TasteBuddy App Screenshot - Recipe Steps View"
+        width={320}
+        height={640}
+        format="png"
+        class="app-screenshot"
+      />
+      <Image
+        src="/images/04_EN@1x.png"
+        alt="TasteBuddy App Screenshot - Recipe Timer View"
+        width={320}
+        height={640}
+        format="png"
+        class="app-screenshot"
+      />
+    </div>
+
   </Main>
 </Layout>
 
@@ -82,6 +109,17 @@ import { AstroSeo } from '@astrolib/seo';
   }
   
   .app-screenshots {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .screenshots-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .app-screenshot {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }

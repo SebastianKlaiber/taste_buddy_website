@@ -8,6 +8,21 @@ interface Props {
 
 const { title, description = "Discover the Chef in You with TasteBuddy" } =
   Astro.props;
+
+// Define structured data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "TasteBuddy",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "iOS",
+  "description": description,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
 ---
 
 <!doctype html>
@@ -16,9 +31,20 @@ const { title, description = "Discover the Chef in You with TasteBuddy" } =
     <meta charset="UTF-8" />
     <meta property="og:description" content={description} />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="keywords" content="recipe app, cooking assistant, recipe organizer, cooking app, hands-free cooking, iOS app, kitchen assistant, meal planning" />
+    <meta property="og:description" content={description} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/images/screenshots.png" />
+    <link rel="canonical" href={Astro.url.href} />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body class="min-h-screen grid grid-rows-[auto,1fr,auto] bg-black">
     <Header />
