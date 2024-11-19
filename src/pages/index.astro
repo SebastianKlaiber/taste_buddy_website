@@ -21,26 +21,34 @@ import { AstroSeo } from '@astrolib/seo';
     <H1 text="TasteBuddy: Your Smart Recipe Organizer & Cooking Assistant" />
 
     <div class="recipe-app-description">
-      <p class="text-gray-300 text-l mb-24 max-sm:mb-14 text-center">
-        Transform your cooking journey with TasteBuddy, the premium recipe management app available on iOS and coming soon to Android.
+      <p class="text-[#ECECE6] text-l mb-12 max-sm:mb-8 text-left">
         <br />
-        <p class="features-heading text-gray-300 block font-semibold text-center ">Key Features:</p>
-        <br />
-        <ul class="text-gray-300">
-          <li>✓ Effortless recipe creation and organization</li>
-          <li>✓ Smart recipe management system</li>
-          <li>✓ Hands-free cooking mode with voice control</li>
-          <li>✓ Step-by-step guided cooking instructions</li>
-        </ul>
-        <br />
-       <p class="text-gray-300 block text-center">Perfect for both professional chefs and home cooking enthusiasts, TasteBuddy streamlines your culinary experience with intuitive features and user-friendly design.</p> 
-        <br />
-        <p class="text-gray-300 text-center">Experience the future of cooking with our innovative Cooking Mode, featuring voice-controlled navigation and detailed step-by-step guidance for stress-free meal preparation.</p>
+        <div class="text-[#ECECE6] space-y-8 text-left mt-8">
+          <div>
+            <h3 class="font-semibold mb-2">📝 Recipe Creation and Management</h3>
+            <p>Create, edit, and organize your recipes in just a few steps. Build your own digital cookbook, categorize your favorite dishes, and have your culinary creations always at your fingertips.</p>
+          </div>
+          
+          <div>
+            <h3 class="font-semibold mb-2">🎨 AI-Generated Recipe Images</h3>
+            <p>Bring your recipes to life! With TasteBuddy's advanced AI, you can turn your dishes into appetizing images, perfect for sharing on social media or impressing your family and friends.</p>
+          </div>
+          
+          <div>
+            <h3 class="font-semibold mb-2">📸 Cookbook Digitization</h3>
+            <p>Say goodbye to handwritten notes and old recipe cards. Simply take a photo of a recipe from your favorite cookbook, and let TasteBuddy convert it into a digital, editable format in seconds.</p>
+          </div>
+          
+          <div>
+            <h3 class="font-semibold mb-2">⚖️ Customizing Servings and Ingredient Quantities</h3>
+            <p>Whether you're cooking for a big party or preparing a smaller meal, adjust recipes according to your needs.</p>
+          </div>
+        </div>
         <br />
       </p>
     </div>
 
-    <div class="flex justify-center mb-8">
+    <div class="flex justify-center mb-16">
       <a 
         href="https://apps.apple.com/app/id6554007741"
         aria-label="Download TasteBuddy on the App Store"
@@ -96,7 +104,7 @@ import { AstroSeo } from '@astrolib/seo';
   .recipe-app-description ul {
     list-style-type: none;
     padding-left: 0;
-    text-align: center;
+    text-align: left;
   }
   
   .recipe-app-description ul li {
