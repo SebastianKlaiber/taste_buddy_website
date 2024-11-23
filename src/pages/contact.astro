@@ -1,0 +1,42 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Main from "../components/Main.astro";
+import H1 from "../components/H1.astro";
+import { AstroSeo } from '@astrolib/seo';
+---
+<AstroSeo
+  title="Contact Us - TasteBuddy"
+  description="Get in touch with the TasteBuddy team. We're here to help with any questions about our recipe organizer and meal planner app."
+/>
+
+<Layout title="Contact Us - TasteBuddy">
+  <Main>
+    <div class="mb-8">
+      <a href="/" class="text-[#4F46E5] hover:text-[#4338CA] transition-colors duration-300">← Back to Home</a>
+    </div>
+    
+    <H1 text="Contact Us" />
+    
+    <div class="max-w-2xl mx-auto text-center">
+      <p class="text-[#ECECE6] text-lg mb-8">
+        Have questions or need support? We're here to help!
+      </p>
+      
+      <div class="bg-[#1E1E1E] p-8 rounded-lg shadow-lg">
+        <p class="text-[#ECECE6] mb-6">
+          For any inquiries or assistance, please reach out to us at:
+        </p>
+        <a 
+          href="mailto:support@taste-buddy.app" 
+          class="inline-block bg-[#4F46E5] hover:bg-[#4338CA] text-white font-semibold py-3 px-6 rounded-lg transition duration-300"
+        >
+          support@taste-buddy.app
+        </a>
+      </div>
+      
+      <p class="text-[#ECECE6] text-sm mt-8">
+        We typically respond within 24 hours during business days.
+      </p>
+    </div>
+  </Main>
+</Layout>
