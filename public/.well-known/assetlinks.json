@@ -1,0 +1,11 @@
+[
+    {
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.tastebuddy",
+        "sha256_cert_fingerprints":
+          ["B4:A0:DC:3E:9B:96:1F:57:13:1B:F5:4B:B5:14:89:0E:8E:DC:EA:11:56:B9:AC:20:B2:72:0E:62:BC:84:1D:77"]
+      }
+    }
+  ]
