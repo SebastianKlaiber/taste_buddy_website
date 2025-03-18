@@ -6,23 +6,35 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Discover the Chef in You with TasteBuddy" } =
-  Astro.props;
+const { title, description = "Transform your cooking experience - Effortlessly organize, access, and cook your favorite recipes anytime with our smart recipe keeper" } = Astro.props;
+const primaryKeyword = "recipe keeper";
+const secondaryKeywords = "digital recipe organizer, recipe management app, recipe storage solution, meal planner app";
 
-// Define structured data
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "MobileApplication",
-  "name": "TasteBuddy",
+  "@type": "SoftwareApplication",
+  "name": "TasteBuddy Recipe Keeper",
   "applicationCategory": "LifestyleApplication",
-  "operatingSystem": "iOS",
-  "description": description,
+  "operatingSystem": "iOS, Android",
+  "description": "Simplify meal planning and enjoy stress-free cooking with AI-powered recipe management that adapts to your culinary style",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "150"
+  },
   "offers": {
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "USD"
-  }
+  },
+  "featureList": [
+    "Never lose a recipe again with cloud storage",
+    "Quickly find dishes with smart search filters",
+    "Save 3+ hours weekly on meal planning",
+    "Reduce food waste with grocery list integration"
+  ]
 };
+
 ---
 
 <!doctype html>
@@ -31,9 +43,12 @@ const structuredData = {
     <meta charset="UTF-8" />
     <meta property="og:description" content={description} />
     <meta name="viewport" content="width=device-width" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <meta name="keywords" content="recipe app, cooking assistant, recipe organizer, cooking app, hands-free cooking, iOS app, kitchen assistant, meal planning" />
+    <meta name="keywords" content={`${primaryKeyword}, ${secondaryKeywords}, recipe app, cooking assistant, recipe organizer, cooking app, hands-free cooking, iOS app, kitchen assistant, meal planning`} />
     <meta property="og:description" content={description} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -43,17 +58,66 @@ const structuredData = {
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <title>{title || "Recipe Keeper App | TasteBuddy"}</title>
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
-  <body class="min-h-screen grid grid-rows-[auto,1fr,auto] bg-[#10130B]">
+  <body class="min-h-screen grid grid-rows-[auto,1fr,auto] bg-[#10130B] font-sans">
     <Header />
-    <main>
+    <main class="container mx-auto px-4">
+      <header class="text-center py-8">
+        <h1 class="text-4xl font-bold text-white mb-4">
+          Spend Less Time Searching,<br>
+          More Time Cooking
+        </h1>
+        <p class="text-xl text-gray-300">
+          Your favorite recipes - organized and accessible in one place.<br>
+          Never lose a family recipe again, even while cooking.
+        </p>
+      </header>
+
+      <section class="my-12 text-center">
+        <h2 class="text-2xl font-semibold text-white mb-6">
+          Why Home Cooks Love Our Recipe Keeper
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="p-6 bg-[#1A1D14] rounded-lg">
+            <h3 class="text-xl font-medium text-white mb-3">🕒 Save Time</h3>
+            <p class="text-gray-300">Cut meal planning time by 50% with smart weekly suggestions based on your pantry</p>
+          </div>
+          <div class="p-6 bg-[#1A1D14] rounded-lg">
+            <h3 class="text-xl font-medium text-white mb-3">🧠 Reduce Stress</h3>
+            <p class="text-gray-300">Automatic grocery lists that update as you modify recipes</p>
+          </div>
+          <div class="p-6 bg-[#1A1D14] rounded-lg">
+            <h3 class="text-xl font-medium text-white mb-3">📈 Cook Better</h3>
+            <p class="text-gray-300">Get usage analytics to improve your most underused kitchen tools</p>
+          </div>
+        </div>
+      </section>
+
       <slot />
     </main>
-    <footer class="p-4 text-left">
-      <a href="/" class="text-[#ECECE6] hover:underline mr-4">Home</a>
-      <a href="/privacy" class="text-[#ECECE6] hover:underline">Privacy Policy</a>
+
+    <footer class="p-4 text-left bg-[#1A1D14]">
+      <div class="container mx-auto">
+        <div class="flex flex-wrap justify-between gap-4">
+          <div class="space-x-6">
+            <a href="/privacy" class="text-[#ECECE6] hover:underline">Privacy Policy</a>
+            <a href="/contact" class="text-[#ECECE6] hover:underline">Support</a>
+          </div>
+          <div class="flex flex-wrap gap-4">
+            <a href="/meal-planning-guide" class="text-[#ECECE6] hover:underline">
+              How to Save 3+ Hours Weekly on Meal Planning
+            </a>
+            <a href="/reduce-food-waste" class="text-[#ECECE6] hover:underline">
+              Reduce Food Waste with Smart Grocery Lists
+            </a>
+            <a href="/recipe-backup" class="text-[#ECECE6] hover:underline">
+              Never Lose a Family Recipe Again
+            </a>
+          </div>
+        </div>
+      </div>
     </footer>
   </body>
 </html>

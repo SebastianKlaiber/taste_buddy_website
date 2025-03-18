@@ -18,101 +18,82 @@ import { AstroSeo } from '@astrolib/seo';
 
 <Layout title="Recipe Organizer & Meal Planner">
   <Main>
-    <div class="flex justify-end space-x-6 mb-8 text-[#ECECE6]">
-      <a href="/privacy" class="hover:text-[#4F46E5] transition-colors duration-300">Privacy Policy</a>
-      <a href="/contact" class="hover:text-[#4F46E5] transition-colors duration-300">Support</a>
-    </div>
-
-    <H1 text="Recipe Organizer & Meal Planner" />
-
-    <div class="recipe-app-description">
-      <p class="text-[#ECECE6] text-l mb-12 max-sm:mb-8 text-left">
-        <br />
-        <div class="text-[#ECECE6] space-y-8 text-left mt-8">
-          <div>
-            <h3 class="font-semibold mb-2">📝 Recipe Creation and Management</h3>
-            <p>Create, edit, and organize your recipes in just a few steps. Build your own digital cookbook, categorize your favorite dishes, and have your culinary creations always at your fingertips.</p>
-          </div>
-          
-          <div>
-            <h3 class="font-semibold mb-2">🎨 AI-Generated Recipe Images</h3>
-            <p>Bring your recipes to life! With TasteBuddy's advanced AI, you can turn your dishes into appetizing images, perfect for sharing on social media or impressing your family and friends.</p>
-          </div>
-          
-          <div>
-            <h3 class="font-semibold mb-2">📸 Cookbook Digitization</h3>
-            <p>Say goodbye to handwritten notes and old recipe cards. Simply take a photo of a recipe from your favorite cookbook, and let TasteBuddy convert it into a digital, editable format in seconds.</p>
-          </div>
-          
-          <div>
-            <h3 class="font-semibold mb-2">⚖️ Customizing Servings and Ingredient Quantities</h3>
-            <p>Whether you're cooking for a big party or preparing a smaller meal, adjust recipes according to your needs.</p>
-          </div>
+    <main class="container mx-auto px-4">
+      <div class="recipe-app-description">
+        <h2 class="text-3xl font-bold text-[#ECECE6] mb-6 text-center">
+          Your Digital Recipe Assistant
+        </h2>
+        <div class="space-y-4 text-[#ECECE6] text-lg">
+          <p class="text-center">Transform your cooking experience with features designed to:</p>
+          <ul class="list-none space-y-3">
+            <li class="text-center">Instantly save recipes from any website or photo</li>
+            <li class="text-center">Automatically categorize recipes by dietary needs</li>
+            <li class="text-center">Generate shopping lists based on meal plans</li>
+            <li class="text-center">Access your collection from any device</li>
+          </ul>
         </div>
-        <br />
-      </p>
-    </div>
+      </div>
 
-    <div class="flex justify-center mb-16 space-x-4">
-      <a 
-        href="https://apps.apple.com/app/id6554007741"
-        aria-label="Download TasteBuddy on the App Store"
-        class="app-store-link"
-      >
-        <img
-          src="images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
-          alt="Download TasteBuddy on the App Store"
-          class="h-16 w-auto hover:scale-105 transition-transform duration-300"
+      <div class="flex justify-center mb-16 space-x-4">
+        <a 
+          href="https://apps.apple.com/app/id6554007741"
+          aria-label="Download TasteBuddy on the App Store"
+          class="app-store-link"
+        >
+          <img
+            src="images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+            alt="Download TasteBuddy on the App Store"
+            class="h-16 w-auto hover:scale-105 transition-transform duration-300"
+          />
+        </a>
+        <a 
+          href="https://play.google.com/store/apps/details?id=app.tastebuddy"
+          aria-label="Download TasteBuddy on Google Play"
+          class="app-store-link"
+        >
+          <img
+            src="images/Google_Play_Badge.png"
+            alt="Download TasteBuddy on Google Play"
+            class="h-16 w-auto hover:scale-105 transition-transform duration-300"
+          />
+        </a>
+      </div>
+
+      <div class="screenshots-grid">
+        <Image
+          src="/images/01_EN@1x.png"
+          alt="TasteBuddy App Screenshot - Recipe List View"
+          width={320}
+          height={640}
+          format="png"
+          class="app-screenshot"
         />
-      </a>
-      <a 
-        href="https://play.google.com/store/apps/details?id=app.tastebuddy"
-        aria-label="Download TasteBuddy on Google Play"
-        class="app-store-link"
-      >
-        <img
-          src="images/Google_Play_Badge.png"
-          alt="Download TasteBuddy on Google Play"
-          class="h-16 w-auto hover:scale-105 transition-transform duration-300"
+        <Image
+          src="/images/02_EN@1x.png"
+          alt="TasteBuddy App Screenshot - Recipe Detail View"
+          width={320}
+          height={640}
+          format="png"
+          class="app-screenshot"
         />
-      </a>
-    </div>
-
-    <div class="screenshots-grid">
-      <Image
-        src="/images/01_EN@1x.png"
-        alt="TasteBuddy App Screenshot - Recipe List View"
-        width={320}
-        height={640}
-        format="png"
-        class="app-screenshot"
-      />
-      <Image
-        src="/images/02_EN@1x.png"
-        alt="TasteBuddy App Screenshot - Recipe Detail View"
-        width={320}
-        height={640}
-        format="png"
-        class="app-screenshot"
-      />
-      <Image
-        src="/images/03_EN@1x.png"
-        alt="TasteBuddy App Screenshot - Recipe Steps View"
-        width={320}
-        height={640}
-        format="png"
-        class="app-screenshot"
-      />
-      <Image
-        src="/images/04_EN@1x.png"
-        alt="TasteBuddy App Screenshot - Recipe Timer View"
-        width={320}
-        height={640}
-        format="png"
-        class="app-screenshot"
-      />
-    </div>
-
+        <Image
+          src="/images/03_EN@1x.png"
+          alt="TasteBuddy App Screenshot - Recipe Steps View"
+          width={320}
+          height={640}
+          format="png"
+          class="app-screenshot"
+        />
+        <Image
+          src="/images/04_EN@1x.png"
+          alt="TasteBuddy App Screenshot - Recipe Timer View"
+          width={320}
+          height={640}
+          format="png"
+          class="app-screenshot"
+        />
+      </div>
+    </main>
   </Main>
 </Layout>
 
