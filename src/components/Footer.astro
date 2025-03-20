@@ -1,23 +1,89 @@
 ---
 // src/components/Footer.astro
+const currentYear = new Date().getFullYear();
 ---
-<footer class="p-4 text-left bg-[#1A1D14]">
-  <div class="container mx-auto">
-    <div class="flex flex-wrap justify-between gap-4">
-      <div class="space-x-6">
-        <a href="/privacy" class="text-[#ECECE6] hover:underline">Privacy Policy</a>
-        <a href="/contact" class="text-[#ECECE6] hover:underline">Support</a>
+
+<footer class="bg-[#1C2513] border-t border-[#2A2D24]/30 pt-12 pb-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- Logo and App Description -->
+      <div class="md:col-span-2">
+        <div class="flex items-center space-x-3 mb-4">
+          <img 
+            src="/AppIcon.png" 
+            alt="TasteBuddy App Icon" 
+            class="w-10 h-10 rounded-xl"
+            width="40"
+            height="40"
+          />
+          <span class="text-white text-xl font-semibold">TasteBuddy</span>
+        </div>
+        <p class="text-gray-400 mb-6 max-w-md">
+          TasteBuddy helps you remember the food and drinks you love by creating your own personalized taste profile.
+        </p>
+        <div class="flex space-x-4">
+          <a 
+            href="https://apps.apple.com/app/id6554007741" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            aria-label="Download on the App Store"
+            class="transition-transform duration-200 hover:scale-105"
+          >
+            <img 
+              src="/images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" 
+              alt="Download on the App Store" 
+              class="h-10"
+              width="120"
+              height="40"
+            />
+          </a>
+          <a 
+            href="https://play.google.com/store/apps/details?id=app.tastebuddy" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            aria-label="Download on Google Play"
+            class="transition-transform duration-200 hover:scale-105"
+          >
+            <img 
+              src="/images/Google_Play_Badge.png" 
+              alt="Download on Google Play" 
+              class="h-10"
+              width="135"
+              height="40"
+            />
+          </a>
+        </div>
       </div>
-      <div class="flex flex-wrap gap-4">
-        <a href="/meal-planning-guide" class="text-[#ECECE6] hover:underline">
-          How to Save 3+ Hours Weekly on Meal Planning
-        </a>
-        <a href="/reduce-food-waste" class="text-[#ECECE6] hover:underline">
-          Reduce Food Waste with Smart Grocery Lists
-        </a>
-        <a href="/recipe-backup" class="text-[#ECECE6] hover:underline">
-          Never Lose a Family Recipe Again
-        </a>
+
+      <!-- Navigation Links -->
+      <div>
+        <h3 class="text-white font-medium mb-4">Navigation</h3>
+        <ul class="space-y-2">
+          <li><a href="/" class="text-gray-400 hover:text-[#00CE31] transition-colors">Home</a></li>
+          <li><a href="/#features" class="text-gray-400 hover:text-[#00CE31] transition-colors">Features</a></li>
+          <li><a href="/contact" class="text-gray-400 hover:text-[#00CE31] transition-colors">Contact</a></li>
+          <li><a href="/#faq" class="text-gray-400 hover:text-[#00CE31] transition-colors">FAQ</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal Links -->
+      <div>
+        <h3 class="text-white font-medium mb-4">Legal</h3>
+        <ul class="space-y-2">
+          <li><a href="/privacy" class="text-gray-400 hover:text-[#00CE31] transition-colors">Privacy Policy</a></li>
+          <li><a href="/terms" class="text-gray-400 hover:text-[#00CE31] transition-colors">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="border-t border-[#2A2D24]/30 mt-12 pt-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="text-gray-500 text-sm mb-4 md:mb-0">
+          &copy; {currentYear} TasteBuddy. All rights reserved.
+        </div>
+        <div class="flex space-x-4">
+          <!-- Add social media links if available -->
+        </div>
       </div>
     </div>
   </div>
