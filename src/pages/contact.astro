@@ -1,7 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Main from "../components/Main.astro";
-import H1 from "../components/H1.astro";
 import { AstroSeo } from '@astrolib/seo';
 ---
 <AstroSeo
@@ -10,33 +8,54 @@ import { AstroSeo } from '@astrolib/seo';
 />
 
 <Layout title="Contact Us - TasteBuddy">
-  <Main>
-    <div class="mb-8">
-      <a href="/" class="text-white hover:text-[#ECECE6] transition-colors duration-300">← Back to Home</a>
-    </div>
-    
-    <H1 text="Contact Us" />
-    
-    <div class="max-w-2xl mx-auto text-center">
-      <p class="text-[#ECECE6] text-lg mb-8">
-        Have questions or need support? We're here to help!
-      </p>
-      
-      <div class="bg-[#1E1E1E] p-8 rounded-lg shadow-lg">
-        <p class="text-[#ECECE6] mb-6">
-          For any inquiries or assistance, please reach out to us at:
+  <section class="py-12 sm:py-16 lg:py-20">
+    <div class="max-w-3xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6">Contact Us</h1>
+        <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+          Have questions or need support? We're here to help!
         </p>
-        <a 
-          href="mailto:support@taste-buddy.app" 
-          class="inline-block bg-[#00340E] hover:bg-[#004812] text-white font-semibold py-3 px-6 rounded-lg transition duration-300"
-        >
-          support@taste-buddy.app
-        </a>
       </div>
       
-      <p class="text-[#ECECE6] text-sm mt-8">
-        We typically respond within 24 hours during business days.
-      </p>
+      <div class="max-w-xl mx-auto space-y-8 mb-12">
+        <!-- Contact Info -->
+        <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 sm:p-8 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30">
+          <h2 class="text-2xl font-semibold text-white mb-6">Get In Touch</h2>
+          <p class="text-gray-300 mb-6">
+            We're committed to providing you with the best support. Feel free to reach out by email:
+          </p>
+          
+          <div class="flex items-start">
+            <div class="flex-shrink-0 bg-[#00CE31]/30 p-3 rounded-lg mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#00CE31]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-white">Email Us</h3>
+              <a href="mailto:support@taste-buddy.app" class="text-[#00CE31] hover:text-[#00CE31]/80 transition-colors">support@taste-buddy.app</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 sm:p-8 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30">
+          <h2 class="text-2xl font-semibold text-white mb-6">Response Time</h2>
+          <p class="text-gray-300">
+            We typically respond to all inquiries within 24 hours during business days. For urgent issues, please use the in-app support feature for faster assistance.
+          </p>
+        </div>
+      </div>
+      
+      <!-- FAQ Teaser -->
+      <div class="text-center bg-gradient-to-br from-[#00CE31]/20 to-[#00CE31]/10 rounded-2xl p-8 backdrop-blur-sm border border-[#00CE31]/20 max-w-xl mx-auto">
+        <h2 class="text-2xl font-semibold text-white mb-4">Frequently Asked Questions</h2>
+        <p class="text-gray-300 mb-6">
+          Find quick answers to common questions about TasteBuddy on our FAQ page.
+        </p>
+        <a href="/#faq" class="btn-secondary inline-block">
+          View FAQs
+        </a>
+      </div>
     </div>
-  </Main>
+  </section>
 </Layout>

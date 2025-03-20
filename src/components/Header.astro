@@ -1,13 +1,111 @@
 ---
-import {Image} from "astro:assets"
+import { Image } from "astro:assets";
 
-const userEmail = Astro.cookies.get("userEmail")
+const userEmail = Astro.cookies.get("userEmail");
+const currentPath = Astro.url.pathname;
+
+// Define navigation links
+const navLinks = [
+  { text: "Home", href: "/" },
+  { text: "Features", href: "/#features" },
+  { text: "Contact", href: "/contact" },
+  { text: "FAQ", href: "/#faq" },
+];
 ---
 
-<header
-    class="flex justify-between items-center px-24 py-12 max-sm:px-5 max-sm:py-10 max-w-7xl justify-self-center w-full"
->
-    <!-- <a href="/" class="flex gap-x-4 items-center">
-        <p class="uppercase text-3xl text-zinc-900">Taste Buddy</p>
-    </a> -->
+<header class="sticky top-0 z-50 bg-[#1C2513]/90 backdrop-blur-md border-b border-[#2A2D24]/30">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16 sm:h-20">
+      <!-- Logo -->
+      <a href="/" class="flex items-center space-x-3" aria-label="TasteBuddy Homepage">
+        <img 
+          src="/AppIcon.png" 
+          alt="TasteBuddy App Icon" 
+          class="w-10 h-10 rounded-xl"
+          width="40"
+          height="40"
+        />
+        <span class="text-white text-xl font-semibold hidden sm:inline-block">TasteBuddy</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-8">
+        {navLinks.map((link) => (
+          <a 
+            href={link.href} 
+            class={`text-sm font-medium transition-colors duration-200 hover:text-[#00CE31] ${
+              currentPath === link.href || (link.href !== "/" && currentPath.startsWith(link.href)) 
+                ? "text-[#00CE31]" 
+                : "text-gray-300"
+            }`}
+          >
+            {link.text}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-white hover:text-[#00CE31]" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+      <!-- Download App button -->
+      <div class="hidden md:block">
+        <a
+          href="https://apps.apple.com/app/id6554007741"
+          class="btn-primary text-sm"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Download App
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Menu (hidden by default) -->
+  <div id="mobile-menu" class="hidden md:hidden bg-[#1C2513] border-b border-[#2A2D24]/30">
+    <div class="px-2 pt-2 pb-3 space-y-1">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class={`block px-3 py-2 rounded-md text-base font-medium ${
+            currentPath === link.href || (link.href !== "/" && currentPath.startsWith(link.href))
+              ? "bg-[#1C2513]/80 text-[#00CE31]"
+              : "text-gray-300 hover:bg-[#1C2513]/80 hover:text-white"
+          }`}
+        >
+          {link.text}
+        </a>
+      ))}
+      <div class="mt-4 px-3">
+        <a
+          href="https://apps.apple.com/app/id6554007741"
+          class="btn-primary block text-center"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Download App
+        </a>
+      </div>
+    </div>
+  </div>
 </header>
+
+<script>
+  // Handle mobile menu toggle
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', () => {
+        const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+        mobileMenuButton.setAttribute('aria-expanded', (!expanded).toString());
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  });
+</script>

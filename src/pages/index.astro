@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import BetaForm from "../components/BetaForm.astro";
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/Main.astro";
 import H1 from "../components/H1.astro";
@@ -18,114 +17,328 @@ import { AstroSeo } from '@astrolib/seo';
 
 <Layout title="Recipe Organizer & Meal Planner">
   <Main>
-    <main class="container mx-auto px-4">
-      <div class="recipe-app-description">
-        <h2 class="text-3xl font-bold text-[#ECECE6] mb-6 text-center">
+    <section class="relative overflow-hidden py-12 sm:py-16 lg:py-20">
+      <div class="max-w-4xl mx-auto text-center mb-12 sm:mb-16">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
           Your Digital Recipe Assistant
         </h2>
-        <div class="space-y-4 text-[#ECECE6] text-lg">
-          <p class="text-center">Transform your cooking experience with features designed to:</p>
-          <ul class="list-none space-y-3">
-            <li class="text-center">Instantly save recipes from any website or photo</li>
-            <li class="text-center">Automatically categorize recipes by dietary needs</li>
-            <li class="text-center">Generate shopping lists based on meal plans</li>
-            <li class="text-center">Access your collection from any device</li>
-          </ul>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          Transform your cooking experience with features designed for modern home cooks
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto mb-10">
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm">
+            <div class="text-3xl mb-3">📱</div>
+            <h3 class="text-xl font-semibold text-white mb-2">Easy Recipe Import</h3>
+            <p class="text-gray-400">Instantly save recipes from any website or photo with a single tap</p>
+          </div>
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm">
+            <div class="text-3xl mb-3">🔍</div>
+            <h3 class="text-xl font-semibold text-white mb-2">Smart Organization</h3>
+            <p class="text-gray-400">Automatically categorize recipes by dietary needs and ingredients</p>
+          </div>
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm">
+            <div class="text-3xl mb-3">🛒</div>
+            <h3 class="text-xl font-semibold text-white mb-2">Shopping Lists</h3>
+            <p class="text-gray-400">Generate smart shopping lists based on your weekly meal plans</p>
+          </div>
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm">
+            <div class="text-3xl mb-3">☁️</div>
+            <h3 class="text-xl font-semibold text-white mb-2">Cloud Access</h3>
+            <p class="text-gray-400">Access your recipe collection from any device, anywhere</p>
+          </div>
         </div>
       </div>
 
-      <div class="flex justify-center mb-16 space-x-4">
+      <div class="flex flex-wrap justify-center gap-4 mb-16">
         <a 
           href="https://apps.apple.com/app/id6554007741"
           aria-label="Download TasteBuddy on the App Store"
-          class="app-store-link"
+          class="transform transition-transform duration-300 hover:scale-105"
+          target="_blank" 
+          rel="noopener noreferrer"
         >
           <img
-            src="images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+            src="/images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
             alt="Download TasteBuddy on the App Store"
-            class="h-16 w-auto hover:scale-105 transition-transform duration-300"
+            class="h-14 sm:h-16"
           />
         </a>
         <a 
           href="https://play.google.com/store/apps/details?id=app.tastebuddy"
           aria-label="Download TasteBuddy on Google Play"
-          class="app-store-link"
+          class="transform transition-transform duration-300 hover:scale-105"
+          target="_blank" 
+          rel="noopener noreferrer"
         >
           <img
-            src="images/Google_Play_Badge.png"
+            src="/images/Google_Play_Badge.png"
             alt="Download TasteBuddy on Google Play"
-            class="h-16 w-auto hover:scale-105 transition-transform duration-300"
+            class="h-14 sm:h-16"
           />
         </a>
       </div>
 
-      <div class="screenshots-grid">
-        <Image
-          src="/images/01_EN@1x.png"
-          alt="TasteBuddy App Screenshot - Recipe List View"
-          width={320}
-          height={640}
-          format="png"
-          class="app-screenshot"
-        />
-        <Image
-          src="/images/02_EN@1x.png"
-          alt="TasteBuddy App Screenshot - Recipe Detail View"
-          width={320}
-          height={640}
-          format="png"
-          class="app-screenshot"
-        />
-        <Image
-          src="/images/03_EN@1x.png"
-          alt="TasteBuddy App Screenshot - Recipe Steps View"
-          width={320}
-          height={640}
-          format="png"
-          class="app-screenshot"
-        />
-        <Image
-          src="/images/04_EN@1x.png"
-          alt="TasteBuddy App Screenshot - Recipe Timer View"
-          width={320}
-          height={640}
-          format="png"
-          class="app-screenshot"
-        />
+      <div id="features" class="py-8">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white text-center mb-12">
+          The All-in-One Recipe Solution
+        </h2>
+        
+        <div class="app-screenshots-container">
+          <div class="relative max-w-5xl mx-auto">
+            <!-- Device frame with screenshots -->
+            <div class="phone-carousel">
+              <div class="screenshots-grid">
+                <div class="screenshot-wrapper">
+                  <Image
+                    src="/images/01_EN@1x.png"
+                    alt="TasteBuddy App Screenshot - Recipe List View"
+                    width={320}
+                    height={640}
+                    format="png"
+                    class="app-screenshot"
+                  />
+                </div>
+                <div class="screenshot-wrapper">
+                  <Image
+                    src="/images/02_EN@1x.png"
+                    alt="TasteBuddy App Screenshot - Recipe Detail View"
+                    width={320}
+                    height={640}
+                    format="png"
+                    class="app-screenshot"
+                  />
+                </div>
+                <div class="screenshot-wrapper">
+                  <Image
+                    src="/images/03_EN@1x.png"
+                    alt="TasteBuddy App Screenshot - Recipe Steps View"
+                    width={320}
+                    height={640}
+                    format="png"
+                    class="app-screenshot"
+                  />
+                </div>
+                <div class="screenshot-wrapper">
+                  <Image
+                    src="/images/04_EN@1x.png"
+                    alt="TasteBuddy App Screenshot - Recipe Timer View"
+                    width={320}
+                    height={640}
+                    format="png"
+                    class="app-screenshot"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </main>
+
+      <!-- Testimonials Section -->
+      <section class="py-12 sm:py-16">
+        <h2 class="text-2xl sm:text-3xl font-bold text-center text-white mb-12">
+          What Our Users Say
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <div class="p-6 bg-gradient-to-br from-[#1C2513]/80 to-[#1C2513]/70 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30">
+            <div class="flex items-center mb-4">
+              <div class="text-yellow-400 flex">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+              </div>
+            </div>
+            <p class="text-gray-300 mb-4">"This app completely changed how I plan meals for my family. The recipe import feature saves me hours each week!"</p>
+            <div class="text-gray-400 text-sm">— Sarah M.</div>
+          </div>
+          
+          <div class="p-6 bg-gradient-to-br from-[#1C2513]/80 to-[#1C2513]/70 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30">
+            <div class="flex items-center mb-4">
+              <div class="text-yellow-400 flex">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+              </div>
+            </div>
+            <p class="text-gray-300 mb-4">"The hands-free cooking mode is a game changer. I no longer have to touch my phone with messy hands while cooking."</p>
+            <div class="text-gray-400 text-sm">— David K.</div>
+          </div>
+          
+          <div class="p-6 bg-gradient-to-br from-[#1C2513]/80 to-[#1C2513]/70 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30">
+            <div class="flex items-center mb-4">
+              <div class="text-yellow-400 flex">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+              </div>
+            </div>
+            <p class="text-gray-300 mb-4">"I've reduced my food waste by 30% thanks to the smart shopping lists. Can't imagine cooking without this app now!"</p>
+            <div class="text-gray-400 text-sm">— Michael T.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section id="faq" class="py-12 sm:py-16">
+        <h2 class="text-2xl sm:text-3xl font-bold text-center text-white mb-12">
+          Frequently Asked Questions
+        </h2>
+        
+        <div class="max-w-3xl mx-auto space-y-6">
+          <div class="bg-gradient-to-br from-[#1C2513]/80 to-[#1C2513]/70 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30 p-6">
+            <h3 class="text-xl font-semibold text-white mb-2">Is TasteBuddy free to download?</h3>
+            <p class="text-gray-300">Yes, TasteBuddy is free to download with basic features. A premium subscription unlocks additional features like unlimited recipe storage and advanced meal planning.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-[#1C2513]/80 to-[#1C2513]/70 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30 p-6">
+            <h3 class="text-xl font-semibold text-white mb-2">Can I import recipes from websites?</h3>
+            <p class="text-gray-300">Absolutely! TasteBuddy can import recipes from most popular recipe websites with just a few taps. You can also add recipes manually or by taking a photo.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-[#1C2513]/80 to-[#1C2513]/70 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30 p-6">
+            <h3 class="text-xl font-semibold text-white mb-2">Is my data backed up?</h3>
+            <p class="text-gray-300">Yes, all your recipes and meal plans are automatically backed up to the cloud, so you'll never lose your favorite recipes again.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-[#1C2513]/80 to-[#1C2513]/70 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30 p-6">
+            <h3 class="text-xl font-semibold text-white mb-2">Does TasteBuddy work on both iOS and Android?</h3>
+            <p class="text-gray-300">Yes! TasteBuddy is available on both iOS and Android platforms with the same great features on both.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="py-12 sm:py-16">
+        <div class="bg-gradient-to-r from-[#00CE31]/40 to-[#00CE31]/30 rounded-3xl p-8 sm:p-12 max-w-4xl mx-auto text-center backdrop-blur-sm border border-[#00CE31]/30">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Ready to Transform Your Cooking?</h2>
+          <p class="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">Join thousands of home cooks who have already simplified their meal planning and recipe management.</p>
+          
+          <div class="flex flex-wrap justify-center gap-6">
+            <a 
+              href="https://apps.apple.com/app/id6554007741"
+              class="btn-primary text-lg px-8 py-4"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              Download Now
+            </a>
+            <a 
+              href="/contact"
+              class="btn-secondary text-lg px-8 py-4"
+            >
+              Contact Us
+            </a>
+          </div>
+        </div>
+      </section>
+    </section>
   </Main>
 </Layout>
 
 <style>
-  .recipe-app-description ul {
-    list-style-type: none;
-    padding-left: 0;
-    text-align: left;
-  }
-  
-  .recipe-app-description ul li {
-    margin-bottom: 0.5rem;
-  }
-
-  .features-heading {
-    margin-top: 1rem;
-    display: block;
-  }
-  
-  .app-screenshots {
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
   .screenshots-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    max-width: 700px;
+    gap: 1.5rem;
+    max-width: 800px;
     margin: 0 auto;
+    padding: 1rem;
   }
+  
+  @media (min-width: 768px) {
+    .screenshots-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  .screenshot-wrapper {
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .screenshot-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  }
+  
   .app-screenshot {
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 1.5rem;
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 3px solid #2A2D24;
+  }
+  
+  @media (max-width: 640px) {
+    .screenshots-grid {
+      gap: 1rem;
+      padding: 0.5rem;
+    }
+    
+    .screenshot-wrapper {
+      border-radius: 1rem;
+    }
+    
+    .app-screenshot {
+      border-radius: 1rem;
+      border-width: 2px;
+    }
+  }
+  
+  /* Phone carousel animation */
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  .phone-carousel {
+    animation: float 6s ease-in-out infinite;
   }
 </style>

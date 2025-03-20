@@ -1,5 +1,6 @@
 ---
 import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
 interface Props {
   title: string;
@@ -38,14 +39,14 @@ const structuredData = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta property="og:description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
     <meta name="keywords" content={`${primaryKeyword}, ${secondaryKeywords}, recipe app, cooking assistant, recipe organizer, cooking app, hands-free cooking, iOS app, kitchen assistant, meal planning`} />
@@ -61,63 +62,83 @@ const structuredData = {
     <title>{title || "Recipe Keeper App | TasteBuddy"}</title>
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
-  <body class="min-h-screen grid grid-rows-[auto,1fr,auto] bg-[#10130B] font-sans">
+  <body class="min-h-screen flex flex-col bg-[#10130B] font-['Inter',sans-serif] text-gray-100">
     <Header />
-    <main class="container mx-auto px-4">
-      <header class="text-center py-8">
-        <h1 class="text-4xl font-bold text-white mb-4">
-          Spend Less Time Searching,<br>
-          More Time Cooking
-        </h1>
-        <p class="text-xl text-gray-300">
-          Your favorite recipes - organized and accessible in one place.<br>
-          Never lose a family recipe again, even while cooking.
-        </p>
-      </header>
+    
+    <main class="flex-grow">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-12">
+        {Astro.url.pathname === "/" && (
+          <header class="text-center max-w-4xl mx-auto py-8 sm:py-12 md:py-16">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight tracking-tight">
+              Spend Less Time Searching,<br class="hidden sm:inline">
+              More Time Cooking
+            </h1>
+            <p class="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Your favorite recipes - organized and accessible in one place.<br class="hidden sm:inline">
+              Never lose a family recipe again, even while cooking.
+            </p>
+          </header>
+        )}
 
-      <section class="my-12 text-center">
-        <h2 class="text-2xl font-semibold text-white mb-6">
-          Why Home Cooks Love Our Recipe Keeper
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="p-6 bg-[#1A1D14] rounded-lg">
-            <h3 class="text-xl font-medium text-white mb-3">🕒 Save Time</h3>
-            <p class="text-gray-300">Cut meal planning time by 50% with smart weekly suggestions based on your pantry</p>
-          </div>
-          <div class="p-6 bg-[#1A1D14] rounded-lg">
-            <h3 class="text-xl font-medium text-white mb-3">🧠 Reduce Stress</h3>
-            <p class="text-gray-300">Automatic grocery lists that update as you modify recipes</p>
-          </div>
-          <div class="p-6 bg-[#1A1D14] rounded-lg">
-            <h3 class="text-xl font-medium text-white mb-3">📈 Cook Better</h3>
-            <p class="text-gray-300">Get usage analytics to improve your most underused kitchen tools</p>
-          </div>
-        </div>
-      </section>
+        {Astro.url.pathname === "/" && (
+          <section class="my-12 sm:my-16 md:my-20 text-center">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-white mb-6 sm:mb-8">
+              Why Home Cooks Love Our Recipe Keeper
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              <div class="p-6 sm:p-8 bg-[#1C2513]/80 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#00CE31]/20 hover:-translate-y-1">
+                <div class="text-3xl mb-4">🕒</div>
+                <h3 class="text-xl font-medium text-white mb-3">Save Time</h3>
+                <p class="text-gray-300">Cut meal planning time by 50% with smart weekly suggestions based on your pantry</p>
+              </div>
+              <div class="p-6 sm:p-8 bg-[#1C2513]/80 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#00CE31]/20 hover:-translate-y-1">
+                <div class="text-3xl mb-4">🧠</div>
+                <h3 class="text-xl font-medium text-white mb-3">Reduce Stress</h3>
+                <p class="text-gray-300">Automatic grocery lists that update as you modify recipes</p>
+              </div>
+              <div class="p-6 sm:p-8 bg-[#1C2513]/80 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#00CE31]/20 hover:-translate-y-1">
+                <div class="text-3xl mb-4">📈</div>
+                <h3 class="text-xl font-medium text-white mb-3">Cook Better</h3>
+                <p class="text-gray-300">Get usage analytics to improve your most underused kitchen tools</p>
+              </div>
+            </div>
+          </section>
+        )}
 
-      <slot />
+        <slot />
+      </div>
     </main>
 
-    <footer class="p-4 text-left bg-[#1A1D14]">
-      <div class="container mx-auto">
-        <div class="flex flex-wrap justify-between gap-4">
-          <div class="space-x-6">
-            <a href="/privacy" class="text-[#ECECE6] hover:underline">Privacy Policy</a>
-            <a href="/contact" class="text-[#ECECE6] hover:underline">Support</a>
-          </div>
-          <div class="flex flex-wrap gap-4">
-            <a href="/meal-planning-guide" class="text-[#ECECE6] hover:underline">
-              How to Save 3+ Hours Weekly on Meal Planning
-            </a>
-            <a href="/reduce-food-waste" class="text-[#ECECE6] hover:underline">
-              Reduce Food Waste with Smart Grocery Lists
-            </a>
-            <a href="/recipe-backup" class="text-[#ECECE6] hover:underline">
-              Never Lose a Family Recipe Again
-            </a>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <Footer />
   </body>
 </html>
+
+<style is:global>
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: rgba(26, 29, 20, 0.3);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgba(42, 45, 36, 0.5);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(42, 45, 36, 0.8);
+  }
+  
+  /* Button styles */
+  .btn-primary {
+    @apply bg-gradient-to-r from-[#00CE31] to-[#00CE31]/90 hover:from-[#00CE31]/90 hover:to-[#00CE31] text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5;
+  }
+  
+  .btn-secondary {
+    @apply bg-[#1C2513] hover:bg-[#2A2D24] border border-[#2A2D24] text-white font-medium py-3 px-6 rounded-lg transition-all duration-300;
+  }
+</style>
