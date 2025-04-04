@@ -1,0 +1,149 @@
+---
+import Layout from "./Layout.astro";
+import Main from "../components/Main.astro";
+import { AstroSeo } from '@astrolib/seo';
+
+const { frontmatter } = Astro.props;
+const { title, description, date, author, image } = frontmatter;
+---
+
+<AstroSeo
+  title={`${title} | TasteBuddy Blog`}
+  description={description}
+  openGraph={{
+    title: title,
+    description: description,
+    images: image ? [{ url: image }] : undefined,
+  }}
+/>
+
+<Layout title={`${title} | TasteBuddy Blog`}>
+  <Main>
+    <article class="py-12 sm:py-16 lg:py-20">
+      <div class="max-w-4xl mx-auto">
+        {image && (
+          <div class="relative h-[400px] mb-8 rounded-2xl overflow-hidden">
+            <img 
+              src={image} 
+              alt={title}
+              class="w-full h-full object-cover"
+            />
+          </div>
+        )}
+        
+        <header class="mb-8 sm:mb-12">
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+            {title}
+          </h1>
+          <div class="flex items-center text-gray-400 text-sm">
+            <time datetime={date}>
+              {new Date(date).toLocaleDateString(Astro.url.pathname.startsWith('/de/') ? 'de-DE' : 'en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </time>
+            {author && (
+              <>
+                <span class="mx-2">•</span>
+                <span>{author}</span>
+              </>
+            )}
+          </div>
+        </header>
+
+        <div class="prose prose-invert prose-green max-w-none">
+          <slot />
+        </div>
+      </div>
+    </article>
+  </Main>
+</Layout>
+
+<style is:global>
+  /* Custom styles for markdown content */
+  .prose {
+    color: #E5E7EB; /* text-gray-200 */
+  }
+  
+  .prose h2 {
+    color: white;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
+    font-weight: 700;
+  }
+  
+  .prose h3 {
+    color: white;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  
+  .prose p {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .prose ul {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    list-style-type: disc;
+    padding-left: 1.625rem;
+  }
+  
+  .prose li {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .prose strong {
+    color: white;
+    font-weight: 600;
+  }
+  
+  .prose a {
+    color: #00CE31;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .prose a:hover {
+    color: #00CE31/80;
+    text-decoration: underline;
+  }
+  
+  .prose blockquote {
+    border-left: 4px solid #2A2D24;
+    padding-left: 1rem;
+    margin-left: 0;
+    margin-right: 0;
+    font-style: italic;
+    color: #9CA3AF; /* text-gray-400 */
+  }
+  
+  .prose code {
+    background-color: #1C2513;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+  
+  .prose pre {
+    background-color: #1C2513;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+  
+  .prose pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+  }
+</style> 
