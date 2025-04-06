@@ -8,7 +8,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "netlify-build": "npm cache clean --force && npm install --force && ROLLUP_SKIP_NODEJS=true astro check && ROLLUP_SKIP_NODEJS=true astro build"
+    "netlify-build": "npm ci && ROLLUP_SKIP_NODEJS=true astro check && ROLLUP_SKIP_NODEJS=true astro build"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -22,5 +22,9 @@
   },
   "overrides": {
     "rollup": "@rollup/wasm-node@4.13.0"
+  },
+  "engines": {
+    "node": "18.x",
+    "npm": ">=9.0.0 <10.0.0"
   }
 }
