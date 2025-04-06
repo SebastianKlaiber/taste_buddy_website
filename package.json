@@ -8,7 +8,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "netlify-build": "npm install && astro check && astro build"
+    "netlify-build": "npm install --force && ROLLUP_SKIP_NODEJS=true astro check && ROLLUP_SKIP_NODEJS=true astro build"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -17,9 +17,10 @@
     "@tailwindcss/typography": "^0.5.16",
     "astro": "^5.4.3",
     "tailwindcss": "^3.4.4",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "@rollup/wasm-node": "^4.13.0"
   },
   "overrides": {
-    "rollup": "npm:@rollup/wasm-node"
+    "rollup": "@rollup/wasm-node@4.13.0"
   }
 }
