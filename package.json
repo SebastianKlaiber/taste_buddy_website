@@ -23,7 +23,7 @@
     "@rollup/wasm-node": "4.13.0"
   },
   "peerDependencies": {
-    "rollup": "4.13.0"
+    "rollup": "4.39.0"
   },
   "engines": {
     "node": "18.x",
