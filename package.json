@@ -8,23 +8,25 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "netlify-build": "npm ci && ROLLUP_SKIP_NODEJS=true astro check && ROLLUP_SKIP_NODEJS=true astro build"
+    "netlify-build": "ROLLUP_SKIP_NODEJS=true npm install --legacy-peer-deps && ROLLUP_SKIP_NODEJS=true astro check && ROLLUP_SKIP_NODEJS=true astro build"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/tailwind": "^6.0.0",
-    "@astrolib/seo": "^1.0.0-beta.8",
-    "@tailwindcss/typography": "^0.5.16",
-    "astro": "^5.4.3",
-    "tailwindcss": "^3.4.4",
-    "typescript": "^5.4.5",
-    "@rollup/wasm-node": "^4.13.0"
+    "@astrojs/check": "0.9.4",
+    "@astrojs/tailwind": "6.0.0",
+    "@astrolib/seo": "1.0.0-beta.8",
+    "@tailwindcss/typography": "0.5.16",
+    "astro": "5.4.3",
+    "tailwindcss": "3.4.4",
+    "typescript": "5.4.5"
   },
-  "overrides": {
-    "rollup": "@rollup/wasm-node@4.13.0"
+  "devDependencies": {
+    "@rollup/wasm-node": "4.13.0"
+  },
+  "peerDependencies": {
+    "rollup": "4.13.0"
   },
   "engines": {
     "node": "18.x",
-    "npm": ">=9.0.0 <10.0.0"
+    "npm": "9.8.1"
   }
 }

@@ -6,6 +6,8 @@
   NODE_VERSION = "18.20.0"
   NPM_VERSION = "9.8.1"
   NODE_ENV = "production"
+  ROLLUP_SKIP_NODEJS = "true"
+  NPM_CONFIG_LEGACY_PEER_DEPS = "true"
 
 [[plugins]]
   package = "@netlify/plugin-emails"
