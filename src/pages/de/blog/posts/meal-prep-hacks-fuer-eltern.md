@@ -4,7 +4,7 @@ title: "Schluss mit dem Feierabend-Chaos: Meal Prep Hacks für gestresste Eltern
 date: "2024-04-10"
 author: "TasteBuddy Team"
 description: "Entdecken Sie praktische Meal Prep Strategien für berufstätige Eltern. Lernen Sie, wie Sie mit cleverer Essensvorbereitung Zeit sparen, Stress reduzieren und trotzdem gesunde Mahlzeiten für die ganze Familie zubereiten können."
-image: "/images/blog/meal-prep-parents.jpg"
+image: "/images/blog/meal-prep-parents.png"
 ---
 
 Eltern zu sein ist ein Vollzeitjob – oft zusätzlich zum eigentlichen Beruf. Zwischen Arbeit, Kita/Schule, Hausaufgaben und Freizeitaktivitäten bleibt oft wenig Zeit und Energie für das tägliche Kochen. Viele berufstätige Eltern, besonders die mit kleinen Kindern, kennen den Stress nur zu gut: Der Zeitdruck ist enorm, die Frage "Was gibt's heute Abend zu essen?" führt zu Entscheidungsermüdung und der Wunsch, trotzdem etwas Gesundes und Familienfreundliches auf den Tisch zu bringen, scheint manchmal unerreichbar.
