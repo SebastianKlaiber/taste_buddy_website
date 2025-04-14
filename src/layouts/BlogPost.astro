@@ -22,11 +22,11 @@ const { title, description, date, author, image } = frontmatter;
     <article class="py-12 sm:py-16 lg:py-20">
       <div class="max-w-4xl mx-auto">
         {image && (
-          <div class="relative h-[400px] mb-8 rounded-2xl overflow-hidden">
+          <div class="relative mb-8 rounded-2xl overflow-hidden">
             <img 
               src={image} 
               alt={title}
-              class="w-full h-full object-cover"
+              class="w-full h-auto object-contain aspect-[3/2]"
             />
           </div>
         )}
