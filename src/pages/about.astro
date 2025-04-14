@@ -1,0 +1,69 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Main from "../components/Main.astro";
+import { AstroSeo } from '@astrolib/seo';
+---
+
+<AstroSeo
+  title="About Sebastian Klaiber | TasteBuddy"
+  description="Meet Sebastian Klaiber, the independent developer behind TasteBuddy - combining a passion for cooking and software development to create the ultimate recipe management solution."
+  openGraph={{
+    title: 'About Sebastian Klaiber | TasteBuddy',
+    description: 'Meet Sebastian Klaiber, the independent developer behind TasteBuddy - combining a passion for cooking and software development to create the ultimate recipe management solution.',
+  }}
+/>
+
+<Layout title="About Sebastian Klaiber | TasteBuddy">
+  <Main>
+    <section class="py-12 sm:py-16 lg:py-20">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
+            Sebastian Klaiber
+          </h1>
+          <h2 class="text-2xl sm:text-3xl text-[#00CE31] font-semibold mb-6">
+            Creator of TasteBuddy
+          </h2>
+          <p class="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            Independent Developer & Cooking Enthusiast
+          </p>
+        </div>
+
+        <div class="space-y-8">
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl p-8 backdrop-blur-sm border border-[#2A2D24]/30">
+            <h3 class="text-2xl font-semibold text-white mb-4">The Story Behind TasteBuddy</h3>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              As someone who's deeply passionate about both cooking and software development, I found myself frustrated with the existing recipe management solutions in the market. None of them quite hit the mark in terms of what I needed as a home cook who loves to experiment and innovate in the kitchen.
+            </p>
+            <p class="text-gray-300 leading-relaxed">
+              This dissatisfaction led me to create TasteBuddy - a solution that combines my technical expertise with my love for cooking. I wanted to build something that would not just store recipes, but truly enhance the cooking experience for people who share my passion for good food.
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl p-8 backdrop-blur-sm border border-[#2A2D24]/30">
+            <h3 class="text-2xl font-semibold text-white mb-4">My Vision</h3>
+            <p class="text-gray-300 leading-relaxed">
+              TasteBuddy is more than just another recipe app - it's a companion for home cooks who want to organize their culinary creativity efficiently. As an independent developer, I'm committed to continuously improving TasteBuddy based on real user feedback and needs, ensuring it remains a valuable tool for everyone who loves cooking as much as I do.
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl p-8 backdrop-blur-sm border border-[#2A2D24]/30">
+            <h3 class="text-2xl font-semibold text-white mb-4">Get in Touch</h3>
+            <p class="text-gray-300 leading-relaxed mb-6">
+              I love hearing from fellow cooking enthusiasts and users of TasteBuddy. Whether you have suggestions, questions, or just want to share your experience, I'm always eager to connect.
+            </p>
+            <a 
+              href="/contact" 
+              class="inline-flex items-center text-[#00CE31] font-medium hover:text-[#00CE31]/80 transition-colors"
+            >
+              Contact Me
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </Main>
+</Layout> 
