@@ -10,14 +10,17 @@ const posts = await Astro.glob('./posts/*.{md,mdx}');
 const sortedPosts = posts.sort((a, b) => {
   return new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime();
 });
+
+// Featured post - our newest meal prep article
+const featuredPost = sortedPosts.find(post => post.frontmatter.title.includes('Meal Prep'));
 ---
 
 <AstroSeo
-  title="TasteBuddy Blog - Kochtipps & Updates"
-  description="Lesen Sie die neuesten Kochtipps, Strategien zur Rezeptorganisation und App-Updates vom TasteBuddy-Team."
+  title="TasteBuddy Blog - Kochtipps & Meal Prep Strategien"
+  description="Entdecken Sie praktische Kochtipps, Meal Prep Strategien und App-Updates vom TasteBuddy-Team. Perfekt für gestresste Eltern und vielbeschäftigte Köche."
   openGraph={{
-    title: 'TasteBuddy Blog',
-    description: 'Kochtipps, Strategien zur Rezeptorganisation und App-Updates vom TasteBuddy-Team.',
+    title: 'TasteBuddy Blog - Kochtipps & Meal Prep',
+    description: 'Praktische Kochtipps, Meal Prep Strategien und App-Updates vom TasteBuddy-Team.',
   }}
 />
 
@@ -30,20 +33,68 @@ const sortedPosts = posts.sort((a, b) => {
             TasteBuddy Blog
           </h1>
           <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-            Entdecken Sie Kochtipps, Strategien zur Rezeptorganisation und die neuesten Updates von unserem Team
+            Entdecken Sie Kochtipps, Meal Prep Strategien und die neuesten Updates von unserem Team
           </p>
         </div>
+
+        {featuredPost && (
+          <div class="mb-12">
+            <h2 class="text-2xl font-semibold text-white mb-6">Aktueller Beitrag</h2>
+            <article class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl overflow-hidden border border-[#2A2D24]/30 backdrop-blur-sm hover:border-[#2A2D24]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#00CE31]/10">
+              <a href={featuredPost.url} class="block">
+                {featuredPost.frontmatter.image && (
+                  <div class="relative overflow-hidden">
+                    <img 
+                      src={featuredPost.frontmatter.image} 
+                      alt={featuredPost.frontmatter.title}
+                      class="w-full h-auto object-cover aspect-[3/2] transition-transform duration-300 hover:scale-105"
+                    />
+                  </div>
+                )}
+                <div class="p-8 sm:p-10">
+                  <h3 class="text-3xl sm:text-4xl font-bold text-white mb-4 hover:text-[#00CE31] transition-colors">
+                    {featuredPost.frontmatter.title}
+                  </h3>
+                  <div class="flex items-center text-gray-400 text-sm mb-4">
+                    <span class="inline-block">
+                      {new Date(featuredPost.frontmatter.date).toLocaleDateString('de-DE', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </span>
+                    {featuredPost.frontmatter.author && (
+                      <>
+                        <span class="mx-2">•</span>
+                        <span>{featuredPost.frontmatter.author}</span>
+                      </>
+                    )}
+                  </div>
+                  <p class="text-gray-300 mb-4 text-lg">
+                    {featuredPost.frontmatter.description}
+                  </p>
+                  <div class="flex items-center text-[#00CE31] font-medium hover:text-[#00CE31]/80 transition-colors">
+                    Weiterlesen
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                </div>
+              </a>
+            </article>
+          </div>
+        )}
         
         <div class="grid gap-8">
-          {sortedPosts.map((post) => (
+          {sortedPosts.filter(post => post !== featuredPost).map((post) => (
             <article class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl overflow-hidden border border-[#2A2D24]/30 backdrop-blur-sm hover:border-[#2A2D24]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#00CE31]/10">
               <a href={post.url} class="block">
                 {post.frontmatter.image && (
-                  <div class="relative h-64 overflow-hidden">
+                  <div class="relative overflow-hidden">
                     <img 
                       src={post.frontmatter.image} 
                       alt={post.frontmatter.title}
-                      class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                      class="w-full h-auto object-cover aspect-[3/2] transition-transform duration-300 hover:scale-105"
                     />
                   </div>
                 )}
