@@ -1,0 +1,224 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+import Main from "../../components/Main.astro";
+import { AstroSeo } from '@astrolib/seo';
+
+const { id } = Astro.params;
+
+// For demo purposes, we'll hardcode the recipe data
+// In a real implementation, this would be fetched from a database using the id
+const recipe = {
+  title: "ASIATISCHER FRIED RICE",
+  description: "Das Rezept für den Asiatischen Fried Rice verspricht immer dann großen Genuss, wenn sich der Appetit auf gesunde und leichte Mahlzeit meldet.",
+  prepTime: "20 Min",
+  servings: 4,
+  ingredients: [
+    {
+      category: "Vorbereitung Gemüse",
+      items: [
+        "1.0Stk Chinakohl",
+        "3.0Stk Karotten",
+        "3.0cm Ingwer",
+        "2.0Stk Knoblauchzehen",
+        "2.0Stk Paprika",
+      ]
+    },
+    {
+      category: "Zubereitung Asiatischer Fried Rice",
+      items: [
+        "250.0g Basmatireis",
+        "1.0TL Chiliflocken",
+        "2.0Stk Eier",
+        "2.0EL Erdnüsse",
+        "0.5Stk Limette",
+        "2.0EL Sesamöl",
+        "2.0Spr Sojasauce",
+      ]
+    }
+  ],
+  instructions: [
+    "Vorbereitung Gemüse:",
+    "Zuerst den Chinakohl putzen, unter fließendem Wasser abwaschen, halbieren und bis auf den festen Strunk in schmale Streifen schneiden.",
+    "Anschließend die Karotten waschen, mit einem Sparschäler schälen und in feine Stifte schneiden. Den Ingwerund den Knoblauch schälen und fein hacken.",
+    "Danach die Paprikas halbieren, die Kerne entfernen, waschen und die Schoten ebenfalls in feine Streifen schneiden. Zubereitung Asiatischer Fried Rice:",
+    "Nun 2 TL Sesamöl in einem Wok (oder einer tiefen Pfanne) erhitzen und den Kohl, die Karotten sowie den Paprika kurz und kräftig darin anbraten.",
+    "Sobald der Kohl zusammengefallen ist, das ganze Gemüse aus dem Wok in eine Schüssel umfüllen.",
+    "Nun das restliche Öl im Wok erhitzen, den Ingwer und den Knoblauch darin glasig anbraten und anschließend am Rand etwas hochschieben.",
+    "Die Eier in einer kleinen Schüssel verquirlen, in die Mitte des Woks geben, kurz verrühren und ebenfalls am Rand hochschieben.",
+    "Jetzt den kalten Reis hinzufügen, mit dem gestockten Ei, Ingwer sowie Knoblauch verrühren und braten. Dabei nur ab und zu wenden, damit der Reis knusprig werden kann.",
+    "Inzwischen die Limette auspressen, dann den Saft mit der Sojasauce und den Chiliflocken vermischen und unter die Zutaten im Wok rühren.",
+    "Zuletzt das Gemüse zurück in den Wok geben, alles gut vermengen, nochmals erhitzen und den Asiatischen Fried Rice vor dem Servieren mit den Erdnüssen bestreuen."
+  ],
+  equipment: ["Wok oder tiefe Pfanne"]
+};
+
+// Create flattened ingredients list for schema
+const allIngredients = recipe.ingredients.flatMap(category => category.items);
+
+// Create structured recipe steps for schema
+const recipeSteps = recipe.instructions.slice(1).map((step, index) => ({
+  "@type": "HowToStep",
+  "position": index + 1,
+  "text": step
+}));
+
+// Schema.org Recipe schema
+const recipeSchema = JSON.stringify({
+  "@context": "https://schema.org/",
+  "@type": "Recipe",
+  "name": recipe.title,
+  "description": recipe.description,
+  "author": {
+    "@type": "Organization",
+    "name": "TasteBuddy"
+  },
+  "image": "/images/recipe-preview.png",
+  "prepTime": `PT${recipe.prepTime.replace(' Min', '')}M`,
+  "cookTime": `PT${recipe.prepTime.replace(' Min', '')}M`,
+  "totalTime": `PT${recipe.prepTime.replace(' Min', '')}M`,
+  "recipeYield": `${recipe.servings} servings`,
+  "recipeCategory": "Main Course",
+  "recipeCuisine": "Asian",
+  "recipeIngredient": allIngredients,
+  "recipeInstructions": recipeSteps,
+  "tool": recipe.equipment,
+  "nutrition": {
+    "@type": "NutritionInformation",
+    "servingSize": "1 portion"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TasteBuddy",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://taste-buddy.app/images/logo.png"
+    }
+  },
+  "datePublished": new Date().toISOString().split('T')[0]
+});
+---
+
+<AstroSeo
+  title={`${recipe.title} - TasteBuddy Recipe`}
+  description={recipe.description}
+  openGraph={{
+    title: `${recipe.title} - Save this recipe to TasteBuddy`,
+    description: recipe.description,
+    images: [{ url: '/images/recipe-preview.png' }],
+  }}
+/>
+
+<!-- Schema.org markup for Recipe -->
+<script type="application/ld+json" set:html={recipeSchema}></script>
+
+<Layout title={`${recipe.title} - TasteBuddy Recipe`}>
+  <Main>
+    <section class="relative overflow-hidden py-8 sm:py-12">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+        
+        <!-- Recipe Header -->
+        <div class="text-center mb-8">
+          <span class="inline-block text-xl mb-2">🍳</span>
+          <h1 class="text-3xl sm:text-4xl font-bold text-white mb-4">{recipe.title}</h1>
+          <p class="text-lg text-gray-300 mb-6">{recipe.description}</p>
+          
+          <!-- Recipe Meta Info -->
+          <div class="flex flex-wrap justify-center gap-6 mb-6">
+            <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-3 rounded-lg border border-[#2A2D24]/30 backdrop-blur-sm">
+              <span class="text-sm text-gray-400">⏱️ Kochzeit</span>
+              <p class="text-white font-medium">{recipe.prepTime}</p>
+            </div>
+            <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-3 rounded-lg border border-[#2A2D24]/30 backdrop-blur-sm">
+              <span class="text-sm text-gray-400">👥 Portionen</span>
+              <p class="text-white font-medium">{recipe.servings}</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Recipe Content -->
+        <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 sm:p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm mb-8">
+          
+          <!-- Ingredients -->
+          <div class="mb-8">
+            <h2 class="text-2xl font-bold text-white mb-4">📝 Zutaten</h2>
+            {recipe.ingredients.map(category => (
+              <div class="mb-4">
+                <h3 class="text-xl font-semibold text-white mb-2">📝 {category.category}</h3>
+                <ul class="space-y-1">
+                  {category.items.map(item => (
+                    <li class="text-gray-300">• {item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          
+          <!-- Instructions -->
+          <div class="mb-8">
+            <h2 class="text-2xl font-bold text-white mb-4">👩‍🍳 Zubereitung</h2>
+            <ol class="space-y-3">
+              {recipe.instructions.map((step, index) => (
+                <li class="text-gray-300">
+                  {index !== 0 && <span class="font-bold text-white">{index}.</span>} {step}
+                </li>
+              ))}
+            </ol>
+          </div>
+          
+          <!-- Equipment -->
+          <div>
+            <h2 class="text-2xl font-bold text-white mb-4">🔧 Küchengeräte</h2>
+            <ul class="space-y-1">
+              {recipe.equipment.map(item => (
+                <li class="text-gray-300">• {item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        
+        <!-- CTA Banner -->
+        <div class="bg-gradient-to-r from-[#00CE31]/40 to-[#00CE31]/30 rounded-xl p-6 sm:p-8 text-center backdrop-blur-sm border border-[#00CE31]/30">
+          <h2 class="text-xl sm:text-2xl font-bold text-white mb-3">Dieses Rezept speichern</h2>
+          <p class="text-gray-200 mb-6">Speichern Sie dieses Rezept in TasteBuddy, um es jederzeit offline zu finden, mühelos einzukaufen und mit Freunden zu teilen.</p>
+          
+          <div class="flex flex-wrap justify-center gap-4">
+            <a 
+              href="https://apps.apple.com/app/id6554007741"
+              aria-label="Download TasteBuddy on the App Store"
+              class="transform transition-transform duration-300 hover:scale-105"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+                alt="Download TasteBuddy on the App Store"
+                class="h-12"
+              />
+            </a>
+            <a 
+              href="https://play.google.com/store/apps/details?id=app.tastebuddy"
+              aria-label="Download TasteBuddy on Google Play"
+              class="transform transition-transform duration-300 hover:scale-105"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/images/Google_Play_Badge.png"
+                alt="Download TasteBuddy on Google Play"
+                class="h-12"
+              />
+            </a>
+          </div>
+          
+          <div class="mt-6 text-sm text-gray-300">
+            <p>Oder öffnen Sie diesen Link in der App:</p>
+            <a href={`https://taste-buddy.app/share_recipe/${id}`} class="text-[#00CE31] underline mt-1 inline-block">
+              taste-buddy.app/share_recipe/{id}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </Main>
+</Layout> 
