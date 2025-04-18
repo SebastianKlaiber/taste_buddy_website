@@ -4,19 +4,37 @@ import Layout from "../layouts/Layout.astro";
 import Main from "../components/Main.astro";
 import H1 from "../components/H1.astro";
 import { AstroSeo } from '@astrolib/seo';
+
+// Get current path to determine equivalent path in other language
+const { pathname } = Astro.url;
+const isHomePage = pathname === "/" || pathname === "/de/";
+const enPath = isHomePage ? "/" : pathname.replace("/de/", "/en/");
+const dePath = isHomePage ? "/de/" : pathname.replace("/en/", "/de/");
 ---
 <AstroSeo
   title="Recipe Organizer & Meal Planner"
-  description="Organize, create and manage your recipes with TasteBuddy, the ultimate cooking companion app. Features hands-free cooking mode, step-by-step guidance, and intuitive recipe management. Available on iOS."
+  description="Organize, create and manage your recipes with TasteBuddy, the ultimate cooking companion app. Features AI meal planning, recipe image generation, shareable cookbooks, and recipe transformations for dietary preferences."
   openGraph={{
     title: 'TasteBuddy - Smart Recipe Organization App',
-    description: 'Transform your cooking experience with TasteBuddy. Organize recipes, get step-by-step guidance, and enjoy hands-free cooking mode. Download now on iOS.',
+    description: 'Transform your cooking experience with TasteBuddy. AI-powered meal planning, beautiful recipe images, shareable cookbooks, and smart dietary transformations. Download now on iOS and Android.',
     images: [{ url: '/images/screenshots.png' }],
   }}
 />
 
 <Layout title="Recipe Organizer & Meal Planner">
   <Main>
+    <!-- Language Switcher -->
+    <div class="absolute top-6 right-6 z-10">
+      <div class="flex gap-3 bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-2 rounded-full border border-[#2A2D24]/30 backdrop-blur-sm">
+        <a href={enPath} class={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${pathname.includes('/de/') ? 'text-gray-400 hover:text-white' : 'bg-[#00CE31]/20 text-white border border-[#00CE31]/30'}`}>
+          EN
+        </a>
+        <a href={dePath} class={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${pathname.includes('/de/') ? 'bg-[#00CE31]/20 text-white border border-[#00CE31]/30' : 'text-gray-400 hover:text-white'}`}>
+          DE
+        </a>
+      </div>
+    </div>
+    
     <section class="relative overflow-hidden py-12 sm:py-16 lg:py-20">
       <div class="max-w-4xl mx-auto text-center mb-12 sm:mb-16">
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
@@ -134,6 +152,39 @@ import { AstroSeo } from '@astrolib/seo';
         </div>
       </div>
 
+      <!-- AI Features Section -->
+      <section class="py-12 sm:py-16">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white text-center mb-12">
+          Powered by AI, Made for You
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm flex flex-col items-center text-center">
+            <div class="text-4xl mb-4">🍽️</div>
+            <h3 class="text-xl font-semibold text-white mb-3">AI-Generated Meal Plans</h3>
+            <p class="text-gray-300">Create personalized weekly meal plans with a single tap. Our AI considers your dietary preferences, ingredients on hand, and previous favorites.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm flex flex-col items-center text-center">
+            <div class="text-4xl mb-4">🖼️</div>
+            <h3 class="text-xl font-semibold text-white mb-3">Beautiful Recipe Images</h3>
+            <p class="text-gray-300">Generate stunning visuals for your recipes with our AI image generator. Perfect for creating cookbooks or sharing on social media.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm flex flex-col items-center text-center">
+            <div class="text-4xl mb-4">📚</div>
+            <h3 class="text-xl font-semibold text-white mb-3">Shareable Cookbooks</h3>
+            <p class="text-gray-300">Create and share digital cookbooks with friends and family. Compile your favorite recipes into themed collections for any occasion.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm flex flex-col items-center text-center">
+            <div class="text-4xl mb-4">🥦</div>
+            <h3 class="text-xl font-semibold text-white mb-3">Dietary Transformations</h3>
+            <p class="text-gray-300">Transform any recipe to fit your dietary needs. Convert recipes to vegan, gluten-free, low-carb, or any other preference with intelligent ingredient substitutions.</p>
+          </div>
+        </div>
+      </section>
+
       <!-- Testimonials Section -->
       <section class="py-12 sm:py-16">
         <h2 class="text-2xl sm:text-3xl font-bold text-center text-white mb-12">
@@ -240,6 +291,11 @@ import { AstroSeo } from '@astrolib/seo';
           <div class="bg-gradient-to-br from-[#1C2513]/80 to-[#1C2513]/70 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30 p-6">
             <h3 class="text-xl font-semibold text-white mb-2">Does TasteBuddy work on both iOS and Android?</h3>
             <p class="text-gray-300">Yes! TasteBuddy is available on both iOS and Android platforms with the same great features on both.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-[#1C2513]/80 to-[#1C2513]/70 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30 p-6">
+            <h3 class="text-xl font-semibold text-white mb-2">How do the AI features work?</h3>
+            <p class="text-gray-300">TasteBuddy uses advanced AI to power several features: generate personalized meal plans based on your preferences, create beautiful recipe images, help you build shareable cookbooks, and transform recipes to match dietary requirements like vegan, gluten-free, or low-carb.</p>
           </div>
         </div>
       </section>
