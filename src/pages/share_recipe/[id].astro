@@ -5,7 +5,7 @@ import Main from "../../components/Main.astro";
 import { AstroSeo } from '@astrolib/seo';
 import { getSharedRecipeById, getRecipeById } from "../../lib/supabase";
 
-// Use server-side rendering instead of static generation
+// Enable server-side rendering for this page
 export const prerender = false;
 
 const { id } = Astro.params;
