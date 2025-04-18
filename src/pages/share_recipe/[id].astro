@@ -178,8 +178,8 @@ if (hasRecipeData && recipe) {
 }
 
 // Generic page title and description for when we don't have recipe data
-const pageTitle = hasRecipeData && recipe ? `${recipe.title} - TasteBuddy Recipe` : "TasteBuddy Recipe";
-const pageDescription = hasRecipeData && recipe ? recipe.description : "Entdecke leckere Rezepte mit TasteBuddy - der ultimativen App für Rezeptorganisation und Kochen.";
+const pageTitle = hasRecipeData && recipe ? `${recipe.title} - TasteBuddy Recipe` : "Discover and Save Recipes with TasteBuddy";
+const pageDescription = hasRecipeData && recipe ? recipe.description : "Entdecke und speichere leckere Rezepte mit TasteBuddy - der ultimativen App für Rezeptorganisation und Kochen.";
 ---
 
 <AstroSeo
@@ -316,23 +316,48 @@ const pageDescription = hasRecipeData && recipe ? recipe.description : "Entdecke
             </div>
           </>
         ) : (
-          <!-- Generic Recipe Info when no specific data -->
+          <!-- Fallback Page for when recipe is not found -->
           <div class="text-center mb-8">
-            <span class="inline-block text-4xl mb-4">🍳</span>
-            <h1 class="text-3xl sm:text-4xl font-bold text-white mb-4">Entdecke dieses Rezept</h1>
-            <p class="text-lg text-gray-300 mb-6">Lade TasteBuddy herunter, um dieses und tausende andere Rezepte zu entdecken, zu speichern und mit Freunden zu teilen.</p>
+            <span class="inline-block text-6xl mb-6">🍳</span>
+            <h1 class="text-3xl sm:text-4xl font-bold text-white mb-6">Rezept nicht gefunden</h1>
+            <p class="text-xl text-gray-300 mb-6">Dieses Rezept ist nicht mehr verfügbar oder wurde gelöscht.</p>
+            
+            <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 sm:p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm mb-8">
+              <h2 class="text-2xl font-bold text-white mb-4">Entdecke tausende Rezepte mit TasteBuddy</h2>
+              <p class="text-lg text-gray-300 mb-6">
+                Mit TasteBuddy kannst du:
+              </p>
+              <ul class="text-left text-gray-200 mb-6 space-y-2">
+                <li class="flex items-start">
+                  <span class="text-[#00CE31] mr-2">✓</span> 
+                  <span>Rezepte von überall im Internet speichern</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-[#00CE31] mr-2">✓</span> 
+                  <span>Automatische Einkaufslisten erstellen</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-[#00CE31] mr-2">✓</span> 
+                  <span>Rezepte mit Freunden und Familie teilen</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-[#00CE31] mr-2">✓</span> 
+                  <span>Deine Lieblingsrezepte immer griffbereit haben</span>
+                </li>
+              </ul>
+            </div>
           </div>
         )}
         
         <!-- CTA Banner (always shown) -->
         <div class="bg-gradient-to-r from-[#00CE31]/40 to-[#00CE31]/30 rounded-xl p-6 sm:p-8 text-center backdrop-blur-sm border border-[#00CE31]/30">
           <h2 class="text-xl sm:text-2xl font-bold text-white mb-3">
-            {hasRecipeData && recipe ? "Dieses Rezept speichern" : "Rezepte entdecken und speichern"}
+            {hasRecipeData && recipe ? "Dieses Rezept speichern" : "TasteBuddy herunterladen"}
           </h2>
           <p class="text-gray-200 mb-6">
             {hasRecipeData && recipe 
               ? "Speichern Sie dieses Rezept in TasteBuddy, um es jederzeit offline zu finden, mühelos einzukaufen und mit Freunden zu teilen."
-              : "Mit TasteBuddy können Sie Rezepte importieren, organisieren und teilen. Nie wieder verlorene Rezepte!"
+              : "Lade dir TasteBuddy herunter, um Rezepte zu speichern, zu organisieren und zu teilen. Nie wieder verlorene Rezepte!"
             }
           </p>
           
