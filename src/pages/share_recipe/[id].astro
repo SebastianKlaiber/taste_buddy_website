@@ -4,6 +4,16 @@ import Layout from "../../layouts/Layout.astro";
 import Main from "../../components/Main.astro";
 import { AstroSeo } from '@astrolib/seo';
 
+// This function tells Astro which routes to pre-generate at build time
+export function getStaticPaths() {
+  return [
+    { params: { id: '82' } },
+    // Add more recipe IDs here as needed
+    // { params: { id: '83' } },
+    // { params: { id: '84' } },
+  ];
+}
+
 const { id } = Astro.params;
 
 // For demo purposes, we'll hardcode the recipe data
