@@ -13,6 +13,10 @@ const sortedPosts = posts.sort((a, b) => {
 
 // Featured post - our newest meal prep article
 const featuredPost = sortedPosts.find(post => post.frontmatter.title.includes('Meal Prep'));
+
+// Get current path for language switcher
+const { pathname } = Astro.url;
+const enPath = pathname.replace("/de/", "/en/");
 ---
 
 <AstroSeo
@@ -26,6 +30,18 @@ const featuredPost = sortedPosts.find(post => post.frontmatter.title.includes('M
 
 <Layout title="TasteBuddy Blog">
   <Main>
+    <!-- Language Switcher -->
+    <div class="absolute top-6 right-6 z-10">
+      <div class="flex gap-3 bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-2 rounded-full border border-[#2A2D24]/30 backdrop-blur-sm">
+        <a href={enPath} class="px-3 py-1 rounded-full text-sm font-medium transition-colors text-gray-400 hover:text-white">
+          EN
+        </a>
+        <a href={pathname} class="px-3 py-1 rounded-full text-sm font-medium transition-colors bg-[#00CE31]/20 text-white border border-[#00CE31]/30">
+          DE
+        </a>
+      </div>
+    </div>
+    
     <section class="py-12 sm:py-16 lg:py-20">
       <div class="max-w-4xl mx-auto">
         <div class="text-center mb-12">
