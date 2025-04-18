@@ -11,12 +11,14 @@ export default defineConfig({
     tailwind(),
   ],
   // Add the Netlify adapter for server-side rendering support
-  output: 'server',
+  output: 'hybrid',
   adapter: netlify({
-    // Specify the entry point
+    // Create a single function that handles all routes
     functionPerRoute: false,
     // Properly handle asset paths
     dist: new URL('./dist/', import.meta.url),
+    // Use the correct builder
+    edgeMiddleware: false
   }),
   // Comment out the built-in i18n configuration as we're using astro-i18n package
   /*
