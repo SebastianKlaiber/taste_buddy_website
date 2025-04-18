@@ -1,10 +1,8 @@
 [build]
   command = "npm run netlify-build"
   publish = "dist"
-  # Disable log output hiding to help debug build issues
-  environment = { NETLIFY_EXPERIMENTAL_BUILD_LOGS_HIDE_POTENTIAL_SECRETS = "false" }
 
-# Configure secrets scanning to omit PUBLIC environment variables which are not secrets
+# Configure environment variables
 [build.environment]
   NODE_VERSION = "18.20.0"
   NPM_VERSION = "9.8.1"
@@ -14,6 +12,8 @@
   SECRETS_SCAN_OMIT_KEYS = "PUBLIC_SUPABASE_URL,PUBLIC_SUPABASE_ANON_KEY"
   # Make it clearer where build outputs go for debugging
   DEBUG = "astro:*"
+  # Disable log output hiding to help debug build issues
+  NETLIFY_EXPERIMENTAL_BUILD_LOGS_HIDE_POTENTIAL_SECRETS = "false"
 
 # Function configuration
 [functions]
