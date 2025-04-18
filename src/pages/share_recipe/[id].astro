@@ -3,74 +3,146 @@ import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
 import Main from "../../components/Main.astro";
 import { AstroSeo } from '@astrolib/seo';
+import { getSharedRecipeById, getRecipeById } from "../../lib/supabase";
 
 // Use server-side rendering instead of static generation
 export const prerender = false;
 
 const { id } = Astro.params;
 
-// In a real implementation, we would fetch recipe data here
-// For now, we'll use a simple check to see if we have data for this ID
-const hasRecipeData = id === '82'; // In production, this would be a database check
+// Helper function to ensure a value is an array
+function ensureArray(value: any): any[] {
+  if (!value) return [];
+  if (Array.isArray(value)) return value;
+  if (typeof value === 'string') return [value];
+  return [value];
+}
 
-// Recipe data only used if hasRecipeData is true
-const recipe = hasRecipeData ? {
-  title: "ASIATISCHER FRIED RICE",
-  description: "Das Rezept für den Asiatischen Fried Rice verspricht immer dann großen Genuss, wenn sich der Appetit auf gesunde und leichte Mahlzeit meldet.",
-  prepTime: "20 Min",
-  servings: 4,
-  ingredients: [
-    {
-      category: "Vorbereitung Gemüse",
-      items: [
-        "1.0Stk Chinakohl",
-        "3.0Stk Karotten",
-        "3.0cm Ingwer",
-        "2.0Stk Knoblauchzehen",
-        "2.0Stk Paprika",
-      ]
-    },
-    {
-      category: "Zubereitung Asiatischer Fried Rice",
-      items: [
-        "250.0g Basmatireis",
-        "1.0TL Chiliflocken",
-        "2.0Stk Eier",
-        "2.0EL Erdnüsse",
-        "0.5Stk Limette",
-        "2.0EL Sesamöl",
-        "2.0Spr Sojasauce",
-      ]
+// Define types for recipe data
+interface RecipeIngredient {
+  name?: string;
+  text?: string;
+  [key: string]: any;
+}
+
+interface RecipeStep {
+  text?: string;
+  [key: string]: any;
+}
+
+interface RecipeEquipment {
+  name?: string;
+  [key: string]: any;
+}
+
+interface RecipeData {
+  title: string;
+  description: string;
+  prepTime: string;
+  servings: number;
+  ingredients: RecipeIngredient[] | Record<string, RecipeIngredient[]>;
+  instructions: (string | RecipeStep)[];
+  equipment: (string | RecipeEquipment)[] | string;
+  category?: string;
+  cuisine?: string;
+  image_url?: string;
+  level?: string;
+  nutrition_values?: any;
+}
+
+interface SharedRecipe {
+  id: number;
+  created_at?: string;
+  expired_at?: string;
+  recipe: RecipeData | string;
+}
+
+// Try to fetch the recipe from both possible sources
+let sharedRecipe = null;
+if (id) {
+  // First try the share_recipe table
+  sharedRecipe = await getSharedRecipeById(id) as SharedRecipe | null;
+  
+  // If not found, try the recipes table
+  if (!sharedRecipe) {
+    sharedRecipe = await getRecipeById(id) as SharedRecipe | null;
+  }
+}
+
+const hasRecipeData = !!sharedRecipe;
+
+// Process recipe data if we have it
+let recipe: RecipeData | null = null;
+if (hasRecipeData && sharedRecipe) {
+  try {
+    // Parse recipe content from the database
+    // The recipe data is stored in the 'recipe' field which might be a JSON string or object
+    const recipeData = typeof sharedRecipe.recipe === 'string' 
+      ? JSON.parse(sharedRecipe.recipe) 
+      : sharedRecipe.recipe;
+    
+    // Ensure equipment is always an array
+    let equipmentArray: (string | RecipeEquipment)[] = [];
+    if (recipeData.equipment) {
+      if (Array.isArray(recipeData.equipment)) {
+        equipmentArray = recipeData.equipment;
+      } else if (typeof recipeData.equipment === 'string') {
+        // Split by comma if it's a string
+        equipmentArray = recipeData.equipment.split(',').map((item: string) => item.trim());
+      } else {
+        // Handle object case or anything else
+        equipmentArray = [recipeData.equipment];
+      }
     }
-  ],
-  instructions: [
-    "Vorbereitung Gemüse:",
-    "Zuerst den Chinakohl putzen, unter fließendem Wasser abwaschen, halbieren und bis auf den festen Strunk in schmale Streifen schneiden.",
-    "Anschließend die Karotten waschen, mit einem Sparschäler schälen und in feine Stifte schneiden. Den Ingwerund den Knoblauch schälen und fein hacken.",
-    "Danach die Paprikas halbieren, die Kerne entfernen, waschen und die Schoten ebenfalls in feine Streifen schneiden. Zubereitung Asiatischer Fried Rice:",
-    "Nun 2 TL Sesamöl in einem Wok (oder einer tiefen Pfanne) erhitzen und den Kohl, die Karotten sowie den Paprika kurz und kräftig darin anbraten.",
-    "Sobald der Kohl zusammengefallen ist, das ganze Gemüse aus dem Wok in eine Schüssel umfüllen.",
-    "Nun das restliche Öl im Wok erhitzen, den Ingwer und den Knoblauch darin glasig anbraten und anschließend am Rand etwas hochschieben.",
-    "Die Eier in einer kleinen Schüssel verquirlen, in die Mitte des Woks geben, kurz verrühren und ebenfalls am Rand hochschieben.",
-    "Jetzt den kalten Reis hinzufügen, mit dem gestockten Ei, Ingwer sowie Knoblauch verrühren und braten. Dabei nur ab und zu wenden, damit der Reis knusprig werden kann.",
-    "Inzwischen die Limette auspressen, dann den Saft mit der Sojasauce und den Chiliflocken vermischen und unter die Zutaten im Wok rühren.",
-    "Zuletzt das Gemüse zurück in den Wok geben, alles gut vermengen, nochmals erhitzen und den Asiatischen Fried Rice vor dem Servieren mit den Erdnüssen bestreuen."
-  ],
-  equipment: ["Wok oder tiefe Pfanne"]
-} : null;
+    
+    recipe = {
+      title: recipeData.title || "Untitled Recipe",
+      description: recipeData.description || "",
+      prepTime: recipeData.prepTime || recipeData.cookTime || "30 Min",
+      servings: recipeData.servings || recipeData.yields || 4,
+      ingredients: recipeData.ingredients || [],
+      instructions: recipeData.instructions || [],
+      equipment: equipmentArray,
+      category: recipeData.category,
+      cuisine: recipeData.cuisine,
+      image_url: recipeData.image_url,
+      level: recipeData.level,
+      nutrition_values: recipeData.nutrition_values
+    };
+  } catch (err) {
+    console.error("Error parsing recipe data:", err);
+  }
+}
 
 // Only create schema if we have recipe data
 let recipeSchema = null;
 if (hasRecipeData && recipe) {
   // Create flattened ingredients list for schema
-  const allIngredients = recipe.ingredients.flatMap(category => category.items);
+  let allIngredients: string[] = [];
+  if (Array.isArray(recipe.ingredients)) {
+    // If ingredients is already a flat array
+    allIngredients = recipe.ingredients.map(item => 
+      typeof item === 'string' ? item : item.name || item.text || JSON.stringify(item)
+    );
+  } else if (recipe.ingredients && typeof recipe.ingredients === 'object') {
+    // If ingredients is an object with categories
+    Object.values(recipe.ingredients).forEach(items => {
+      if (Array.isArray(items)) {
+        items.forEach(item => {
+          allIngredients.push(typeof item === 'string' ? item : item.name || item.text || JSON.stringify(item));
+        });
+      }
+    });
+  }
 
   // Create structured recipe steps for schema
-  const recipeSteps = recipe.instructions.slice(1).map((step, index) => ({
-    "@type": "HowToStep",
-    "position": index + 1,
-    "text": step
-  }));
+  const recipeSteps = Array.isArray(recipe.instructions) 
+    ? recipe.instructions.map((step, index: number) => ({
+        "@type": "HowToStep",
+        "position": index + 1,
+        "text": typeof step === 'string' ? step : step.text || ""
+      }))
+    : [];
 
   // Schema.org Recipe schema
   recipeSchema = JSON.stringify({
@@ -82,20 +154,16 @@ if (hasRecipeData && recipe) {
       "@type": "Organization",
       "name": "TasteBuddy"
     },
-    "image": "/images/recipe-preview.png",
-    "prepTime": `PT${recipe.prepTime.replace(' Min', '')}M`,
-    "cookTime": `PT${recipe.prepTime.replace(' Min', '')}M`,
-    "totalTime": `PT${recipe.prepTime.replace(' Min', '')}M`,
+    "image": recipe.image_url || "/images/recipe-preview.png",
+    "prepTime": `PT${recipe.prepTime.toString().replace(/[^0-9]/g, '')}M`,
+    "cookTime": `PT${recipe.prepTime.toString().replace(/[^0-9]/g, '')}M`,
+    "totalTime": `PT${recipe.prepTime.toString().replace(/[^0-9]/g, '')}M`,
     "recipeYield": `${recipe.servings} servings`,
-    "recipeCategory": "Main Course",
-    "recipeCuisine": "Asian",
+    "recipeCategory": recipe.category || "Main Course",
+    "recipeCuisine": recipe.cuisine || "",
     "recipeIngredient": allIngredients,
     "recipeInstructions": recipeSteps,
     "tool": recipe.equipment,
-    "nutrition": {
-      "@type": "NutritionInformation",
-      "servingSize": "1 portion"
-    },
     "publisher": {
       "@type": "Organization",
       "name": "TasteBuddy",
@@ -104,7 +172,7 @@ if (hasRecipeData && recipe) {
         "url": "https://taste-buddy.app/images/logo.png"
       }
     },
-    "datePublished": new Date().toISOString().split('T')[0]
+    "datePublished": sharedRecipe?.created_at || new Date().toISOString().split('T')[0]
   });
 }
 
@@ -119,7 +187,7 @@ const pageDescription = hasRecipeData && recipe ? recipe.description : "Entdecke
   openGraph={{
     title: hasRecipeData && recipe ? `${recipe.title} - Save this recipe to TasteBuddy` : "Discover recipes with TasteBuddy",
     description: pageDescription,
-    images: [{ url: '/images/recipe-preview.png' }],
+    images: [{ url: recipe?.image_url || '/images/recipe-preview.png' }],
   }}
 />
 
@@ -142,56 +210,108 @@ const pageDescription = hasRecipeData && recipe ? recipe.description : "Entdecke
               
               <!-- Recipe Meta Info -->
               <div class="flex flex-wrap justify-center gap-6 mb-6">
-                <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-3 rounded-lg border border-[#2A2D24]/30 backdrop-blur-sm">
-                  <span class="text-sm text-gray-400">⏱️ Kochzeit</span>
-                  <p class="text-white font-medium">{recipe.prepTime}</p>
-                </div>
-                <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-3 rounded-lg border border-[#2A2D24]/30 backdrop-blur-sm">
-                  <span class="text-sm text-gray-400">👥 Portionen</span>
-                  <p class="text-white font-medium">{recipe.servings}</p>
-                </div>
+                {recipe.prepTime && (
+                  <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-3 rounded-lg border border-[#2A2D24]/30 backdrop-blur-sm">
+                    <span class="text-sm text-gray-400">⏱️ Kochzeit</span>
+                    <p class="text-white font-medium">{recipe.prepTime}</p>
+                  </div>
+                )}
+                {recipe.servings && (
+                  <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-3 rounded-lg border border-[#2A2D24]/30 backdrop-blur-sm">
+                    <span class="text-sm text-gray-400">👥 Portionen</span>
+                    <p class="text-white font-medium">{recipe.servings}</p>
+                  </div>
+                )}
+                {recipe.level && (
+                  <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-3 rounded-lg border border-[#2A2D24]/30 backdrop-blur-sm">
+                    <span class="text-sm text-gray-400">🔥 Schwierigkeit</span>
+                    <p class="text-white font-medium capitalize">{recipe.level}</p>
+                  </div>
+                )}
               </div>
             </div>
+            
+            <!-- Recipe Image (if available) -->
+            {recipe.image_url && (
+              <div class="mb-8 rounded-xl overflow-hidden">
+                <img 
+                  src={recipe.image_url} 
+                  alt={`Photo of ${recipe.title}`} 
+                  class="w-full h-auto"
+                />
+              </div>
+            )}
             
             <!-- Recipe Content -->
             <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 sm:p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm mb-8">
               
               <!-- Ingredients -->
-              <div class="mb-8">
-                <h2 class="text-2xl font-bold text-white mb-4">📝 Zutaten</h2>
-                {recipe.ingredients.map(category => (
-                  <div class="mb-4">
-                    <h3 class="text-xl font-semibold text-white mb-2">📝 {category.category}</h3>
+              {recipe.ingredients && (Array.isArray(recipe.ingredients) ? recipe.ingredients.length > 0 : Object.keys(recipe.ingredients).length > 0) && (
+                <div class="mb-8">
+                  <h2 class="text-2xl font-bold text-white mb-4">📝 Zutaten</h2>
+                  
+                  {/* Handle different ingredient structures */}
+                  {Array.isArray(recipe.ingredients) ? (
                     <ul class="space-y-1">
-                      {category.items.map(item => (
-                        <li class="text-gray-300">• {item}</li>
+                      {recipe.ingredients.map((item: string | RecipeIngredient) => (
+                        <li class="text-gray-300">• {typeof item === 'string' ? item : item.name || item.text || JSON.stringify(item)}</li>
                       ))}
                     </ul>
-                  </div>
-                ))}
-              </div>
+                  ) : recipe.ingredients && typeof recipe.ingredients === 'object' ? (
+                    Object.entries(recipe.ingredients).map(([category, items]) => (
+                      <div class="mb-4">
+                        <h3 class="text-xl font-semibold text-white mb-2">📝 {category}</h3>
+                        <ul class="space-y-1">
+                          {Array.isArray(items) && items.map((item: string | RecipeIngredient) => (
+                            <li class="text-gray-300">• {typeof item === 'string' ? item : item.name || item.text || JSON.stringify(item)}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))
+                  ) : null}
+                </div>
+              )}
               
               <!-- Instructions -->
-              <div class="mb-8">
-                <h2 class="text-2xl font-bold text-white mb-4">👩‍🍳 Zubereitung</h2>
-                <ol class="space-y-3">
-                  {recipe.instructions.map((step, index) => (
-                    <li class="text-gray-300">
-                      {index !== 0 && <span class="font-bold text-white">{index}.</span>} {step}
-                    </li>
-                  ))}
-                </ol>
-              </div>
+              {recipe.instructions && recipe.instructions.length > 0 && (
+                <div class="mb-8">
+                  <h2 class="text-2xl font-bold text-white mb-4">👩‍🍳 Zubereitung</h2>
+                  <ol class="space-y-3">
+                    {recipe.instructions.map((step: string | RecipeStep, index: number) => (
+                      <li class="text-gray-300">
+                        <span class="font-bold text-white">{index + 1}.</span> {typeof step === 'string' ? step : step.text || JSON.stringify(step)}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              )}
               
               <!-- Equipment -->
-              <div>
-                <h2 class="text-2xl font-bold text-white mb-4">🔧 Küchengeräte</h2>
-                <ul class="space-y-1">
-                  {recipe.equipment.map(item => (
-                    <li class="text-gray-300">• {item}</li>
-                  ))}
-                </ul>
-              </div>
+              {recipe?.equipment && (
+                <div class="mb-8">
+                  <h2 class="text-2xl font-bold text-white mb-4">🔧 Küchengeräte</h2>
+                  <ul class="space-y-1">
+                    {ensureArray(recipe.equipment).map((item: string | RecipeEquipment) => (
+                      <li class="text-gray-300">• {typeof item === 'string' ? item : item.name || JSON.stringify(item)}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              
+              <!-- Nutrition Information (if available) -->
+              {recipe.nutrition_values && Object.keys(recipe.nutrition_values).length > 0 && (
+                <div>
+                  <h2 class="text-2xl font-bold text-white mb-4">🥗 Nährwerte</h2>
+                  <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {Object.entries(recipe.nutrition_values).map(([key, value]) => (
+                      <div class="bg-[#1C2513]/50 p-2 rounded">
+                        <p class="text-sm text-gray-400 capitalize">{key}</p>
+                        <p class="text-white font-medium">{value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </>
         ) : (
