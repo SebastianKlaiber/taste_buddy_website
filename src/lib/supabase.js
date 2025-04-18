@@ -1,10 +1,14 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Initialize the Supabase client
-export const supabase = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL,
-  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
-);
+// Runtime client creation to prevent credentials from being embedded in build output
+export function getSupabaseClient() {
+  // Only create the client at runtime when these variables are available
+  // This prevents the values from being embedded in the build output
+  const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+  
+  return createClient(supabaseUrl, supabaseAnonKey);
+}
 
 /**
  * Fetches recipe data by ID from the share_recipe table
@@ -20,6 +24,9 @@ export async function getSharedRecipeById(id) {
       console.error('Invalid recipe ID:', id);
       return null;
     }
+    
+    // Get a fresh client for each request
+    const supabase = getSupabaseClient();
     
     // Query the share_recipe table
     const { data, error } = await supabase
@@ -60,6 +67,9 @@ export async function getRecipeById(id) {
       console.error('Invalid recipe ID:', id);
       return null;
     }
+    
+    // Get a fresh client for each request
+    const supabase = getSupabaseClient();
     
     // Query the recipes table with joined cuisine data
     const { data, error } = await supabase
