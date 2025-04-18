@@ -2,12 +2,23 @@
   command = "npm run netlify-build"
   publish = "dist"
 
+# Configure secrets scanning to omit PUBLIC environment variables which are not secrets
 [build.environment]
   NODE_VERSION = "18.20.0"
   NPM_VERSION = "9.8.1"
   NODE_ENV = "production"
   ROLLUP_SKIP_NODEJS = "true"
   NPM_CONFIG_LEGACY_PEER_DEPS = "true"
+  SECRETS_SCAN_OMIT_KEYS = "PUBLIC_SUPABASE_URL,PUBLIC_SUPABASE_ANON_KEY"
+
+# Add Edge Functions config if you're using them (recommended for best performance)
+[functions]
+  node_bundler = "esbuild"
 
 [[plugins]]
   package = "@netlify/plugin-emails"
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/server"
+  status = 200
