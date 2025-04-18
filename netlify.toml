@@ -14,21 +14,35 @@
 # Function configuration
 [functions]
   node_bundler = "esbuild"
-  # Directory where functions are stored (this is important for Astro SSR)
+  # This should match where Astro's Netlify adapter puts the functions
   directory = ".netlify/functions-internal"
 
 [[plugins]]
   package = "@netlify/plugin-emails"
 
-# Remove the previous redirect and use Astro's recommended redirects
+# Tell Netlify where to find our custom 404 page
+[build.processing]
+  skip_processing = false
+[build.processing.html]
+  pretty_urls = true
+
+# Asset handling for Astro
 [[redirects]]
   from = "/_astro/*"
   to = "/_astro/:splat"
   status = 200
 
+# Primary redirect for share_recipe route (most specific first)
+[[redirects]]
+  from = "/share_recipe/:id"
+  to = "/.netlify/functions-internal/entry"
+  status = 200
+  force = true
+
+# Alternative SSR pattern in case the above doesn't match
 [[redirects]]
   from = "/share_recipe/*"
-  to = "/.netlify/functions/entry"
+  to = "/.netlify/functions-internal/entry"
   status = 200
   force = true
 
@@ -37,3 +51,4 @@
   from = "/*"
   to = "/index.html"
   status = 200
+  force = false
