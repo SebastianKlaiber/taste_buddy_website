@@ -19,7 +19,7 @@
 [functions]
   node_bundler = "esbuild"
   # This should match where Astro's Netlify adapter puts the functions
-  directory = ".netlify/functions-internal"
+  directory = ".netlify/v1/functions"
 
 [[plugins]]
   package = "@netlify/plugin-emails"
@@ -39,7 +39,7 @@
 # Server-side rendered routes for share_recipe
 [[redirects]]
   from = "/share_recipe/*"
-  to = "/.netlify/functions-internal/entry"
+  to = "/.netlify/v1/functions/ssr"
   status = 200
   force = true
 
