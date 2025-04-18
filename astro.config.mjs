@@ -19,6 +19,10 @@ export default defineConfig({
     // Use the correct builder
     edgeMiddleware: false
   }),
+  // Optimize for better static/dynamic content handling
+  build: {
+    format: 'directory'
+  },
   // Comment out the built-in i18n configuration as we're using astro-i18n package
   /*
   i18n: {

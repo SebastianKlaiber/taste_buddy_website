@@ -30,29 +30,27 @@
 [build.processing.html]
   pretty_urls = true
 
-# Asset handling for Astro
+# Static assets - Ensure Astro's assets are served correctly
 [[redirects]]
   from = "/_astro/*"
   to = "/_astro/:splat"
   status = 200
 
-# Primary redirect for share_recipe route (most specific first)
-[[redirects]]
-  from = "/share_recipe/:id"
-  to = "/.netlify/functions-internal/entry"
-  status = 200
-  force = true
-
-# Alternative SSR pattern in case the above doesn't match
+# Server-side rendered routes for share_recipe
 [[redirects]]
   from = "/share_recipe/*"
   to = "/.netlify/functions-internal/entry"
   status = 200
   force = true
 
-# Fallback for all other routes (static pages)
+# Specific redirect for the main page (root path)
 [[redirects]]
-  from = "/*"
+  from = "/"
   to = "/index.html"
   status = 200
-  force = false
+
+# For all other static routes - less specific than the server routes
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
