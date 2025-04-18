@@ -11,14 +11,29 @@
   NPM_CONFIG_LEGACY_PEER_DEPS = "true"
   SECRETS_SCAN_OMIT_KEYS = "PUBLIC_SUPABASE_URL,PUBLIC_SUPABASE_ANON_KEY"
 
-# Add Edge Functions config if you're using them (recommended for best performance)
+# Function configuration
 [functions]
   node_bundler = "esbuild"
+  # Directory where functions are stored (this is important for Astro SSR)
+  directory = ".netlify/functions-internal"
 
 [[plugins]]
   package = "@netlify/plugin-emails"
 
+# Remove the previous redirect and use Astro's recommended redirects
+[[redirects]]
+  from = "/_astro/*"
+  to = "/_astro/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/share_recipe/*"
+  to = "/.netlify/functions/entry"
+  status = 200
+  force = true
+
+# Fallback for all other routes (static pages)
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/server"
+  to = "/index.html"
   status = 200

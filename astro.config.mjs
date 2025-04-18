@@ -12,7 +12,12 @@ export default defineConfig({
   ],
   // Add the Netlify adapter for server-side rendering support
   output: 'server',
-  adapter: netlify(),
+  adapter: netlify({
+    // Specify the entry point
+    functionPerRoute: false,
+    // Properly handle asset paths
+    dist: new URL('./dist/', import.meta.url),
+  }),
   // Comment out the built-in i18n configuration as we're using astro-i18n package
   /*
   i18n: {
