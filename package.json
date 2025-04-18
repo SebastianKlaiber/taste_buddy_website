@@ -8,7 +8,8 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "netlify-build": "ROLLUP_SKIP_NODEJS=true npm install --legacy-peer-deps && mkdir -p dist && ROLLUP_SKIP_NODEJS=true astro build --verbose"
+    "netlify-build": "ROLLUP_SKIP_NODEJS=true npm install --legacy-peer-deps && mkdir -p dist && ROLLUP_SKIP_NODEJS=true astro build --verbose",
+    "deploy": "npm run build && netlify deploy --prod"
   },
   "dependencies": {
     "@astrojs/check": "0.9.4",

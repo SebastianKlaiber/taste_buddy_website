@@ -11,7 +11,7 @@ export default defineConfig({
     tailwind(),
   ],
   // Add the Netlify adapter for server-side rendering support
-  output: 'hybrid',
+  output: 'server',
   outDir: './dist',
   adapter: netlify({
     // Create a single function that handles all routes
