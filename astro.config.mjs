@@ -12,11 +12,10 @@ export default defineConfig({
   ],
   // Add the Netlify adapter for server-side rendering support
   output: 'hybrid',
+  outDir: './dist',
   adapter: netlify({
     // Create a single function that handles all routes
     functionPerRoute: false,
-    // Properly handle asset paths
-    dist: new URL('./dist/', import.meta.url),
     // Use the correct builder
     edgeMiddleware: false
   }),
