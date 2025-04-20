@@ -5,11 +5,14 @@ import Main from "../../components/Main.astro";
 import { AstroSeo } from '@astrolib/seo';
 import { getSharedRecipeById, getRecipeById } from "../../lib/supabase";
 
+console.log('--- Share Recipe Page Execution Start ---');
+
 // Configure SSR for this route
 // Using the newer Astro SSR approach
 export const prerender = false;
 
 const { id } = Astro.params;
+console.log(`Received ID: ${id}`);
 
 // Helper function to ensure a value is an array
 function ensureArray(value: any): any[] {
@@ -59,28 +62,55 @@ interface SharedRecipe {
 }
 
 // Try to fetch the recipe from both possible sources
-let sharedRecipe = null;
-if (id) {
-  // First try the share_recipe table
-  sharedRecipe = await getSharedRecipeById(id) as SharedRecipe | null;
-  
-  // If not found, try the recipes table
-  if (!sharedRecipe) {
-    sharedRecipe = await getRecipeById(id) as SharedRecipe | null;
+let sharedRecipe: SharedRecipe | null = null;
+let fetchError: any = null;
+try {
+  if (id) {
+    console.log(`Attempting to fetch shared recipe with ID: ${id}`);
+    sharedRecipe = await getSharedRecipeById(id) as SharedRecipe | null;
+    console.log(`Result from getSharedRecipeById: ${sharedRecipe ? 'Found' : 'Not Found'}`);
+    
+    if (!sharedRecipe) {
+      console.log(`Attempting to fetch main recipe with ID: ${id}`);
+      // Assuming getRecipeById returns a structure compatible with SharedRecipe or null
+      const mainRecipeResult = await getRecipeById(id);
+      if (mainRecipeResult) {
+        // Adapt the result if necessary, here we assume it might be directly usable or needs wrapping
+        // This depends on the actual return type of getRecipeById
+        console.log('Found recipe in main table. Adapting structure.');
+        sharedRecipe = {
+          id: parseInt(id, 10), // Ensure ID is number if needed
+          recipe: mainRecipeResult as any, // Cast to any to resolve TS error temporarily
+          // Add other fields like created_at, expired_at if available/needed
+        };
+      } else {
+         console.log('Recipe not found in main table either.');
+      }
+      console.log(`Result from getRecipeById: ${sharedRecipe ? 'Found' : 'Not Found'}`);
+    } else {
+      console.log('Skipping getRecipeById as shared recipe was found.');
+    }
+  } else {
+    console.log('No ID provided in params.');
   }
+} catch (err) {
+  console.error('Error during recipe fetch:', err);
+  fetchError = err;
 }
 
-const hasRecipeData = !!sharedRecipe;
+const hasRecipeData = !!sharedRecipe && !fetchError;
+console.log(`hasRecipeData determined as: ${hasRecipeData}`);
 
 // Process recipe data if we have it
 let recipe: RecipeData | null = null;
 if (hasRecipeData && sharedRecipe) {
   try {
+    console.log('Attempting to parse recipe data...');
     // Parse recipe content from the database
-    // The recipe data is stored in the 'recipe' field which might be a JSON string or object
     const recipeData = typeof sharedRecipe.recipe === 'string' 
       ? JSON.parse(sharedRecipe.recipe) 
       : sharedRecipe.recipe;
+    console.log('Successfully parsed/accessed recipe data.');
     
     // Ensure equipment is always an array
     let equipmentArray: (string | RecipeEquipment)[] = [];
@@ -88,10 +118,8 @@ if (hasRecipeData && sharedRecipe) {
       if (Array.isArray(recipeData.equipment)) {
         equipmentArray = recipeData.equipment;
       } else if (typeof recipeData.equipment === 'string') {
-        // Split by comma if it's a string
         equipmentArray = recipeData.equipment.split(',').map((item: string) => item.trim());
       } else {
-        // Handle object case or anything else
         equipmentArray = [recipeData.equipment];
       }
     }
@@ -110,14 +138,21 @@ if (hasRecipeData && sharedRecipe) {
       level: recipeData.level,
       nutrition_values: recipeData.nutrition_values
     };
+    console.log('Recipe object processed successfully.');
   } catch (err) {
     console.error("Error parsing recipe data:", err);
+    // Keep recipe as null if parsing fails
+    recipe = null;
+    console.log('Setting recipe to null due to parsing error.');
   }
+} else {
+  console.log('Skipping recipe processing because hasRecipeData is false or sharedRecipe is null.');
 }
 
-// Only create schema if we have recipe data
+// Only create schema if we have recipe data AND the recipe object was successfully processed
 let recipeSchema = null;
 if (hasRecipeData && recipe) {
+  console.log('Attempting to create recipe schema...');
   // Create flattened ingredients list for schema
   let allIngredients: string[] = [];
   if (Array.isArray(recipe.ingredients)) {
@@ -175,11 +210,17 @@ if (hasRecipeData && recipe) {
     },
     "datePublished": sharedRecipe?.created_at || new Date().toISOString().split('T')[0]
   });
+  console.log('Recipe schema created.');
+} else {
+  console.log('Skipping schema creation.');
 }
 
-// Generic page title and description for when we don't have recipe data
-const pageTitle = hasRecipeData && recipe ? `${recipe.title} - TasteBuddy Recipe` : "Discover and Save Recipes with TasteBuddy";
-const pageDescription = hasRecipeData && recipe ? recipe.description : "Entdecke und speichere leckere Rezepte mit TasteBuddy - der ultimativen App für Rezeptorganisation und Kochen.";
+// Generic page title and description
+const pageTitle = (hasRecipeData && recipe) ? `${recipe.title} - TasteBuddy Recipe` : "Recipe Not Found - TasteBuddy";
+const pageDescription = (hasRecipeData && recipe) ? recipe.description : "Sorry, the recipe you are looking for could not be found or may have expired.";
+console.log(`Final page title set to: ${pageTitle}`);
+
+console.log('--- Share Recipe Page Execution End ---');
 ---
 
 <AstroSeo
