@@ -37,27 +37,22 @@
   status = 200
 
 # Server-side rendered routes for share_recipe - catch the dynamic route for the ID
+# This MUST come before the general /* catch-all
 [[redirects]]
   from = "/share_recipe/:id"
   to = "/.netlify/v1/functions/ssr"
   status = 200
-  force = true
+  force = true # Keep force=true for dynamic SSR routes
 
-# Generic catch-all for share_recipe (in case it's needed)
-[[redirects]]
-  from = "/share_recipe/*"
-  to = "/.netlify/v1/functions/ssr"
-  status = 200
-  force = true
-
-# Specific redirect for the main page (root path)
+# Specific redirect for the main page (root path) - keep if needed
 [[redirects]]
   from = "/"
   to = "/index.html"
   status = 200
 
-# For all other static routes - less specific than the server routes
+# Catch-all: Route all other requests to the Astro SSR function
+# This replaces the previous /* rule that pointed to 404.html
 [[redirects]]
   from = "/*"
-  to = "/404.html"
-  status = 404
+  to = "/.netlify/v1/functions/ssr"
+  status = 200
