@@ -42,13 +42,13 @@
   from = "/share_recipe/:id"
   to = "/.netlify/v1/functions/ssr"
   status = 200
-  force = true # Keep force=true for dynamic SSR routes
+  # force = true # Temporarily remove force=true as a test
 
 # Specific redirect for the main page (root path) - keep if needed
-[[redirects]]
-  from = "/"
-  to = "/index.html"
-  status = 200
+# [[redirects]]
+#   from = "/"
+#   to = "/index.html"
+#   status = 200
 
 # Catch-all: Route all other requests to the Astro SSR function
 # This replaces the previous /* rule that pointed to 404.html
