@@ -18,8 +18,8 @@
 # Function configuration
 [functions]
   node_bundler = "esbuild"
-  # This should match where Astro's Netlify adapter puts the functions
-  directory = ".netlify/v1/functions"
+  # Ensure this points to the correct directory where functions are generated
+  directory = ".netlify/functions"
 
 [[plugins]]
   package = "@netlify/plugin-emails"
@@ -40,7 +40,7 @@
 # This MUST come before the general /* catch-all
 [[redirects]]
   from = "/share_recipe/:id"
-  to = "/.netlify/v1/functions/ssr"
+  to = "/.netlify/functions/ssr"
   status = 200
   force = true # Always force this redirect to ensure it works
 
@@ -54,5 +54,5 @@
 # This replaces the previous /* rule that pointed to 404.html
 [[redirects]]
   from = "/*"
-  to = "/.netlify/v1/functions/ssr"
+  to = "/.netlify/functions/ssr"
   status = 200

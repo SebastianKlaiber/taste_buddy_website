@@ -17,7 +17,11 @@ export default defineConfig({
     // Create a single function that handles all routes
     functionPerRoute: false,
     // Use the correct builder
-    edgeMiddleware: false
+    edgeMiddleware: false,
+    // Ensure properly generated functions
+    binaryMediaTypes: ["image/*", "font/*", "application/octet-stream"],
+    // Set function directory to the default location
+    dist: './dist'
   }),
   // Optimize for better static/dynamic content handling
   build: {

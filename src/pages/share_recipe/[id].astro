@@ -8,6 +8,8 @@ export const prerender = false;
 
 const { id } = Astro.params;
 console.log(`Received ID: ${id}`);
+console.log(`Full URL: ${Astro.url}`);
+console.log(`Request headers: ${JSON.stringify(Object.fromEntries(Astro.request.headers))}`);
 
 // Define page title and description
 const pageTitle = "Open this recipe in TasteBuddy";
