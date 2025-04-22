@@ -42,7 +42,7 @@
   from = "/share_recipe/:id"
   to = "/.netlify/v1/functions/ssr"
   status = 200
-  # force = true # Temporarily remove force=true as a test
+  force = true # Always force this redirect to ensure it works
 
 # Specific redirect for the main page (root path) - keep if needed
 # [[redirects]]
