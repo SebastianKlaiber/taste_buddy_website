@@ -8,5 +8,5 @@
 # Main page
 /  /index.html  200
 
-# Fallback
-/*  /404.html  404 
+# Catch all other routes with SSR
+/*  /.netlify/v1/functions/ssr  200 
