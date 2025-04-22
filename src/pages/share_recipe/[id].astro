@@ -3,13 +3,26 @@ import Layout from "../../layouts/Layout.astro";
 import Main from "../../components/Main.astro";
 import { AstroSeo } from '@astrolib/seo';
 
-// Configure SSR for this route
-export const prerender = false;
+// Configure static generation for this route
+export const prerender = true;
 
+// Define which paths will be statically generated
+export function getStaticPaths() {
+  // Generate common recipe IDs we know about
+  // You can add more IDs here or fetch them from an API at build time
+  const recipeIds = ['1', '2', '3', '84', '5', '10', '20'];
+  
+  return recipeIds.map(id => ({
+    params: { id },
+  }));
+}
+
+// Get the ID from params
 const { id } = Astro.params;
-console.log(`Received ID: ${id}`);
-console.log(`Full URL: ${Astro.url}`);
-console.log(`Request headers: ${JSON.stringify(Object.fromEntries(Astro.request.headers))}`);
+console.log(`Processing ID: ${id}`);
+
+// Since this is statically generated, we can't dynamically fetch recipe data
+// We'll use client-side JavaScript to handle deeplinks
 
 // Define page title and description
 const pageTitle = "Open this recipe in TasteBuddy";
