@@ -2,11 +2,11 @@
 /_astro/*  /_astro/:splat  200
 
 # Server-side rendered routes for share_recipe
-/share_recipe/:id  /.netlify/v1/functions/ssr  200
-/share_recipe/*  /.netlify/v1/functions/ssr  200
+/share_recipe/:id  /.netlify/functions/ssr  200
+/share_recipe/*  /.netlify/functions/ssr  200
 
 # Main page
 /  /index.html  200
 
 # Catch all other routes with SSR
-/*  /.netlify/v1/functions/ssr  200 
+/*  /.netlify/functions/ssr  200 
