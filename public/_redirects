@@ -1,6 +1,9 @@
 # Static assets
 /_astro/*  /_astro/:splat  200
 
+# Ensure .well-known directory is accessible
+/.well-known/*  /.well-known/:splat  200
+
 # Main page
 /  /index.html  200
 
