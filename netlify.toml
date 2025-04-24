@@ -36,6 +36,12 @@
   to = "/_astro/:splat"
   status = 200
 
+# Ensure .well-known directory is accessible
+[[redirects]]
+  from = "/.well-known/*"
+  to = "/.well-known/:splat"
+  status = 200
+
 # If a share_recipe ID isn't found, show the 404 page
 [[redirects]]
   from = "/share_recipe/*"
