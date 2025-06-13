@@ -1,0 +1,146 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+const recipe = {
+  name: "Vegane Schokoladenmousse",
+  description: "Eine reichhaltige und dekadente vegane Schokoladenmousse aus Kokoscreme und Zartbitterschokolade",
+  prepTime: "PT15M",
+  cookTime: "PT0M",
+  totalTime: "PT2H15M",
+  servings: 4,
+  difficulty: "Einfach",
+  ingredients: [
+    "200 g Zartbitterschokolade (vegan), gehackt",
+    "400 ml Kokosmilch (Vollfett, gekühlt)",
+    "2 EL Ahornsirup",
+    "1 TL Vanilleextrakt",
+    "Prise Salz"
+  ],
+  instructions: [
+    "Schokolade über einem Wasserbad schmelzen und etwas abkühlen lassen.",
+    "Den festen Teil der gekühlten Kokosmilch in eine Schüssel geben (Flüssigkeit verwerfen).",
+    "Kokoscreme aufschlagen, bis sie fluffig ist.",
+    "Geschmolzene Schokolade, Ahornsirup, Vanille und Salz unterheben.",
+    "In Dessertgläser füllen und mindestens 2 Stunden kaltstellen.",
+    "Vor dem Servieren mit Beeren oder Minze garnieren."
+  ]
+};
+
+const structuredData = {
+  "@context": "https://schema.org/",
+  "@type": "Recipe",
+  "name": recipe.name,
+  "description": recipe.description,
+  "prepTime": recipe.prepTime,
+  "cookTime": recipe.cookTime,
+  "totalTime": recipe.totalTime,
+  "recipeYield": recipe.servings,
+  "recipeCategory": "Dessert",
+  "recipeCuisine": "International",
+  "keywords": "vegane schokoladenmousse, milchfreier nachtisch, kokoscreme mousse, veganer nachtisch, schokoladendessert",
+  "suitableForDiet": ["VeganDiet", "DiabeticDiet"],
+  "inLanguage": "de",
+  "author": {
+    "@type": "Organization",
+    "name": "TasteBuddy"
+  },
+  "recipeIngredient": recipe.ingredients,
+  "recipeInstructions": recipe.instructions.map((instruction, index) => ({
+    "@type": "HowToStep",
+    "position": index + 1,
+    "text": instruction
+  })),
+  "nutrition": {
+    "@type": "NutritionInformation",
+    "calories": "280 Kalorien",
+    "servingSize": "1 Portion"
+  },
+  "image": "/images/recipes/vegan-chocolate-mousse.png"
+};
+
+const title = `${recipe.name} Rezept | TasteBuddy`;
+const description = `Lernen Sie, wie man köstliche ${recipe.name} mit unserer Schritt-für-Schritt-Anleitung zubereitet. ${recipe.description}. Fertig in ${recipe.totalTime.replace('PT', '').replace('H', ' Stunden ').replace('M', ' Minuten')}.`;
+---
+
+<Layout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  
+  <article class="max-w-4xl mx-auto">
+    <div class="aspect-video max-w-2xl mx-auto mb-8 rounded-2xl overflow-hidden bg-[#2A2D24]">
+      <img 
+        src="/images/recipes/vegan-chocolate-mousse.png" 
+        alt={recipe.name}
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+    </div>
+    
+    <header class="text-center mb-8">
+      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4">{recipe.name}</h1>
+      <p class="text-xl text-gray-300 mb-6">{recipe.description}</p>
+      
+      <div class="flex flex-wrap justify-center gap-4 text-sm">
+        <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
+          🕒 {recipe.totalTime.replace('PT', '').replace('H', 'h ').replace('M', 'Min')}
+        </span>
+        <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
+          👥 {recipe.servings} Portionen
+        </span>
+        <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
+          📊 {recipe.difficulty}
+        </span>
+        <span class="bg-[#00CE31] text-black px-3 py-1 rounded-full font-medium">
+          🌱 Vegan
+        </span>
+      </div>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-8">
+      <section class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30">
+        <h2 class="text-2xl font-semibold text-white mb-4">Zutaten</h2>
+        <ul class="space-y-2">
+          {recipe.ingredients.map((ingredient) => (
+            <li class="flex items-start gap-2 text-gray-300">
+              <span class="text-[#00CE31] mt-1">•</span>
+              <span>{ingredient}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30">
+        <h2 class="text-2xl font-semibold text-white mb-4">Zubereitung</h2>
+        <ol class="space-y-4">
+          {recipe.instructions.map((instruction, index) => (
+            <li class="flex gap-4">
+              <span class="flex-shrink-0 w-8 h-8 bg-[#00CE31] text-black rounded-full flex items-center justify-center font-semibold text-sm">
+                {index + 1}
+              </span>
+              <span class="text-gray-300 leading-relaxed">{instruction}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </div>
+
+    <section class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30 mb-8">
+      <h2 class="text-2xl font-semibold text-white mb-4">Tipps & Hinweise</h2>
+      <div class="text-gray-300 space-y-2">
+        <p>• Verwenden Sie unbedingt Vollmilch-Kokosmilch und kühlen Sie sie über Nacht für die besten Aufschlag-Ergebnisse.</p>
+        <p>• Verwenden Sie hochwertige vegane Zartbitterschokolade (70% Kakao oder höher) für den reichhaltigsten Geschmack.</p>
+        <p>• Nicht zu viel rühren beim Unterheben der Schokolade, um die leichte, luftige Textur zu erhalten.</p>
+        <p>• Mindestens 2 Stunden oder über Nacht kühlen für die beste Textur und Geschmacksentwicklung.</p>
+      </div>
+    </section>
+
+    <div class="text-center">
+      <a href="/de/recipes" class="btn-secondary inline-block">
+        ← Zurück zu allen Rezepten
+      </a>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .btn-secondary {
+ 

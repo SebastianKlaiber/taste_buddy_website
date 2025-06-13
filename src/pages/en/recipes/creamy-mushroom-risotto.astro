@@ -1,0 +1,150 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+const recipe = {
+  name: "Creamy Mushroom Risotto",
+  description: "A rich and creamy Italian rice dish with savory mushrooms and Parmesan cheese",
+  prepTime: "PT10M",
+  cookTime: "PT25M",
+  totalTime: "PT35M",
+  servings: 4,
+  difficulty: "Medium",
+  ingredients: [
+    "250 g Arborio rice",
+    "200 g mushrooms, sliced",
+    "1 small onion, finely chopped",
+    "2 cloves garlic, minced",
+    "750 ml vegetable broth, warmed",
+    "60 ml dry white wine",
+    "50 g Parmesan cheese, grated",
+    "2 tbsp olive oil",
+    "2 tbsp butter",
+    "Salt and pepper, to taste",
+    "Fresh parsley, chopped"
+  ],
+  instructions: [
+    "Heat olive oil and 1 tbsp butter in a pan. Sauté onion and garlic until soft.",
+    "Add mushrooms, cook until golden.",
+    "Stir in rice, cook for 1-2 minutes. Add wine, stir until absorbed.",
+    "Add broth, one ladle at a time, stirring until absorbed before adding more.",
+    "Continue until rice is creamy and al dente (about 18-20 minutes).",
+    "Stir in remaining butter and Parmesan. Season with salt and pepper.",
+    "Garnish with parsley and serve."
+  ]
+};
+
+const structuredData = {
+  "@context": "https://schema.org/",
+  "@type": "Recipe",
+  "name": recipe.name,
+  "description": recipe.description,
+  "prepTime": recipe.prepTime,
+  "cookTime": recipe.cookTime,
+  "totalTime": recipe.totalTime,
+  "recipeYield": recipe.servings,
+  "recipeCategory": "Main Course",
+  "recipeCuisine": "Italian",
+  "keywords": "risotto, mushroom risotto, arborio rice, italian rice, creamy rice, vegetarian",
+  "author": {
+    "@type": "Organization",
+    "name": "TasteBuddy"
+  },
+  "recipeIngredient": recipe.ingredients,
+  "recipeInstructions": recipe.instructions.map((instruction, index) => ({
+    "@type": "HowToStep",
+    "position": index + 1,
+    "text": instruction
+  })),
+  "nutrition": {
+    "@type": "NutritionInformation",
+    "calories": "380 calories",
+    "servingSize": "1 serving"
+  },
+  "image": "/images/recipes/mushroom-risotto.png"
+};
+
+const title = `${recipe.name} Recipe | TasteBuddy`;
+const description = `Learn how to make authentic ${recipe.name} with our step-by-step recipe. ${recipe.description}. Ready in ${recipe.totalTime.replace('PT', '').replace('M', ' minutes')}.`;
+---
+
+<Layout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  
+  <article class="max-w-4xl mx-auto">
+    <div class="aspect-video max-w-2xl mx-auto mb-8 rounded-2xl overflow-hidden bg-[#2A2D24]">
+      <img 
+        src="/images/recipes/mushroom-risotto.png" 
+        alt={recipe.name}
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+    </div>
+    
+    <header class="text-center mb-8">
+      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4">{recipe.name}</h1>
+      <p class="text-xl text-gray-300 mb-6">{recipe.description}</p>
+      
+      <div class="flex flex-wrap justify-center gap-4 text-sm">
+        <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
+          🕒 {recipe.totalTime.replace('PT', '').replace('M', ' min')}
+        </span>
+        <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
+          👥 {recipe.servings} servings
+        </span>
+        <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
+          📊 {recipe.difficulty}
+        </span>
+      </div>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-8">
+      <section class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30">
+        <h2 class="text-2xl font-semibold text-white mb-4">Ingredients</h2>
+        <ul class="space-y-2">
+          {recipe.ingredients.map((ingredient) => (
+            <li class="flex items-start gap-2 text-gray-300">
+              <span class="text-[#00CE31] mt-1">•</span>
+              <span>{ingredient}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30">
+        <h2 class="text-2xl font-semibold text-white mb-4">Instructions</h2>
+        <ol class="space-y-4">
+          {recipe.instructions.map((instruction, index) => (
+            <li class="flex gap-4">
+              <span class="flex-shrink-0 w-8 h-8 bg-[#00CE31] text-black rounded-full flex items-center justify-center font-semibold text-sm">
+                {index + 1}
+              </span>
+              <span class="text-gray-300 leading-relaxed">{instruction}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </div>
+
+    <section class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30 mb-8">
+      <h2 class="text-2xl font-semibold text-white mb-4">Tips & Notes</h2>
+      <div class="text-gray-300 space-y-2">
+        <p>• Keep your broth warm throughout the cooking process for better absorption.</p>
+        <p>• Stir constantly while adding broth to achieve the perfect creamy texture.</p>
+        <p>• Use Arborio rice for the best results - it has the right starch content for risotto.</p>
+        <p>• Don't rush the process - proper risotto takes patience and constant attention.</p>
+      </div>
+    </section>
+
+    <div class="text-center">
+      <a href="/en/recipes" class="btn-secondary inline-block">
+        ← Back to All Recipes
+      </a>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .btn-secondary {
+    @apply bg-[#1C2513] hover:bg-[#2A2D24] border border-[#2A2D24] text-white font-medium py-3 px-6 rounded-lg transition-all duration-300;
+  }
+</style> 
