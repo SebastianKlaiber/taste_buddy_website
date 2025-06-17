@@ -1,0 +1,153 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+const recipe = {
+  name: "Chili sin Carne",
+  description: "A hearty and flavorful vegan chili with mixed beans and vegetables",
+  prepTime: "PT15M",
+  cookTime: "PT30M",
+  totalTime: "PT45M",
+  servings: 4,
+  difficulty: "Easy",
+  ingredients: [
+    "1 tbsp olive oil",
+    "1 large onion, chopped",
+    "2 cloves garlic, minced",
+    "1 red bell pepper, diced",
+    "1 zucchini, diced",
+    "1 can (400g) chopped tomatoes",
+    "1 can (400g) kidney beans, drained",
+    "1 can (400g) black beans, drained",
+    "2 tbsp tomato paste",
+    "1 tsp ground cumin",
+    "1 tsp smoked paprika",
+    "1 tsp chili powder (adjust to taste)",
+    "Salt and pepper to taste",
+    "Fresh coriander (optional, for garnish)"
+  ],
+  instructions: [
+    "Heat the olive oil in a large pot over medium heat. Add the onion and garlic, and sauté until softened.",
+    "Add the bell pepper and zucchini, and cook for 5 minutes.",
+    "Stir in the cumin, paprika, chili powder, salt, and pepper.",
+    "Add the tomato paste, chopped tomatoes, kidney beans, and black beans. Mix well.",
+    "Simmer uncovered for 20-30 minutes, stirring occasionally.",
+    "Adjust seasoning if needed. Serve hot, garnished with fresh coriander if desired."
+  ]
+};
+
+const structuredData = {
+  "@context": "https://schema.org/",
+  "@type": "Recipe",
+  "name": recipe.name,
+  "description": recipe.description,
+  "prepTime": recipe.prepTime,
+  "cookTime": recipe.cookTime,
+  "totalTime": recipe.totalTime,
+  "recipeYield": recipe.servings,
+  "recipeCategory": "Main Course",
+  "recipeCuisine": "Mexican",
+  "keywords": "chili sin carne, vegan chili, vegetarian chili, bean chili, plant-based chili, healthy chili",
+  "author": {
+    "@type": "Organization",
+    "name": "TasteBuddy"
+  },
+  "recipeIngredient": recipe.ingredients,
+  "recipeInstructions": recipe.instructions.map((instruction, index) => ({
+    "@type": "HowToStep",
+    "position": index + 1,
+    "text": instruction
+  })),
+  "nutrition": {
+    "@type": "NutritionInformation",
+    "calories": "320 calories",
+    "servingSize": "1 serving"
+  },
+  "image": "https://taste-buddy.app/images/recipes/chili-sin-carne.png"
+};
+
+const title = `${recipe.name} Recipe | TasteBuddy`;
+const description = `Learn how to make delicious ${recipe.name} with our step-by-step recipe. ${recipe.description}. Ready in ${recipe.totalTime.replace('PT', '').replace('M', ' minutes')}.`;
+---
+
+<Layout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  
+  <article class="max-w-4xl mx-auto">
+    <div class="aspect-video max-w-2xl mx-auto mb-8 rounded-2xl overflow-hidden bg-[#2A2D24]">
+      <div class="w-full h-full flex items-center justify-center text-6xl">
+        🌱
+      </div>
+    </div>
+    
+    <header class="text-center mb-8">
+      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4">{recipe.name}</h1>
+      <p class="text-xl text-gray-300 mb-6">{recipe.description}</p>
+      
+      <div class="flex flex-wrap justify-center gap-4 text-sm">
+        <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
+          🕒 {recipe.totalTime.replace('PT', '').replace('M', ' min')}
+        </span>
+        <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
+          👥 {recipe.servings} servings
+        </span>
+        <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
+          📊 {recipe.difficulty}
+        </span>
+        <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
+          🌱 Vegan
+        </span>
+      </div>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-8">
+      <section class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30">
+        <h2 class="text-2xl font-semibold text-white mb-4">Ingredients</h2>
+        <ul class="space-y-2">
+          {recipe.ingredients.map((ingredient) => (
+            <li class="flex items-start gap-2 text-gray-300">
+              <span class="text-[#00CE31] mt-1">•</span>
+              <span>{ingredient}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30">
+        <h2 class="text-2xl font-semibold text-white mb-4">Instructions</h2>
+        <ol class="space-y-4">
+          {recipe.instructions.map((instruction, index) => (
+            <li class="flex gap-4">
+              <span class="flex-shrink-0 w-8 h-8 bg-[#00CE31] text-black rounded-full flex items-center justify-center font-semibold text-sm">
+                {index + 1}
+              </span>
+              <span class="text-gray-300 leading-relaxed">{instruction}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </div>
+
+    <section class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30 mb-8">
+      <h2 class="text-2xl font-semibold text-white mb-4">Tips & Notes</h2>
+      <div class="text-gray-300 space-y-2">
+        <p>• Add other vegetables like corn, mushrooms, or sweet potatoes for extra nutrition and flavor.</p>
+        <p>• For extra protein, add some crumbled tofu or plant-based meat substitute.</p>
+        <p>• This vegan chili is naturally high in fiber and plant-based protein from the beans.</p>
+        <p>• Serve with avocado, lime, and fresh herbs for a fresh twist.</p>
+        <p>• Leftovers can be used as a filling for burritos or over baked potatoes.</p>
+      </div>
+    </section>
+
+    <div class="text-center">
+      <a href="/en/recipes" class="btn-secondary inline-block">
+        ← Back to All Recipes
+      </a>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .btn-secondary {
+    @apply bg-[#1C2513] hover:bg-[#2A2D24] border border-[#2A2D24] text-white font-medium py-3 px-6 rounded-lg transition-all duration-300;
+  }
+</style> 
