@@ -23,7 +23,7 @@
     "typescript": "5.4.5"
   },
   "devDependencies": {
-    "@rollup/wasm-node": "4.13.0"
+    "@rollup/wasm-node": "4.44.0"
   },
   "peerDependencies": {
     "rollup": "4.13.0"
