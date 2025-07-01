@@ -1,7 +1,7 @@
 ---
 layout: "../../../../layouts/BlogPost.astro"
 title: "Saisonale Küche für Familien: Frische Ideen und einfache Rezepte durch das Jahr"
-date: "2024-04-22"
+date: "2025-04-22"
 author: "TasteBuddy Team"
 description: "Entdecken Sie die Vorteile saisonaler Ernährung für Familien: besserer Geschmack, niedrigere Kosten und wertvolle Lernerfahrungen für Kinder. Mit einfachen Rezepten für jede Jahreszeit."
 ---

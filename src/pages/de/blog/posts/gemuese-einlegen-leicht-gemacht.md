@@ -1,7 +1,7 @@
 ---
 layout: "../../../../layouts/BlogPost.astro"
 title: "Gemüse Einlegen Leicht Gemacht: Eine Anleitung für Anfänger"
-date: "2024-04-04"
+date: "2025-04-04"
 author: "TasteBuddy Team"
 description: "Lernen Sie die Kunst des Gemüseeinlegens mit unserer umfassenden Anleitung. Perfekt für die Konservierung saisonaler Produkte und das Hinzufügen würziger Aromen zu Ihren Mahlzeiten."
 image: "/images/blog/pickling-vegetables.jpg"

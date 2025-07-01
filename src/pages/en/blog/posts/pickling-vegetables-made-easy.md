@@ -1,7 +1,7 @@
 ---
 layout: "../../../../layouts/BlogPost.astro"
 title: "Pickling Vegetables Made Easy: A Beginner's Guide"
-date: "2024-04-04"
+date: "2025-04-04"
 author: "TasteBuddy Team"
 description: "Learn the art of pickling vegetables with our comprehensive guide. Perfect for preserving seasonal produce and adding tangy flavors to your meals."
 image: "/images/blog/pickling-vegetables.jpg"

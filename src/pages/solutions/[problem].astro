@@ -1,0 +1,402 @@
+---
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const staticProblemData = {
+    "food-waste-prevention": {
+      title: "Food Waste Prevention: Stop Throwing Away $2,913 Per Year",
+      keyword: "food waste prevention",
+      searchVolume: "6,800",
+      difficulty: "30",
+      description: "Learn proven food waste prevention strategies that save the average family $2,913 annually. Digital tools, smart storage, and meal planning tips included.",
+      annualWaste: "$2,913",
+      wasteStats: "40% of food in America goes to waste",
+      solutions: [
+        {
+          title: "Smart Expiration Tracking",
+          description: "Use apps like TasteBuddy to track expiration dates and get alerts before food spoils",
+          savings: "$180/month"
+        },
+        {
+          title: "Meal Planning with Inventory",
+          description: "Plan meals around ingredients you already have to prevent over-purchasing",
+          savings: "$120/month"
+        },
+        {
+          title: "Proper Food Storage",
+          description: "Learn optimal storage methods to extend food life by 2-3x",
+          savings: "$95/month"
+        },
+        {
+          title: "Leftover Transformation",
+          description: "Turn leftovers into new meals instead of throwing them away",
+          savings: "$85/month"
+        }
+      ],
+      quickWins: [
+        "Check expiration dates before shopping",
+        "Store herbs in water like flowers",
+        "Freeze bread before it goes stale",
+        "Use clear containers to see what you have",
+        "Plan meals for the week every Sunday"
+      ]
+    },
+    "decision-fatigue-cooking": {
+      title: "Beat Cooking Decision Fatigue: What to Cook Tonight?",
+      keyword: "what to cook tonight",
+      searchVolume: "12,100",
+      difficulty: "25", 
+      description: "End the daily struggle of deciding what to cook. Simple strategies and tools to eliminate cooking decision fatigue and enjoy stress-free meal planning.",
+      annualWaste: "180 hours",
+      wasteStats: "Average person spends 15 minutes daily deciding what to cook",
+      solutions: [
+        {
+          title: "AI-Powered Suggestions",
+          description: "Apps like TasteBuddy analyze your preferences and suggest meals in seconds",
+          savings: "12 minutes/day"
+        },
+        {
+          title: "Theme Nights",
+          description: "Assign themes to each night (Meatless Monday, Taco Tuesday) to narrow choices",
+          savings: "8 minutes/day"
+        },
+        {
+          title: "Go-To Recipe List",
+          description: "Maintain a list of 20 favorite quick meals you can make without thinking",
+          savings: "10 minutes/day"
+        },
+        {
+          title: "Batch Decision Making",
+          description: "Plan the entire week's meals in one 20-minute session",
+          savings: "15 minutes/day"
+        }
+      ],
+      quickWins: [
+        "Create a 'emergency meals' list for busy days",
+        "Use a meal planning app with suggestions",
+        "Keep ingredients for 3 go-to meals always stocked",
+        "Ask family members to choose meals for specific days",
+        "Use a spinning wheel app for random meal selection"
+      ]
+    },
+    "grocery-budget-control": {
+      title: "Grocery Budget Control: Stop Overspending on Food",
+      keyword: "grocery budget control",
+      searchVolume: "4,200",
+      difficulty: "28",
+      description: "Take control of your grocery spending with proven budget strategies. Learn how to cut food costs by 30% without sacrificing nutrition or taste.",
+      annualWaste: "$1,560",
+      wasteStats: "Average family overspends grocery budget by 23%",
+      solutions: [
+        {
+          title: "Real-Time Budget Tracking",
+          description: "Use apps to track spending as you shop and stay within limits",
+          savings: "$130/month"
+        },
+        {
+          title: "Meal Planning with Costs",
+          description: "Plan meals based on cost-per-serving to maximize budget efficiency",
+          savings: "$98/month"
+        },
+        {
+          title: "Strategic Shopping Lists",
+          description: "Shop with detailed lists organized by store layout to avoid impulse purchases",
+          savings: "$76/month"
+        },
+        {
+          title: "Price Comparison Tools",
+          description: "Compare prices across stores and time purchases for maximum savings",
+          savings: "$54/month"
+        }
+      ],
+      quickWins: [
+        "Set a weekly cash limit for groceries",
+        "Shop with a list and stick to it",
+        "Compare unit prices, not package prices",
+        "Buy generic brands for basic ingredients",
+        "Shop sales and plan meals around discounts"
+      ]
+    },
+    "pantry-organization": {
+      title: "Pantry Organization: Find What You Need Instantly",
+      keyword: "pantry organization",
+      searchVolume: "8,900",
+      difficulty: "22",
+      description: "Transform your chaotic pantry into an organized system. Digital and physical organization tips to prevent duplicate purchases and reduce food waste.",
+      annualWaste: "$780",
+      wasteStats: "68% of people buy duplicates because they can't find items",
+      solutions: [
+        {
+          title: "Digital Inventory System",
+          description: "Use apps like TasteBuddy to track what you have and where it's located",
+          savings: "$65/month"
+        },
+        {
+          title: "Clear Container Storage",
+          description: "Transfer items to clear containers with labels for easy identification",
+          savings: "$45/month"
+        },
+        {
+          title: "Zone-Based Organization",
+          description: "Group similar items together and maintain consistent placement",
+          savings: "$38/month"
+        },
+        {
+          title: "Regular Audit Schedule",
+          description: "Monthly pantry reviews to update inventory and check expiration dates",
+          savings: "$32/month"
+        }
+      ],
+      quickWins: [
+        "Use clear containers for bulk items",
+        "Label everything with contents and date",
+        "Keep a running shopping list on your phone",
+        "Store frequently used items at eye level",
+        "Check pantry before every shopping trip"
+      ]
+    }
+  };
+
+  return Object.keys(staticProblemData).map(slug => ({
+    params: { problem: slug },
+    props: { data: (staticProblemData as any)[slug] }
+  }));
+}
+
+interface Props {
+  data: {
+    title: string;
+    keyword: string;
+    searchVolume: string;
+    difficulty: string;
+    description: string;
+    annualWaste: string;
+    wasteStats: string;
+    solutions: Array<{
+      title: string;
+      description: string;
+      savings: string;
+    }>;
+    quickWins: string[];
+  };
+}
+
+const { data } = Astro.props;
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{data.title} | TasteBuddy Kitchen Solutions</title>
+  <meta name="description" content={data.description} />
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content={data.title} />
+  <meta property="og:description" content={data.description} />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="/images/screenshots.png" />
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": data.title,
+      "description": data.description,
+      "totalTime": "PT30M",
+      "supply": ["TasteBuddy App", "Smartphone", "Clear containers", "Labels"],
+      "tool": ["TasteBuddy App"],
+      "step": data.solutions.map((solution, index) => ({
+        "@type": "HowToStep",
+        "position": index + 1,
+        "name": solution.title,
+        "text": solution.description
+      }))
+    }
+  </script>
+  
+  <link rel="stylesheet" href="/styles/global.css" />
+</head>
+
+<body class="bg-[#0F1108] text-white min-h-screen">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6">{data.title}</h1>
+      <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">{data.description}</p>
+      
+      <!-- Problem Stats -->
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-red-500/10 border border-red-500/30 rounded-lg p-6">
+          <h2 class="text-2xl font-bold text-red-400 mb-2">Annual Cost</h2>
+          <p class="text-3xl font-bold">{data.annualWaste}</p>
+          <p class="text-gray-400">Average household waste</p>
+        </div>
+        <div class="bg-orange-500/10 border border-orange-500/30 rounded-lg p-6">
+          <h2 class="text-2xl font-bold text-orange-400 mb-2">The Reality</h2>
+          <p class="text-lg">{data.wasteStats}</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Solutions Section -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-8 text-center">Proven Solutions That Work</h2>
+      <div class="space-y-8">
+        {data.solutions.map((solution, index) => (
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl p-8 border border-[#2A2D24]/30">
+            <div class="flex items-start">
+              <div class="bg-[#00CE31]/20 rounded-full w-12 h-12 flex items-center justify-center mr-6 flex-shrink-0">
+                <span class="text-[#00CE31] font-bold text-lg">{index + 1}</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-2xl font-bold mb-3">{solution.title}</h3>
+                <p class="text-gray-300 mb-4 text-lg">{solution.description}</p>
+                <div class="bg-[#00CE31]/10 px-4 py-2 rounded-full inline-block border border-[#00CE31]/30">
+                  <span class="text-[#00CE31] font-semibold">💰 Saves {solution.savings}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Quick Wins Section -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-8 text-center">Quick Wins: Start Today</h2>
+      <div class="bg-[#1C2513]/50 rounded-2xl p-8 border border-[#2A2D24]/30">
+        <div class="grid md:grid-cols-2 gap-4">
+          {data.quickWins.map((tip, index) => (
+            <div class="flex items-center">
+              <span class="text-[#00CE31] text-xl mr-3">✅</span>
+              <p class="text-gray-200">{tip}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- TasteBuddy Solution -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-[#00CE31]/10 to-[#00CE31]/5 rounded-2xl p-8 border border-[#00CE31]/30">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-bold mb-4">How TasteBuddy Solves This Problem</h2>
+          <p class="text-lg text-gray-300">The all-in-one solution that addresses every aspect of kitchen management</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8 mb-8">
+          <div>
+            <h3 class="text-xl font-semibold mb-4 text-[#00CE31]">🤖 AI-Powered Intelligence</h3>
+            <ul class="space-y-2 text-gray-300">
+              <li>• Predicts when food will expire</li>
+              <li>• Suggests recipes for expiring ingredients</li>
+              <li>• Learns your preferences over time</li>
+              <li>• Optimizes meal plans for your budget</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-4 text-[#00CE31]">📱 Smart Features</h3>
+            <ul class="space-y-2 text-gray-300">
+              <li>• Barcode scanning for easy inventory</li>
+              <li>• Real-time budget tracking</li>
+              <li>• Automatic shopping list generation</li>
+              <li>• Photo-based recipe capture</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- CTA Buttons -->
+        <div class="text-center">
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="https://apps.apple.com/app/id6554007741" 
+               class="bg-[#00CE31] text-black px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#00CE31]/90 transition-colors"
+               target="_blank" rel="noopener noreferrer">
+              Try TasteBuddy Free
+            </a>
+            <a href="/features/meal-planning"
+               class="border border-[#00CE31] text-[#00CE31] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#00CE31]/10 transition-colors">
+              See All Features
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Implementation Guide -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-8 text-center">Step-by-Step Implementation</h2>
+      <div class="space-y-6">
+        <div class="bg-[#1C2513]/50 p-6 rounded-xl border border-[#2A2D24]/30">
+          <h3 class="text-xl font-semibold mb-3">Week 1: Assessment & Setup</h3>
+          <p class="text-gray-300 mb-3">Download TasteBuddy and conduct a full pantry audit. Scan or photograph all current inventory and set up your digital pantry system.</p>
+          <div class="text-sm text-[#00CE31]">Expected time: 2 hours • Immediate savings start</div>
+        </div>
+        
+        <div class="bg-[#1C2513]/50 p-6 rounded-xl border border-[#2A2D24]/30">
+          <h3 class="text-xl font-semibold mb-3">Week 2: Meal Planning Integration</h3>
+          <p class="text-gray-300 mb-3">Start using AI-powered meal suggestions based on your inventory. Plan one week of meals using only ingredients you have.</p>
+          <div class="text-sm text-[#00CE31]">Expected time: 30 minutes/week • $50+ saved</div>
+        </div>
+        
+        <div class="bg-[#1C2513]/50 p-6 rounded-xl border border-[#2A2D24]/30">
+          <h3 class="text-xl font-semibold mb-3">Week 3: Budget Tracking</h3>
+          <p class="text-gray-300 mb-3">Begin tracking all grocery expenses and compare against previous months. Use real-time budget monitoring during shopping trips.</p>
+          <div class="text-sm text-[#00CE31]">Expected time: 10 minutes/week • Budget control achieved</div>
+        </div>
+        
+        <div class="bg-[#1C2513]/50 p-6 rounded-xl border border-[#2A2D24]/30">
+          <h3 class="text-xl font-semibold mb-3">Week 4: Optimization</h3>
+          <p class="text-gray-300 mb-3">Review waste reduction metrics and fine-tune your system. The AI has learned your patterns and provides increasingly accurate suggestions.</p>
+          <div class="text-sm text-[#00CE31]">Expected time: 15 minutes/week • Maximum savings achieved</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Success Metrics -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-8 text-center">Track Your Success</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-[#1C2513]/50 p-6 rounded-xl border border-[#2A2D24]/30 text-center">
+          <div class="text-3xl font-bold text-[#00CE31] mb-2">90%</div>
+          <div class="text-lg font-semibold mb-1">Waste Reduction</div>
+          <div class="text-gray-400 text-sm">Average user achievement</div>
+        </div>
+        <div class="bg-[#1C2513]/50 p-6 rounded-xl border border-[#2A2D24]/30 text-center">
+          <div class="text-3xl font-bold text-[#00CE31] mb-2">$180</div>
+          <div class="text-lg font-semibold mb-1">Monthly Savings</div>
+          <div class="text-gray-400 text-sm">Typical household result</div>
+        </div>
+        <div class="bg-[#1C2513]/50 p-6 rounded-xl border border-[#2A2D24]/30 text-center">
+          <div class="text-3xl font-bold text-[#00CE31] mb-2">15min</div>
+          <div class="text-lg font-semibold mb-1">Daily Time Saved</div>
+          <div class="text-gray-400 text-sm">Meal decision speed</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="text-center bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl p-8 border border-[#00CE31]/30">
+      <h2 class="text-3xl font-bold mb-4">Start Solving This Problem Today</h2>
+      <p class="text-lg text-gray-300 mb-6">Join thousands who have transformed their kitchen management with TasteBuddy's intelligent solutions.</p>
+      
+      <div class="flex flex-wrap justify-center gap-4 mb-6">
+        <a href="https://apps.apple.com/app/id6554007741" 
+           class="bg-[#00CE31] text-black px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#00CE31]/90 transition-colors"
+           target="_blank" rel="noopener noreferrer">
+          Download Free App
+        </a>
+        <a href="/guides/how-to-organize-recipes"
+           class="border border-[#00CE31] text-[#00CE31] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#00CE31]/10 transition-colors">
+          Read More Guides
+        </a>
+      </div>
+      
+      <p class="text-gray-400 text-sm">Free to download • Premium features available • Cancel anytime</p>
+    </section>
+
+  </div>
+</body>
+</html> 

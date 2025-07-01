@@ -1,7 +1,7 @@
 ---
 layout: "../../../../layouts/BlogPost.astro"
 title: "Schluss mit dem Feierabend-Chaos: Meal Prep Hacks für gestresste Eltern"
-date: "2024-04-10"
+date: "2025-04-10"
 author: "TasteBuddy Team"
 description: "Entdecken Sie praktische Meal Prep Strategien für berufstätige Eltern. Lernen Sie, wie Sie mit cleverer Essensvorbereitung Zeit sparen, Stress reduzieren und trotzdem gesunde Mahlzeiten für die ganze Familie zubereiten können."
 image: "/images/blog/meal-prep-parents.png"
