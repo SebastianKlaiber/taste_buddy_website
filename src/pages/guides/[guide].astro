@@ -1,0 +1,353 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Main from "../../components/Main.astro";
+import { AstroSeo } from '@astrolib/seo';
+
+export const prerender = true;
+
+// Guide data is now defined inline in getStaticPaths function
+
+export async function getStaticPaths() {
+  const staticGuides = {
+    "how-to-organize-recipes": {
+      title: "How to Organize Recipes: Complete Guide for Home Cooks",
+      keyword: "how to organize recipes",
+      searchVolume: "3,600",
+      difficulty: "25",
+      description: "Learn the best methods to organize your recipes digitally and physically. Complete guide with tips, tools, and systems for efficient recipe management.",
+      sections: [
+        {
+          title: "Digital Recipe Organization",
+          content: "Modern recipe organization starts with going digital. Recipe apps like TasteBuddy use AI to automatically categorize recipes by cuisine, dietary restrictions, cooking time, and ingredients."
+        },
+        {
+          title: "Categorization Systems",
+          content: "Create clear categories: Main Courses, Appetizers, Desserts, Quick Meals, Dietary Specific (Vegan, Keto), and Special Occasions. Use tags for easy searching."
+        },
+        {
+          title: "Recipe Import Methods",
+          content: "Import recipes from websites, photos, or handwritten cards. TasteBuddy's AI can extract recipe information from photos automatically."
+        }
+      ],
+      tips: [
+        "Use consistent naming conventions for your recipes",
+        "Tag recipes with dietary information and cooking times",
+        "Create seasonal collections for better meal planning",
+        "Backup your digital recipe collection regularly"
+      ]
+    },
+    "meal-planning-for-beginners": {
+      title: "Meal Planning for Beginners: Step-by-Step Guide",
+      keyword: "meal planning for beginners",
+      searchVolume: "4,800",
+      difficulty: "30",
+      description: "Start meal planning with confidence! Complete beginner's guide to weekly meal planning, grocery shopping, and recipe organization.",
+      sections: [
+        {
+          title: "Getting Started with Meal Planning",
+          content: "Begin with planning just 3-4 meals per week. Choose recipes with overlapping ingredients to reduce waste and simplify shopping."
+        },
+        {
+          title: "Weekly Planning Process",
+          content: "Set aside 30 minutes each week to plan meals. Consider your schedule, dietary goals, and what's already in your pantry."
+        },
+        {
+          title: "Smart Shopping Lists",
+          content: "Generate organized shopping lists from your meal plan. Group items by store section for efficient grocery shopping."
+        }
+      ],
+      tips: [
+        "Start small with 3-4 planned meals per week",
+        "Choose one prep day for washing and chopping vegetables",
+        "Keep backup meals for busy days",
+        "Use apps like TasteBuddy for automatic meal planning"
+      ]
+    },
+    "recipe-app-features": {
+      title: "Essential Recipe App Features: What to Look For",
+      keyword: "recipe app features",
+      searchVolume: "2,400",
+      difficulty: "35",
+      description: "Discover the must-have features in modern recipe apps. Compare AI-powered tools, organization systems, and meal planning capabilities.",
+      sections: [
+        {
+          title: "AI-Powered Features",
+          content: "Modern recipe apps use AI for meal planning, recipe suggestions, and dietary transformations. Look for apps that learn your preferences over time."
+        },
+        {
+          title: "Import and Organization",
+          content: "Essential features include web recipe import, photo-to-recipe conversion, smart categorization, and powerful search functionality."
+        },
+        {
+          title: "Meal Planning Integration",
+          content: "The best recipe apps integrate meal planning with automatic shopping list generation and nutritional tracking."
+        }
+      ],
+      tips: [
+        "Look for offline access capabilities",
+        "Ensure cross-device synchronization",
+        "Check for dietary restriction handling",
+        "Verify recipe scaling and conversion features"
+      ]
+    }
+  };
+  
+  return Object.keys(staticGuides).map(slug => ({
+    params: { guide: slug },
+    props: { guideData: (staticGuides as any)[slug] }
+  }));
+}
+
+const { guide } = Astro.params;
+const { guideData } = Astro.props;
+
+if (!guideData) {
+  return Astro.redirect('/404');
+}
+
+const structuredData = {
+  "@context": "https://schema.org/",
+  "@type": "HowTo",
+  "name": guideData.title,
+  "description": guideData.description,
+  "author": {
+    "@type": "Organization",
+    "name": "TasteBuddy"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TasteBuddy"
+  },
+  "datePublished": "2025-01-15",
+  "dateModified": "2025-01-15",
+  "step": guideData.sections.map((section: any, index: number) => ({
+    "@type": "HowToStep",
+    "position": index + 1,
+    "name": section.title,
+    "text": section.content
+  }))
+};
+---
+
+<AstroSeo
+  title={`${guideData.title} | TasteBuddy`}
+  description={guideData.description}
+  openGraph={{
+    title: guideData.title,
+    description: guideData.description,
+    images: [{ url: '/images/screenshots.png' }],
+  }}
+/>
+
+<Layout title={guideData.title}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  
+  <Main>
+    <article class="max-w-4xl mx-auto py-12">
+      <header class="text-center mb-12">
+        <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6 leading-tight">
+          {guideData.title}
+        </h1>
+        <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+          {guideData.description}
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <div class="inline-flex items-center gap-2 bg-[#1C2513]/80 px-4 py-2 rounded-full border border-[#2A2D24]/30">
+            <span class="text-sm text-gray-400">Monthly searches:</span>
+            <span class="text-[#00CE31] font-semibold">{guideData.searchVolume}</span>
+          </div>
+          <div class="inline-flex items-center gap-2 bg-[#1C2513]/80 px-4 py-2 rounded-full border border-[#2A2D24]/30">
+            <span class="text-sm text-gray-400">Difficulty:</span>
+            <span class="text-green-400 font-semibold">{guideData.difficulty}/100</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Quick Start Section -->
+      <section class="mb-16">
+        <div class="bg-gradient-to-r from-[#00CE31]/40 to-[#00CE31]/30 rounded-3xl p-8 sm:p-12 text-center backdrop-blur-sm border border-[#00CE31]/30">
+          <div class="text-4xl mb-4">🚀</div>
+          <h2 class="text-2xl font-bold text-white mb-4">Quick Start with TasteBuddy</h2>
+          <p class="text-lg text-gray-200 mb-6 max-w-2xl mx-auto">
+            Get started immediately with TasteBuddy's AI-powered features that make {guideData.keyword} effortless and automatic.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a 
+              href="https://apps.apple.com/app/id6554007741"
+              class="btn-primary text-lg px-8 py-4"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              Download Free App
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step-by-Step Guide -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-white text-center mb-8">Step-by-Step Guide</h2>
+        
+        <div class="space-y-8">
+          {guideData.sections.map((section: any, index: number) => (
+            <div class="bg-[#1C2513]/80 rounded-2xl p-8 border border-[#2A2D24]/30">
+              <div class="flex items-start gap-6">
+                <div class="flex-shrink-0 w-12 h-12 bg-[#00CE31] text-black rounded-full flex items-center justify-center font-bold text-lg">
+                  {index + 1}
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-2xl font-bold text-white mb-4">{section.title}</h3>
+                  <p class="text-gray-300 text-lg leading-relaxed">{section.content}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Pro Tips Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-white text-center mb-8">Pro Tips & Best Practices</h2>
+        
+        <div class="bg-[#1C2513]/80 rounded-2xl p-8 border border-[#2A2D24]/30">
+          <div class="grid md:grid-cols-2 gap-6">
+            {guideData.tips.map((tip: string) => (
+              <div class="flex items-start gap-3">
+                <span class="text-[#00CE31] text-xl mt-1">💡</span>
+                <p class="text-gray-300">{tip}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- TasteBuddy Features Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-white text-center mb-8">How TasteBuddy Makes It Easy</h2>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-[#1C2513]/80 rounded-2xl p-8 border border-[#2A2D24]/30">
+            <div class="text-4xl mb-4 text-center">🤖</div>
+            <h3 class="text-xl font-bold text-white mb-4 text-center">AI-Powered Automation</h3>
+            <p class="text-gray-300 text-center">TasteBuddy's AI automatically handles organization, categorization, and meal planning so you don't have to think about it.</p>
+          </div>
+          
+          <div class="bg-[#1C2513]/80 rounded-2xl p-8 border border-[#2A2D24]/30">
+            <div class="text-4xl mb-4 text-center">📱</div>
+            <h3 class="text-xl font-bold text-white mb-4 text-center">Smart Import Features</h3>
+            <p class="text-gray-300 text-center">Import recipes from any website, photo, or handwritten card with intelligent parsing and automatic categorization.</p>
+          </div>
+          
+          <div class="bg-[#1C2513]/80 rounded-2xl p-8 border border-[#2A2D24]/30">
+            <div class="text-4xl mb-4 text-center">🍽️</div>
+            <h3 class="text-xl font-bold text-white mb-4 text-center">Automatic Meal Planning</h3>
+            <p class="text-gray-300 text-center">Generate weekly meal plans instantly with AI that considers your preferences, dietary needs, and schedule.</p>
+          </div>
+          
+          <div class="bg-[#1C2513]/80 rounded-2xl p-8 border border-[#2A2D24]/30">
+            <div class="text-4xl mb-4 text-center">🛒</div>
+            <h3 class="text-xl font-bold text-white mb-4 text-center">Smart Shopping Lists</h3>
+            <p class="text-gray-300 text-center">Automatically generate organized shopping lists from your meal plans, grouped by store section for efficiency.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Common Mistakes Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-white text-center mb-8">Common Mistakes to Avoid</h2>
+        
+        <div class="space-y-6">
+          <div class="bg-[#1C2513]/80 rounded-2xl p-6 border border-red-500/30">
+            <div class="flex items-start gap-4">
+              <span class="text-red-400 text-2xl">⚠️</span>
+              <div>
+                <h3 class="text-lg font-semibold text-white mb-2">Over-complicating the system</h3>
+                <p class="text-gray-300">Don't create too many categories or tags initially. Start simple and let the system grow naturally with your needs.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-[#1C2513]/80 rounded-2xl p-6 border border-red-500/30">
+            <div class="flex items-start gap-4">
+              <span class="text-red-400 text-2xl">⚠️</span>
+              <div>
+                <h3 class="text-lg font-semibold text-white mb-2">Not backing up digital recipes</h3>
+                <p class="text-gray-300">Always ensure your recipe collection is backed up. Use apps with cloud sync like TasteBuddy for automatic backup.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-[#1C2513]/80 rounded-2xl p-6 border border-red-500/30">
+            <div class="flex items-start gap-4">
+              <span class="text-red-400 text-2xl">⚠️</span>
+              <div>
+                <h3 class="text-lg font-semibold text-white mb-2">Ignoring dietary tags</h3>
+                <p class="text-gray-300">Always tag recipes with dietary information (vegan, gluten-free, etc.) for easier filtering and meal planning.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-white text-center mb-8">Frequently Asked Questions</h2>
+        <div class="space-y-6">
+          <div class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30">
+            <h3 class="text-xl font-semibold text-white mb-3">What's the best way to {guideData.keyword}?</h3>
+            <p class="text-gray-300">The most effective approach is using an AI-powered app like TasteBuddy that automatically handles organization, categorization, and meal planning without manual effort.</p>
+          </div>
+          
+          <div class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30">
+            <h3 class="text-xl font-semibold text-white mb-3">How long does it take to get organized?</h3>
+            <p class="text-gray-300">With TasteBuddy's automatic features, you can have an organized recipe collection within hours. The AI handles categorization as you import recipes.</p>
+          </div>
+          
+          <div class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30">
+            <h3 class="text-xl font-semibold text-white mb-3">Should I go completely digital?</h3>
+            <p class="text-gray-300">Digital organization offers significant advantages including search functionality, automatic backup, meal planning integration, and accessibility across devices.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final CTA Section -->
+      <section>
+        <div class="bg-gradient-to-r from-[#00CE31]/40 to-[#00CE31]/30 rounded-3xl p-8 sm:p-12 text-center backdrop-blur-sm border border-[#00CE31]/30">
+          <h2 class="text-3xl font-bold text-white mb-4">Start {guideData.keyword.charAt(0).toUpperCase() + guideData.keyword.slice(1)} Today</h2>
+          <p class="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
+            Skip the manual work and let TasteBuddy's AI handle the organization, planning, and management automatically.
+          </p>
+          
+          <div class="flex flex-wrap justify-center gap-6">
+            <a 
+              href="https://apps.apple.com/app/id6554007741"
+              class="btn-primary text-lg px-8 py-4"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              Download TasteBuddy Free
+            </a>
+            <a 
+              href="https://play.google.com/store/apps/details?id=app.tastebuddy"
+              class="btn-secondary text-lg px-8 py-4"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              Get on Google Play
+            </a>
+          </div>
+        </div>
+      </section>
+    </article>
+  </Main>
+</Layout>
+
+<style>
+  .btn-primary {
+    @apply bg-[#00CE31] hover:bg-[#00CE31]/80 text-black font-medium py-3 px-6 rounded-lg transition-all duration-300;
+  }
+  
+  .btn-secondary {
+    @apply bg-[#1C2513] hover:bg-[#2A2D24] border border-[#2A2D24] text-white font-medium py-3 px-6 rounded-lg transition-all duration-300;
+  }
+</style> 
