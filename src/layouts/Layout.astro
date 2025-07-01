@@ -7,17 +7,18 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Transform your cooking experience - Effortlessly organize, access, and cook your favorite recipes anytime with our smart recipe keeper" } = Astro.props;
-const primaryKeyword = "recipe keeper";
-const secondaryKeywords = "digital recipe organizer, recipe management app, recipe storage solution, meal planner app";
+const { title, description = "The best recipe app and AI meal planner for home cooks. Organize recipes, generate meal plans, create shopping lists, and transform recipes for dietary needs." } = Astro.props;
+const primaryKeyword = "recipe app";
+const secondaryKeywords = "best recipe app, recipe planner app, meal planner app, AI meal planning, recipe organizer app, digital cookbook app";
 
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "TasteBuddy Recipe Keeper",
-  "applicationCategory": "LifestyleApplication",
-  "operatingSystem": "iOS, Android",
-  "description": "Simplify meal planning and enjoy stress-free cooking with AI-powered recipe management that adapts to your culinary style",
+  "name": "TasteBuddy - Best Recipe App & AI Meal Planner",
+  "applicationCategory": ["LifestyleApplication", "FoodApplication", "ProductivityApplication"],
+  "operatingSystem": ["iOS", "Android"],
+  "description": "The best recipe app and AI meal planner for home cooks. Organize recipes, generate meal plans, create shopping lists, and transform recipes for dietary needs.",
+  "keywords": "recipe app, best recipe app, recipe planner app, meal planner app, AI meal planning, recipe organizer",
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.8",
@@ -29,11 +30,17 @@ const structuredData = {
     "priceCurrency": "USD"
   },
   "featureList": [
-    "Never lose a recipe again with cloud storage",
-    "Quickly find dishes with smart search filters",
-    "Save 3+ hours weekly on meal planning",
-    "Reduce food waste with grocery list integration"
-  ]
+    "AI-powered meal planning and recipe suggestions",
+    "Smart recipe organization with dietary filters",
+    "Automatic shopping list generation from meal plans",
+    "Recipe image generation and visual cookbook creation",
+    "Recipe import from any website or photo",
+    "Dietary transformation (vegan, gluten-free, low-carb)",
+    "Cloud sync across all devices",
+    "Shareable digital cookbooks"
+  ],
+  "downloadUrl": ["https://apps.apple.com/app/id6554007741", "https://play.google.com/store/apps/details?id=app.tastebuddy"],
+  "screenshot": "/images/screenshots.png"
 };
 
 ---
@@ -49,7 +56,7 @@ const structuredData = {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <meta name="keywords" content={`${primaryKeyword}, ${secondaryKeywords}, recipe app, cooking assistant, recipe organizer, cooking app, hands-free cooking, iOS app, kitchen assistant, meal planning`} />
+    <meta name="keywords" content={`${primaryKeyword}, ${secondaryKeywords}, all recipe app, recipe planner app free, meal planning app, cooking app, hands-free cooking, iOS app, Android app, kitchen assistant, AI recipe suggestions`} />
     <meta property="og:description" content={description} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />

@@ -1,0 +1,260 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Main from "../../components/Main.astro";
+import { AstroSeo } from '@astrolib/seo';
+
+export const prerender = true;
+---
+
+<AstroSeo
+  title="Best Recipe App & Digital Recipe Organizer | TasteBuddy"
+  description="The best recipe app for organizing your digital cookbook. Import recipes from any website, organize by dietary needs, and access your recipe collection anywhere. Join 4,400+ monthly searches for the best recipe organizer app."
+  openGraph={{
+    title: 'Best Recipe App & Digital Recipe Organizer | TasteBuddy',
+    description: 'The best recipe app for organizing your digital cookbook. Import recipes from any website, organize by dietary needs, and access your recipe collection anywhere.',
+    images: [{ url: '/images/screenshots.png' }],
+  }}
+/>
+
+<Layout title="Best Recipe App & Digital Recipe Organizer | TasteBuddy">
+  <Main>
+    <section class="py-12 sm:py-16">
+      <div class="max-w-4xl mx-auto text-center mb-12">
+        <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6 leading-tight">
+          The Best Recipe App for Digital Recipe Organization
+        </h1>
+        <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+          Transform your scattered recipe collection into a beautifully organized digital cookbook. Import from any website, organize by dietary needs, and access your recipes anywhere with the most trusted recipe organizer app.
+        </p>
+        
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+          <a 
+            href="https://apps.apple.com/app/id6554007741"
+            class="btn-primary text-lg px-8 py-4"
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            Download Best Recipe App
+          </a>
+        </div>
+      </div>
+
+      <!-- Why Best Recipe App Section -->
+      <section class="py-12 bg-gradient-to-r from-[#1C2513]/50 to-[#1C2513]/30 rounded-3xl mb-16">
+        <h2 class="text-3xl font-bold text-white text-center mb-12">Why TasteBuddy is the Best Recipe App</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="space-y-6">
+            <div class="flex items-start space-x-4">
+              <div class="bg-[#00CE31]/20 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="text-[#00CE31] font-bold">1</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-white mb-2">Universal Recipe Import</h3>
+                <p class="text-gray-300">Unlike other recipe apps, TasteBuddy can import recipes from ANY website. Simply share the URL and we'll extract all recipe details automatically.</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-4">
+              <div class="bg-[#00CE31]/20 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="text-[#00CE31] font-bold">2</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-white mb-2">Smart Recipe Organization</h3>
+                <p class="text-gray-300">Automatically categorize recipes by cuisine, dietary restrictions, cooking time, and difficulty. The best recipe organizer powered by AI.</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-4">
+              <div class="bg-[#00CE31]/20 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="text-[#00CE31] font-bold">3</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-white mb-2">Cloud Sync & Backup</h3>
+                <p class="text-gray-300">Your recipe collection is safely stored in the cloud and synced across all devices. Never lose a recipe again with our recipe app.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="space-y-6">
+            <div class="flex items-start space-x-4">
+              <div class="bg-[#00CE31]/20 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="text-[#00CE31] font-bold">4</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-white mb-2">Photo & OCR Support</h3>
+                <p class="text-gray-300">Import recipes by taking photos of cookbooks or handwritten cards. Our OCR technology makes any recipe digital.</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-4">
+              <div class="bg-[#00CE31]/20 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="text-[#00CE31] font-bold">5</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-white mb-2">Advanced Search & Filtering</h3>
+                <p class="text-gray-300">Find any recipe instantly with powerful search filters by ingredients, dietary restrictions, prep time, and more.</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-4">
+              <div class="bg-[#00CE31]/20 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="text-[#00CE31] font-bold">6</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-white mb-2">Dietary Transformations</h3>
+                <p class="text-gray-300">Transform any recipe to match dietary needs (vegan, gluten-free, keto) with AI-powered ingredient substitutions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Features Section -->
+      <section class="py-12 mb-16">
+        <h2 class="text-3xl font-bold text-white text-center mb-12">Recipe Organizer Features</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm text-center">
+            <div class="text-4xl mb-4">📱</div>
+            <h3 class="text-xl font-semibold text-white mb-3">One-Tap Recipe Import</h3>
+            <p class="text-gray-300">Save recipes from any website instantly. The best recipe app for collecting recipes from the entire internet.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm text-center">
+            <div class="text-4xl mb-4">🏷️</div>
+            <h3 class="text-xl font-semibold text-white mb-3">Smart Tagging System</h3>
+            <p class="text-gray-300">Automatically tag recipes with cuisines, dietary labels, and cooking methods for effortless organization.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm text-center">
+            <div class="text-4xl mb-4">🔍</div>
+            <h3 class="text-xl font-semibold text-white mb-3">Powerful Recipe Search</h3>
+            <p class="text-gray-300">Find any recipe by ingredient, cuisine, dietary restriction, or cooking time with lightning-fast search.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm text-center">
+            <div class="text-4xl mb-4">📚</div>
+            <h3 class="text-xl font-semibold text-white mb-3">Digital Cookbooks</h3>
+            <p class="text-gray-300">Create themed recipe collections and share them with family and friends as beautiful digital cookbooks.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm text-center">
+            <div class="text-4xl mb-4">🔄</div>
+            <h3 class="text-xl font-semibold text-white mb-3">Cross-Device Sync</h3>
+            <p class="text-gray-300">Access your recipe collection on phone, tablet, or web. Your recipes follow you everywhere.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm text-center">
+            <div class="text-4xl mb-4">🖼️</div>
+            <h3 class="text-xl font-semibold text-white mb-3">AI Recipe Images</h3>
+            <p class="text-gray-300">Generate beautiful images for your recipes with AI, making your digital cookbook visually stunning.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comparison Section -->
+      <section class="py-12 mb-16">
+        <h2 class="text-3xl font-bold text-white text-center mb-12">TasteBuddy vs Other Recipe Apps</h2>
+        
+        <div class="overflow-x-auto">
+          <table class="w-full bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm">
+            <thead>
+              <tr class="border-b border-[#2A2D24]/30">
+                <th class="text-left p-6 text-white font-semibold">Feature</th>
+                <th class="text-center p-6 text-[#00CE31] font-semibold">TasteBuddy</th>
+                <th class="text-center p-6 text-gray-400 font-semibold">Other Recipe Apps</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-[#2A2D24]/30">
+                <td class="p-6 text-gray-300">Universal Recipe Import</td>
+                <td class="text-center p-6 text-[#00CE31]">✓</td>
+                <td class="text-center p-6 text-red-400">Limited Sites</td>
+              </tr>
+              <tr class="border-b border-[#2A2D24]/30">
+                <td class="p-6 text-gray-300">AI-Powered Organization</td>
+                <td class="text-center p-6 text-[#00CE31]">✓</td>
+                <td class="text-center p-6 text-red-400">Manual Only</td>
+              </tr>
+              <tr class="border-b border-[#2A2D24]/30">
+                <td class="p-6 text-gray-300">Photo Recipe Import</td>
+                <td class="text-center p-6 text-[#00CE31]">✓</td>
+                <td class="text-center p-6 text-red-400">✗</td>
+              </tr>
+              <tr class="border-b border-[#2A2D24]/30">
+                <td class="p-6 text-gray-300">Dietary Transformations</td>
+                <td class="text-center p-6 text-[#00CE31]">✓</td>
+                <td class="text-center p-6 text-red-400">✗</td>
+              </tr>
+              <tr class="border-b border-[#2A2D24]/30">
+                <td class="p-6 text-gray-300">AI Image Generation</td>
+                <td class="text-center p-6 text-[#00CE31]">✓</td>
+                <td class="text-center p-6 text-red-400">✗</td>
+              </tr>
+              <tr>
+                <td class="p-6 text-gray-300">Shareable Cookbooks</td>
+                <td class="text-center p-6 text-[#00CE31]">✓</td>
+                <td class="text-center p-6 text-red-400">Basic Sharing</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+      <section class="py-12 mb-16">
+        <h2 class="text-3xl font-bold text-white text-center mb-12">Why Users Call TasteBuddy the Best Recipe App</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-gradient-to-br from-[#1C2513]/80 to-[#1C2513]/70 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30 p-6">
+            <div class="flex items-center mb-4">
+              <div class="text-yellow-400 flex">
+                ★★★★★
+              </div>
+            </div>
+            <p class="text-gray-300 mb-4">"Finally found the best recipe app! I imported my entire recipe collection from 20+ websites in just one afternoon. The organization features are incredible."</p>
+            <div class="text-gray-400 text-sm">— Lisa M., Home Cook</div>
+          </div>
+          
+          <div class="bg-gradient-to-br from-[#1C2513]/80 to-[#1C2513]/70 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30 p-6">
+            <div class="flex items-center mb-4">
+              <div class="text-yellow-400 flex">
+                ★★★★★
+              </div>
+            </div>
+            <p class="text-gray-300 mb-4">"This recipe organizer is a game-changer. I can search by ingredients I have on hand and find perfect recipes instantly. Best recipe app I've ever used!"</p>
+            <div class="text-gray-400 text-sm">— Mark T., Food Enthusiast</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="py-12">
+        <div class="bg-gradient-to-r from-[#00CE31]/40 to-[#00CE31]/30 rounded-3xl p-8 sm:p-12 text-center backdrop-blur-sm border border-[#00CE31]/30">
+          <h2 class="text-3xl font-bold text-white mb-4">Start Organizing Your Recipes Today</h2>
+          <p class="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">Join thousands of home cooks who have organized their recipe collections with the best recipe app available.</p>
+          
+          <div class="flex flex-wrap justify-center gap-6">
+            <a 
+              href="https://apps.apple.com/app/id6554007741"
+              class="btn-primary text-lg px-8 py-4"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              Download Best Recipe App
+            </a>
+            <a 
+              href="https://play.google.com/store/apps/details?id=app.tastebuddy"
+              class="btn-secondary text-lg px-8 py-4"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              Get on Google Play
+            </a>
+          </div>
+        </div>
+      </section>
+    </section>
+  </Main>
+</Layout> 

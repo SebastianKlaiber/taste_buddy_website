@@ -7,7 +7,14 @@ const currentPath = Astro.url.pathname;
 // Define navigation links
 const navLinks = [
   { text: "Home", href: "/" },
-  { text: "Features", href: "/#features" },
+  { 
+    text: "Features", 
+    href: "/#features",
+    submenu: [
+      { text: "Meal Planner", href: "/features/meal-planning" },
+      { text: "Recipe Organizer", href: "/features/recipe-organizer" },
+    ]
+  },
   { text: "Recipes", href: "/en/recipes" },
   { text: "About", href: "/about" },
   { text: "Blog", href: "/en/blog" },

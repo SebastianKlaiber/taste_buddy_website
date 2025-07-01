@@ -1,6 +1,13 @@
 User-agent: *
 Allow: /
+Allow: /features/
+Allow: /en/
+Allow: /de/
 Disallow: /api/
+Disallow: /_astro/
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
 
 # Sitemap
 Sitemap: https://tastebuddy.app/sitemap.xml
