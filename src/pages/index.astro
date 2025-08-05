@@ -13,6 +13,78 @@ const { pathname } = Astro.url;
 const isHomePage = pathname === "/" || pathname === "/de/";
 const enPath = isHomePage ? "/" : pathname.replace("/de/", "/en/");
 const dePath = isHomePage ? "/de/" : pathname.replace("/en/", "/de/");
+
+// FAQ structured data
+const faqStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What makes TasteBuddy the best recipe app for home cooks?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "TasteBuddy stands out as the best recipe app with AI-powered meal planning, smart recipe organization, automatic shopping list generation, and the ability to transform any recipe to match your dietary preferences. Our app combines recipe storage, meal planning, and grocery management in one comprehensive solution."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does TasteBuddy compare to other recipe planner apps?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Unlike basic recipe apps, TasteBuddy is a complete recipe planner app that offers AI-generated meal plans, recipe import from any website, dietary transformation features, and automatic grocery list creation. While other apps focus on just storing recipes, TasteBuddy helps you plan, shop, and cook more efficiently."
+      }
+    },
+    {
+      "@type": "Question", 
+      "name": "Is TasteBuddy a free meal planner app?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, TasteBuddy is free to download and includes essential meal planning features. Our free version allows you to organize recipes, create basic meal plans, and generate shopping lists. Premium features include unlimited recipe storage, advanced AI meal planning, and recipe image generation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I import recipes from any website with this recipe app?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely! TasteBuddy's recipe import feature works with virtually any recipe website. Simply share the recipe URL to our app, and we'll automatically extract ingredients, instructions, and cooking times. You can also add recipes by taking photos or manually entering them."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does AI meal planning work in TasteBuddy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our AI meal planning analyzes your recipe collection, dietary preferences, and eating habits to create personalized weekly meal plans. The AI considers factors like prep time, ingredient availability, nutritional balance, and your past favorites to suggest optimal meal combinations and automatically generate corresponding shopping lists."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this recipe organizer app work on both iOS and Android?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! TasteBuddy is available as a recipe organizer app on both iOS and Android platforms. All features including cloud sync, recipe import, meal planning, and AI capabilities work seamlessly across both mobile operating systems."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can TasteBuddy help with dietary restrictions and preferences?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! TasteBuddy excels at dietary transformation - our AI can convert any recipe to match your needs, whether you're vegan, gluten-free, keto, or have other dietary restrictions. The meal planner app will only suggest recipes that fit your specified dietary requirements and can automatically substitute ingredients."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my recipe collection backed up in the cloud?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, all your recipes, meal plans, and shopping lists are automatically backed up to the cloud with TasteBuddy. You'll never lose your recipe collection again, and you can access it from any device, anywhere. Cloud sync ensures your data is always safe and up-to-date across all your devices."
+      }
+    }
+  ]
+};
 ---
 <AstroSeo
   title="TasteBuddy - Best Recipe App & AI Meal Planner | Organize Your Recipes"
@@ -437,6 +509,8 @@ const dePath = isHomePage ? "/de/" : pathname.replace("/en/", "/de/");
     </section>
   </Main>
 </Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
 
 <style>
   .screenshots-grid {

@@ -1,0 +1,491 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Main from "../../components/Main.astro";
+import { AstroSeo } from '@astrolib/seo';
+
+// Ensure this page is statically generated
+export const prerender = true;
+---
+
+<AstroSeo
+  title="TasteBuddy vs Paprika: Which Recipe App is Better in 2025?"
+  description="Compare TasteBuddy vs Paprika recipe apps. TasteBuddy offers AI meal planning, recipe transformation, and OCR scanning while Paprika provides reliable recipe management. See the detailed comparison."
+  openGraph={{
+    title: 'TasteBuddy vs Paprika: Which Recipe App is Better in 2025?',
+    description: 'Compare TasteBuddy vs Paprika recipe apps. TasteBuddy offers AI meal planning while Paprika provides reliable recipe management. See the detailed comparison.',
+    images: [{ url: '/images/screenshots.png' }],
+  }}
+  canonical="https://www.taste-buddy.app/comparisons/tastebuddy-vs-paprika/"
+/>
+
+<Layout title="TasteBuddy vs Paprika: Complete Recipe App Comparison 2025">
+  <Main>
+    <section class="py-12 sm:py-16 lg:py-20">
+      <div class="max-w-4xl mx-auto">
+        <!-- Breadcrumb -->
+        <nav class="mb-8 text-sm text-gray-400">
+          <a href="/" class="hover:text-white">Home</a>
+          <span class="mx-2">→</span>
+          <a href="/best-recipe-app/" class="hover:text-white">Best Recipe App</a>
+          <span class="mx-2">→</span>
+          <span class="text-white">TasteBuddy vs Paprika</span>
+        </nav>
+
+        <!-- Header -->
+        <div class="text-center mb-12">
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+            TasteBuddy vs Paprika: Which Recipe App Wins in 2025?
+          </h1>
+          <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+            Comparing the AI-powered TasteBuddy with the established Paprika Recipe Manager. See which recipe app better fits your cooking needs and budget.
+          </p>
+        </div>
+
+        <!-- Quick Verdict -->
+        <div class="bg-gradient-to-r from-[#00CE31]/20 to-[#00CE31]/10 rounded-2xl p-8 mb-12 border border-[#00CE31]/30">
+          <h2 class="text-2xl font-bold text-white mb-4">🏆 Quick Verdict</h2>
+          <p class="text-gray-300 mb-4">
+            <strong class="text-white">TasteBuddy wins for modern home cooks</strong> who want AI-powered meal planning, recipe transformation, and intelligent features. <strong class="text-white">Paprika is better for traditionalists</strong> who prefer simple recipe storage with a one-time purchase.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="https://apps.apple.com/app/id6554007741" 
+               class="btn-primary inline-flex items-center" 
+               target="_blank" 
+               rel="noopener noreferrer">
+              Try TasteBuddy Free
+            </a>
+            <a href="#detailed-comparison" class="btn-secondary">See Full Comparison</a>
+          </div>
+        </div>
+
+        <!-- At a Glance Comparison -->
+        <div class="mb-12">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8">TasteBuddy vs Paprika: At a Glance</h2>
+          
+          <div class="overflow-x-auto">
+            <table class="w-full bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl border border-[#2A2D24]/30 overflow-hidden">
+              <thead>
+                <tr class="bg-[#2A2D24]/50">
+                  <th class="px-6 py-4 text-left text-white font-semibold">Feature</th>
+                  <th class="px-6 py-4 text-center text-white font-semibold">TasteBuddy</th>
+                  <th class="px-6 py-4 text-center text-white font-semibold">Paprika</th>
+                </tr>
+              </thead>
+              <tbody class="text-gray-300">
+                <tr class="border-t border-[#2A2D24]/30">
+                  <td class="px-6 py-4 font-medium text-white">Pricing</td>
+                  <td class="px-6 py-4 text-center">Free + $4.99/month</td>
+                  <td class="px-6 py-4 text-center">$4.99-$19.99 (one-time)</td>
+                </tr>
+                <tr class="border-t border-[#2A2D24]/30">
+                  <td class="px-6 py-4 font-medium text-white">AI Features</td>
+                  <td class="px-6 py-4 text-center"><span class="text-[#00CE31]">✓</span> Advanced</td>
+                  <td class="px-6 py-4 text-center"><span class="text-red-400">✗</span> None</td>
+                </tr>
+                <tr class="border-t border-[#2A2D24]/30">
+                  <td class="px-6 py-4 font-medium text-white">Recipe Import</td>
+                  <td class="px-6 py-4 text-center"><span class="text-[#00CE31]">✓</span> Website + OCR</td>
+                  <td class="px-6 py-4 text-center"><span class="text-yellow-400">~</span> Website only</td>
+                </tr>
+                <tr class="border-t border-[#2A2D24]/30">
+                  <td class="px-6 py-4 font-medium text-white">Meal Planning</td>
+                  <td class="px-6 py-4 text-center"><span class="text-[#00CE31]">✓</span> AI-powered</td>
+                  <td class="px-6 py-4 text-center"><span class="text-yellow-400">~</span> Basic calendar</td>
+                </tr>
+                <tr class="border-t border-[#2A2D24]/30">
+                  <td class="px-6 py-4 font-medium text-white">Shopping Lists</td>
+                  <td class="px-6 py-4 text-center"><span class="text-[#00CE31]">✓</span> Smart + auto</td>
+                  <td class="px-6 py-4 text-center"><span class="text-yellow-400">~</span> Basic</td>
+                </tr>
+                <tr class="border-t border-[#2A2D24]/30">
+                  <td class="px-6 py-4 font-medium text-white">Dietary Features</td>
+                  <td class="px-6 py-4 text-center"><span class="text-[#00CE31]">✓</span> AI transformation</td>
+                  <td class="px-6 py-4 text-center"><span class="text-yellow-400">~</span> Manual filtering</td>
+                </tr>
+                <tr class="border-t border-[#2A2D24]/30">
+                  <td class="px-6 py-4 font-medium text-white">User Interface</td>
+                  <td class="px-6 py-4 text-center"><span class="text-[#00CE31]">✓</span> Modern</td>
+                  <td class="px-6 py-4 text-center"><span class="text-yellow-400">~</span> Outdated</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Detailed Comparison -->
+        <div id="detailed-comparison" class="mb-12">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8">Detailed Feature Comparison</h2>
+          
+          <!-- AI Features -->
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl p-8 mb-8 border border-[#2A2D24]/30">
+            <h3 class="text-2xl font-bold text-white mb-6">🤖 AI Features & Intelligence</h3>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <!-- TasteBuddy -->
+              <div class="bg-gradient-to-br from-[#00CE31]/20 to-[#00CE31]/10 rounded-xl p-6 border border-[#00CE31]/30">
+                <h4 class="text-xl font-semibold text-white mb-4">TasteBuddy</h4>
+                <ul class="space-y-3 text-gray-300">
+                  <li class="flex items-start">
+                    <span class="text-[#00CE31] mr-3 mt-1">✓</span>
+                    <div>
+                      <strong class="text-white">AI Meal Planning:</strong> Automatically generates balanced weekly meal plans based on your preferences
+                    </div>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-[#00CE31] mr-3 mt-1">✓</span>
+                    <div>
+                      <strong class="text-white">Recipe Transformation:</strong> Convert any recipe to vegan, gluten-free, low-carb, etc. with intelligent substitutions
+                    </div>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-[#00CE31] mr-3 mt-1">✓</span>
+                    <div>
+                      <strong class="text-white">OCR Scanning:</strong> Scan recipes from cookbooks and magazines with AI-powered text recognition
+                    </div>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-[#00CE31] mr-3 mt-1">✓</span>
+                    <div>
+                      <strong class="text-white">Smart Categorization:</strong> Automatically organizes and tags recipes as you add them
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Paprika -->
+              <div class="bg-gradient-to-br from-gray-700/20 to-gray-800/10 rounded-xl p-6 border border-gray-600/30">
+                <h4 class="text-xl font-semibold text-white mb-4">Paprika</h4>
+                <ul class="space-y-3 text-gray-300">
+                  <li class="flex items-start">
+                    <span class="text-red-400 mr-3 mt-1">✗</span>
+                    <div>
+                      <strong class="text-white">No AI Features:</strong> All organization and planning must be done manually
+                    </div>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-red-400 mr-3 mt-1">✗</span>
+                    <div>
+                      <strong class="text-white">Manual Recipe Adaptation:</strong> No automatic dietary transformations or substitutions
+                    </div>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-red-400 mr-3 mt-1">✗</span>
+                    <div>
+                      <strong class="text-white">No OCR Scanning:</strong> Cannot scan recipes from physical books or magazines
+                    </div>
+                  </li>
+                  <li class="flex items-start">
+                    <span class="text-red-400 mr-3 mt-1">✗</span>
+                    <div>
+                      <strong class="text-white">Manual Organization:</strong> All tagging and categorization requires manual effort
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recipe Management -->
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl p-8 mb-8 border border-[#2A2D24]/30">
+            <h3 class="text-2xl font-bold text-white mb-6">📚 Recipe Management</h3>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <!-- TasteBuddy -->
+              <div>
+                <h4 class="text-xl font-semibold text-white mb-4">TasteBuddy</h4>
+                <div class="space-y-4">
+                  <div>
+                    <h5 class="font-semibold text-[#00CE31] mb-2">Recipe Import</h5>
+                    <p class="text-gray-300 text-sm">Import from any website with 95% success rate, plus OCR scanning for cookbooks. AI automatically parses and formats recipes.</p>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-[#00CE31] mb-2">Organization</h5>
+                    <p class="text-gray-300 text-sm">AI automatically categorizes recipes by cuisine, dietary restrictions, cooking time, and ingredients. Custom collections supported.</p>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-[#00CE31] mb-2">Search</h5>
+                    <p class="text-gray-300 text-sm">Natural language search ("quick pasta dinners under 30 minutes") with advanced filtering options.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Paprika -->
+              <div>
+                <h4 class="text-xl font-semibold text-white mb-4">Paprika</h4>
+                <div class="space-y-4">
+                  <div>
+                    <h5 class="font-semibold text-blue-400 mb-2">Recipe Import</h5>
+                    <p class="text-gray-300 text-sm">Good website import capabilities with reliable parsing. No OCR scanning or photo-based import.</p>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-blue-400 mb-2">Organization</h5>
+                    <p class="text-gray-300 text-sm">Manual tagging and categorization required. Good folder system for organizing recipes by preference.</p>
+                  </div>
+                  <div>
+                    <h5 class="font-semibold text-blue-400 mb-2">Search</h5>
+                    <p class="text-gray-300 text-sm">Basic keyword search with limited filtering. Search functionality is less sophisticated than modern standards.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Meal Planning -->
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl p-8 mb-8 border border-[#2A2D24]/30">
+            <h3 class="text-2xl font-bold text-white mb-6">🍽️ Meal Planning & Shopping</h3>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <!-- TasteBuddy -->
+              <div class="bg-gradient-to-br from-[#00CE31]/10 to-[#00CE31]/5 rounded-xl p-6">
+                <h4 class="text-xl font-semibold text-white mb-4">TasteBuddy</h4>
+                <ul class="space-y-3 text-gray-300 text-sm">
+                  <li>• <strong class="text-white">AI Meal Plans:</strong> Automatically generates balanced weekly meal plans</li>
+                  <li>• <strong class="text-white">Smart Shopping Lists:</strong> Auto-generated lists organized by store aisles</li>
+                  <li>• <strong class="text-white">Ingredient Optimization:</strong> Minimizes waste by finding recipes with overlapping ingredients</li>
+                  <li>• <strong class="text-white">Dietary Integration:</strong> Plans automatically respect your dietary restrictions</li>
+                  <li>• <strong class="text-white">Flexible Scheduling:</strong> Adapts to your cooking frequency and schedule</li>
+                </ul>
+              </div>
+
+              <!-- Paprika -->
+              <div class="bg-gradient-to-br from-gray-600/10 to-gray-700/5 rounded-xl p-6">
+                <h4 class="text-xl font-semibold text-white mb-4">Paprika</h4>
+                <ul class="space-y-3 text-gray-300 text-sm">
+                  <li>• <strong class="text-white">Calendar Planning:</strong> Drag-and-drop recipes onto calendar days</li>
+                  <li>• <strong class="text-white">Basic Shopping Lists:</strong> Manual creation with checkbox functionality</li>
+                  <li>• <strong class="text-white">Ingredient Combination:</strong> Automatically combines duplicate ingredients</li>
+                  <li>• <strong class="text-white">Manual Planning:</strong> Requires manual selection and organization of meals</li>
+                  <li>• <strong class="text-white">No Optimization:</strong> Doesn't suggest optimal meal combinations</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pricing Comparison -->
+        <div class="mb-12">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8">💰 Pricing Comparison</h2>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- TasteBuddy Pricing -->
+            <div class="bg-gradient-to-br from-[#00CE31]/20 to-[#00CE31]/10 rounded-2xl p-8 border border-[#00CE31]/30">
+              <h3 class="text-2xl font-bold text-white mb-4">TasteBuddy</h3>
+              <div class="mb-6">
+                <div class="text-3xl font-bold text-white mb-2">Free + $4.99/month</div>
+                <p class="text-gray-300">Subscription model with free tier</p>
+              </div>
+              
+              <div class="space-y-4 mb-6">
+                <div>
+                  <h4 class="font-semibold text-white mb-2">Free Version Includes:</h4>
+                  <ul class="text-gray-300 text-sm space-y-1">
+                    <li>• Recipe storage and organization</li>
+                    <li>• Basic meal planning</li>
+                    <li>• Shopping list creation</li>
+                    <li>• Cross-device sync</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 class="font-semibold text-white mb-2">Premium Features:</h4>
+                  <ul class="text-gray-300 text-sm space-y-1">
+                    <li>• AI meal planning</li>
+                    <li>• Recipe transformation</li>
+                    <li>• OCR scanning</li>
+                    <li>• AI image generation</li>
+                    <li>• Advanced analytics</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="bg-[#00CE31]/20 rounded-lg p-4">
+                <p class="text-sm text-gray-300">
+                  <strong class="text-white">Best for:</strong> Users who want cutting-edge AI features and don't mind paying for ongoing innovation
+                </p>
+              </div>
+            </div>
+
+            <!-- Paprika Pricing -->
+            <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl p-8 border border-[#2A2D24]/30">
+              <h3 class="text-2xl font-bold text-white mb-4">Paprika</h3>
+              <div class="mb-6">
+                <div class="text-3xl font-bold text-white mb-2">$4.99-$19.99</div>
+                <p class="text-gray-300">One-time purchase per platform</p>
+              </div>
+              
+              <div class="space-y-4 mb-6">
+                <div>
+                  <h4 class="font-semibold text-white mb-2">Platform Pricing:</h4>
+                  <ul class="text-gray-300 text-sm space-y-1">
+                    <li>• iOS: $4.99</li>
+                    <li>• Android: $4.99</li>
+                    <li>• Mac: $19.99</li>
+                    <li>• Windows: $19.99</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 class="font-semibold text-white mb-2">All Features Included:</h4>
+                  <ul class="text-gray-300 text-sm space-y-1">
+                    <li>• Recipe import and storage</li>
+                    <li>• Meal planning calendar</li>
+                    <li>• Shopping lists</li>
+                    <li>• Cloud sync</li>
+                    <li>• All organization tools</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="bg-blue-500/20 rounded-lg p-4">
+                <p class="text-sm text-gray-300">
+                  <strong class="text-white">Best for:</strong> Users who prefer one-time purchases and don't need AI features
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Experience -->
+        <div class="mb-12">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8">📱 User Experience & Interface</h2>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl p-8 border border-[#2A2D24]/30">
+              <h3 class="text-xl font-bold text-white mb-4">TasteBuddy</h3>
+              <div class="space-y-4">
+                <div>
+                  <h4 class="font-semibold text-[#00CE31] mb-2">Modern Design</h4>
+                  <p class="text-gray-300 text-sm">Clean, intuitive interface designed for 2025 with smooth animations and thoughtful user flows.</p>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-[#00CE31] mb-2">Intelligent Features</h4>
+                  <p class="text-gray-300 text-sm">AI guidance throughout the app reduces decision fatigue and makes cooking more enjoyable.</p>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-[#00CE31] mb-2">Learning Curve</h4>
+                  <p class="text-gray-300 text-sm">Easy to get started, with AI features that become more helpful as the app learns your preferences.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl p-8 border border-[#2A2D24]/30">
+              <h3 class="text-xl font-bold text-white mb-4">Paprika</h3>
+              <div class="space-y-4">
+                <div>
+                  <h4 class="font-semibold text-blue-400 mb-2">Functional Design</h4>
+                  <p class="text-gray-300 text-sm">Dated but functional interface that gets the job done without modern polish or animations.</p>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-blue-400 mb-2">Manual Control</h4>
+                  <p class="text-gray-300 text-sm">Complete control over organization and planning, which some users prefer over AI automation.</p>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-blue-400 mb-2">Learning Curve</h4>
+                  <p class="text-gray-300 text-sm">Steeper learning curve for organization, but consistent experience once you understand the system.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Who Should Choose What -->
+        <div class="mb-12">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8">🎯 Which App Should You Choose?</h2>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Choose TasteBuddy -->
+            <div class="bg-gradient-to-br from-[#00CE31]/20 to-[#00CE31]/10 rounded-2xl p-8 border border-[#00CE31]/30">
+              <h3 class="text-2xl font-bold text-white mb-4">Choose TasteBuddy if you:</h3>
+              <ul class="space-y-3 text-gray-300">
+                <li class="flex items-start">
+                  <span class="text-[#00CE31] mr-3 mt-1">✓</span>
+                  <span>Want AI to help with meal planning and decision-making</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-[#00CE31] mr-3 mt-1">✓</span>
+                  <span>Need to adapt recipes for dietary restrictions</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-[#00CE31] mr-3 mt-1">✓</span>
+                  <span>Have cookbooks you want to digitize with OCR scanning</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-[#00CE31] mr-3 mt-1">✓</span>
+                  <span>Prefer modern, intelligent software with regular updates</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-[#00CE31] mr-3 mt-1">✓</span>
+                  <span>Don't mind paying monthly for advanced features</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-[#00CE31] mr-3 mt-1">✓</span>
+                  <span>Want to reduce time spent on meal planning</span>
+                </li>
+              </ul>
+              
+              <div class="mt-6">
+                <a href="https://apps.apple.com/app/id6554007741" 
+                   class="btn-primary inline-flex items-center" 
+                   target="_blank" 
+                   rel="noopener noreferrer">
+                  Try TasteBuddy Free
+                </a>
+              </div>
+            </div>
+
+            <!-- Choose Paprika -->
+            <div class="bg-gradient-to-br from-blue-500/20 to-blue-600/10 rounded-2xl p-8 border border-blue-500/30">
+              <h3 class="text-2xl font-bold text-white mb-4">Choose Paprika if you:</h3>
+              <ul class="space-y-3 text-gray-300">
+                <li class="flex items-start">
+                  <span class="text-blue-400 mr-3 mt-1">✓</span>
+                  <span>Prefer one-time purchases over subscriptions</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-blue-400 mr-3 mt-1">✓</span>
+                  <span>Want complete manual control over organization</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-blue-400 mr-3 mt-1">✓</span>
+                  <span>Don't need AI features or dietary transformations</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-blue-400 mr-3 mt-1">✓</span>
+                  <span>Are satisfied with basic meal planning tools</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-blue-400 mr-3 mt-1">✓</span>
+                  <span>Have a well-established recipe organization system</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-blue-400 mr-3 mt-1">✓</span>
+                  <span>Value software stability over cutting-edge features</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Final Recommendation -->
+        <div class="bg-gradient-to-r from-[#00CE31]/40 to-[#00CE31]/30 rounded-3xl p-8 text-center backdrop-blur-sm border border-[#00CE31]/30">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Our Final Recommendation</h2>
+          <p class="text-xl text-gray-200 mb-6 max-w-3xl mx-auto">
+            <strong>TasteBuddy is the clear winner for 2025</strong> thanks to its AI-powered features that save time and enhance the cooking experience. While Paprika remains solid for basic recipe management, TasteBuddy's intelligence and modern approach make it the better choice for most home cooks.
+          </p>
+          
+          <div class="flex flex-wrap justify-center gap-6">
+            <a href="https://apps.apple.com/app/id6554007741"
+               class="btn-primary text-lg px-8 py-4"
+               target="_blank" 
+               rel="noopener noreferrer">
+              Start with TasteBuddy Free
+            </a>
+            <a href="/best-recipe-app/" class="btn-secondary text-lg px-8 py-4">
+              Compare More Apps
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </Main>
+</Layout>
