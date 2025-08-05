@@ -7,62 +7,110 @@ const recipes = [
     description: "Ein traditionelles italienisches Pasta-Gericht mit knuspriger Pancetta, Eiern und Parmesan",
     slug: "klassische-spaghetti-carbonara",
     totalTime: "35 Min",
+    prepTime: "PT15M",
+    cookTime: "PT20M",
+    totalTimeISO: "PT35M",
     difficulty: "Einfach",
     cuisine: "Italienisch",
     category: "Hauptgericht",
-    image: "/images/recipes/spaghetti-cabonara.png"
+    image: "/images/recipes/spaghetti-cabonara.png",
+    keywords: "carbonara, spaghetti, italienische pasta, pancetta, eier, traditionelles rezept",
+    ingredients: ["400g Spaghetti", "150g Pancetta", "3 Eier", "60g Parmesan", "2 Knoblauchzehen", "Salz und Pfeffer"],
+    instructions: ["Spaghetti al dente kochen", "Pancetta knusprig braten", "Eier und Käse vermengen", "Pasta mit Pancetta vermengen", "Eimischung ohne Hitze unterrühren", "Sofort servieren"],
+    nutrition: { calories: "520 Kalorien", servingSize: "1 Portion" },
+    recipeYield: 4
   },
   {
     name: "Cremiges Pilzrisotto",
     description: "Ein reichhaltiges und cremiges italienisches Reisgericht mit würzigen Champignons und Parmesan",
     slug: "cremiges-pilzrisotto",
     totalTime: "35 Min",
+    prepTime: "PT10M",
+    cookTime: "PT25M",
+    totalTimeISO: "PT35M",
     difficulty: "Mittel",
     cuisine: "Italienisch",
     category: "Hauptgericht",
-    image: "/images/recipes/mushroom-risotto.png"
+    image: "/images/recipes/mushroom-risotto.png",
+    keywords: "risotto, pilzrisotto, italienischer reis, cremiges risotto, vegetarisch",
+    ingredients: ["300g Arborio-Reis", "400g gemischte Pilze", "1L Gemüsebrühe", "100ml Weißwein", "50g Parmesan", "1 Zwiebel", "2 Knoblauchzehen"],
+    instructions: ["Zwiebel und Knoblauch anbraten", "Reis hinzufügen und rösten", "Wein hinzufügen und verdampfen lassen", "Brühe nach und nach unter Rühren hinzufügen", "Pilze separat zubereiten", "Alles vermengen und mit Käse abschließen"],
+    nutrition: { calories: "420 Kalorien", servingSize: "1 Portion" },
+    recipeYield: 4
   },
   {
     name: "Einfaches Hähnchen-Curry",
     description: "Ein geschmackvolles und aromatisches Hähnchen-Curry mit Kokosmilch und Curry-Gewürzen",
     slug: "einfaches-haehnchen-curry",
     totalTime: "40 Min",
+    prepTime: "PT15M",
+    cookTime: "PT25M",
+    totalTimeISO: "PT40M",
     difficulty: "Einfach",
     cuisine: "Indisch",
     category: "Hauptgericht",
-    image: "/images/recipes/chicken-curry.png"
+    image: "/images/recipes/chicken-curry.png",
+    keywords: "hähnchen curry, indisches curry, kokos curry, einfaches curry, würziges hähnchen",
+    ingredients: ["600g Hähnchenbrust", "400ml Kokosmilch", "2 EL Currypulver", "1 Zwiebel", "3 Knoblauchzehen", "2cm Ingwer", "Tomaten"],
+    instructions: ["Hähnchen in Stücke schneiden", "Aromaten anbraten", "Currypulver hinzufügen", "Hähnchen hinzufügen und anbraten", "Kokosmilch und Tomaten hinzufügen", "Köcheln bis gar"],
+    nutrition: { calories: "380 Kalorien", servingSize: "1 Portion" },
+    recipeYield: 4
   },
   {
     name: "Chili con Carne",
     description: "Ein herzhaftes und würziges Rindfleisch-Chili mit Bohnen und aromatischen Gewürzen",
     slug: "chili-con-carne",
     totalTime: "45 Min",
+    prepTime: "PT15M",
+    cookTime: "PT30M",
+    totalTimeISO: "PT45M",
     difficulty: "Einfach",
     cuisine: "Mexikanisch",
     category: "Hauptgericht",
-    image: "/images/recipes/chili-con-carne.png"
+    image: "/images/recipes/chili-con-carne.png",
+    keywords: "chili con carne, rindfleisch chili, scharfes chili, mexikanisches chili, kidneybohnen, hackfleisch rezept",
+    ingredients: ["500g Rinderhackfleisch", "400g Kidneybohnen", "400g gehackte Tomaten", "1 Zwiebel", "2 Knoblauchzehen", "Chilipulver", "Kreuzkümmel"],
+    instructions: ["Hackfleisch anbraten", "Zwiebel und Knoblauch anbraten", "Gewürze hinzufügen", "Tomaten und Bohnen hinzufügen", "20-30 Minuten köcheln", "Heiß servieren"],
+    nutrition: { calories: "380 Kalorien", servingSize: "1 Portion" },
+    recipeYield: 4
   },
   {
     name: "Chili sin Carne",
     description: "Ein herzhaftes und geschmackvolles veganes Chili mit gemischten Bohnen und Gemüse",
     slug: "chili-sin-carne",
     totalTime: "45 Min",
+    prepTime: "PT15M",
+    cookTime: "PT30M",  
+    totalTimeISO: "PT45M",
     difficulty: "Einfach",
     cuisine: "Mexikanisch",
     category: "Hauptgericht",
     image: "/images/recipes/chili-sin-carne.png",
-    isVegan: true
+    isVegan: true,
+    keywords: "chili sin carne, veganes chili, vegetarisches chili, bohnen chili, pflanzliches chili, gesundes chili",
+    ingredients: ["400g Kidneybohnen", "400g schwarze Bohnen", "400g gehackte Tomaten", "1 Paprika", "1 Zucchini", "1 Zwiebel", "Gewürze"],
+    instructions: ["Gemüse anbraten", "Gewürze hinzufügen", "Tomaten und Bohnen hinzufügen", "20-30 Minuten köcheln", "Abschmecken", "Heiß servieren"],
+    nutrition: { calories: "320 Kalorien", servingSize: "1 Portion" },
+    recipeYield: 4
   },
   {
     name: "Vegane Schokoladenmousse",
     description: "Eine reichhaltige und dekadente vegane Schokoladenmousse aus Kokoscreme und Zartbitterschokolade",
     slug: "vegane-schokoladenmousse",
     totalTime: "2h 15Min",
+    prepTime: "PT15M",
+    cookTime: "PT0M",
+    totalTimeISO: "PT2H15M",
     difficulty: "Einfach",
     cuisine: "International",
     category: "Dessert",
     image: "/images/recipes/vegan-chocolate-mousse.png",
-    isVegan: true
+    isVegan: true,
+    keywords: "vegane schokoladenmousse, milchfreies dessert, kokos mousse, veganes dessert, schokoladen dessert",
+    ingredients: ["200g Zartbitterschokolade", "400ml Kokoscreme", "3 EL Ahornsirup", "1 TL Vanilleextrakt", "Prise Salz"],
+    instructions: ["Schokolade schmelzen", "Kokoscreme aufschlagen", "Schokolade unter die Creme heben", "Süßstoff und Vanille hinzufügen", "2 Stunden kühlen", "Gekühlt servieren"],
+    nutrition: { calories: "280 Kalorien", servingSize: "1 Portion" },
+    recipeYield: 6
   }
 ];
 
@@ -83,7 +131,27 @@ const structuredData = {
       "url": `https://tastebuddy.app/de/recipes/${recipe.slug}`,
       "recipeCategory": recipe.category,
       "recipeCuisine": recipe.cuisine,
-      "image": recipe.image,
+      "image": `https://taste-buddy.app${recipe.image}`,
+      "prepTime": recipe.prepTime,
+      "cookTime": recipe.cookTime,
+      "totalTime": recipe.totalTimeISO,
+      "recipeYield": recipe.recipeYield,
+      "keywords": recipe.keywords,
+      "recipeIngredient": recipe.ingredients,
+      "recipeInstructions": recipe.instructions.map((instruction, idx) => ({
+        "@type": "HowToStep",
+        "position": idx + 1,
+        "text": instruction
+      })),
+      "nutrition": {
+        "@type": "NutritionInformation",
+        "calories": recipe.nutrition.calories,
+        "servingSize": recipe.nutrition.servingSize
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "TasteBuddy"
+      },
       "inLanguage": "de"
     }))
   }

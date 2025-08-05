@@ -7,62 +7,110 @@ const recipes = [
     description: "A traditional Italian pasta dish with crispy pancetta, eggs, and Parmesan cheese",
     slug: "classic-spaghetti-carbonara",
     totalTime: "35 min",
+    prepTime: "PT15M",
+    cookTime: "PT20M",
+    totalTimeISO: "PT35M",
     difficulty: "Easy",
     cuisine: "Italian",
     category: "Main Course",
-    image: "/images/recipes/spaghetti-cabonara.png"
+    image: "/images/recipes/spaghetti-cabonara.png",
+    keywords: "carbonara, spaghetti, italian pasta, pancetta, eggs, traditional recipe",
+    ingredients: ["400g spaghetti", "150g pancetta", "3 eggs", "60g Parmesan cheese", "2 cloves garlic", "Salt and pepper"],
+    instructions: ["Cook spaghetti until al dente", "Fry pancetta until crispy", "Mix eggs and cheese", "Combine pasta with pancetta", "Add egg mixture off heat", "Serve immediately"],
+    nutrition: { calories: "520 calories", servingSize: "1 serving" },
+    recipeYield: 4
   },
   {
     name: "Creamy Mushroom Risotto",
     description: "A rich and creamy Italian rice dish with savory mushrooms and Parmesan cheese",
     slug: "creamy-mushroom-risotto",
     totalTime: "35 min",
+    prepTime: "PT10M",
+    cookTime: "PT25M",
+    totalTimeISO: "PT35M",
     difficulty: "Medium",
     cuisine: "Italian",
     category: "Main Course",
-    image: "/images/recipes/mushroom-risotto.png"
+    image: "/images/recipes/mushroom-risotto.png",
+    keywords: "risotto, mushroom risotto, italian rice, creamy risotto, vegetarian",
+    ingredients: ["300g Arborio rice", "400g mixed mushrooms", "1L vegetable stock", "100ml white wine", "50g Parmesan cheese", "1 onion", "2 cloves garlic"],
+    instructions: ["Sauté onion and garlic", "Add rice and toast", "Add wine and let evaporate", "Add stock gradually while stirring", "Cook mushrooms separately", "Combine and finish with cheese"],
+    nutrition: { calories: "420 calories", servingSize: "1 serving" },
+    recipeYield: 4
   },
   {
     name: "Easy Chicken Curry",
     description: "A flavorful and aromatic chicken curry with coconut milk and curry spices",
     slug: "easy-chicken-curry",
     totalTime: "40 min",
+    prepTime: "PT15M",
+    cookTime: "PT25M",
+    totalTimeISO: "PT40M",
     difficulty: "Easy",
     cuisine: "Indian",
     category: "Main Course",
-    image: "/images/recipes/chicken-curry.png"
+    image: "/images/recipes/chicken-curry.png",
+    keywords: "chicken curry, indian curry, coconut curry, easy curry, spicy chicken",
+    ingredients: ["600g chicken breast", "400ml coconut milk", "2 tbsp curry powder", "1 onion", "3 cloves garlic", "2cm ginger", "Tomatoes"],
+    instructions: ["Cut chicken into pieces", "Sauté aromatics", "Add curry powder", "Add chicken and brown", "Add coconut milk and tomatoes", "Simmer until cooked"],
+    nutrition: { calories: "380 calories", servingSize: "1 serving" },
+    recipeYield: 4
   },
   {
     name: "Chili con Carne",
     description: "A hearty and spicy beef chili with beans and aromatic spices",
     slug: "chili-con-carne",
     totalTime: "45 min",
+    prepTime: "PT15M",
+    cookTime: "PT30M",
+    totalTimeISO: "PT45M",
     difficulty: "Easy",
     cuisine: "Mexican",
     category: "Main Course",
-    image: "/images/recipes/chili-con-carne.png"
+    image: "/images/recipes/chili-con-carne.png",
+    keywords: "chili con carne, beef chili, spicy chili, mexican chili, kidney beans, ground beef recipe",
+    ingredients: ["500g ground beef", "400g kidney beans", "400g chopped tomatoes", "1 onion", "2 cloves garlic", "Chili powder", "Cumin"],
+    instructions: ["Brown the ground beef", "Sauté onion and garlic", "Add spices", "Add tomatoes and beans", "Simmer for 20-30 minutes", "Serve hot"],
+    nutrition: { calories: "380 calories", servingSize: "1 serving" },
+    recipeYield: 4
   },
   {
     name: "Chili sin Carne",
     description: "A hearty and flavorful vegan chili with mixed beans and vegetables",
     slug: "chili-sin-carne",
     totalTime: "45 min",
+    prepTime: "PT15M",
+    cookTime: "PT30M",
+    totalTimeISO: "PT45M",
     difficulty: "Easy",
     cuisine: "Mexican",
     category: "Main Course",
     image: "/images/recipes/chili-sin-carne.png",
-    isVegan: true
+    isVegan: true,
+    keywords: "chili sin carne, vegan chili, vegetarian chili, bean chili, plant-based chili, healthy chili",
+    ingredients: ["400g kidney beans", "400g black beans", "400g chopped tomatoes", "1 bell pepper", "1 zucchini", "1 onion", "Spices"],
+    instructions: ["Sauté vegetables", "Add spices", "Add tomatoes and beans", "Simmer for 20-30 minutes", "Adjust seasoning", "Serve hot"],
+    nutrition: { calories: "320 calories", servingSize: "1 serving" },
+    recipeYield: 4
   },
   {
     name: "Vegan Chocolate Mousse",
     description: "A rich and decadent vegan chocolate mousse made with coconut cream and dark chocolate",
     slug: "vegan-chocolate-mousse",
     totalTime: "2h 15min",
+    prepTime: "PT15M",
+    cookTime: "PT0M",
+    totalTimeISO: "PT2H15M",
     difficulty: "Easy",
     cuisine: "International",
     category: "Dessert",
     image: "/images/recipes/vegan-chocolate-mousse.png",
-    isVegan: true
+    isVegan: true,
+    keywords: "vegan chocolate mousse, dairy-free dessert, coconut mousse, vegan dessert, chocolate dessert",
+    ingredients: ["200g dark chocolate", "400ml coconut cream", "3 tbsp maple syrup", "1 tsp vanilla extract", "Pinch of salt"],
+    instructions: ["Melt chocolate", "Whip coconut cream", "Fold chocolate into cream", "Add sweetener and vanilla", "Chill for 2 hours", "Serve chilled"],
+    nutrition: { calories: "280 calories", servingSize: "1 serving" },
+    recipeYield: 6
   }
 ];
 
@@ -82,7 +130,27 @@ const structuredData = {
       "url": `https://tastebuddy.app/en/recipes/${recipe.slug}`,
       "recipeCategory": recipe.category,
       "recipeCuisine": recipe.cuisine,
-      "image": recipe.image
+      "image": `https://taste-buddy.app${recipe.image}`,
+      "prepTime": recipe.prepTime,
+      "cookTime": recipe.cookTime,
+      "totalTime": recipe.totalTimeISO,
+      "recipeYield": recipe.recipeYield,
+      "keywords": recipe.keywords,
+      "recipeIngredient": recipe.ingredients,
+      "recipeInstructions": recipe.instructions.map((instruction, idx) => ({
+        "@type": "HowToStep",
+        "position": idx + 1,
+        "text": instruction
+      })),
+      "nutrition": {
+        "@type": "NutritionInformation",
+        "calories": recipe.nutrition.calories,
+        "servingSize": recipe.nutrition.servingSize
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "TasteBuddy"
+      }
     }))
   }
 };

@@ -13,34 +13,58 @@ const secondaryKeywords = "best recipe app, recipe planner app, meal planner app
 
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "TasteBuddy - Best Recipe App & AI Meal Planner",
-  "applicationCategory": ["LifestyleApplication", "FoodApplication", "ProductivityApplication"],
-  "operatingSystem": ["iOS", "Android"],
-  "description": "The best recipe app and AI meal planner for home cooks. Organize recipes, generate meal plans, create shopping lists, and transform recipes for dietary needs.",
-  "keywords": "recipe app, best recipe app, recipe planner app, meal planner app, AI meal planning, recipe organizer",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "ratingCount": "150"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "featureList": [
-    "AI-powered meal planning and recipe suggestions",
-    "Smart recipe organization with dietary filters",
-    "Automatic shopping list generation from meal plans",
-    "Recipe image generation and visual cookbook creation",
-    "Recipe import from any website or photo",
-    "Dietary transformation (vegan, gluten-free, low-carb)",
-    "Cloud sync across all devices",
-    "Shareable digital cookbooks"
-  ],
-  "downloadUrl": ["https://apps.apple.com/app/id6554007741", "https://play.google.com/store/apps/details?id=app.tastebuddy"],
-  "screenshot": "/images/screenshots.png"
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "TasteBuddy - Best Recipe App & AI Meal Planner",
+      "applicationCategory": ["LifestyleApplication", "FoodApplication", "ProductivityApplication"],
+      "operatingSystem": ["iOS", "Android"],
+      "description": "The best recipe app and AI meal planner for home cooks. Organize recipes, generate meal plans, create shopping lists, and transform recipes for dietary needs.",
+      "keywords": "recipe app, best recipe app, recipe planner app, meal planner app, AI meal planning, recipe organizer, AI cooking assistant",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "150"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "AI-powered meal planning and recipe suggestions",
+        "Smart recipe organization with dietary filters",
+        "Automatic shopping list generation from meal plans",
+        "Recipe image generation and visual cookbook creation",
+        "Recipe import from any website or photo",
+        "Dietary transformation (vegan, gluten-free, low-carb)",
+        "OCR recipe scanning from cookbooks and magazines",
+        "Cloud sync across all devices",
+        "Shareable digital cookbooks"
+      ],
+      "downloadUrl": ["https://apps.apple.com/app/id6554007741", "https://play.google.com/store/apps/details?id=app.tastebuddy"],
+      "screenshot": "/images/screenshots.png",
+      "publisher": {
+        "@id": "https://www.taste-buddy.app/#organization"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.taste-buddy.app/#organization",
+      "name": "TasteBuddy",
+      "url": "https://www.taste-buddy.app",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.taste-buddy.app/images/logo.png"
+      },
+      "description": "Developer of the TasteBuddy AI-powered recipe management and meal planning application",
+      "foundingDate": "2024",
+      "sameAs": [
+        "https://apps.apple.com/app/id6554007741",
+        "https://play.google.com/store/apps/details?id=app.tastebuddy"
+      ]
+    }
+  ]
 };
 
 ---
