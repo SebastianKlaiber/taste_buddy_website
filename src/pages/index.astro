@@ -14,6 +14,87 @@ const isHomePage = pathname === "/" || pathname === "/de/";
 const enPath = isHomePage ? "/" : pathname.replace("/de/", "/en/");
 const dePath = isHomePage ? "/de/" : pathname.replace("/en/", "/de/");
 
+// Organization structured data
+const organizationStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://tastebuddy.app/#organization",
+  "name": "TasteBuddy",
+  "url": "https://tastebuddy.app",
+  "logo": "https://tastebuddy.app/AppIcon.png",
+  "description": "TasteBuddy is the best recipe app and AI meal planner for home cooks, offering smart recipe organization, meal planning, and grocery management.",
+  "foundingDate": "2023",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "US"
+  },
+  "sameAs": [
+    "https://apps.apple.com/app/tastebuddy",
+    "https://play.google.com/store/apps/details?id=com.tastebuddy"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "Customer Support",
+    "email": "support@tastebuddy.app",
+    "url": "https://tastebuddy.app/contact"
+  }
+};
+
+// MobileApplication structured data
+const mobileAppStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "TasteBuddy - Recipe Organizer & Meal Planner",
+  "operatingSystem": "iOS, Android",
+  "applicationCategory": "LifestyleApplication",
+  "applicationSubCategory": "Food & Drink",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "2450"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "TasteBuddy",
+    "url": "https://tastebuddy.app"
+  },
+  "screenshot": [
+    "https://tastebuddy.app/images/01_EN@1x.png",
+    "https://tastebuddy.app/images/02_EN@1x.png",
+    "https://tastebuddy.app/images/03_EN@1x.png",
+    "https://tastebuddy.app/images/04_EN@1x.png"
+  ],
+  "description": "The best recipe app with AI meal planning, smart recipe organization, automatic shopping lists, and dietary transformation features.",
+  "potentialAction": [
+    {
+      "@type": "ViewAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://apps.apple.com/app/tastebuddy",
+        "actionPlatform": [
+          "https://schema.org/IOSPlatform"
+        ]
+      }
+    },
+    {
+      "@type": "ViewAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://play.google.com/store/apps/details?id=com.tastebuddy",
+        "actionPlatform": [
+          "https://schema.org/AndroidPlatform"
+        ]
+      }
+    }
+  ]
+};
+
 // FAQ structured data
 const faqStructuredData = {
   "@context": "https://schema.org",
@@ -510,6 +591,8 @@ const faqStructuredData = {
   </Main>
 </Layout>
 
+<script type="application/ld+json" set:html={JSON.stringify(organizationStructuredData)} />
+<script type="application/ld+json" set:html={JSON.stringify(mobileAppStructuredData)} />
 <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
 
 <style>
