@@ -1,13 +1,82 @@
+# Robots.txt for TasteBuddy.app
+# Last updated: 2025-01-09
+
+# Default rules for all bots
 User-agent: *
 Allow: /
 Allow: /features/
+Allow: /solutions/
+Allow: /guides/
+Allow: /comparisons/
+Allow: /best-*-app
 Allow: /en/
 Allow: /de/
+Allow: /share_recipe/
 Disallow: /api/
 Disallow: /_astro/
-
-# Crawl-delay for polite crawling
+Disallow: /link_identity_success
+Disallow: /404
+Disallow: /*.json$
+Disallow: /*?*
 Crawl-delay: 1
 
-# Sitemap
+# Googlebot specific rules (no crawl delay for Google)
+User-agent: Googlebot
+Allow: /
+Allow: /features/
+Allow: /solutions/
+Allow: /guides/
+Allow: /comparisons/
+Allow: /best-*-app
+Allow: /en/
+Allow: /de/
+Allow: /share_recipe/
+Disallow: /api/
+Disallow: /_astro/
+Disallow: /link_identity_success
+Disallow: /404
+Disallow: /*.json$
+
+# Bingbot specific rules
+User-agent: Bingbot
+Allow: /
+Allow: /features/
+Allow: /solutions/
+Allow: /guides/
+Allow: /comparisons/
+Allow: /best-*-app
+Allow: /en/
+Allow: /de/
+Allow: /share_recipe/
+Disallow: /api/
+Disallow: /_astro/
+Disallow: /link_identity_success
+Disallow: /404
+Disallow: /*.json$
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# Allow social media bots for better sharing
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Sitemap location
 Sitemap: https://tastebuddy.app/sitemap.xml
