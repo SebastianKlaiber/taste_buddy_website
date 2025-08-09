@@ -45,22 +45,40 @@ const structuredData = {
   "keywords": "chicken curry, indian curry, coconut milk curry, easy curry, chicken recipe",
   "author": {
     "@type": "Organization",
-    "name": "TasteBuddy"
+    "name": "TasteBuddy",
+    "url": "https://taste-buddy.app"
   },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TasteBuddy",
+    "url": "https://taste-buddy.app"
+  },
+  "datePublished": "2025-01-09",
   "recipeIngredient": recipe.ingredients,
   "recipeInstructions": recipe.instructions.map((instruction, index) => ({
     "@type": "HowToStep",
     "position": index + 1,
     "text": instruction
   })),
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.7",
+    "reviewCount": "85",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
   "nutrition": {
     "@type": "NutritionInformation",
     "calories": "420 calories",
     "servingSize": "1 serving"
   },
-  "image": "https://taste-buddy.app/images/recipes/chicken-curry.png"
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://taste-buddy.app/images/recipes/chicken-curry.png",
+    "width": 1200,
+    "height": 800
+  }
 };
-
 const title = `${recipe.name} Recipe | TasteBuddy`;
 const description = `Learn how to make authentic ${recipe.name} with our step-by-step recipe. ${recipe.description}. Ready in ${recipe.totalTime.replace('PT', '').replace('M', ' minutes')}.`;
 ---

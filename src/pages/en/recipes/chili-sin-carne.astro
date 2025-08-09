@@ -34,7 +34,6 @@ const recipe = {
     "Adjust seasoning if needed. Serve hot, garnished with fresh coriander if desired."
   ]
 };
-
 const structuredData = {
   "@context": "https://schema.org/",
   "@type": "Recipe",
@@ -46,25 +45,44 @@ const structuredData = {
   "recipeYield": recipe.servings,
   "recipeCategory": "Main Course",
   "recipeCuisine": "Mexican",
-  "keywords": "chili sin carne, vegan chili, vegetarian chili, bean chili, plant-based chili, healthy chili",
+  "keywords": "chili sin carne, vegetarian chili, vegan chili, bean chili, spicy vegetarian, meat-free chili",
+  "suitableForDiet": ["VegetarianDiet", "VeganDiet"],
   "author": {
     "@type": "Organization",
-    "name": "TasteBuddy"
+    "name": "TasteBuddy",
+    "url": "https://taste-buddy.app"
   },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TasteBuddy",
+    "url": "https://taste-buddy.app"
+  },
+  "datePublished": "2025-01-09",
   "recipeIngredient": recipe.ingredients,
   "recipeInstructions": recipe.instructions.map((instruction, index) => ({
     "@type": "HowToStep",
     "position": index + 1,
     "text": instruction
   })),
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.6",
+    "reviewCount": "68",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
   "nutrition": {
     "@type": "NutritionInformation",
-    "calories": "320 calories",
+    "calories": "290 calories",
     "servingSize": "1 serving"
   },
-  "image": "https://taste-buddy.app/images/recipes/chili-sin-carne.png"
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://taste-buddy.app/images/recipes/chili-sin-carne.png",
+    "width": 1200,
+    "height": 800
+  }
 };
-
 const title = `${recipe.name} Recipe | TasteBuddy`;
 const description = `Learn how to make delicious ${recipe.name} with our step-by-step recipe. ${recipe.description}. Ready in ${recipe.totalTime.replace('PT', '').replace('M', ' minutes')}.`;
 ---

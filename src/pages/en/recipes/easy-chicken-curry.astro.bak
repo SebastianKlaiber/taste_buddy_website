@@ -2,27 +2,32 @@
 import Layout from "../../../layouts/Layout.astro";
 
 const recipe = {
-  name: "Vegan Chocolate Mousse",
-  description: "A rich and decadent vegan chocolate mousse made with coconut cream and dark chocolate",
+  name: "Easy Chicken Curry",
+  description: "A flavorful and aromatic chicken curry with coconut milk and curry spices",
   prepTime: "PT15M",
-  cookTime: "PT0M",
-  totalTime: "PT2H15M",
+  cookTime: "PT25M",
+  totalTime: "PT40M",
   servings: 4,
   difficulty: "Easy",
   ingredients: [
-    "200 g dark chocolate (vegan), chopped",
-    "400 ml coconut milk (full fat, chilled)",
-    "2 tbsp maple syrup",
-    "1 tsp vanilla extract",
-    "Pinch of salt"
+    "500 g chicken breast, diced",
+    "1 onion, chopped",
+    "2 cloves garlic, minced",
+    "1 tbsp ginger, grated",
+    "2 tbsp curry powder",
+    "400 ml coconut milk",
+    "2 tbsp tomato paste",
+    "1 tbsp olive oil",
+    "Salt and pepper, to taste",
+    "Fresh coriander, for garnish"
   ],
   instructions: [
-    "Melt chocolate in a heatproof bowl over simmering water. Let cool slightly.",
-    "Scoop solid part of chilled coconut milk into a mixing bowl (discard liquid).",
-    "Whip coconut cream until fluffy.",
-    "Fold in melted chocolate, maple syrup, vanilla, and salt.",
-    "Spoon into serving glasses, chill for at least 2 hours.",
-    "Garnish with berries or mint before serving."
+    "Heat oil in a large pan. Sauté onion, garlic, and ginger until fragrant.",
+    "Add chicken, cook until browned.",
+    "Stir in curry powder and tomato paste, cook for 1 minute.",
+    "Pour in coconut milk, stir well. Simmer for 15-20 minutes until chicken is cooked through.",
+    "Season with salt and pepper. Garnish with coriander.",
+    "Serve with rice or naan bread."
   ]
 };
 
@@ -35,49 +40,29 @@ const structuredData = {
   "cookTime": recipe.cookTime,
   "totalTime": recipe.totalTime,
   "recipeYield": recipe.servings,
-  "recipeCategory": "Dessert",
-  "recipeCuisine": "International",
-  "keywords": "vegan chocolate mousse, dairy-free dessert, coconut cream mousse, vegan dessert, chocolate dessert",
-  "suitableForDiet": ["VeganDiet"],
+  "recipeCategory": "Main Course",
+  "recipeCuisine": "Indian",
+  "keywords": "chicken curry, indian curry, coconut milk curry, easy curry, chicken recipe",
   "author": {
     "@type": "Organization",
-    "name": "TasteBuddy",
-    "url": "https://taste-buddy.app"
+    "name": "TasteBuddy"
   },
-  "publisher": {
-    "@type": "Organization",
-    "name": "TasteBuddy",
-    "url": "https://taste-buddy.app"
-  },
-  "datePublished": "2025-01-09",
   "recipeIngredient": recipe.ingredients,
   "recipeInstructions": recipe.instructions.map((instruction, index) => ({
     "@type": "HowToStep",
     "position": index + 1,
     "text": instruction
   })),
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "reviewCount": "127",
-    "bestRating": "5",
-    "worstRating": "1"
-  },
   "nutrition": {
     "@type": "NutritionInformation",
-    "calories": "280 calories",
+    "calories": "420 calories",
     "servingSize": "1 serving"
   },
-  "image": {
-    "@type": "ImageObject",
-    "url": "https://taste-buddy.app/images/recipes/vegan-chocolate-mousse.png",
-    "width": 1200,
-    "height": 800
-  }
+  "image": "https://taste-buddy.app/images/recipes/chicken-curry.png"
 };
 
 const title = `${recipe.name} Recipe | TasteBuddy`;
-const description = `Learn how to make delicious ${recipe.name} with our step-by-step recipe. ${recipe.description}. Ready in ${recipe.totalTime.replace('PT', '').replace('H', ' hours ').replace('M', ' minutes')}.`;
+const description = `Learn how to make authentic ${recipe.name} with our step-by-step recipe. ${recipe.description}. Ready in ${recipe.totalTime.replace('PT', '').replace('M', ' minutes')}.`;
 ---
 
 <Layout title={title} description={description}>
@@ -86,7 +71,7 @@ const description = `Learn how to make delicious ${recipe.name} with our step-by
   <article class="max-w-4xl mx-auto">
     <div class="aspect-video max-w-2xl mx-auto mb-8 rounded-2xl overflow-hidden bg-[#2A2D24]">
       <img 
-        src="/images/recipes/vegan-chocolate-mousse.png" 
+        src="/images/recipes/chicken-curry.png" 
         alt={recipe.name}
         class="w-full h-full object-cover"
         loading="eager"
@@ -99,16 +84,13 @@ const description = `Learn how to make delicious ${recipe.name} with our step-by
       
       <div class="flex flex-wrap justify-center gap-4 text-sm">
         <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
-          🕒 {recipe.totalTime.replace('PT', '').replace('H', 'h ').replace('M', 'min')}
+          🕒 {recipe.totalTime.replace('PT', '').replace('M', ' min')}
         </span>
         <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
           👥 {recipe.servings} servings
         </span>
         <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
           📊 {recipe.difficulty}
-        </span>
-        <span class="bg-[#00CE31] text-black px-3 py-1 rounded-full font-medium">
-          🌱 Vegan
         </span>
       </div>
     </header>
@@ -144,10 +126,10 @@ const description = `Learn how to make delicious ${recipe.name} with our step-by
     <section class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30 mb-8">
       <h2 class="text-2xl font-semibold text-white mb-4">Tips & Notes</h2>
       <div class="text-gray-300 space-y-2">
-        <p>• Make sure to use full-fat coconut milk and chill it overnight for best whipping results.</p>
-        <p>• Use high-quality vegan dark chocolate (70% cocoa or higher) for the richest flavor.</p>
-        <p>• Don't overmix when folding in the chocolate to maintain the light, airy texture.</p>
-        <p>• Chill for at least 2 hours, or overnight for best texture and flavor development.</p>
+        <p>• Adjust the curry powder to your taste preference - start with less if you prefer milder flavors.</p>
+        <p>• Use full-fat coconut milk for the richest and creamiest texture.</p>
+        <p>• Let the curry simmer gently to allow flavors to develop fully.</p>
+        <p>• Serve with basmati rice, naan bread, or flatbread for the complete experience.</p>
       </div>
     </section>
 
