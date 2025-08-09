@@ -1,0 +1,381 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Main from "../../components/Main.astro";
+import { AstroSeo } from '@astrolib/seo';
+
+// Schema.org structured data for Software Application feature
+const structuredData = {
+  "@context": "https://schema.org/",
+  "@type": "WebPage",
+  "name": "RSS Recipe Subscriptions - TasteBuddy Feature",
+  "description": "Follow your favorite food blogs and recipe websites with RSS subscriptions in TasteBuddy. Never miss new recipes from your favorite food bloggers again.",
+  "url": "https://tastebuddy.app/features/rss-recipe-subscriptions/",
+  "isPartOf": {
+    "@type": "MobileApplication",
+    "name": "TasteBuddy",
+    "operatingSystem": "iOS, Android",
+    "applicationCategory": "LifestyleApplication",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "2453"
+    }
+  },
+  "mainEntity": {
+    "@type": "SoftwareApplication",
+    "name": "TasteBuddy RSS Recipe Subscriptions",
+    "featureList": [
+      "Follow unlimited recipe websites and food blogs",
+      "Automatic new recipe notifications",
+      "One-tap recipe import from RSS feeds",
+      "Daily and weekly digest options",
+      "Support for all major food blog platforms",
+      "Background recipe monitoring",
+      "Custom notification preferences",
+      "Seamless integration with recipe collection"
+    ],
+    "screenshot": "/images/features/rss-subscriptions-screenshot.jpg"
+  }
+};
+---
+
+<AstroSeo
+  title="RSS Recipe Subscriptions - Never Miss New Recipes | TasteBuddy"
+  description="Follow your favorite food blogs automatically with TasteBuddy's RSS recipe subscriptions. Get instant notifications when new recipes are published. Subscribe to unlimited recipe websites."
+  canonical="https://tastebuddy.app/features/rss-recipe-subscriptions/"
+  openGraph={{
+    title: 'RSS Recipe Subscriptions - Follow Food Blogs Automatically',
+    description: 'Never miss another recipe from your favorite food bloggers. TasteBuddy monitors recipe websites and notifies you instantly when new content is published.',
+    url: 'https://tastebuddy.app/features/rss-recipe-subscriptions/',
+    images: [
+      {
+        url: '/images/features/rss-subscriptions-og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'TasteBuddy RSS Recipe Subscriptions Feature',
+      },
+    ],
+    site_name: 'TasteBuddy',
+  }}
+  twitter={{
+    handle: '@tastebuddyapp',
+    site: '@tastebuddyapp',
+    cardType: 'summary_large_image',
+  }}
+/>
+
+<Layout title="RSS Recipe Subscriptions - Follow Food Blogs Automatically | TasteBuddy">
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  
+  <Main>
+    <div class="max-w-6xl mx-auto">
+      <!-- Hero Section -->
+      <section class="py-12 sm:py-16 lg:py-20">
+        <div class="text-center mb-12">
+          <div class="inline-flex items-center justify-center px-4 py-2 mb-6 text-sm font-semibold text-[#00CE31] bg-[#00CE31]/10 rounded-full border border-[#00CE31]/20">
+            NEW FEATURE
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+            Never Miss Another Recipe from Your
+            <span class="text-[#00CE31] block mt-2">Favorite Food Bloggers</span>
+          </h1>
+          <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+            Follow unlimited recipe websites and food blogs with RSS subscriptions. 
+            Get instant notifications when new recipes are published. 
+            One-tap import to your TasteBuddy collection.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/download" class="px-8 py-4 bg-[#00CE31] text-black font-semibold rounded-full hover:bg-[#00CE31]/90 transition-colors inline-flex items-center justify-center">
+              Try RSS Subscriptions Free
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            <a href="/en/blog/posts/rss-recipe-subscriptions/" class="px-8 py-4 bg-white/10 text-white font-semibold rounded-full hover:bg-white/20 transition-colors backdrop-blur-sm border border-white/20 inline-flex items-center justify-center">
+              Read Announcement
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Problem Section -->
+      <section class="py-12 sm:py-16">
+        <div class="bg-gradient-to-br from-red-600/10 to-red-500/5 rounded-3xl p-8 sm:p-12 border border-red-500/20">
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mb-8 text-center">
+            The Recipe Discovery Problem
+          </h2>
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="text-center">
+              <div class="text-4xl mb-4">😔</div>
+              <h3 class="text-xl font-semibold text-white mb-2">Missing Great Recipes</h3>
+              <p class="text-gray-300">Your favorite bloggers post amazing recipes, but you find out days or weeks later</p>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl mb-4">🔍</div>
+              <h3 class="text-xl font-semibold text-white mb-2">Manual Checking</h3>
+              <p class="text-gray-300">Constantly visiting multiple websites hoping for new content wastes valuable time</p>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl mb-4">📱</div>
+              <h3 class="text-xl font-semibold text-white mb-2">Algorithm Dependency</h3>
+              <p class="text-gray-300">Social media decides what you see, not what you actually want to follow</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works -->
+      <section class="py-12 sm:py-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-12 text-center">
+          How RSS Recipe Subscriptions Work
+        </h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 rounded-2xl border border-[#2A2D24]/30">
+            <div class="w-12 h-12 bg-[#00CE31]/20 rounded-xl flex items-center justify-center mb-4">
+              <span class="text-2xl">1</span>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-2">Add Your Favorite Sites</h3>
+            <p class="text-gray-400">Paste any recipe website URL and we'll find their RSS feed automatically</p>
+          </div>
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 rounded-2xl border border-[#2A2D24]/30">
+            <div class="w-12 h-12 bg-[#00CE31]/20 rounded-xl flex items-center justify-center mb-4">
+              <span class="text-2xl">2</span>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-2">We Monitor 24/7</h3>
+            <p class="text-gray-400">TasteBuddy checks for new recipes in the background continuously</p>
+          </div>
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 rounded-2xl border border-[#2A2D24]/30">
+            <div class="w-12 h-12 bg-[#00CE31]/20 rounded-xl flex items-center justify-center mb-4">
+              <span class="text-2xl">3</span>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-2">Get Instant Alerts</h3>
+            <p class="text-gray-400">Receive notifications immediately or in daily/weekly digests</p>
+          </div>
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 rounded-2xl border border-[#2A2D24]/30">
+            <div class="w-12 h-12 bg-[#00CE31]/20 rounded-xl flex items-center justify-center mb-4">
+              <span class="text-2xl">4</span>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-2">One-Tap Import</h3>
+            <p class="text-gray-400">Save any recipe to your collection instantly with automatic parsing</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Grid -->
+      <section class="py-12 sm:py-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-12 text-center">
+          Powerful RSS Subscription Features
+        </h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="flex gap-4">
+            <div class="flex-shrink-0">
+              <div class="w-10 h-10 bg-[#00CE31]/20 rounded-lg flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#00CE31]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white mb-2">Unlimited Subscriptions</h3>
+              <p class="text-gray-400">Follow as many food blogs and recipe websites as you want with no limits</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex-shrink-0">
+              <div class="w-10 h-10 bg-[#00CE31]/20 rounded-lg flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#00CE31]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white mb-2">Smart Notifications</h3>
+              <p class="text-gray-400">Choose immediate alerts, daily digests, or weekly roundups based on your preference</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex-shrink-0">
+              <div class="w-10 h-10 bg-[#00CE31]/20 rounded-lg flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#00CE31]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white mb-2">Instant Import</h3>
+              <p class="text-gray-400">Save recipes to your collection with one tap - ingredients and instructions parsed automatically</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex-shrink-0">
+              <div class="w-10 h-10 bg-[#00CE31]/20 rounded-lg flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#00CE31]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white mb-2">Auto-Detection</h3>
+              <p class="text-gray-400">We automatically find RSS feeds from any recipe website URL you provide</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex-shrink-0">
+              <div class="w-10 h-10 bg-[#00CE31]/20 rounded-lg flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#00CE31]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white mb-2">Background Monitoring</h3>
+              <p class="text-gray-400">TasteBuddy checks for new recipes 24/7 even when the app is closed</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex-shrink-0">
+              <div class="w-10 h-10 bg-[#00CE31]/20 rounded-lg flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#00CE31]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-white mb-2">Organized Feed</h3>
+              <p class="text-gray-400">All new recipes from your subscriptions in one clean, chronological feed</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Popular Food Blogs Section -->
+      <section class="py-12 sm:py-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-12 text-center">
+          Popular Food Blogs You Can Follow
+        </h2>
+        <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-3xl p-8 sm:p-12 border border-[#2A2D24]/30">
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="text-center p-4">
+              <div class="text-2xl mb-2">🥘</div>
+              <p class="text-white font-medium">Minimalist Baker</p>
+            </div>
+            <div class="text-center p-4">
+              <div class="text-2xl mb-2">🍝</div>
+              <p class="text-white font-medium">Half Baked Harvest</p>
+            </div>
+            <div class="text-center p-4">
+              <div class="text-2xl mb-2">🥗</div>
+              <p class="text-white font-medium">Cookie + Kate</p>
+            </div>
+            <div class="text-center p-4">
+              <div class="text-2xl mb-2">🍰</div>
+              <p class="text-white font-medium">Sally's Baking</p>
+            </div>
+            <div class="text-center p-4">
+              <div class="text-2xl mb-2">🌮</div>
+              <p class="text-white font-medium">Serious Eats</p>
+            </div>
+            <div class="text-center p-4">
+              <div class="text-2xl mb-2">🍜</div>
+              <p class="text-white font-medium">Budget Bytes</p>
+            </div>
+            <div class="text-center p-4">
+              <div class="text-2xl mb-2">🥧</div>
+              <p class="text-white font-medium">Smitten Kitchen</p>
+            </div>
+            <div class="text-center p-4">
+              <div class="text-2xl mb-2">🍕</div>
+              <p class="text-white font-medium">Pinch of Yum</p>
+            </div>
+          </div>
+          <p class="text-center text-gray-400 mt-6">
+            Plus thousands more recipe websites and food blogs!
+          </p>
+        </div>
+      </section>
+
+      <!-- Benefits Section -->
+      <section class="py-12 sm:py-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-12 text-center">
+          Transform Your Recipe Discovery
+        </h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl p-8 border border-[#2A2D24]/30">
+            <h3 class="text-2xl font-bold text-white mb-4">Before RSS Subscriptions</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="text-red-500 mt-1">✗</span>
+                <span class="text-gray-400">Manually checking multiple websites daily</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-red-500 mt-1">✗</span>
+                <span class="text-gray-400">Missing seasonal and limited-time recipes</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-red-500 mt-1">✗</span>
+                <span class="text-gray-400">Relying on social media algorithms</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-red-500 mt-1">✗</span>
+                <span class="text-gray-400">Forgetting to check favorite blogs</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-red-500 mt-1">✗</span>
+                <span class="text-gray-400">Wasting time searching for new content</span>
+              </li>
+            </ul>
+          </div>
+          <div class="bg-gradient-to-br from-[#00CE31]/10 to-[#00CE31]/5 rounded-2xl p-8 border border-[#00CE31]/30">
+            <h3 class="text-2xl font-bold text-white mb-4">After RSS Subscriptions</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="text-[#00CE31] mt-1">✓</span>
+                <span class="text-white">Automatic monitoring of all favorite sites</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-[#00CE31] mt-1">✓</span>
+                <span class="text-white">Instant notifications for new recipes</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-[#00CE31] mt-1">✓</span>
+                <span class="text-white">Direct access to content you care about</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-[#00CE31] mt-1">✓</span>
+                <span class="text-white">Never miss another great recipe</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-[#00CE31] mt-1">✓</span>
+                <span class="text-white">More time cooking, less time searching</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="py-12 sm:py-16 lg:py-20">
+        <div class="bg-gradient-to-br from-[#00CE31]/20 to-[#00CE31]/10 rounded-3xl p-8 sm:p-12 text-center border border-[#00CE31]/30">
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
+            Start Following Your Favorite Food Blogs Today
+          </h2>
+          <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            Join thousands of home cooks who never miss a recipe from their favorite food bloggers. 
+            RSS subscriptions are available free in TasteBuddy.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/download" class="px-8 py-4 bg-[#00CE31] text-black font-semibold rounded-full hover:bg-[#00CE31]/90 transition-colors inline-flex items-center justify-center">
+              Download TasteBuddy Free
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            <a href="/features" class="px-8 py-4 bg-white/10 text-white font-semibold rounded-full hover:bg-white/20 transition-colors backdrop-blur-sm border border-white/20 inline-flex items-center justify-center">
+              See All Features
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </Main>
+</Layout>
