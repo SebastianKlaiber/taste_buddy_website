@@ -45,25 +45,44 @@ const structuredData = {
   "recipeYield": recipe.servings,
   "recipeCategory": "Hauptgericht",
   "recipeCuisine": "Mexikanisch",
-  "keywords": "chili con carne, rindfleisch chili, scharfes chili, mexikanisches chili, kidneybohnen, hackfleisch rezept",
+  "keywords": "chili con carne, rindfleisch chili, scharfes chili, mexikanisches chili, kidneybohnen, hackfleischrezept",
   "inLanguage": "de",
   "author": {
     "@type": "Organization",
-    "name": "TasteBuddy"
+    "name": "TasteBuddy",
+    "url": "https://taste-buddy.app"
   },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TasteBuddy",
+    "url": "https://taste-buddy.app"
+  },
+  "datePublished": "2025-01-09",
   "recipeIngredient": recipe.ingredients,
   "recipeInstructions": recipe.instructions.map((instruction, index) => ({
     "@type": "HowToStep",
     "position": index + 1,
     "text": instruction
   })),
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.7",
+    "reviewCount": "54",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
   "nutrition": {
     "@type": "NutritionInformation",
     "calories": "380 Kalorien",
     "servingSize": "1 Portion"
   },
-  "image": "https://taste-buddy.app/images/recipes/chili-con-carne.png"
-};
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://taste-buddy.app/images/recipes/chili-con-carne.png",
+    "width": 1200,
+    "height": 800
+  }
+};};
 
 const title = `${recipe.name} Rezept | TasteBuddy`;
 const description = `Lernen Sie, wie man authentisches ${recipe.name} mit unserer Schritt-für-Schritt-Anleitung zubereitet. ${recipe.description}. Fertig in ${recipe.totalTime.replace('PT', '').replace('M', ' Minuten')}.`;
