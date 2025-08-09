@@ -1,62 +1,263 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
   <url>
     <loc>https://tastebuddy.app/</loc>
-    <lastmod>2025-01-01</lastmod>
+    <lastmod>2025-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  
+  <!-- Main Features -->
   <url>
     <loc>https://tastebuddy.app/features/meal-planning</loc>
-    <lastmod>2025-01-01</lastmod>
+    <lastmod>2025-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tastebuddy.app/features/recipe-organizer</loc>
-    <lastmod>2025-01-01</lastmod>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Comparison Pages (High Priority for SEO) -->
+  <url>
+    <loc>https://tastebuddy.app/comparisons/tastebuddy-vs-allrecipes</loc>
+    <lastmod>2025-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://tastebuddy.app/about</loc>
-    <lastmod>2025-01-01</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://tastebuddy.app/comparisons/tastebuddy-vs-paprika</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/comparisons/tastebuddy-vs-yummly</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Solution Pages -->
+  <url>
+    <loc>https://tastebuddy.app/solutions/food-waste-prevention</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/solutions/decision-fatigue-cooking</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/solutions/grocery-budget-control</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/solutions/pantry-organization</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Guide Pages -->
+  <url>
+    <loc>https://tastebuddy.app/guides/how-to-organize-recipes</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/guides/meal-planning-for-beginners</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/guides/recipe-app-features</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Best App Pages -->
+  <url>
+    <loc>https://tastebuddy.app/best-recipe-app</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/best-all-recipe-app</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/best-recipe-planner-app</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Main Pages -->
+  <url>
+    <loc>https://tastebuddy.app/about</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tastebuddy.app/contact</loc>
-    <lastmod>2025-01-01</lastmod>
+    <lastmod>2025-01-09</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
+  
+  <!-- Blog Index Pages -->
   <url>
     <loc>https://tastebuddy.app/en/blog</loc>
-    <lastmod>2025-01-01</lastmod>
+    <lastmod>2025-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tastebuddy.app/de/blog</loc>
-    <lastmod>2025-01-01</lastmod>
+    <lastmod>2025-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- Recipe Collection Pages -->
   <url>
     <loc>https://tastebuddy.app/en/recipes</loc>
-    <lastmod>2025-01-01</lastmod>
+    <lastmod>2025-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tastebuddy.app/de/recipes</loc>
-    <lastmod>2025-01-01</lastmod>
+    <lastmod>2025-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- English Blog Posts -->
+  <url>
+    <loc>https://tastebuddy.app/en/blog/posts/pickling-vegetables-made-easy</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- German Blog Posts -->
+  <url>
+    <loc>https://tastebuddy.app/de/blog/posts/gemuese-einlegen-leicht-gemacht</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/de/blog/posts/meal-prep-hacks-fuer-eltern</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/de/blog/posts/saisonale-kueche-fuer-familien</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- English Recipe Pages -->
+  <url>
+    <loc>https://tastebuddy.app/en/recipes/vegan-chocolate-mousse</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/en/recipes/easy-chicken-curry</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/en/recipes/creamy-mushroom-risotto</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/en/recipes/classic-spaghetti-carbonara</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/en/recipes/chili-con-carne</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/en/recipes/chili-sin-carne</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- German Recipe Pages -->
+  <url>
+    <loc>https://tastebuddy.app/de/recipes/vegane-schokoladenmousse</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/de/recipes/einfaches-haehnchen-curry</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/de/recipes/cremiges-pilzrisotto</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/de/recipes/klassische-spaghetti-carbonara</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/de/recipes/chili-con-carne</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tastebuddy.app/de/recipes/chili-sin-carne</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Legal Pages -->
   <url>
     <loc>https://tastebuddy.app/privacy</loc>
-    <lastmod>2025-01-01</lastmod>
+    <lastmod>2025-01-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
