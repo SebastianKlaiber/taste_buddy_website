@@ -7,5 +7,8 @@
 # Main page
 /  /index.html  200
 
-# Handle unknown recipe IDs
-/share_recipe/*  /404.html  404 
+# Handle unknown recipe IDs - these get handled by static pages, but if not found show 404
+/share_recipe/*  /404.html  404
+
+# Catch-all 404 handler for any unmatched routes
+/*  /404.html  404 

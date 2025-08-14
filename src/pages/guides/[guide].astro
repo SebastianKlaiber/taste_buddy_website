@@ -8,7 +8,8 @@ export const prerender = true;
 // Guide data is now defined inline in getStaticPaths function
 
 export async function getStaticPaths() {
-  const staticGuides = {
+  try {
+    const staticGuides = {
     "how-to-organize-recipes": {
       title: "How to Organize Recipes: Complete Guide for Home Cooks",
       keyword: "how to organize recipes",
@@ -90,19 +91,25 @@ export async function getStaticPaths() {
         "Verify recipe scaling and conversion features"
       ]
     }
-  };
-  
-  return Object.keys(staticGuides).map(slug => ({
-    params: { guide: slug },
-    props: { guideData: (staticGuides as any)[slug] }
-  }));
+    };
+    
+    console.log(`Building guide pages: ${Object.keys(staticGuides).join(', ')}`);
+    return Object.keys(staticGuides).map(slug => ({
+      params: { guide: slug },
+      props: { guideData: (staticGuides as any)[slug] }
+    }));
+  } catch (error) {
+    console.error('Error in getStaticPaths for guides:', error);
+    // Return empty array to prevent build failure
+    return [];
+  }
 }
 
 const { guide } = Astro.params;
 const { guideData } = Astro.props;
 
 if (!guideData) {
-  return Astro.redirect('/404');
+  return new Response(null, { status: 404 });
 }
 
 const structuredData = {

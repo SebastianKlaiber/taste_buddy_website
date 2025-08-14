@@ -30,20 +30,16 @@
 [build.processing.html]
   pretty_urls = true
 
-# Static assets - Ensure Astro's assets are served correctly
+# Error page handling - Let _redirects file handle specific routes
+# Add catch-all 404 handler for any unmatched routes
 [[redirects]]
-  from = "/_astro/*"
-  to = "/_astro/:splat"
-  status = 200
-
-# Ensure .well-known directory is accessible
-[[redirects]]
-  from = "/.well-known/*"
-  to = "/.well-known/:splat"
-  status = 200
-
-# If a share_recipe ID isn't found, show the 404 page
-[[redirects]]
-  from = "/share_recipe/*"
+  from = "/*"
   to = "/404.html"
   status = 404
+
+# Custom error pages
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
