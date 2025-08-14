@@ -13,7 +13,6 @@
 
 import fs from 'fs';
 import path from 'path';
-import { DOMParser } from '@xmldom/xmldom';
 
 // Colors for console output
 const colors = {
@@ -83,10 +82,14 @@ function validateSitemap(sitemapPath, distDir) {
   }
   
   const sitemapContent = fs.readFileSync(sitemapPath, 'utf-8');
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(sitemapContent, 'text/xml');
   
-  const urls = Array.from(doc.getElementsByTagName('loc')).map(loc => loc.textContent);
+  // Use regex parsing to extract URLs from sitemap (more reliable than XML parsing)
+  const urls = [];
+  const locRegex = /<loc>(.*?)<\/loc>/g;
+  let match;
+  while ((match = locRegex.exec(sitemapContent)) !== null) {
+    urls.push(match[1]);
+  }
   
   log('blue', `Found ${urls.length} URLs in sitemap`);
   
