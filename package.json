@@ -28,7 +28,7 @@
     "@xmldom/xmldom": "^0.8.10"
   },
   "peerDependencies": {
-    "rollup": "4.13.0"
+    "rollup": "4.46.2"
   },
   "engines": {
     "node": "18.x",
