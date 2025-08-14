@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 - Server Error | TasteBuddy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0F0F0F 0%, #1C2513 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-[#0F0F0F] to-[#1C2513] text-white">
+    <div class="min-h-screen flex items-center justify-center px-4">
+        <div class="max-w-2xl text-center">
+            <div class="text-6xl mb-8">⚠️</div>
+            <h1 class="text-4xl sm:text-5xl font-bold mb-6">Server Error</h1>
+            <p class="text-xl text-gray-300 mb-8">
+                Something went wrong on our end. Our team has been notified and is working to fix this issue.
+            </p>
+            
+            <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 rounded-xl border border-[#2A2D24]/30 mb-8">
+                <h2 class="text-xl font-semibold mb-4">What can you do?</h2>
+                <ul class="text-left text-gray-300 space-y-2">
+                    <li class="flex items-start">
+                        <span class="text-[#00CE31] mr-2">•</span> 
+                        <span>Try refreshing the page in a few minutes</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-[#00CE31] mr-2">•</span> 
+                        <span>Go back to the homepage</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-[#00CE31] mr-2">•</span> 
+                        <span>Contact us if the problem persists</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="/" class="bg-[#00CE31] hover:bg-[#00CE31]/80 text-black font-medium py-3 px-6 rounded-lg transition-all duration-300">
+                    Go Home
+                </a>
+                <a href="/contact" class="bg-[#1C2513] hover:bg-[#2A2D24] border border-[#2A2D24] text-white font-medium py-3 px-6 rounded-lg transition-all duration-300">
+                    Contact Support
+                </a>
+            </div>
+            
+            <div class="mt-8 text-sm text-gray-400">
+                <p>Error Code: 500 | Server Error</p>
+                <p>If you need immediate assistance, please contact our support team.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

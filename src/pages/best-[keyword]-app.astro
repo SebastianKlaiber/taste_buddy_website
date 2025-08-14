@@ -8,7 +8,8 @@ export const prerender = true;
 // Keyword data is now defined inline in getStaticPaths function
 
 export async function getStaticPaths() {
-  const staticKeywordData = {
+  try {
+    const staticKeywordData = {
     "all-recipe": {
       title: "Best All Recipe App",
       keyword: "all recipe app",
@@ -72,19 +73,25 @@ export async function getStaticPaths() {
         { name: "BBC Good Food", rating: 4.2, users: "15M+" }
       ]
     }
-  };
-  
-  return Object.keys(staticKeywordData).map(slug => ({
-    params: { keyword: slug },
-    props: { data: (staticKeywordData as any)[slug] }
-  }));
+    };
+    
+    console.log(`Building keyword pages: ${Object.keys(staticKeywordData).join(', ')}`);
+    return Object.keys(staticKeywordData).map(slug => ({
+      params: { keyword: slug },
+      props: { data: (staticKeywordData as any)[slug] }
+    }));
+  } catch (error) {
+    console.error('Error in getStaticPaths for keywords:', error);
+    // Return empty array to prevent build failure
+    return [];
+  }
 }
 
 const { keyword } = Astro.params;
 const { data } = Astro.props;
 
 if (!data) {
-  return Astro.redirect('/404');
+  return new Response(null, { status: 404 });
 }
 
 const structuredData = {

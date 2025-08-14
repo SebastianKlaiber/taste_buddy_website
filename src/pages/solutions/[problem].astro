@@ -2,7 +2,8 @@
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const staticProblemData = {
+  try {
+    const staticProblemData = {
     "food-waste-prevention": {
       title: "Food Waste Prevention: Stop Throwing Away $2,913 Per Year",
       keyword: "food waste prevention",
@@ -155,12 +156,18 @@ export async function getStaticPaths() {
         "Check pantry before every shopping trip"
       ]
     }
-  };
+    };
 
-  return Object.keys(staticProblemData).map(slug => ({
-    params: { problem: slug },
-    props: { data: (staticProblemData as any)[slug] }
-  }));
+    console.log(`Building problem pages: ${Object.keys(staticProblemData).join(', ')}`);
+    return Object.keys(staticProblemData).map(slug => ({
+      params: { problem: slug },
+      props: { data: (staticProblemData as any)[slug] }
+    }));
+  } catch (error) {
+    console.error('Error in getStaticPaths for problems:', error);
+    // Return empty array to prevent build failure
+    return [];
+  }
 }
 
 interface Props {

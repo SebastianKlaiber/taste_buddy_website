@@ -8,13 +8,20 @@ export const prerender = true;
 
 // Define which paths will be statically generated
 export function getStaticPaths() {
-  // Generate common recipe IDs we know about
-  // You can add more IDs here or fetch them from an API at build time
-  const recipeIds = ['1', '2', '3', '84', '5', '10', '20'];
-  
-  return recipeIds.map(id => ({
-    params: { id },
-  }));
+  try {
+    // Generate common recipe IDs we know about
+    // You can add more IDs here or fetch them from an API at build time
+    const recipeIds = ['1', '2', '3', '84', '5', '10', '20'];
+    
+    console.log(`Building share_recipe pages for IDs: ${recipeIds.join(', ')}`);
+    return recipeIds.map(id => ({
+      params: { id },
+    }));
+  } catch (error) {
+    console.error('Error in getStaticPaths for share_recipe:', error);
+    // Return empty array to prevent build failure
+    return [];
+  }
 }
 
 // Get the ID from params

@@ -8,7 +8,8 @@ export const prerender = true;
 // Solution data is now defined inline in getStaticPaths function
 
 export async function getStaticPaths() {
-  const staticSolutionData = {
+  try {
+    const staticSolutionData = {
     "meal-planning": {
       title: "Best Meal Planning App",
       solution: "meal planning app",
@@ -72,19 +73,25 @@ export async function getStaticPaths() {
         { name: "KitchenPal", rating: 3.9, users: "800K+" }
       ]
     }
-  };
-  
-  return Object.keys(staticSolutionData).map(slug => ({
-    params: { solution: slug },
-    props: { data: (staticSolutionData as any)[slug] }
-  }));
+    };
+    
+    console.log(`Building solution pages: ${Object.keys(staticSolutionData).join(', ')}`);
+    return Object.keys(staticSolutionData).map(slug => ({
+      params: { solution: slug },
+      props: { data: (staticSolutionData as any)[slug] }
+    }));
+  } catch (error) {
+    console.error('Error in getStaticPaths for solutions:', error);
+    // Return empty array to prevent build failure
+    return [];
+  }
 }
 
 const { solution } = Astro.params;
 const { data } = Astro.props;
 
 if (!data) {
-  return Astro.redirect('/404');
+  return new Response(null, { status: 404 });
 }
 
 const structuredData = {

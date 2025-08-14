@@ -8,7 +8,8 @@ export const prerender = true;
 // Comparison data is now defined inline in getStaticPaths function
 
 export async function getStaticPaths() {
-  const staticComparisons = {
+  try {
+    const staticComparisons = {
     "tastebuddy-vs-allrecipes": {
       title: "TasteBuddy vs AllRecipes",
       competitor: "AllRecipes",
@@ -132,19 +133,25 @@ export async function getStaticPaths() {
         }
       }
     }
-  };
-  
-     return Object.keys(staticComparisons).map(slug => ({
-     params: { comparison: slug },
-     props: { comparisonData: (staticComparisons as any)[slug] }
-   }));
+    };
+    
+    console.log(`Building comparison pages: ${Object.keys(staticComparisons).join(', ')}`);
+    return Object.keys(staticComparisons).map(slug => ({
+      params: { comparison: slug },
+      props: { comparisonData: (staticComparisons as any)[slug] }
+    }));
+  } catch (error) {
+    console.error('Error in getStaticPaths for comparisons:', error);
+    // Return empty array to prevent build failure
+    return [];
+  }
 }
 
 const { comparison } = Astro.params;
 const { comparisonData } = Astro.props;
 
 if (!comparisonData) {
-  return Astro.redirect('/404');
+  return new Response(null, { status: 404 });
 }
 
 const structuredData = {
