@@ -148,15 +148,41 @@ const structuredData = {
             </h1>
             <p class="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
               Organize and discover recipes that match your taste profile.<br class="hidden sm:inline">
-              Cook with confidence using our smart kitchen companion.
+              Cook with confidence using TasteBuddy, your smart kitchen companion.
             </p>
           </header>
         )}
 
         {Astro.url.pathname === "/" && (
+          <!-- Questions Section -->
+          <div class="text-center mb-16 sm:mb-20">
+            <div class="max-w-2xl mx-auto bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-8 sm:p-12 rounded-3xl border border-[#2A2D24]/30 backdrop-blur-sm shadow-2xl hover:shadow-[#00CE31]/20 transition-all duration-500 hover:scale-105">
+              <div class="text-5xl sm:text-6xl mb-6">🤔</div>
+              <h3 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+                Need Recipe or Meal Planning Help?
+              </h3>
+              <p class="text-lg text-gray-300 mb-8 max-w-xl mx-auto">
+                Whether you need help with recipe organization, meal planning strategies, or cooking app features – I personally respond to every message. Join thousands of home cooks getting direct support from the creator to make the most of their recipe planner app experience.
+              </p>
+              <a
+                href="mailto:sebastian@klaiber.app?subject=Hey TasteBuddy Team!"
+                class="btn-primary text-lg px-8 py-4 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl inline-flex items-center space-x-3 group"
+                title="Get personalized recipe app help and meal planning support"
+              >
+                <span>💌</span>
+                <span>Ask your cooking questions</span>
+                <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        )}
+
+        {Astro.url.pathname === "/" && (
           <section class="my-12 sm:my-16 md:my-20 text-center">
             <h2 class="text-2xl sm:text-3xl font-semibold text-white mb-6 sm:mb-8">
-              Why Home Cooks Love Our Recipe Keeper
+              Why Home Cooks Love TasteBuddy
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               <div class="p-6 sm:p-8 bg-[#1C2513]/80 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#00CE31]/20 hover:-translate-y-1">
