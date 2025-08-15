@@ -156,19 +156,52 @@ if (!comparisonData) {
 
 const structuredData = {
   "@context": "https://schema.org/",
-  "@type": "Article",
-  "headline": `${comparisonData.title} - Complete Recipe App Comparison`,
-  "description": comparisonData.description,
-  "author": {
-    "@type": "Organization",
-    "name": "TasteBuddy"
-  },
-  "publisher": {
-    "@type": "Organization", 
-    "name": "TasteBuddy"
-  },
-  "datePublished": "2025-01-15",
-  "dateModified": "2025-01-15"
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": `${comparisonData.title} - Complete Recipe App Comparison`,
+      "description": comparisonData.description,
+      "author": {
+        "@type": "Organization",
+        "name": "TasteBuddy"
+      },
+      "publisher": {
+        "@type": "Organization", 
+        "name": "TasteBuddy"
+      },
+      "datePublished": "2025-01-15",
+      "dateModified": "2025-01-15"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": `Is TasteBuddy better than ${comparisonData.competitor}?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `TasteBuddy offers superior AI-powered meal planning and recipe transformation features that ${comparisonData.competitor} lacks, making it better for users who want intelligent cooking assistance.`
+          }
+        },
+        {
+          "@type": "Question",
+          "name": `Can I import my recipes from ${comparisonData.competitor}?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `Yes, TasteBuddy can import recipes from most apps including ${comparisonData.competitor}. You can also import recipes by taking photos or pasting URLs.`
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which app is better for meal planning?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `TasteBuddy's AI meal planning is significantly more advanced than ${comparisonData.competitor}, automatically creating balanced weekly plans and shopping lists.`
+          }
+        }
+      ]
+    }
+  ]
 };
 ---
 

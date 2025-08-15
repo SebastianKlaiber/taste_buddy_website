@@ -79,4 +79,4 @@ User-agent: LinkedInBot
 Allow: /
 
 # Sitemap location
-Sitemap: https://tastebuddy.app/sitemap.xml
+Sitemap: https://taste-buddy.app/sitemap.xml

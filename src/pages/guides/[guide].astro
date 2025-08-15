@@ -114,25 +114,58 @@ if (!guideData) {
 
 const structuredData = {
   "@context": "https://schema.org/",
-  "@type": "HowTo",
-  "name": guideData.title,
-  "description": guideData.description,
-  "author": {
-    "@type": "Organization",
-    "name": "TasteBuddy"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "TasteBuddy"
-  },
-  "datePublished": "2025-01-15",
-  "dateModified": "2025-01-15",
-  "step": guideData.sections.map((section: any, index: number) => ({
-    "@type": "HowToStep",
-    "position": index + 1,
-    "name": section.title,
-    "text": section.content
-  }))
+  "@graph": [
+    {
+      "@type": "HowTo",
+      "name": guideData.title,
+      "description": guideData.description,
+      "author": {
+        "@type": "Organization",
+        "name": "TasteBuddy"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "TasteBuddy"
+      },
+      "datePublished": "2025-01-15",
+      "dateModified": "2025-01-15",
+      "step": guideData.sections.map((section: any, index: number) => ({
+        "@type": "HowToStep",
+        "position": index + 1,
+        "name": section.title,
+        "text": section.content
+      }))
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": `What's the best way to ${guideData.keyword}?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The most effective approach is using an AI-powered app like TasteBuddy that automatically handles organization, categorization, and meal planning without manual effort."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does it take to get organized?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "With TasteBuddy's automatic features, you can have an organized recipe collection within hours. The AI handles categorization as you import recipes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I go completely digital?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Digital organization offers significant advantages including search functionality, automatic backup, meal planning integration, and accessibility across devices."
+          }
+        }
+      ]
+    }
+  ]
 };
 ---
 

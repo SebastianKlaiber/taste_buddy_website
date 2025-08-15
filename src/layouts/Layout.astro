@@ -11,6 +11,26 @@ const { title, description = "The best recipe app and AI meal planner for home c
 const primaryKeyword = "recipe app";
 const secondaryKeywords = "best recipe app, recipe planner app, meal planner app, AI meal planning, recipe organizer app, digital cookbook app";
 
+// Language detection and hreflang generation
+const currentPath = Astro.url.pathname;
+const currentLang = currentPath.startsWith('/de/') ? 'de' : currentPath.startsWith('/en/') ? 'en' : 'en';
+const baseUrl = 'https://taste-buddy.app';
+
+// Generate hreflang URLs
+function getHreflangUrls(path: string) {
+  // Remove language prefix if it exists
+  let cleanPath = path.replace(/^\/(en|de)\//, '/');
+  if (cleanPath === '/') cleanPath = '';
+  
+  return {
+    en: `${baseUrl}/en${cleanPath}`,
+    de: `${baseUrl}/de${cleanPath}`,
+    'x-default': `${baseUrl}${cleanPath}` // Default to no language prefix
+  };
+}
+
+const hreflangUrls = getHreflangUrls(currentPath);
+
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -70,14 +90,30 @@ const structuredData = {
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang={currentLang} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta property="og:description" content={description} />
     <meta name="viewport" content="width=device-width" />
+    
+    <!-- Core Web Vitals Optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://apps.apple.com">
+    <link rel="preconnect" href="https://play.google.com">
+    
+    <!-- Font loading optimization -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- DNS prefetch for external domains -->
+    <link rel="dns-prefetch" href="//apps.apple.com">
+    <link rel="dns-prefetch" href="//play.google.com">
+    <link rel="dns-prefetch" href="//taste-buddy.app">
+    
+    <!-- Preload critical above-the-fold images -->
+    <link rel="preload" href="/AppIcon.png" as="image" type="image/png">
+    <link rel="preload" href="/images/screenshots.png" as="image" type="image/png">
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
     <meta name="keywords" content={`${primaryKeyword}, ${secondaryKeywords}, all recipe app, recipe planner app free, meal planning app, cooking app, hands-free cooking, iOS app, Android app, kitchen assistant, AI recipe suggestions`} />
@@ -87,6 +123,12 @@ const structuredData = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content="/images/screenshots.png" />
     <link rel="canonical" href={Astro.url.href} />
+    
+    <!-- Hreflang tags for international SEO -->
+    <link rel="alternate" hreflang="en" href={hreflangUrls.en} />
+    <link rel="alternate" hreflang="de" href={hreflangUrls.de} />
+    <link rel="alternate" hreflang="x-default" href={hreflangUrls['x-default']} />
+    
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
