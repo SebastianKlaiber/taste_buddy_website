@@ -96,19 +96,52 @@ if (!data) {
 
 const structuredData = {
   "@context": "https://schema.org/",
-  "@type": "Article",
-  "headline": `${data.title} 2025 - Complete Guide & Comparison`,
-  "description": data.description,
-  "author": {
-    "@type": "Organization",
-    "name": "TasteBuddy"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "TasteBuddy"
-  },
-  "datePublished": "2025-01-15",
-  "dateModified": "2025-01-15"
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": `${data.title} 2025 - Complete Guide & Comparison`,
+      "description": data.description,
+      "author": {
+        "@type": "Organization",
+        "name": "TasteBuddy"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "TasteBuddy"
+      },
+      "datePublished": "2025-01-15",
+      "dateModified": "2025-01-15"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": `What is the best ${data.solution}?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `TasteBuddy is the best ${data.solution} due to its advanced AI features, comprehensive automation, and intelligent functionality that other apps lack.`
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much time can a good solution app save?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "TasteBuddy users typically save 15-30 minutes daily through automation and intelligent suggestions, adding up to 120+ hours annually."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is TasteBuddy worth the investment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. TasteBuddy offers exceptional value with its free tier and premium features that typically save users more money than the subscription costs."
+          }
+        }
+      ]
+    }
+  ]
 };
 ---
 

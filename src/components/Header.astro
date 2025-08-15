@@ -4,6 +4,29 @@ import { Image } from "astro:assets";
 const userEmail = Astro.cookies.get("userEmail");
 const currentPath = Astro.url.pathname;
 
+// Language detection and switcher logic
+const currentLang = currentPath.startsWith('/de/') ? 'de' : currentPath.startsWith('/en/') ? 'en' : 'en';
+const baseUrl = 'https://taste-buddy.app';
+
+// Generate language switch URLs
+function getLanguageSwitchUrls(path: string) {
+  // Remove language prefix if it exists
+  let cleanPath = path.replace(/^\/(en|de)\//, '/');
+  if (cleanPath === '/') cleanPath = '';
+  
+  return {
+    en: `/en${cleanPath}`,
+    de: `/de${cleanPath}`
+  };
+}
+
+const langUrls = getLanguageSwitchUrls(currentPath);
+
+const languages = [
+  { code: 'en', name: 'English', flag: '🇺🇸' },
+  { code: 'de', name: 'Deutsch', flag: '🇩🇪' }
+];
+
 // Define navigation links
 const navLinks = [
   { text: "Home", href: "/" },
@@ -43,6 +66,8 @@ const navLinks = [
           class="w-10 h-10 rounded-xl"
           width="40"
           height="40"
+          loading="eager"
+          decoding="sync"
         />
         <span class="text-white text-xl font-semibold hidden sm:inline-block">TasteBuddy</span>
       </a>
@@ -69,6 +94,32 @@ const navLinks = [
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
+
+      <!-- Language Switcher -->
+      <div class="hidden md:flex items-center mr-4">
+        <div class="relative group">
+          <button class="flex items-center space-x-2 text-sm text-gray-300 hover:text-[#00CE31] transition-all duration-300 px-3 py-2 rounded-lg hover:bg-[#1C2513]/40">
+            <span>{languages.find(lang => lang.code === currentLang)?.flag}</span>
+            <span>{languages.find(lang => lang.code === currentLang)?.name}</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="absolute right-0 mt-2 w-40 bg-[#1C2513] border border-[#2A2D24]/30 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            {languages.map((lang) => (
+              <a
+                href={langUrls[lang.code as keyof typeof langUrls]}
+                class={`flex items-center space-x-2 px-4 py-2 text-sm hover:bg-[#2A2D24]/50 first:rounded-t-lg last:rounded-b-lg transition-all duration-200 ${
+                  currentLang === lang.code ? 'text-[#00CE31] bg-[#2A2D24]/30' : 'text-gray-300 hover:text-white'
+                }`}
+              >
+                <span>{lang.flag}</span>
+                <span>{lang.name}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <!-- Feedback Link -->
       <div class="hidden md:block mr-6">
@@ -110,6 +161,25 @@ const navLinks = [
           {link.text}
         </a>
       ))}
+      
+      <!-- Mobile Language Switcher -->
+      <div class="mt-4 px-3">
+        <p class="text-xs text-gray-400 uppercase tracking-wide mb-2">Language</p>
+        <div class="space-y-1">
+          {languages.map((lang) => (
+            <a
+              href={langUrls[lang.code as keyof typeof langUrls]}
+              class={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm transition-all duration-300 ${
+                currentLang === lang.code ? 'bg-[#2A2D24]/50 text-[#00CE31]' : 'text-gray-300 hover:bg-[#1C2513]/80 hover:text-white'
+              }`}
+            >
+              <span>{lang.flag}</span>
+              <span>{lang.name}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+      
       <div class="mt-4 px-3 space-y-3">
         <a
           href="mailto:sebastian@klaiber.app?subject=Hey TasteBuddy Team!"

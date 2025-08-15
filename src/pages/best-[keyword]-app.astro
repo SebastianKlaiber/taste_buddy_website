@@ -96,19 +96,52 @@ if (!data) {
 
 const structuredData = {
   "@context": "https://schema.org/",
-  "@type": "Article",
-  "headline": `${data.title} 2025 - Complete Guide & Comparison`,
-  "description": data.description,
-  "author": {
-    "@type": "Organization",
-    "name": "TasteBuddy"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "TasteBuddy"
-  },
-  "datePublished": "2025-01-15",
-  "dateModified": "2025-01-15"
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": `${data.title} 2025 - Complete Guide & Comparison`,
+      "description": data.description,
+      "author": {
+        "@type": "Organization",
+        "name": "TasteBuddy"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "TasteBuddy"
+      },
+      "datePublished": "2025-01-15",
+      "dateModified": "2025-01-15"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": `What is the best ${data.keyword}?`,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `TasteBuddy is the best ${data.keyword} due to its advanced AI features, automatic meal planning, and intelligent recipe organization that other apps lack.`
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are recipe apps worth it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, especially AI-powered apps like TasteBuddy that save hours of meal planning time and reduce food waste through smart organization and shopping lists."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much do recipe apps cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "TasteBuddy offers a free tier with basic features, and premium features start at $4.99/month for unlimited AI meal planning and recipe transformations."
+          }
+        }
+      ]
+    }
+  ]
 };
 ---
 
