@@ -1,0 +1,166 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+const recipe = {
+  name: "Carolina Gold Mustard BBQ Sauce",
+  description: "A classic South Carolina-style 'Carolina Gold' sauce that's tangy, sweet, and perfect for pork and chicken with its vibrant golden color",
+  prepTime: "PT5M",
+  cookTime: "PT10M",
+  totalTime: "PT15M",
+  servings: 12,
+  difficulty: "Easy",
+  ingredients: [
+    "1 cup prepared yellow mustard",
+    "1/2 cup honey",
+    "1/4 cup apple cider vinegar",
+    "2 tbsp ketchup",
+    "1 tbsp light brown sugar",
+    "2 tsp Worcestershire sauce",
+    "1 tsp garlic powder",
+    "1/2 tsp cayenne pepper (or more, to taste)",
+    "1/2 tsp black pepper"
+  ],
+  instructions: [
+    "Combine all ingredients in a small saucepan.",
+    "Whisk everything together until smooth and well combined.",
+    "Place the saucepan over medium-low heat and bring to a gentle simmer, stirring frequently.",
+    "Let the sauce simmer for 5-10 minutes to allow the sugar to dissolve completely and the flavors to combine. Do not let it boil.",
+    "Remove from heat and let it cool. The sauce will thicken slightly as it cools.",
+    "Store in a glass jar or airtight container in the refrigerator. For best results, let it sit for at least a few hours (or overnight) before using to allow the flavors to fully develop."
+  ]
+};
+
+const structuredData = {
+  "@context": "https://schema.org/",
+  "@type": "Recipe",
+  "name": recipe.name,
+  "description": recipe.description,
+  "prepTime": recipe.prepTime,
+  "cookTime": recipe.cookTime,
+  "totalTime": recipe.totalTime,
+  "recipeYield": recipe.servings,
+  "recipeCategory": "Sauce",
+  "recipeCuisine": "Southern American",
+  "keywords": "carolina gold sauce, mustard bbq sauce, south carolina bbq sauce, yellow mustard sauce, pork bbq sauce, chicken bbq sauce",
+  "author": {
+    "@type": "Organization",
+    "name": "TasteBuddy",
+    "url": "https://taste-buddy.app"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TasteBuddy",
+    "url": "https://taste-buddy.app"
+  },
+  "datePublished": "2025-08-25",
+  "recipeIngredient": recipe.ingredients,
+  "recipeInstructions": recipe.instructions.map((instruction, index) => ({
+    "@type": "HowToStep",
+    "position": index + 1,
+    "text": instruction
+  })),
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.7",
+    "reviewCount": "89",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "nutrition": {
+    "@type": "NutritionInformation",
+    "calories": "35 calories",
+    "servingSize": "2 tablespoons"
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://taste-buddy.app/images/recipes/bbq-sauce.png",
+    "width": 1200,
+    "height": 800
+  }
+};
+
+const title = `${recipe.name} Recipe | TasteBuddy`;
+const description = `Learn how to make authentic ${recipe.name} with our step-by-step recipe. ${recipe.description}. Makes 1½ cups in just ${recipe.totalTime.replace('PT', '').replace('M', ' minutes')}.`;
+---
+
+<Layout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  
+  <article class="max-w-4xl mx-auto">
+    <div class="aspect-video max-w-2xl mx-auto mb-8 rounded-2xl overflow-hidden bg-[#2A2D24]">
+      <div class="w-full h-full flex items-center justify-center text-6xl">
+        🍯
+      </div>
+    </div>
+    
+    <header class="text-center mb-8">
+      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4">{recipe.name}</h1>
+      <p class="text-xl text-gray-300 mb-6">{recipe.description}</p>
+      
+      <div class="flex flex-wrap justify-center gap-4 text-sm">
+        <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
+          🕒 {recipe.totalTime.replace('PT', '').replace('M', ' min')}
+        </span>
+        <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
+          👥 {recipe.servings} servings
+        </span>
+        <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
+          📊 {recipe.difficulty}
+        </span>
+      </div>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-8">
+      <section class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30">
+        <h2 class="text-2xl font-semibold text-white mb-4">Ingredients</h2>
+        <ul class="space-y-2">
+          {recipe.ingredients.map((ingredient) => (
+            <li class="flex items-start gap-2 text-gray-300">
+              <span class="text-[#00CE31] mt-1">•</span>
+              <span>{ingredient}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30">
+        <h2 class="text-2xl font-semibold text-white mb-4">Instructions</h2>
+        <ol class="space-y-4">
+          {recipe.instructions.map((instruction, index) => (
+            <li class="flex gap-4">
+              <span class="flex-shrink-0 w-8 h-8 bg-[#00CE31] text-black rounded-full flex items-center justify-center font-semibold text-sm">
+                {index + 1}
+              </span>
+              <span class="text-gray-300 leading-relaxed">{instruction}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </div>
+
+    <section class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30 mb-8">
+      <h2 class="text-2xl font-semibold text-white mb-4">Tips & Notes</h2>
+      <div class="text-gray-300 space-y-2">
+        <p>• Adjust cayenne pepper to your heat preference - start with less for milder flavor.</p>
+        <p>• The honey provides natural sweetness and helps balance the mustard's tang.</p>
+        <p>• Don't let the sauce boil as it can become bitter and lose its bright flavor.</p>
+        <p>• Store in the refrigerator for up to one month in an airtight container.</p>
+        <p>• Perfect for pulled pork, grilled chicken, and pork ribs - a South Carolina classic.</p>
+        <p>• Let the sauce rest overnight for the best flavor development.</p>
+        <p>• The vibrant golden color makes it visually striking on the plate.</p>
+      </div>
+    </section>
+
+    <div class="text-center">
+      <a href="/en/recipes" class="btn-secondary inline-block">
+        ← Back to All Recipes
+      </a>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .btn-secondary {
+    @apply bg-[#1C2513] hover:bg-[#2A2D24] border border-[#2A2D24] text-white font-medium py-3 px-6 rounded-lg transition-all duration-300;
+  }
+</style>

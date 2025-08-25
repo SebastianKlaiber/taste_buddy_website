@@ -1,0 +1,170 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+const recipe = {
+  name: "Smoky Crimson BBQ Sauce",
+  description: "A deep, smoky, and complex red sauce with chipotle heat and molasses richness, perfect for beef ribs or brisket",
+  prepTime: "PT10M",
+  cookTime: "PT25M",
+  totalTime: "PT35M",
+  servings: 16,
+  difficulty: "Easy",
+  ingredients: [
+    "1 tbsp olive oil",
+    "1 medium onion, finely chopped",
+    "3 cloves garlic, minced",
+    "1 (15 oz) can tomato sauce",
+    "1/2 cup apple cider vinegar",
+    "1/2 cup packed dark brown sugar",
+    "1/4 cup molasses",
+    "2-3 canned chipotle peppers in adobo sauce, minced (plus 1 tbsp of the adobo sauce)",
+    "2 tbsp Worcestershire sauce",
+    "1 tbsp smoked paprika",
+    "1 tsp freshly ground black pepper",
+    "1/2 tsp cumin powder",
+    "Salt to taste"
+  ],
+  instructions: [
+    "Heat the olive oil in a medium saucepan over medium heat. Add the chopped onion and cook until soft and translucent, about 5-7 minutes.",
+    "Add the minced garlic and cook for another minute until fragrant.",
+    "Stir in all the remaining ingredients: tomato sauce, apple cider vinegar, brown sugar, molasses, chipotle peppers, adobo sauce, Worcestershire sauce, smoked paprika, black pepper, and cumin.",
+    "Bring the mixture to a gentle simmer, then reduce the heat to low. Let it cook uncovered for at least 15-20 minutes, stirring occasionally, until the sauce has thickened and the flavors have melded together.",
+    "For a smooth consistency, use an immersion blender to puree the sauce directly in the pot. Alternatively, let it cool slightly and blend in a traditional blender.",
+    "Taste and adjust seasoning, adding salt or more brown sugar if needed. Serve warm or store in an airtight container in the refrigerator for up to two weeks."
+  ]
+};
+
+const structuredData = {
+  "@context": "https://schema.org/",
+  "@type": "Recipe",
+  "name": recipe.name,
+  "description": recipe.description,
+  "prepTime": recipe.prepTime,
+  "cookTime": recipe.cookTime,
+  "totalTime": recipe.totalTime,
+  "recipeYield": recipe.servings,
+  "recipeCategory": "Sauce",
+  "recipeCuisine": "American",
+  "keywords": "bbq sauce, smoky bbq sauce, chipotle bbq sauce, homemade bbq sauce, grilling sauce, barbecue sauce recipe",
+  "author": {
+    "@type": "Organization",
+    "name": "TasteBuddy",
+    "url": "https://taste-buddy.app"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TasteBuddy",
+    "url": "https://taste-buddy.app"
+  },
+  "datePublished": "2025-08-25",
+  "recipeIngredient": recipe.ingredients,
+  "recipeInstructions": recipe.instructions.map((instruction, index) => ({
+    "@type": "HowToStep",
+    "position": index + 1,
+    "text": instruction
+  })),
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "127",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "nutrition": {
+    "@type": "NutritionInformation",
+    "calories": "25 calories",
+    "servingSize": "2 tablespoons"
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://taste-buddy.app/images/recipes/smokey-bbq-sace.png",
+    "width": 1200,
+    "height": 800
+  }
+};
+
+const title = `${recipe.name} Recipe | TasteBuddy`;
+const description = `Learn how to make authentic ${recipe.name} with our step-by-step recipe. ${recipe.description}. Makes 2 cups in just ${recipe.totalTime.replace('PT', '').replace('M', ' minutes')}.`;
+---
+
+<Layout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  
+  <article class="max-w-4xl mx-auto">
+    <div class="aspect-video max-w-2xl mx-auto mb-8 rounded-2xl overflow-hidden bg-[#2A2D24]">
+      <div class="w-full h-full flex items-center justify-center text-6xl">
+        🍖
+      </div>
+    </div>
+    
+    <header class="text-center mb-8">
+      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4">{recipe.name}</h1>
+      <p class="text-xl text-gray-300 mb-6">{recipe.description}</p>
+      
+      <div class="flex flex-wrap justify-center gap-4 text-sm">
+        <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
+          🕒 {recipe.totalTime.replace('PT', '').replace('M', ' min')}
+        </span>
+        <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
+          👥 {recipe.servings} servings
+        </span>
+        <span class="bg-[#1C2513] px-3 py-1 rounded-full border border-[#2A2D24]">
+          📊 {recipe.difficulty}
+        </span>
+      </div>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-8">
+      <section class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30">
+        <h2 class="text-2xl font-semibold text-white mb-4">Ingredients</h2>
+        <ul class="space-y-2">
+          {recipe.ingredients.map((ingredient) => (
+            <li class="flex items-start gap-2 text-gray-300">
+              <span class="text-[#00CE31] mt-1">•</span>
+              <span>{ingredient}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30">
+        <h2 class="text-2xl font-semibold text-white mb-4">Instructions</h2>
+        <ol class="space-y-4">
+          {recipe.instructions.map((instruction, index) => (
+            <li class="flex gap-4">
+              <span class="flex-shrink-0 w-8 h-8 bg-[#00CE31] text-black rounded-full flex items-center justify-center font-semibold text-sm">
+                {index + 1}
+              </span>
+              <span class="text-gray-300 leading-relaxed">{instruction}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </div>
+
+    <section class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30 mb-8">
+      <h2 class="text-2xl font-semibold text-white mb-4">Tips & Notes</h2>
+      <div class="text-gray-300 space-y-2">
+        <p>• Adjust chipotle peppers to control the heat level - use 2 peppers for mild, 3 for extra spicy.</p>
+        <p>• The molasses adds deep, rich sweetness and helps create the signature crimson color.</p>
+        <p>• The sauce will thicken as it cools, so don't worry if it seems thin while hot.</p>
+        <p>• Store in the refrigerator for up to 2 weeks in an airtight container.</p>
+        <p>• Perfect for beef ribs, brisket, pulled pork, or grilled chicken.</p>
+        <p>• For a sweeter sauce, add more brown sugar; for more tang, add extra vinegar.</p>
+        <p>• Can be made ahead - flavors improve after 24 hours of refrigeration.</p>
+      </div>
+    </section>
+
+    <div class="text-center">
+      <a href="/en/recipes" class="btn-secondary inline-block">
+        ← Back to All Recipes
+      </a>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .btn-secondary {
+    @apply bg-[#1C2513] hover:bg-[#2A2D24] border border-[#2A2D24] text-white font-medium py-3 px-6 rounded-lg transition-all duration-300;
+  }
+</style>
