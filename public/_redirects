@@ -7,8 +7,12 @@
 # Main page
 /  /index.html  200
 
-# Handle unknown recipe IDs - these get handled by static pages, but if not found show 404
-/share_recipe/*  /404.html  404
+# Handle unknown recipe IDs - only redirect if the static page doesn't exist
+/share_recipe/:id  /share_recipe/:id.html  200!
 
-# Catch-all 404 handler for any unmatched routes
+# Handle common redirect patterns
+/recipes/*  /en/recipes/:splat  302
+/blog/*     /en/blog/:splat     302
+
+# Catch-all 404 handler for any unmatched routes (but allow static pages to work)
 /*  /404.html  404 

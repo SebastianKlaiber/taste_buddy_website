@@ -17,7 +17,11 @@ Disallow: /_astro/
 Disallow: /link_identity_success
 Disallow: /404
 Disallow: /*.json$
-Disallow: /*?*
+Disallow: /*?utm_*
+Disallow: /*?fbclid=*
+Disallow: /*?gclid=*
+Disallow: /*?ref=*
+Disallow: /*?source=*
 Crawl-delay: 1
 
 # Googlebot specific rules (no crawl delay for Google)
@@ -36,6 +40,11 @@ Disallow: /_astro/
 Disallow: /link_identity_success
 Disallow: /404
 Disallow: /*.json$
+Disallow: /*?utm_*
+Disallow: /*?fbclid=*
+Disallow: /*?gclid=*
+Disallow: /*?ref=*
+Disallow: /*?source=*
 
 # Bingbot specific rules
 User-agent: Bingbot
@@ -53,6 +62,11 @@ Disallow: /_astro/
 Disallow: /link_identity_success
 Disallow: /404
 Disallow: /*.json$
+Disallow: /*?utm_*
+Disallow: /*?fbclid=*
+Disallow: /*?gclid=*
+Disallow: /*?ref=*
+Disallow: /*?source=*
 Crawl-delay: 1
 
 # Block bad bots
