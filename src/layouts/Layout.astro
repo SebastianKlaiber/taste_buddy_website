@@ -5,9 +5,10 @@ import Footer from "../components/Footer.astro";
 interface Props {
   title: string;
   description?: string;
+  skipDefaultStructuredData?: boolean;
 }
 
-const { title, description = "The best recipe app and AI meal planner for home cooks. Organize recipes, generate meal plans, create shopping lists, and transform recipes for dietary needs." } = Astro.props;
+const { title, description = "The best recipe app and AI meal planner for home cooks. Organize recipes, generate meal plans, create shopping lists, and transform recipes for dietary needs.", skipDefaultStructuredData = false } = Astro.props;
 const primaryKeyword = "recipe app";
 const secondaryKeywords = "best recipe app, recipe planner app, meal planner app, AI meal planning, recipe organizer app, digital cookbook app";
 
@@ -133,7 +134,9 @@ const structuredData = {
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{title || "Recipe Keeper App | TasteBuddy"}</title>
-    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    {!skipDefaultStructuredData && (
+      <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    )}
   </head>
   <body class="min-h-screen flex flex-col bg-[#10130B] font-['Inter',sans-serif] text-gray-100">
     <Header />

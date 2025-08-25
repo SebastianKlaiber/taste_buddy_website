@@ -39,6 +39,7 @@ const structuredData = {
   "@type": "Recipe",
   "name": recipe.name,
   "description": recipe.description,
+  "url": "https://tastebuddy.app/en/recipes/smoky-crimson-bbq-sauce",
   "prepTime": recipe.prepTime,
   "cookTime": recipe.cookTime,
   "totalTime": recipe.totalTime,
@@ -87,14 +88,17 @@ const title = `${recipe.name} Recipe | TasteBuddy`;
 const description = `Learn how to make authentic ${recipe.name} with our step-by-step recipe. ${recipe.description}. Makes 2 cups in just ${recipe.totalTime.replace('PT', '').replace('M', ' minutes')}.`;
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} skipDefaultStructuredData={true}>
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   
   <article class="max-w-4xl mx-auto">
     <div class="aspect-video max-w-2xl mx-auto mb-8 rounded-2xl overflow-hidden bg-[#2A2D24]">
-      <div class="w-full h-full flex items-center justify-center text-6xl">
-        🍖
-      </div>
+      <img 
+        src="/images/recipes/smokey-bbq-sace.png" 
+        alt={recipe.name}
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
     </div>
     
     <header class="text-center mb-8">
