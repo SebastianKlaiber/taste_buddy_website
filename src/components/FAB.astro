@@ -1,0 +1,43 @@
+---
+// Sticky mobile download bar
+---
+<div id="mobile-download-bar" class="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-[#1C2513]/95 backdrop-blur-md border-t border-[#2A2D24]/30 px-4 py-3 safe-bottom">
+  <div class="flex items-center justify-center gap-3">
+    <a 
+      href="https://apps.apple.com/app/id6554007741"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex-shrink-0"
+      aria-label="Download on the App Store"
+    >
+      <img 
+        src="/images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+        alt="Download on the App Store"
+        class="h-10"
+        width="120"
+        height="40"
+      />
+    </a>
+    <a 
+      href="https://play.google.com/store/apps/details?id=app.tastebuddy"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex-shrink-0"
+      aria-label="Get it on Google Play"
+    >
+      <img 
+        src="/images/Google_Play_Badge.png"
+        alt="Get it on Google Play"
+        class="h-10"
+        width="135"
+        height="40"
+      />
+    </a>
+  </div>
+</div>
+
+<style>
+  .safe-bottom {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+</style>

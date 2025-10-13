@@ -159,15 +159,17 @@ const structuredData = {
   "@graph": [
     {
       "@type": "Article",
-      "headline": `${comparisonData.title} - Complete Recipe App Comparison`,
+      "headline": `${comparisonData.title} - Recipe App Comparison`,
       "description": comparisonData.description,
       "author": {
         "@type": "Organization",
-        "name": "TasteBuddy"
+        "name": "TasteBuddy",
+        "url": "https://taste-buddy.app"
       },
       "publisher": {
         "@type": "Organization", 
-        "name": "TasteBuddy"
+        "name": "TasteBuddy",
+        "url": "https://taste-buddy.app"
       },
       "datePublished": "2025-01-15",
       "dateModified": "2025-01-15"
@@ -177,10 +179,10 @@ const structuredData = {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": `Is TasteBuddy better than ${comparisonData.competitor}?`,
+          "name": `What are the main differences between TasteBuddy and ${comparisonData.competitor}?`,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": `TasteBuddy offers superior AI-powered meal planning and recipe transformation features that ${comparisonData.competitor} lacks, making it better for users who want intelligent cooking assistance.`
+            "text": `TasteBuddy focuses on AI-powered meal planning and recipe transformation, while ${comparisonData.competitor} emphasizes recipe discovery and community features. Choose based on whether you want intelligent planning or a large recipe database.`
           }
         },
         {
@@ -188,7 +190,7 @@ const structuredData = {
           "name": `Can I import my recipes from ${comparisonData.competitor}?`,
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": `Yes, TasteBuddy can import recipes from most apps including ${comparisonData.competitor}. You can also import recipes by taking photos or pasting URLs.`
+            "text": `TasteBuddy can import recipes from photos, URLs, and screenshots. You can manually transfer recipes from ${comparisonData.competitor} by sharing the recipe URL to TasteBuddy.`
           }
         },
         {
@@ -196,7 +198,7 @@ const structuredData = {
           "name": "Which app is better for meal planning?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": `TasteBuddy's AI meal planning is significantly more advanced than ${comparisonData.competitor}, automatically creating balanced weekly plans and shopping lists.`
+            "text": `TasteBuddy offers more advanced AI meal planning features including personalized weekly plans and automatic shopping lists. ${comparisonData.competitor} provides basic meal planning capabilities.`
           }
         }
       ]
@@ -206,12 +208,12 @@ const structuredData = {
 ---
 
 <AstroSeo
-  title={`${comparisonData.title} - Best Recipe App Comparison 2025 | TasteBuddy`}
+  title={`${comparisonData.title} - Recipe App Comparison 2025 | TasteBuddy`}
   description={comparisonData.description}
   openGraph={{
-    title: `${comparisonData.title} - Complete Recipe App Comparison`,
+    title: `${comparisonData.title} - Recipe App Comparison`,
     description: comparisonData.description,
-    images: [{ url: '/images/screenshots.png' }],
+    images: [{ url: 'https://taste-buddy.app/images/screenshots.png' }],
   }}
 />
 
@@ -222,15 +224,11 @@ const structuredData = {
     <article class="max-w-6xl mx-auto py-12">
       <header class="text-center mb-12">
         <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6 leading-tight">
-          {comparisonData.title}: Complete Recipe App Comparison 2025
+          {comparisonData.title}: Recipe App Comparison 2025
         </h1>
         <p class="text-xl text-gray-300 mb-8 max-w-4xl mx-auto">
-          {comparisonData.description} See detailed feature comparisons, pricing, and user reviews.
+          {comparisonData.description}
         </p>
-        <div class="inline-flex items-center gap-2 bg-[#1C2513]/80 px-4 py-2 rounded-full border border-[#2A2D24]/30">
-          <span class="text-sm text-gray-400">Monthly searches:</span>
-          <span class="text-[#00CE31] font-semibold">{comparisonData.searchVolume}</span>
-        </div>
       </header>
 
       <!-- Quick Comparison Table -->
@@ -363,12 +361,12 @@ const structuredData = {
         </div>
       </section>
 
-      <!-- Winner Section -->
+      <!-- Summary Section -->
       <section class="mb-16">
-        <div class="bg-gradient-to-r from-[#00CE31]/40 to-[#00CE31]/30 rounded-3xl p-8 sm:p-12 text-center backdrop-blur-sm border border-[#00CE31]/30">
-          <h2 class="text-3xl font-bold text-white mb-4">The Verdict: Which Recipe App is Better?</h2>
+        <div class="bg-gradient-to-r from-[#00CE31]/20 to-[#00CE31]/10 rounded-3xl p-8 sm:p-12 text-center backdrop-blur-sm border border-[#00CE31]/20">
+          <h2 class="text-3xl font-bold text-white mb-4">Summary</h2>
           <p class="text-xl text-gray-200 mb-6 max-w-3xl mx-auto">
-            While {comparisonData.competitor} has been around longer, TasteBuddy's AI-powered features make it the superior choice for modern home cooks who want intelligent meal planning and recipe organization.
+            Both apps serve different needs. TasteBuddy focuses on AI-powered meal planning and recipe transformation, while {comparisonData.competitor} offers a more traditional recipe database approach.
           </p>
           <div class="flex flex-wrap justify-center gap-6">
             <a 
@@ -377,7 +375,7 @@ const structuredData = {
               target="_blank" 
               rel="noopener noreferrer"
             >
-              Try TasteBuddy Free
+              Try TasteBuddy
             </a>
           </div>
         </div>
@@ -388,18 +386,18 @@ const structuredData = {
         <h2 class="text-3xl font-bold text-white text-center mb-8">Frequently Asked Questions</h2>
         <div class="space-y-6">
           <div class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30">
-            <h3 class="text-xl font-semibold text-white mb-3">Is TasteBuddy better than {comparisonData.competitor}?</h3>
-            <p class="text-gray-300">TasteBuddy offers superior AI-powered meal planning and recipe transformation features that {comparisonData.competitor} lacks, making it better for users who want intelligent cooking assistance.</p>
+            <h3 class="text-xl font-semibold text-white mb-3">What are the main differences between TasteBuddy and {comparisonData.competitor}?</h3>
+            <p class="text-gray-300">TasteBuddy focuses on AI-powered meal planning and recipe transformation, while {comparisonData.competitor} emphasizes recipe discovery and community features. Choose based on whether you want intelligent planning or a large recipe database.</p>
           </div>
           
           <div class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30">
             <h3 class="text-xl font-semibold text-white mb-3">Can I import my recipes from {comparisonData.competitor}?</h3>
-            <p class="text-gray-300">Yes, TasteBuddy can import recipes from most apps including {comparisonData.competitor}. You can also import recipes by taking photos or pasting URLs.</p>
+            <p class="text-gray-300">TasteBuddy can import recipes from photos, URLs, and screenshots. You can manually transfer recipes from {comparisonData.competitor} by sharing the recipe URL to TasteBuddy.</p>
           </div>
           
           <div class="bg-[#1C2513]/80 rounded-2xl p-6 border border-[#2A2D24]/30">
             <h3 class="text-xl font-semibold text-white mb-3">Which app is better for meal planning?</h3>
-            <p class="text-gray-300">TasteBuddy's AI meal planning is significantly more advanced than {comparisonData.competitor}, automatically creating balanced weekly plans and shopping lists.</p>
+            <p class="text-gray-300">TasteBuddy offers more advanced AI meal planning features including personalized weekly plans and automatic shopping lists. {comparisonData.competitor} provides basic meal planning capabilities.</p>
           </div>
         </div>
       </section>

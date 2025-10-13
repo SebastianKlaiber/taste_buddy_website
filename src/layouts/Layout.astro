@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import FAB from "../components/FAB.astro";
 
 interface Props {
   title: string;
@@ -8,9 +9,7 @@ interface Props {
   skipDefaultStructuredData?: boolean;
 }
 
-const { title, description = "Turn your recipe screenshots into organized meals you actually cook. Import any recipe - screenshots, handwritten cards, Instagram saves. Join 50,000+ home cooks who went from recipe chaos to confident cooking.", skipDefaultStructuredData = false } = Astro.props;
-const primaryKeyword = "recipe app";
-const secondaryKeywords = "best recipe app, recipe planner app, meal planner app, AI meal planning, recipe organizer app, digital cookbook app";
+const { title, description = "Turn your recipe screenshots into organized meals you actually cook. Import any recipe - screenshots, handwritten cards, Instagram saves.", skipDefaultStructuredData = false } = Astro.props;
 
 // Language detection and hreflang generation
 const currentPath = Astro.url.pathname;
@@ -31,71 +30,15 @@ function getHreflangUrls(path: string) {
 }
 
 const hreflangUrls = getHreflangUrls(currentPath);
-
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "SoftwareApplication",
-      "name": "TasteBuddy - Best Recipe App & AI Meal Planner",
-      "applicationCategory": ["LifestyleApplication", "FoodApplication", "ProductivityApplication"],
-      "operatingSystem": ["iOS", "Android"],
-      "description": "The best recipe app and AI meal planner for home cooks. Organize recipes, generate meal plans, create shopping lists, and transform recipes for dietary needs.",
-      "keywords": "recipe app, best recipe app, recipe planner app, meal planner app, AI meal planning, recipe organizer, AI cooking assistant",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "ratingCount": "150"
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "featureList": [
-        "AI-powered meal planning and recipe suggestions",
-        "Smart recipe organization with dietary filters",
-        "Automatic shopping list generation from meal plans",
-        "Recipe image generation and visual cookbook creation",
-        "Recipe import from any website or photo",
-        "Dietary transformation (vegan, gluten-free, low-carb)",
-        "OCR recipe scanning from cookbooks and magazines",
-        "Cloud sync across all devices",
-        "Shareable digital cookbooks"
-      ],
-      "downloadUrl": ["https://apps.apple.com/app/id6554007741", "https://play.google.com/store/apps/details?id=app.tastebuddy"],
-      "screenshot": "/images/screenshots.png",
-      "publisher": {
-        "@id": "https://www.taste-buddy.app/#organization"
-      }
-    },
-    {
-      "@type": "Organization",
-      "@id": "https://www.taste-buddy.app/#organization",
-      "name": "TasteBuddy",
-      "url": "https://www.taste-buddy.app",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.taste-buddy.app/images/logo.png"
-      },
-      "description": "Developer of the TasteBuddy AI-powered recipe management and meal planning application",
-      "foundingDate": "2024",
-      "sameAs": [
-        "https://apps.apple.com/app/id6554007741",
-        "https://play.google.com/store/apps/details?id=app.tastebuddy"
-      ]
-    }
-  ]
-};
-
 ---
 
 <!doctype html>
 <html lang={currentLang} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta property="og:description" content={description} />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
     
     <!-- Core Web Vitals Optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -104,41 +47,30 @@ const structuredData = {
     <link rel="preconnect" href="https://play.google.com">
     
     <!-- Font loading optimization -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    
-    <!-- DNS prefetch for external domains -->
-    <link rel="dns-prefetch" href="//apps.apple.com">
-    <link rel="dns-prefetch" href="//play.google.com">
-    <link rel="dns-prefetch" href="//taste-buddy.app">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
     
     <!-- Preload critical above-the-fold images -->
     <link rel="preload" href="/AppIcon.png" as="image" type="image/png">
-    <link rel="preload" href="/images/screenshots.png" as="image" type="image/png">
-    <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
-    <meta name="keywords" content={`${primaryKeyword}, ${secondaryKeywords}, all recipe app, recipe planner app free, meal planning app, cooking app, hands-free cooking, iOS app, Android app, kitchen assistant, AI recipe suggestions`} />
-    <meta property="og:description" content={description} />
+    
+    <!-- Social meta tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="/images/screenshots.png" />
-    <link rel="canonical" href={Astro.url.href} />
+    <meta name="twitter:image" content={`${baseUrl}/images/screenshots.png`} />
     
-    <!-- Hreflang tags for international SEO -->
+    <!-- Canonical and hreflang -->
+    <link rel="canonical" href={`${baseUrl}${currentPath}`} />
     <link rel="alternate" hreflang="en" href={hreflangUrls.en} />
     <link rel="alternate" hreflang="de" href={hreflangUrls.de} />
     <link rel="alternate" hreflang="x-default" href={hreflangUrls['x-default']} />
     
+    <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title || "Recipe Keeper App | TasteBuddy"}</title>
-    {!skipDefaultStructuredData && (
-      <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
-    )}
   </head>
-  <body class="min-h-screen flex flex-col bg-[#10130B] font-['Inter',sans-serif] text-gray-100">
+  <body class="min-h-screen flex flex-col bg-[#10130B] font-['Inter',sans-serif] text-gray-100 pb-16 md:pb-0">
     <Header />
     
     <main class="flex-grow">
@@ -146,6 +78,7 @@ const structuredData = {
     </main>
 
     <Footer />
+    <FAB />
   </body>
 </html>
 
