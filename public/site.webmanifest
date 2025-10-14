@@ -1,0 +1,16 @@
+{
+  "name": "TasteBuddy",
+  "short_name": "TasteBuddy",
+  "description": "Turn recipe screenshots into organized meals. Import screenshots, handwritten cards, and web recipes into one searchable app.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#10130B",
+  "theme_color": "#10130B",
+  "icons": [
+    { "src": "/AppIcon.png", "sizes": "1024x1024", "type": "image/png", "purpose": "any" },
+    { "src": "/favicon-32x32-0.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/favicon-16x16-0.png", "sizes": "16x16", "type": "image/png" }
+  ]
+}
+

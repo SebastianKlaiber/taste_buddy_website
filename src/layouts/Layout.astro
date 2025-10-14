@@ -16,20 +16,51 @@ const currentPath = Astro.url.pathname;
 const currentLang = currentPath.startsWith('/de/') ? 'de' : currentPath.startsWith('/en/') ? 'en' : 'en';
 const baseUrl = 'https://taste-buddy.app';
 
+// Canonical URL with trailing slash normalization. Root canonical points to /en/.
+const ensureTrailingSlash = (p: string) => (p.endsWith('/') ? p : `${p}/`);
+const canonicalPath = currentPath === '/' ? '/en/' : ensureTrailingSlash(currentPath);
+const canonicalUrl = `${baseUrl}${canonicalPath}`;
+
 // Generate hreflang URLs
 function getHreflangUrls(path: string) {
   // Remove language prefix if it exists
   let cleanPath = path.replace(/^\/(en|de)\//, '/');
   if (cleanPath === '/') cleanPath = '';
+  const withSlash = (url: string) => (url.endsWith('/') ? url : `${url}/`);
   
   return {
-    en: `${baseUrl}/en${cleanPath}`,
-    de: `${baseUrl}/de${cleanPath}`,
-    'x-default': `${baseUrl}${cleanPath}` // Default to no language prefix
+    en: withSlash(`${baseUrl}/en${cleanPath}`),
+    de: withSlash(`${baseUrl}/de${cleanPath}`),
+    'x-default': withSlash(`${baseUrl}${cleanPath}`) // Default to no language prefix
   };
 }
 
 const hreflangUrls = getHreflangUrls(currentPath);
+
+// Open Graph locale mapping
+const ogLocale = currentLang === 'de' ? 'de_DE' : 'en_US';
+const ogAltLocale = currentLang === 'de' ? 'en_US' : 'de_DE';
+
+// Organization & Website structured data
+const organizationStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "TasteBuddy",
+  url: baseUrl,
+  logo: `${baseUrl}/AppIcon.png`,
+  sameAs: [
+    "https://apps.apple.com/app/id6554007741",
+    "https://play.google.com/store/apps/details?id=app.tastebuddy"
+  ]
+};
+
+const websiteStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  url: baseUrl,
+  name: "TasteBuddy",
+  inLanguage: currentLang
+};
 ---
 
 <!doctype html>
@@ -39,6 +70,7 @@ const hreflangUrls = getHreflangUrls(currentPath);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#10130B" />
     
     <!-- Core Web Vitals Optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,15 +84,28 @@ const hreflangUrls = getHreflangUrls(currentPath);
     
     <!-- Preload critical above-the-fold images -->
     <link rel="preload" href="/AppIcon.png" as="image" type="image/png">
+    <link rel="preload" href="/images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" as="image" type="image/svg+xml" fetchpriority="high">
     
     <!-- Social meta tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`${baseUrl}/images/screenshots.png`} />
+    <meta name="twitter:image:alt" content="TasteBuddy app screenshots" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={`${baseUrl}/images/screenshots.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogAltLocale} />
     
     <!-- Canonical and hreflang -->
-    <link rel="canonical" href={`${baseUrl}${currentPath}`} />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" hreflang="en" href={hreflangUrls.en} />
     <link rel="alternate" hreflang="de" href={hreflangUrls.de} />
     <link rel="alternate" hreflang="x-default" href={hreflangUrls['x-default']} />
@@ -68,7 +113,15 @@ const hreflangUrls = getHreflangUrls(currentPath);
     <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
+
+    { !skipDefaultStructuredData && (
+      <>
+        <script type="application/ld+json" set:html={JSON.stringify(organizationStructuredData)} />
+        <script type="application/ld+json" set:html={JSON.stringify(websiteStructuredData)} />
+      </>
+    ) }
   </head>
   <body class="min-h-screen flex flex-col bg-[#10130B] font-['Inter',sans-serif] text-gray-100 pb-16 md:pb-0">
     <Header />

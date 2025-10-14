@@ -2,7 +2,6 @@
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/Main.astro";
-import { AstroSeo } from '@astrolib/seo';
 
 export const prerender = true;
 
@@ -75,17 +74,7 @@ const faqStructuredData = {
   ]
 };
 ---
-<AstroSeo
-  title="Turn Recipe Screenshots Into Organized Meals | TasteBuddy"
-  description="Stop losing recipes in your camera roll. Import screenshots, handwritten cards, and web recipes into one searchable app. iOS & Android."
-  openGraph={{
-    title: "Turn Recipe Screenshots Into Organized Meals | TasteBuddy",
-    description: "Stop losing recipes in your camera roll. Import screenshots, handwritten cards, and web recipes into one searchable app.",
-    images: [{ url: 'https://taste-buddy.app/images/screenshots.png' }],
-  }}
-/>
-
-<Layout title="Turn Recipe Screenshots Into Organized Meals | TasteBuddy">
+<Layout title="Turn Recipe Screenshots Into Organized Meals | TasteBuddy" description="Stop losing recipes in your camera roll. Import screenshots, handwritten cards, and web recipes into one searchable app. iOS & Android.">
   <Main>
     <!-- Language Switcher -->
     <div class="absolute top-6 right-6 z-10">
@@ -125,6 +114,7 @@ const faqStructuredData = {
               class="h-14 sm:h-16"
               width="120"
               height="40"
+              fetchpriority="high"
             />
           </a>
           <a 
