@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
+import netlify from '@astrojs/netlify';
 import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
@@ -9,8 +10,14 @@ export default defineConfig({
   integrations: [
     tailwind(),
   ],
-  // Switch to static output mode
-  output: 'static',
+  adapter: netlify({
+    mode: 'functions',
+    functionPerRoute: true
+  }),
+  output: 'server',
+  prerender: {
+    default: true
+  },
   outDir: './dist',
   // Optimize for better static content handling
   build: {

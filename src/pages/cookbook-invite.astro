@@ -1,0 +1,535 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const title = "Join this cookbook on TasteBuddy | TasteBuddy";
+const description = "Accept a TasteBuddy cookbook invite, see who invited you, and jump into the app with the right permissions.";
+const supportEmail = "support@tastebuddy.app";
+---
+<Layout title={title} description={description} skipDefaultStructuredData={true}>
+  <section class="relative overflow-hidden py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto space-y-12">
+      <header class="text-center space-y-5">
+        <div class="flex justify-center">
+          <img src="/AppIcon.png" alt="TasteBuddy logo" class="h-16 w-16 rounded-2xl shadow-lg border border-[#2A2D24]/50" loading="lazy" decoding="async" />
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-bold text-white">Join this cookbook on TasteBuddy</h1>
+        <p class="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto">
+          See who invited you, check the permissions you'll get, and continue in the TasteBuddy app with your invite token intact.
+        </p>
+      </header>
+
+      <div class="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
+        <div class="space-y-6">
+          <article class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/70 border border-[#2A2D24]/40 rounded-3xl px-6 py-7 shadow-xl backdrop-blur">
+            <div class="flex items-center justify-between gap-4 mb-6">
+              <div class="flex items-center gap-4">
+                <div class="relative">
+                  <img data-inviter-avatar src="" alt="" class="hidden h-16 w-16 rounded-full object-cover ring-2 ring-[#00CE31]/60" decoding="async" loading="lazy" />
+                  <div data-inviter-fallback class="h-16 w-16 rounded-full bg-[#22301C] flex items-center justify-center text-2xl font-semibold text-[#A5F3B6] ring-2 ring-[#22301C]/80 uppercase">?</div>
+                </div>
+                <div>
+                  <p class="text-sm uppercase tracking-wide text-gray-400">Invitation from</p>
+                  <p data-inviter-name class="text-xl font-semibold text-white">Loading...</p>
+                </div>
+              </div>
+              <span data-invite-status class="text-sm font-medium inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#2A2D24]/60 text-gray-300">
+                <span class="inline-flex h-2 w-2 rounded-full bg-gray-500"></span>
+                Checking invite...
+              </span>
+            </div>
+
+            <div class="space-y-4 text-gray-200">
+              <h2 data-cookbook-title class="text-2xl font-semibold text-white italic">Loading cookbook...</h2>
+              <p data-invite-summary class="text-base text-gray-300 leading-relaxed">
+                We're confirming your invite details. This usually takes just a second.
+              </p>
+              <p data-invite-expiry class="text-sm text-gray-400"></p>
+              <div data-invite-error class="hidden rounded-lg border border-[#5B1F1F]/80 bg-[#2E1515]/80 px-4 py-3 text-sm text-red-200"></div>
+            </div>
+          </article>
+
+          <article class="bg-gradient-to-br from-[#132314]/90 to-[#182919]/80 border border-[#1F2A25]/50 rounded-3xl px-6 py-7 shadow-xl backdrop-blur">
+            <h3 class="text-xl font-semibold text-white mb-4">Continue in the TasteBuddy app</h3>
+            <p class="text-sm text-gray-300 mb-6">
+              We'll try to open the TasteBuddy app automatically. If it doesn't work, use the store buttons below to install and your invite token will be waiting when you open the app.
+            </p>
+
+            <div class="space-y-4">
+              <button data-deeplink class="btn-primary w-full justify-center inline-flex items-center gap-2 text-base">
+                <span>Open in TasteBuddy</span>
+              </button>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" data-store-buttons>
+                <a
+                  data-appstore
+                  href="https://apps.apple.com/app/id6554007741?pt="
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-center rounded-xl bg-black/40 border border-[#2A2D24]/50 px-4 py-3 text-white transition hover:border-[#00CE31]/60 hover:bg-black/60"
+                >
+                  <span class="text-sm font-medium">Download on the App Store</span>
+                </a>
+                <a
+                  data-playstore
+                  href="https://play.google.com/store/apps/details?id=app.tastebuddy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-center rounded-xl bg-black/40 border border-[#2A2D24]/50 px-4 py-3 text-white transition hover:border-[#00CE31]/60 hover:bg-black/60"
+                >
+                  <span class="text-sm font-medium">Get it on Google Play</span>
+                </a>
+              </div>
+
+              <p data-install-hint class="text-xs text-gray-400">
+                Didn't launch? Install via the store links, then open TasteBuddy -- we'll carry the invite over automatically.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <aside class="bg-gradient-to-br from-[#111C20]/90 to-[#152229]/80 border border-[#1F2B33]/50 rounded-3xl px-6 py-7 shadow-xl backdrop-blur space-y-6">
+          <div>
+            <h3 class="text-xl font-semibold text-white mb-2">On a computer?</h3>
+            <p class="text-sm text-gray-300">
+              Scan this code or copy your personal invite link to continue on your phone.
+            </p>
+          </div>
+          <div class="flex flex-col items-center gap-4">
+            <div class="rounded-2xl bg-white/90 p-4 shadow-inner" data-qr-wrapper>
+              <canvas data-qr class="h-48 w-48"></canvas>
+            </div>
+            <button data-copy-link class="px-4 py-2 rounded-lg border border-[#2A2D24]/60 text-sm font-medium text-white transition hover:border-[#00CE31]/60 hover:text-[#A5F3B6]">
+              Copy invite link
+            </button>
+            <p data-copy-feedback class="text-xs text-gray-400 h-4"></p>
+          </div>
+        </aside>
+      </div>
+
+      <footer class="text-center text-sm text-gray-400 space-y-2">
+        <p>Invite tokens usually expire within seven days for security. We'll let you know if this one has already expired.</p>
+        <p>
+          Having trouble? <a class="text-[#8FECA8] hover:text-[#B0F5C4]" href={`mailto:${supportEmail}?subject=TasteBuddy+invite+help`}>Contact support</a>.
+        </p>
+        <button data-request-invite class="hidden mx-auto px-4 py-2 rounded-lg border border-[#5B1F1F]/70 text-sm font-medium text-red-200 hover:bg-[#5B1F1F]/20">
+          Request a new invite
+        </button>
+      </footer>
+    </div>
+  </section>
+
+  <script type="module">
+    const state = {
+      token: null,
+      inviteUrl: window.location.href,
+      inviteData: null,
+      status: "loading",
+      deepLinkTimer: null,
+      autoAttempted: false
+    };
+
+    const elements = {
+      statusBadge: document.querySelector("[data-invite-status]"),
+      statusDot: null,
+      inviterName: document.querySelector("[data-inviter-name]"),
+      inviterAvatar: document.querySelector("[data-inviter-avatar]"),
+      inviterFallback: document.querySelector("[data-inviter-fallback]"),
+      cookbookTitle: document.querySelector("[data-cookbook-title]"),
+      inviteSummary: document.querySelector("[data-invite-summary]"),
+      inviteExpiry: document.querySelector("[data-invite-expiry]"),
+      inviteError: document.querySelector("[data-invite-error]"),
+      deeplinkButton: document.querySelector("[data-deeplink]"),
+      appstoreLink: document.querySelector("[data-appstore]"),
+      playstoreLink: document.querySelector("[data-playstore]"),
+      installHint: document.querySelector("[data-install-hint]"),
+      storeButtons: document.querySelector("[data-store-buttons]"),
+      qrCanvas: document.querySelector("[data-qr]"),
+      qrWrapper: document.querySelector("[data-qr-wrapper]"),
+      copyButton: document.querySelector("[data-copy-link]"),
+      copyFeedback: document.querySelector("[data-copy-feedback]"),
+      requestInvite: document.querySelector("[data-request-invite]")
+    };
+
+    if (elements.statusBadge) {
+      elements.statusDot = elements.statusBadge.querySelector("span");
+    }
+
+    const search = new URLSearchParams(window.location.search);
+    state.token = search.get("token");
+    const nameOverride = search.get("name");
+    if (!state.token) {
+      applyStatus("invalid", "This invite link is missing its secure token.");
+      showError("Try opening the invite link from the original message again.");
+      showRequestInvite();
+      disablePrimaryCta();
+    } else {
+      init();
+    }
+
+    function init() {
+      const deepLinkButton = elements.deeplinkButton;
+      if (deepLinkButton) {
+        deepLinkButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          attemptDeepLink();
+        });
+      }
+
+      if (elements.copyButton) {
+        elements.copyButton.addEventListener("click", copyInviteToClipboard);
+      }
+
+      setStoreLinks();
+      generateQrCode();
+
+      fetchInvite();
+    }
+
+    async function fetchInvite() {
+      applyStatus("loading", "Checking invite...");
+      try {
+        const response = await fetch(`/edge/preview-invite?token=${encodeURIComponent(state.token)}`, {
+          headers: { "Accept": "application/json" }
+        });
+        const body = await response.json().catch(() => null);
+
+        if (!response.ok) {
+          const errorKey = body?.error || "unknown_error";
+          throw new Error(errorKey);
+        }
+
+        if (!body || !body.status) {
+          throw new Error("missing_payload");
+        }
+
+        state.status = body.status;
+        state.inviteData = body;
+
+        applyInviteDetails(body, nameOverride);
+      } catch (error) {
+        console.error("Invite preview failed", error);
+        applyStatus("error", "We couldn't verify this invite.");
+        showError("The invite may be invalid or the preview service is offline. Please try again shortly.");
+        showRequestInvite();
+        disablePrimaryCta();
+      }
+    }
+
+    function applyInviteDetails(data, nameOverride) {
+      const status = data.status;
+      const cookbookTitle = nameOverride || data.cookbookTitle || "TasteBuddy Cookbook";
+      const inviterName = data.inviterName || "A TasteBuddy cook";
+      const permission = formatPermission(data.permission);
+      const statusCopy = statusMessages[status] || statusMessages.invalid;
+
+      applyStatus(status, statusCopy.badge);
+      elements.inviterName.textContent = inviterName;
+      elements.cookbookTitle.textContent = cookbookTitle;
+      elements.inviteSummary.textContent = statusCopy.summary(inviterName, cookbookTitle, permission);
+
+      if (data.expiresAt && status === "valid") {
+        const end = new Date(data.expiresAt);
+        if (!Number.isNaN(end.getTime())) {
+          const intl = new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" });
+          elements.inviteExpiry.textContent = `Invite expires on ${intl.format(end)}`;
+        } else {
+          elements.inviteExpiry.textContent = "";
+        }
+      } else {
+        elements.inviteExpiry.textContent = "";
+      }
+
+      applyAvatar(inviterName, data.inviterAvatarUrl);
+
+      if (status === "expired" || status === "invalid" || status === "accepted") {
+        disablePrimaryCta();
+        showRequestInvite();
+        if (statusCopy.errorMessage) {
+          showError(statusCopy.errorMessage);
+        }
+      } else {
+        hideError();
+        if (!state.autoAttempted && (isIOS() || isAndroid())) {
+          state.autoAttempted = true;
+          setTimeout(() => attemptDeepLink({ auto: true }), 600);
+        }
+      }
+    }
+
+    function disablePrimaryCta() {
+      if (elements.deeplinkButton) {
+        elements.deeplinkButton.disabled = true;
+        elements.deeplinkButton.classList.add("opacity-50", "cursor-not-allowed");
+      }
+      if (elements.installHint) {
+        elements.installHint.textContent = "This invite can't be opened right now. Request a fresh invite below.";
+      }
+    }
+
+    function applyStatus(key, badgeText) {
+      const badge = elements.statusBadge;
+      if (!badge) return;
+      badge.textContent = "";
+      const dot = document.createElement("span");
+      dot.className = "inline-flex h-2 w-2 rounded-full";
+      dot.ariaHidden = "true";
+      badge.appendChild(dot);
+      badge.append(" ", badgeText);
+
+      badge.classList.remove(
+        "border-[#2A2D24]/60",
+        "text-gray-300",
+        "border-[#00CE31]/60",
+        "text-[#A5F3B6]",
+        "border-[#5B1F1F]",
+        "text-red-200"
+      );
+
+      dot.classList.remove("bg-gray-500", "bg-[#00CE31]", "bg-red-400", "bg-orange-400");
+
+      switch (key) {
+        case "valid":
+          badge.classList.add("border-[#00CE31]/60", "text-[#A5F3B6]");
+          dot.classList.add("bg-[#00CE31]");
+          break;
+        case "accepted":
+          badge.classList.add("border-[#00CE31]/40", "text-[#A5F3B6]/80");
+          dot.classList.add("bg-[#00CE31]");
+          break;
+        case "expired":
+          badge.classList.add("border-[#5B360F]/60", "text-[#FAD7A7]");
+          dot.classList.add("bg-orange-400");
+          break;
+        case "loading":
+          badge.classList.add("border-[#2A2D24]/60", "text-gray-300");
+          dot.classList.add("bg-gray-500");
+          break;
+        case "invalid":
+        case "error":
+        default:
+          badge.classList.add("border-[#5B1F1F]", "text-red-200");
+          dot.classList.add("bg-red-400");
+          break;
+      }
+    }
+
+    function showError(message) {
+      if (!elements.inviteError) return;
+      elements.inviteError.textContent = message;
+      elements.inviteError.classList.remove("hidden");
+    }
+
+    function hideError() {
+      if (!elements.inviteError) return;
+      elements.inviteError.textContent = "";
+      elements.inviteError.classList.add("hidden");
+    }
+
+    function showRequestInvite() {
+      if (elements.requestInvite) {
+        elements.requestInvite.classList.remove("hidden");
+        elements.requestInvite.addEventListener("click", () => {
+          window.location.href = "mailto:support@tastebuddy.app?subject=Request%20a%20new%20TasteBuddy%20invite";
+        }, { once: true });
+      }
+    }
+
+    const statusMessages = {
+      valid: {
+        badge: "Invite is ready",
+        summary: (inviter, cookbook, permission) =>
+          `${inviter} invited you to collaborate on "${cookbook}" with ${permission} access.`
+      },
+      accepted: {
+        badge: "Already accepted",
+        summary: (inviter, cookbook) =>
+          `You already joined "${cookbook}". Open TasteBuddy to see it in your library.`,
+        errorMessage: "Looks like this invite was already accepted. Open TasteBuddy to access the cookbook."
+      },
+      expired: {
+        badge: "Invite expired",
+        summary: (inviter, cookbook) =>
+          `This invite to "${cookbook}" has expired. Ask ${inviter} to send a fresh link.`,
+        errorMessage: "This invite can no longer be used. You'll need a new link from the inviter."
+      },
+      invalid: {
+        badge: "Invite not found",
+        summary: () => "We couldn't find this invite. Make sure you opened the full link from the original message.",
+        errorMessage: "Double-check the link and request a new invite if the issue persists."
+      },
+      error: {
+        badge: "Invite unavailable",
+        summary: () => "We couldn't verify this invite right now. Please try again shortly.",
+        errorMessage: "Something went wrong on our end. Try again in a minute."
+      }
+    };
+
+    function formatPermission(permission) {
+      switch (permission) {
+        case "edit":
+          return "edit";
+        case "comment":
+          return "comment";
+        case "view":
+          return "view";
+        default:
+          return "view";
+      }
+    }
+
+    function applyAvatar(inviterName, avatarUrl) {
+      if (!elements.inviterAvatar || !elements.inviterFallback) return;
+      if (avatarUrl) {
+        elements.inviterAvatar.src = avatarUrl;
+        elements.inviterAvatar.alt = `${inviterName} avatar`;
+        elements.inviterAvatar.classList.remove("hidden");
+        elements.inviterFallback.classList.add("hidden");
+      } else {
+        elements.inviterAvatar.classList.add("hidden");
+        elements.inviterFallback.classList.remove("hidden");
+        elements.inviterFallback.textContent = initials(inviterName);
+      }
+    }
+
+    function initials(name) {
+      if (!name) return "?";
+      const parts = name.trim().split(/\s+/);
+      const first = parts[0]?.[0] || "";
+      const last = parts.length > 1 ? parts[parts.length - 1][0] : "";
+      return (first + last).toUpperCase() || "?";
+    }
+
+    function attemptDeepLink({ auto = false } = {}) {
+      if (!state.token) return;
+      const deepLink = `tastebuddy://invite?token=${encodeURIComponent(state.token)}`;
+      const start = Date.now();
+      track("invite_deeplink_attempt", { auto });
+
+      let fallbackTriggered = false;
+
+      const fallback = setTimeout(() => {
+        if (fallbackTriggered) return;
+        fallbackTriggered = true;
+        showInstallPrompt();
+        track("invite_deeplink_fail", { elapsed: Date.now() - start });
+      }, 1800);
+
+      const cleanup = () => {
+        clearTimeout(fallback);
+        window.removeEventListener("pagehide", cleanup);
+        window.removeEventListener("visibilitychange", onVisibilityChange);
+      };
+
+      const onVisibilityChange = () => {
+        if (document.visibilityState === "hidden") {
+          cleanup();
+          track("invite_deeplink_success", { elapsed: Date.now() - start });
+        }
+      };
+
+      window.addEventListener("pagehide", cleanup, { once: true });
+      document.addEventListener("visibilitychange", onVisibilityChange, { once: true });
+
+      window.location.href = deepLink;
+    }
+
+    function showInstallPrompt() {
+      if (!elements.installHint) return;
+      elements.installHint.classList.remove("text-gray-400");
+      elements.installHint.classList.add("text-[#A5F3B6]");
+      elements.installHint.textContent = "Install TasteBuddy using the store buttons below, then open the app to finish joining.";
+    }
+
+    function setStoreLinks() {
+      if (elements.appstoreLink) {
+        const base = "https://apps.apple.com/app/id6554007741";
+        const params = new URLSearchParams({
+          pt: "603885",
+          ct: "cookbook_invite",
+          mt: "8"
+        });
+        elements.appstoreLink.href = `${base}?${params.toString()}`;
+        elements.appstoreLink.addEventListener("click", () => {
+          track("invite_install_click", { platform: "ios" });
+          copyInviteToClipboard({ silent: true });
+        });
+      }
+      if (elements.playstoreLink) {
+        const base = "https://play.google.com/store/apps/details";
+        const params = new URLSearchParams({
+          id: "app.tastebuddy",
+          referrer: `utm_source=invitations&utm_medium=landing&utm_campaign=cookbook_invite&invite_url=${encodeURIComponent(state.inviteUrl)}`
+        });
+        elements.playstoreLink.href = `${base}?${params.toString()}`;
+        elements.playstoreLink.addEventListener("click", () => {
+          track("invite_install_click", { platform: "android" });
+        });
+      }
+    }
+
+    function generateQrCode() {
+      if (!elements.qrCanvas) return;
+      const target = elements.qrCanvas;
+      const url = state.inviteUrl;
+
+      import("https://esm.run/qrcode@1.5.3")
+        .then((QRCode) => {
+          const create = QRCode?.toCanvas || QRCode?.default?.toCanvas;
+          if (typeof create === "function") {
+            return create(target, url, { width: 220, margin: 2, color: { dark: "#0B1418", light: "#ffffff" } });
+          }
+          throw new Error("QRCode.toCanvas not available");
+        })
+        .catch((error) => {
+          console.warn("QR generation failed, falling back to image", error);
+          const img = document.createElement("img");
+          img.alt = "QR code for your invite link";
+          img.width = 220;
+          img.height = 220;
+          img.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(url)}`;
+          img.className = "h-48 w-48";
+          elements.qrWrapper?.replaceChildren(img);
+        });
+    }
+
+    async function copyInviteToClipboard(options = {}) {
+      const { silent = false } = options;
+      if (!navigator.clipboard) {
+        if (!silent) {
+          elements.copyFeedback.textContent = "Clipboard not available on this device.";
+        }
+        return false;
+      }
+      try {
+        await navigator.clipboard.writeText(state.inviteUrl);
+        if (!silent && elements.copyFeedback) {
+          elements.copyFeedback.textContent = "Invite link copied!";
+          setTimeout(() => elements.copyFeedback && (elements.copyFeedback.textContent = ""), 2500);
+        }
+        track("invite_link_copied", {});
+        return true;
+      } catch (error) {
+        if (!silent && elements.copyFeedback) {
+          elements.copyFeedback.textContent = "Couldn't copy link. Long-press or right-click instead.";
+        }
+        console.warn("Clipboard copy failed", error);
+        return false;
+      }
+    }
+
+    function track(event, payload = {}) {
+      window.dispatchEvent(new CustomEvent("tb:analytics", { detail: { event, payload } }));
+      if (window.gtag) {
+        window.gtag("event", event, payload);
+      }
+    }
+
+    function isIOS() {
+      return /iPad|iPhone|iPod/.test(window.navigator.userAgent);
+    }
+
+    function isAndroid() {
+      return /Android/.test(window.navigator.userAgent);
+    }
+  </script>
+</Layout>
