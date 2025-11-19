@@ -22,7 +22,7 @@
     "@tailwindcss/typography": "0.5.16",
     "astro": "^5.14.4",
     "tailwindcss": "3.4.4",
-    "typescript": "5.4.5"
+    "typescript": "5.9.3"
   },
   "devDependencies": {
     "@rollup/wasm-node": "4.13.0"
