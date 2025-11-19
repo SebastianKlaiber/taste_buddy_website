@@ -3,22 +3,22 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-[#1C2513] border-t border-[#2A2D24]/30 pt-12 pb-8">
+<footer class="bg-[#10130B] border-t border-[#2A2D24]/30 pt-16 pb-12">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
       <!-- Logo and App Description -->
       <div class="md:col-span-2 lg:col-span-2">
-        <div class="flex items-center space-x-3 mb-4">
+        <div class="flex items-center space-x-3 mb-6">
           <img 
             src="/AppIcon.png" 
             alt="TasteBuddy App Icon" 
-            class="w-10 h-10 rounded-xl"
-            width="40"
-            height="40"
+            class="w-12 h-12 rounded-2xl shadow-lg"
+            width="48"
+            height="48"
           />
-          <span class="text-white text-xl font-semibold">TasteBuddy</span>
+          <span class="text-white text-2xl font-bold tracking-tight">TasteBuddy</span>
         </div>
-        <p class="text-gray-400 mb-6 max-w-md">
+        <p class="text-gray-400 mb-8 max-w-md leading-relaxed text-lg">
           Make every recipe uniquely yours with TasteBuddy, your personal recipe companion for creative and stress-free cooking.
         </p>
         <div class="flex space-x-4">
@@ -27,7 +27,7 @@ const currentYear = new Date().getFullYear();
             target="_blank" 
             rel="noopener noreferrer"
             aria-label="Download on the App Store"
-            class="transition-transform duration-200 hover:scale-105"
+            class="transition-transform duration-200 hover:scale-105 hover:shadow-lg rounded-lg"
           >
             <img 
               src="/images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" 
@@ -42,7 +42,7 @@ const currentYear = new Date().getFullYear();
             target="_blank" 
             rel="noopener noreferrer"
             aria-label="Download on Google Play"
-            class="transition-transform duration-200 hover:scale-105"
+            class="transition-transform duration-200 hover:scale-105 hover:shadow-lg rounded-lg"
           >
             <img 
               src="/images/Google_Play_Badge.png" 
@@ -57,8 +57,8 @@ const currentYear = new Date().getFullYear();
 
       <!-- Navigation Links -->
       <div>
-        <h3 class="text-white font-medium mb-4">Navigation</h3>
-        <ul class="space-y-2">
+        <h3 class="text-white font-bold mb-6 text-lg">Navigation</h3>
+        <ul class="space-y-4">
           <li><a href="/" class="text-gray-400 hover:text-[#00CE31] transition-colors">Home</a></li>
           <li><a href="/#features" class="text-gray-400 hover:text-[#00CE31] transition-colors">Features</a></li>
           <li><a href="/en/blog" class="text-gray-400 hover:text-[#00CE31] transition-colors">Blog</a></li>
@@ -69,8 +69,8 @@ const currentYear = new Date().getFullYear();
 
       <!-- Resources Links -->
       <div>
-        <h3 class="text-white font-medium mb-4">Resources</h3>
-        <ul class="space-y-2">
+        <h3 class="text-white font-bold mb-6 text-lg">Resources</h3>
+        <ul class="space-y-4">
           <li><a href="/best-all-recipe-app" class="text-gray-400 hover:text-[#00CE31] transition-colors">Best Recipe Apps</a></li>
           <li><a href="/comparisons/tastebuddy-vs-allrecipes" class="text-gray-400 hover:text-[#00CE31] transition-colors">App Comparisons</a></li>
           <li><a href="/guides/how-to-organize-recipes" class="text-gray-400 hover:text-[#00CE31] transition-colors">Recipe Organization</a></li>
@@ -81,20 +81,20 @@ const currentYear = new Date().getFullYear();
 
       <!-- Legal Links -->
       <div>
-        <h3 class="text-white font-medium mb-4">Legal</h3>
-        <ul class="space-y-2">
+        <h3 class="text-white font-bold mb-6 text-lg">Legal</h3>
+        <ul class="space-y-4">
           <li><a href="/privacy" class="text-gray-400 hover:text-[#00CE31] transition-colors">Privacy Policy</a></li>
           <li><a href="/terms" class="text-gray-400 hover:text-[#00CE31] transition-colors">Terms of Service</a></li>
         </ul>
       </div>
     </div>
     
-    <div class="border-t border-[#2A2D24]/30 mt-12 pt-8">
-      <div class="flex flex-col md:flex-row justify-between items-center">
-        <div class="text-gray-500 text-sm mb-4 md:mb-0">
+    <div class="border-t border-[#2A2D24]/30 mt-16 pt-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="text-gray-500 text-sm">
           &copy; {currentYear} TasteBuddy. All rights reserved.
         </div>
-        <div class="flex space-x-4">
+        <div class="flex space-x-6">
           <!-- Social media links -->
           <a 
             href="https://www.facebook.com/profile.php?id=61575573864858" 
