@@ -3,33 +3,15 @@ import Layout from "../../layouts/Layout.astro";
 import Main from "../../components/Main.astro";
 import { AstroSeo } from '@astrolib/seo';
 
-// Configure static generation for this route
-export const prerender = true;
-
-// Define which paths will be statically generated
-export function getStaticPaths() {
-  try {
-    // Generate common recipe IDs we know about
-    // You can add more IDs here or fetch them from an API at build time
-    const recipeIds = ['1', '2', '3', '84', '5', '10', '20'];
-    
-    console.log(`Building share_recipe pages for IDs: ${recipeIds.join(', ')}`);
-    return recipeIds.map(id => ({
-      params: { id },
-    }));
-  } catch (error) {
-    console.error('Error in getStaticPaths for share_recipe:', error);
-    // Return empty array to prevent build failure
-    return [];
-  }
-}
+// Enable SSR so any recipe ID works (not just hardcoded ones)
+export const prerender = false;
 
 // Get the ID from params
 const { id } = Astro.params;
-console.log(`Processing ID: ${id}`);
 
-// Since this is statically generated, we can't dynamically fetch recipe data
-// We'll use client-side JavaScript to handle deeplinks
+// App store URLs
+const iosStoreUrl = 'https://apps.apple.com/us/app/recipe-saver-tastebuddy/id6554007741';
+const androidStoreUrl = 'https://play.google.com/store/apps/details?id=app.tastebuddy';
 
 // Define page title and description
 const pageTitle = "Open this recipe in TasteBuddy";
@@ -136,4 +118,28 @@ const pageDescription = "Download TasteBuddy and open this link again to view th
       </div>
     </section>
   </Main>
-</Layout> 
+</Layout>
+
+<script define:vars={{ iosStoreUrl, androidStoreUrl }}>
+  // OS Detection
+  function getOS() {
+    const ua = navigator.userAgent;
+    if (/iPad|iPhone|iPod/.test(ua)) return 'ios';
+    if (/android/i.test(ua)) return 'android';
+    return 'desktop';
+  }
+
+  const os = getOS();
+  const recipeUrl = window.location.href;
+
+  // Copy recipe link to clipboard (fire and forget)
+  navigator.clipboard.writeText(recipeUrl).catch(() => {});
+
+  // Immediate redirect for mobile users
+  if (os === 'ios') {
+    window.location.href = iosStoreUrl;
+  } else if (os === 'android') {
+    window.location.href = androidStoreUrl;
+  }
+  // Desktop users see the page with both store options
+</script> 

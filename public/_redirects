@@ -7,8 +7,7 @@
 # Main page
 /  /index.html  200
 
-# Handle unknown recipe IDs - only redirect if the static page doesn't exist
-/share_recipe/:id  /share_recipe/:id.html  200!
+# share_recipe routes are handled by SSR (Netlify Functions)
 
 # Handle common redirect patterns
 /recipes/*  /en/recipes/:splat  302
