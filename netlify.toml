@@ -4,6 +4,8 @@
 
 # Configure environment variables
 [build.environment]
+  # Use Ubuntu 24.04 (Noble) build image instead of deprecated Focal
+  NETLIFY_IMAGE_SELECTION = "noble"
   NODE_VERSION = "22"
   NPM_VERSION = "10"
   NODE_ENV = "production"
