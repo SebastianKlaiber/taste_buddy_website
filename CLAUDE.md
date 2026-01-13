@@ -35,7 +35,7 @@ npm run astro -- [command]
 - **Styling**: Tailwind CSS with typography plugin
 - **Database**: Supabase (for shared recipes functionality)
 - **Deployment**: Netlify (static hosting)
-- **Node Version**: 18.x (specified in engines)
+- **Node Version**: 22.x (specified in engines)
 
 ### Project Structure
 
