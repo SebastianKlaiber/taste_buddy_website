@@ -30,14 +30,18 @@ const mobileAppStructuredData = {
     "url": "https://taste-buddy.app"
   },
   "screenshot": [
-    "https://taste-buddy.app/images/01_EN@1x.png",
-    "https://taste-buddy.app/images/02_EN@1x.png",
-    "https://taste-buddy.app/images/03_EN@1x.png",
-    "https://taste-buddy.app/images/04_EN@1x.png"
+    "https://taste-buddy.app/images/01_recipe_list.png",
+    "https://taste-buddy.app/images/02_recipe_detail.png",
+    "https://taste-buddy.app/images/03_nutrition.png",
+    "https://taste-buddy.app/images/04_transform.png",
+    "https://taste-buddy.app/images/05_cooking_mode.png",
+    "https://taste-buddy.app/images/06_dinner_mode.png",
+    "https://taste-buddy.app/images/07_shopping_list.png",
+    "https://taste-buddy.app/images/08_translation.png"
   ],
   "description": "Save every recipe from anywhere: screenshots, websites, handwritten cards, and social media. Keep them searchable on every device.",
   "downloadUrl": [
-    "https://apps.apple.com/app/id6554007741",
+    "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=Website&mt=8",
     "https://play.google.com/store/apps/details?id=app.tastebuddy"
   ]
 };
@@ -108,7 +112,7 @@ const faqStructuredData = {
         <!-- Store badges above the fold -->
         <div class="flex flex-wrap justify-center gap-5 items-center opacity-90 hover:opacity-100 transition-opacity">
           <a 
-            href="https://apps.apple.com/app/id6554007741"
+            href="https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=Website&mt=8"
             aria-label="Download on the App Store"
             class="transform transition-transform duration-300 hover:scale-105 hover:shadow-lg rounded-lg"
             target="_blank" 
@@ -234,7 +238,7 @@ const faqStructuredData = {
               <div class="screenshots-grid">
                 <div class="screenshot-wrapper">
                   <Image
-                    src="/images/01_EN@1x.png"
+                    src="/images/01_recipe_list.png"
                     alt="TasteBuddy Recipe List"
                     width={320}
                     height={640}
@@ -244,7 +248,7 @@ const faqStructuredData = {
                 </div>
                 <div class="screenshot-wrapper mt-8 sm:mt-12">
                   <Image
-                    src="/images/02_EN@1x.png"
+                    src="/images/02_recipe_detail.png"
                     alt="TasteBuddy Recipe Details"
                     width={320}
                     height={640}
@@ -254,8 +258,8 @@ const faqStructuredData = {
                 </div>
                 <div class="screenshot-wrapper">
                   <Image
-                    src="/images/03_EN@1x.png"
-                    alt="TasteBuddy Cooking Steps"
+                    src="/images/03_nutrition.png"
+                    alt="TasteBuddy Nutrition Values"
                     width={320}
                     height={640}
                     format="png"
@@ -264,8 +268,48 @@ const faqStructuredData = {
                 </div>
                 <div class="screenshot-wrapper mt-8 sm:mt-12">
                   <Image
-                    src="/images/04_EN@1x.png"
-                    alt="TasteBuddy Timer"
+                    src="/images/04_transform.png"
+                    alt="TasteBuddy AI Recipe Transform"
+                    width={320}
+                    height={640}
+                    format="png"
+                    class="app-screenshot"
+                  />
+                </div>
+                <div class="screenshot-wrapper">
+                  <Image
+                    src="/images/05_cooking_mode.png"
+                    alt="TasteBuddy Cooking Mode"
+                    width={320}
+                    height={640}
+                    format="png"
+                    class="app-screenshot"
+                  />
+                </div>
+                <div class="screenshot-wrapper mt-8 sm:mt-12">
+                  <Image
+                    src="/images/06_dinner_mode.png"
+                    alt="TasteBuddy Dinner Mode"
+                    width={320}
+                    height={640}
+                    format="png"
+                    class="app-screenshot"
+                  />
+                </div>
+                <div class="screenshot-wrapper">
+                  <Image
+                    src="/images/07_shopping_list.png"
+                    alt="TasteBuddy Shopping List"
+                    width={320}
+                    height={640}
+                    format="png"
+                    class="app-screenshot"
+                  />
+                </div>
+                <div class="screenshot-wrapper mt-8 sm:mt-12">
+                  <Image
+                    src="/images/08_translation.png"
+                    alt="TasteBuddy Recipe Translation"
                     width={320}
                     height={640}
                     format="png"
@@ -395,7 +439,7 @@ const faqStructuredData = {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 1rem;
   }
