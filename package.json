@@ -13,7 +13,7 @@
     "deploy": "npm run build && cp public/_redirects dist/ && (test -f dist/404/index.html && cp dist/404/index.html dist/404.html || true) && (test -f public/500.html && cp public/500.html dist/ || true) && npm run validate && netlify deploy --prod"
   },
   "dependencies": {
-    "@astrojs/check": "0.9.4",
+    "@astrojs/check": "0.9.6",
     "@astrojs/netlify": "^6.5.12",
     "@astrojs/sitemap": "^3.6.0",
     "@astrojs/tailwind": "6.0.2",
