@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "all-recipe",
+    "locale": "en",
+    "title": "Best App to Save Recipes From Anywhere",
+    "description": "A criteria-based guide to recipe apps for people who save recipes from TikTok, Instagram, Pinterest, and food blogs and want one searchable collection.",
+    "primary_keyword": "all recipe app",
+    "search_intent": "comparison",
+    "page_type": "keyword_comparison",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/android/fastlane/metadata/android/en-US/full_description.txt",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/docs/website-wording-updates.md"
+    ],
+    "claims": [
+      "TasteBuddy imports recipes from websites and social media into one searchable collection.",
+      "TasteBuddy connects recipe saving with meal planning and shopping lists."
+    ],
+    "cta_variant": "save_from_anywhere",
+    "last_reviewed_at": "2026-04-10",
+    "hero": "If your recipes are spread across tabs, screenshots, and social saves, the right recipe app should do more than store links.",
+    "decision_criteria": [
+      "Can it import from websites and social media without manual cleanup?",
+      "Can it turn saved recipes into a weekly plan and shopping list?",
+      "Can it keep your collection searchable across devices?"
+    ],
+    "best_for_tastebuddy": [
+      "People who collect recipes from TikTok, Instagram, Pinterest, YouTube, and blogs",
+      "Home cooks who want saved recipes to become a real weekly plan"
+    ],
+    "internal_links": [
+      "/import/tiktok/",
+      "/import/pinterest/",
+      "/solutions/organize-saved-recipes/"
+    ]
+  },
+  {
+    "slug": "recipe-planner",
+    "locale": "en",
+    "title": "Best Recipe Planner App for Saved Recipes",
+    "description": "A buyer's guide to recipe planner apps for home cooks who already save recipes and now need a faster way to plan dinners and generate grocery lists.",
+    "primary_keyword": "recipe planner app",
+    "search_intent": "comparison",
+    "page_type": "keyword_comparison",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/README.md",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/docs/prd/onboarding.md"
+    ],
+    "claims": [
+      "TasteBuddy includes weekly planning and shopping-list generation.",
+      "TasteBuddy supports AI-assisted meal planning based on saved recipes."
+    ],
+    "cta_variant": "plan_from_saves",
+    "last_reviewed_at": "2026-04-10",
+    "hero": "The best meal-planning app for recipe collectors should shorten the gap between saving a recipe and actually cooking it.",
+    "decision_criteria": [
+      "Can it plan from recipes you already saved?",
+      "Can it generate a shopping list from the plan?",
+      "Can it support dietary preferences or planning constraints?"
+    ],
+    "best_for_tastebuddy": [
+      "People who already save recipes and want a weekly plan in the same workflow",
+      "Cooks who want planning and shopping in the same app"
+    ],
+    "internal_links": [
+      "/solutions/recipe-app-with-shopping-list/",
+      "/features/meal-planning/",
+      "/guides/meal-planning-for-beginners/"
+    ]
+  },
+  {
+    "slug": "recipe",
+    "locale": "en",
+    "title": "Best Recipe Organizer App for Digital Recipe Collectors",
+    "description": "Compare recipe organizer apps based on import quality, searchability, meal-planning support, and how easily they turn saved inspiration into cook-ready recipes.",
+    "primary_keyword": "recipe app",
+    "search_intent": "comparison",
+    "page_type": "keyword_comparison",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/content/README.md",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/android/fastlane/metadata/android/en-US/full_description.txt"
+    ],
+    "claims": [
+      "TasteBuddy supports recipe import from URLs, social posts, screenshots, and notes workflows.",
+      "TasteBuddy is built for organization, planning, and shopping instead of just browsing recipes."
+    ],
+    "cta_variant": "organize_recipes",
+    "last_reviewed_at": "2026-04-10",
+    "hero": "A recipe app is only useful if it helps you find, plan, and cook the recipes you already save.",
+    "decision_criteria": [
+      "How well does it handle imported recipes from multiple sources?",
+      "How quickly can you find saved recipes later?",
+      "Does it support planning, shopping, and cooking workflows after import?"
+    ],
+    "best_for_tastebuddy": [
+      "Recipe collectors who want a clean, searchable system",
+      "People moving from bookmarks, screenshots, or social saves to a real recipe workflow"
+    ],
+    "internal_links": [
+      "/guides/how-to-organize-recipes/",
+      "/comparisons/tastebuddy-vs-paprika/",
+      "/features/recipe-organizer/"
+    ]
+  }
+]

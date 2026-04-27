@@ -1,0 +1,17 @@
+---
+import ComparisonPage from '../../../components/marketing/ComparisonPage.astro';
+import { listComparisons } from '../../../lib/marketing/content';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return listComparisons('de').map((record) => ({
+    params: { comparison: record.slug },
+    props: { record },
+  }));
+}
+
+const { record } = Astro.props;
+---
+
+<ComparisonPage record={record} locale="de" />

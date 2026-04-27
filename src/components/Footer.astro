@@ -1,5 +1,7 @@
 ---
 // src/components/Footer.astro
+import { getGoHref } from '../lib/marketing/app-links';
+
 const currentYear = new Date().getFullYear();
 ---
 
@@ -26,9 +28,7 @@ const currentYear = new Date().getFullYear();
         </p>
         <div class="flex space-x-4">
           <a 
-            href="https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=Website&mt=8" 
-            target="_blank" 
-            rel="noopener noreferrer"
+            href={getGoHref('homepage-download', 'ios')}
             aria-label="Download on the App Store"
             class="transition-transform duration-200 hover:scale-105 hover:shadow-lg rounded-lg"
           >
@@ -41,9 +41,7 @@ const currentYear = new Date().getFullYear();
             />
           </a>
           <a 
-            href="https://play.google.com/store/apps/details?id=app.tastebuddy" 
-            target="_blank" 
-            rel="noopener noreferrer"
+            href={getGoHref('homepage-download', 'android')} 
             aria-label="Download on Google Play"
             class="transition-transform duration-200 hover:scale-105 hover:shadow-lg rounded-lg"
           >
@@ -74,11 +72,11 @@ const currentYear = new Date().getFullYear();
       <div>
         <h3 class="text-white font-bold mb-6 text-lg">Resources</h3>
         <ul class="space-y-4">
-          <li><a href="/best-all-recipe-app" class="text-gray-400 hover:text-[#00CE31] transition-colors">Best Recipe Apps</a></li>
+          <li><a href="/import/tiktok/" class="text-gray-400 hover:text-[#00CE31] transition-colors">Import from TikTok</a></li>
           <li><a href="/comparisons/tastebuddy-vs-allrecipes" class="text-gray-400 hover:text-[#00CE31] transition-colors">App Comparisons</a></li>
           <li><a href="/guides/how-to-organize-recipes" class="text-gray-400 hover:text-[#00CE31] transition-colors">Recipe Organization</a></li>
-          <li><a href="/best-food-waste-app" class="text-gray-400 hover:text-[#00CE31] transition-colors">Food Waste Solutions</a></li>
-          <li><a href="/solutions/pantry-organization" class="text-gray-400 hover:text-[#00CE31] transition-colors">Pantry Organization</a></li>
+          <li><a href="/solutions/organize-saved-recipes" class="text-gray-400 hover:text-[#00CE31] transition-colors">Saved Recipe Systems</a></li>
+          <li><a href="/tools/rss-feed-detector/" class="text-gray-400 hover:text-[#00CE31] transition-colors">RSS Feed Detector</a></li>
         </ul>
       </div>
 

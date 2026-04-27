@@ -1,0 +1,99 @@
+---
+import { AstroSeo } from '@astrolib/seo';
+import type { Locale, SolutionRecord } from '../../lib/marketing/types';
+import { buildAlternates } from '../../lib/marketing/app-links';
+import Layout from '../../layouts/Layout.astro';
+import Main from '../Main.astro';
+import DownloadCtas from './DownloadCtas.astro';
+
+interface Props {
+  record: SolutionRecord;
+  locale: Locale;
+}
+
+const { record, locale } = Astro.props;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: record.title,
+  description: record.description,
+  inLanguage: locale,
+  dateModified: record.last_reviewed_at,
+  step: record.steps.map((step, index) => ({
+    '@type': 'HowToStep',
+    position: index + 1,
+    text: step,
+  })),
+};
+
+const labels = {
+  en: {
+    problem: 'The underlying problem',
+    outcomes: 'What a better system changes',
+    steps: 'A better workflow',
+  },
+  de: {
+    problem: 'Das eigentliche Problem',
+    outcomes: 'Was ein besseres System veraendert',
+    steps: 'Ein besserer Workflow',
+  },
+} as const;
+
+const pagePath = locale === 'de' ? `/de/solutions/${record.slug}/` : `/solutions/${record.slug}/`;
+---
+
+<AstroSeo
+  title={`${record.title} | TasteBuddy`}
+  description={record.description}
+  openGraph={{
+    title: record.title,
+    description: record.description,
+    images: [{ url: '/images/screenshots.png' }],
+  }}
+/>
+
+<Layout title={record.title} description={record.description} alternates={buildAlternates(pagePath)}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <Main>
+    <article class="max-w-5xl mx-auto py-12">
+      <header class="mb-12 rounded-3xl border border-[#2A2D24]/30 bg-[#1C2513]/80 p-8">
+        <p class="mb-4 text-sm uppercase tracking-[0.2em] text-[#8FECA8]">{record.primary_keyword}</p>
+        <h1 class="mb-4 text-4xl font-bold text-white sm:text-5xl">{record.title}</h1>
+        <p class="max-w-3xl text-lg text-gray-300">{record.description}</p>
+      </header>
+
+      <section class="mb-10 grid gap-6 md:grid-cols-[1.2fr_0.8fr]">
+        <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+          <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].problem}</h2>
+          <p class="text-gray-300">{record.problem}</p>
+        </div>
+        <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+          <DownloadCtas slug={record.cta_variant} />
+        </div>
+      </section>
+
+      <section class="mb-10 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].outcomes}</h2>
+        <ul class="grid gap-4 text-gray-300 md:grid-cols-3">
+          {record.outcomes.map((item) => (
+            <li class="rounded-xl border border-[#2A2D24]/30 bg-[#1C2513]/80 p-4">{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].steps}</h2>
+        <ol class="space-y-4 text-gray-300">
+          {record.steps.map((step, index) => (
+            <li class="flex gap-4">
+              <span class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#00CE31] font-semibold text-black">
+                {index + 1}
+              </span>
+              <span>{step}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+    </article>
+  </Main>
+</Layout>

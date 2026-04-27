@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "homepage-download",
+    "source": "website",
+    "medium": "hero_cta",
+    "campaign": "homepage",
+    "content": "default-download",
+    "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=homepage-download&mt=8",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dhero_cta%26utm_campaign%3Dhomepage%26utm_content%3Ddefault-download",
+    "fallback_url": "https://taste-buddy.app/"
+  },
+  {
+    "slug": "save-from-anywhere",
+    "source": "website",
+    "medium": "seo_cta",
+    "campaign": "save-from-anywhere",
+    "content": "import-workflow",
+    "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=save-from-anywhere&mt=8",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dseo_cta%26utm_campaign%3Dsave-from-anywhere%26utm_content%3Dimport-workflow",
+    "fallback_url": "https://taste-buddy.app/features/recipe-organizer/"
+  },
+  {
+    "slug": "plan-from-saves",
+    "source": "website",
+    "medium": "seo_cta",
+    "campaign": "plan-from-saves",
+    "content": "meal-planning",
+    "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=plan-from-saves&mt=8",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dseo_cta%26utm_campaign%3Dplan-from-saves%26utm_content%3Dmeal-planning",
+    "fallback_url": "https://taste-buddy.app/features/meal-planning/"
+  },
+  {
+    "slug": "shopping-from-plan",
+    "source": "website",
+    "medium": "seo_cta",
+    "campaign": "shopping-from-plan",
+    "content": "shopping-list",
+    "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=shopping-from-plan&mt=8",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dseo_cta%26utm_campaign%3Dshopping-from-plan%26utm_content%3Dshopping-list",
+    "fallback_url": "https://taste-buddy.app/features/meal-planning/"
+  },
+  {
+    "slug": "rss-tool",
+    "source": "website",
+    "medium": "tool_cta",
+    "campaign": "rss-feed-detector",
+    "content": "feed-discovery",
+    "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=rss-tool&mt=8",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dtool_cta%26utm_campaign%3Drss-feed-detector%26utm_content%3Dfeed-discovery",
+    "fallback_url": "https://taste-buddy.app/features/rss-recipe-subscriptions/"
+  }
+]

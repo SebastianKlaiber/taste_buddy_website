@@ -1,0 +1,318 @@
+[
+  {
+    "slug": "tiktok",
+    "locale": "en",
+    "title": "Import Recipes From TikTok",
+    "description": "Save TikTok recipes into TasteBuddy so they become searchable recipes, weekly plans, and shopping lists instead of forgotten video saves.",
+    "primary_keyword": "import recipes from tiktok",
+    "search_intent": "feature",
+    "page_type": "import_source",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/content/README.md",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/docs/tiktok_strategy.md"
+    ],
+    "claims": [
+      "TikTok is the largest single import source in TasteBuddy's internal dataset.",
+      "TasteBuddy supports TikTok recipe capture and conversion into a structured recipe workflow."
+    ],
+    "cta_variant": "save_from_anywhere",
+    "last_reviewed_at": "2026-04-10",
+    "source_name": "TikTok",
+    "supported_workflows": [
+      "Share a TikTok URL into TasteBuddy",
+      "Paste the recipe URL manually",
+      "Save the result into your recipe collection"
+    ],
+    "limitations": [
+      "Some posts require link-in-bio resolution or manual fallback",
+      "Low-information posts may need editing after import"
+    ],
+    "faq": [
+      {
+        "question": "Can TasteBuddy import a TikTok recipe link directly?",
+        "answer": "Yes. The app is built to handle recipe import from TikTok links and related fallback flows when the recipe is not directly embedded."
+      },
+      {
+        "question": "What happens after import?",
+        "answer": "You can keep the recipe searchable, add it to a weekly plan, or generate a shopping list."
+      }
+    ],
+    "proof_points": [
+      "TikTok accounts for 30% of the tracked import source mix in the internal metrics snapshot.",
+      "77% of tracked imports come from URLs rather than manual entry."
+    ]
+  },
+  {
+    "slug": "tiktok",
+    "locale": "de",
+    "title": "Rezepte aus TikTok importieren",
+    "description": "Speichern Sie TikTok-Rezepte in TasteBuddy, damit aus Video-Saves durchsuchbare Rezepte, Wochenplaene und Einkaufslisten werden.",
+    "primary_keyword": "rezepte aus tiktok importieren",
+    "search_intent": "feature",
+    "page_type": "import_source",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/content/README.md",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/docs/tiktok_strategy.md"
+    ],
+    "claims": [
+      "TikTok ist die groesste einzelne Importquelle in TasteBuddys internem Snapshot.",
+      "TasteBuddy unterstuetzt TikTok-Rezeptimporte und ueberfuehrt sie in einen strukturierten Rezept-Workflow."
+    ],
+    "cta_variant": "save_from_anywhere",
+    "last_reviewed_at": "2026-04-10",
+    "source_name": "TikTok",
+    "supported_workflows": [
+      "TikTok-Link direkt an TasteBuddy teilen",
+      "Rezept-URL manuell einfuegen",
+      "Importiertes Rezept in der Sammlung speichern"
+    ],
+    "limitations": [
+      "Einige Posts brauchen Link-in-Bio-Aufloesung oder manuellen Fallback",
+      "Bei wenig strukturierten Posts kann Nachbearbeitung noetig sein"
+    ],
+    "faq": [
+      {
+        "question": "Kann TasteBuddy TikTok-Rezeptlinks direkt importieren?",
+        "answer": "Ja. Die App ist fuer TikTok-Importe und passende Fallback-Workflows gebaut."
+      },
+      {
+        "question": "Was passiert nach dem Import?",
+        "answer": "Sie koennen das Rezept durchsuchen, in den Wochenplan ziehen oder eine Einkaufsliste erzeugen."
+      }
+    ],
+    "proof_points": [
+      "TikTok macht 30% des erfassten Importmixes im internen Snapshot aus.",
+      "77% der erfassten Importe kommen ueber URLs statt manueller Eingabe."
+    ]
+  },
+  {
+    "slug": "pinterest",
+    "locale": "en",
+    "title": "Import Recipes From Pinterest",
+    "description": "Take recipe ideas from Pinterest and turn them into cook-ready recipes, meal plans, and shopping lists inside TasteBuddy.",
+    "primary_keyword": "import recipes from pinterest",
+    "search_intent": "feature",
+    "page_type": "import_source",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/docs/pinterest_strategy.md",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/android/fastlane/metadata/android/en-US/full_description.txt"
+    ],
+    "claims": [
+      "TasteBuddy supports recipe import from Pinterest and food blogs.",
+      "The product is designed to turn saved inspiration into a weekly plan and shopping list."
+    ],
+    "cta_variant": "organize_recipes",
+    "last_reviewed_at": "2026-04-10",
+    "source_name": "Pinterest",
+    "supported_workflows": [
+      "Save the recipe URL from a Pin into TasteBuddy",
+      "Keep imported recipes in one searchable collection",
+      "Plan the recipe and shop from it later"
+    ],
+    "limitations": [
+      "Not every Pin points to a recipe page with usable structure",
+      "Some Pinterest saves still require the original website URL"
+    ],
+    "faq": [
+      {
+        "question": "Does Pinterest import work best from recipe Pins?",
+        "answer": "Yes. Pins that lead to recipe pages are the cleanest input because TasteBuddy can extract the recipe from the source page."
+      }
+    ],
+    "proof_points": [
+      "TasteBuddy's positioning on Pinterest is built around save -> import -> plan -> shop.",
+      "TasteBuddy supports recipe import from Pinterest and any food blog."
+    ]
+  },
+  {
+    "slug": "pinterest",
+    "locale": "de",
+    "title": "Rezepte aus Pinterest importieren",
+    "description": "Verwandeln Sie Pinterest-Ideen in TasteBuddy in echte Rezepte, Wochenplaene und Einkaufslisten.",
+    "primary_keyword": "rezepte aus pinterest importieren",
+    "search_intent": "feature",
+    "page_type": "import_source",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/docs/pinterest_strategy.md",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/android/fastlane/metadata/android/en-US/full_description.txt"
+    ],
+    "claims": [
+      "TasteBuddy unterstuetzt Rezeptimporte aus Pinterest und Food-Blogs.",
+      "Das Produkt ist darauf ausgelegt, Inspiration in Planung und Einkauf zu verwandeln."
+    ],
+    "cta_variant": "organize_recipes",
+    "last_reviewed_at": "2026-04-10",
+    "source_name": "Pinterest",
+    "supported_workflows": [
+      "Rezept-URL aus einem Pin in TasteBuddy speichern",
+      "Importierte Rezepte in einer Sammlung durchsuchen",
+      "Rezepte spaeter planen und einkaufen"
+    ],
+    "limitations": [
+      "Nicht jeder Pin verweist auf eine sauber strukturierte Rezeptseite",
+      "Manche Pins benoetigen die originale Website-URL"
+    ],
+    "faq": [
+      {
+        "question": "Funktioniert Pinterest-Import am besten mit Rezept-Pins?",
+        "answer": "Ja. Pins mit einer echten Rezeptseite als Ziel liefern in der Regel die saubersten Ergebnisse."
+      }
+    ],
+    "proof_points": [
+      "TasteBuddys Pinterest-Positionierung folgt dem Workflow save -> import -> plan -> shop.",
+      "TasteBuddy unterstuetzt Import aus Pinterest und Food-Blogs."
+    ]
+  },
+  {
+    "slug": "notion",
+    "locale": "en",
+    "title": "Import Recipes From Notion",
+    "description": "Move recipe notes from a Notion database into TasteBuddy so they become easier to search, plan, and cook from.",
+    "primary_keyword": "import recipes from notion",
+    "search_intent": "feature",
+    "page_type": "import_source",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/lib/i18n/en.i18n.json"
+    ],
+    "claims": [
+      "TasteBuddy supports importing recipes from Notion databases.",
+      "The Notion import flow is built around selecting a database and importing recipe pages."
+    ],
+    "cta_variant": "organize_recipes",
+    "last_reviewed_at": "2026-04-10",
+    "source_name": "Notion",
+    "supported_workflows": [
+      "Connect a Notion integration token",
+      "Select the recipe database",
+      "Import selected recipes into TasteBuddy"
+    ],
+    "limitations": [
+      "Recipes need to live in a Notion database the integration can access",
+      "Database structure quality affects import quality"
+    ],
+    "faq": [
+      {
+        "question": "Can I pick only some recipes from Notion?",
+        "answer": "Yes. The Notion flow lets you browse database entries and import selected recipes."
+      }
+    ],
+    "proof_points": [
+      "TasteBuddy includes a dedicated Notion import flow.",
+      "Notion import supports database selection and batch import."
+    ]
+  },
+  {
+    "slug": "notion",
+    "locale": "de",
+    "title": "Rezepte aus Notion importieren",
+    "description": "Uebernehmen Sie Rezeptnotizen aus einer Notion-Datenbank in TasteBuddy, damit sie leichter durchsuchbar, planbar und kochbar werden.",
+    "primary_keyword": "rezepte aus notion importieren",
+    "search_intent": "feature",
+    "page_type": "import_source",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/lib/i18n/en.i18n.json"
+    ],
+    "claims": [
+      "TasteBuddy unterstuetzt den Import aus Notion-Datenbanken.",
+      "Der Import-Flow basiert auf Datenbankauswahl und gezieltem Import."
+    ],
+    "cta_variant": "organize_recipes",
+    "last_reviewed_at": "2026-04-10",
+    "source_name": "Notion",
+    "supported_workflows": [
+      "Notion-Integrationstoken verbinden",
+      "Rezeptdatenbank auswaehlen",
+      "Ausgewaehlte Rezepte in TasteBuddy importieren"
+    ],
+    "limitations": [
+      "Rezepte muessen in einer zugreifbaren Notion-Datenbank liegen",
+      "Die Datenbankstruktur beeinflusst die Importqualitaet"
+    ],
+    "faq": [
+      {
+        "question": "Kann ich nur einzelne Notion-Rezepte importieren?",
+        "answer": "Ja. Der Notion-Flow erlaubt die Auswahl einzelner Rezeptseiten vor dem Import."
+      }
+    ],
+    "proof_points": [
+      "TasteBuddy besitzt einen dedizierten Notion-Import.",
+      "Der Import unterstuetzt Datenbankauswahl und Batch-Import."
+    ]
+  },
+  {
+    "slug": "obsidian",
+    "locale": "en",
+    "title": "Import Recipes From Obsidian",
+    "description": "Bring recipe markdown files from Obsidian into TasteBuddy when you want better search, planning, and cooking workflows than a notes folder can provide.",
+    "primary_keyword": "import recipes from obsidian",
+    "search_intent": "feature",
+    "page_type": "import_source",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/lib/i18n/en.i18n.json"
+    ],
+    "claims": [
+      "TasteBuddy supports importing recipe markdown files from an Obsidian vault.",
+      "The import flow is built around selecting folders and choosing recipe files."
+    ],
+    "cta_variant": "organize_recipes",
+    "last_reviewed_at": "2026-04-10",
+    "source_name": "Obsidian",
+    "supported_workflows": [
+      "Choose a folder from your vault",
+      "Select the markdown files that contain recipes",
+      "Import the selected files into TasteBuddy"
+    ],
+    "limitations": [
+      "Best results depend on recipe-like markdown structure",
+      "Non-recipe notes may still need cleanup after import"
+    ],
+    "faq": [
+      {
+        "question": "Do I have to import the entire vault?",
+        "answer": "No. The Obsidian import flow is folder-based and lets you choose the recipe files you want."
+      }
+    ],
+    "proof_points": [
+      "TasteBuddy includes a dedicated Obsidian import flow.",
+      "The import flow supports folder selection and batch import."
+    ]
+  },
+  {
+    "slug": "obsidian",
+    "locale": "de",
+    "title": "Rezepte aus Obsidian importieren",
+    "description": "Uebernehmen Sie Rezept-Markdown-Dateien aus Obsidian in TasteBuddy, wenn eine Notizsammlung allein nicht mehr fuer Suche, Planung und Kochen reicht.",
+    "primary_keyword": "rezepte aus obsidian importieren",
+    "search_intent": "feature",
+    "page_type": "import_source",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/lib/i18n/en.i18n.json"
+    ],
+    "claims": [
+      "TasteBuddy unterstuetzt den Import von Rezept-Markdown-Dateien aus einem Obsidian Vault.",
+      "Der Flow basiert auf Ordnerauswahl und Dateiauswahl."
+    ],
+    "cta_variant": "organize_recipes",
+    "last_reviewed_at": "2026-04-10",
+    "source_name": "Obsidian",
+    "supported_workflows": [
+      "Ordner aus dem Vault auswaehlen",
+      "Markdown-Dateien mit Rezepten markieren",
+      "Die ausgewaehlten Dateien in TasteBuddy importieren"
+    ],
+    "limitations": [
+      "Beste Ergebnisse mit klar strukturierten Rezept-Notizen",
+      "Nicht-Rezept-Notizen koennen Nacharbeit brauchen"
+    ],
+    "faq": [
+      {
+        "question": "Muss ich den ganzen Vault importieren?",
+        "answer": "Nein. Der Obsidian-Import ist ordnerbasiert und erlaubt die Auswahl einzelner Rezeptdateien."
+      }
+    ],
+    "proof_points": [
+      "TasteBuddy besitzt einen dedizierten Obsidian-Import.",
+      "Der Flow unterstuetzt Ordnerauswahl und Batch-Import."
+    ]
+  }
+]

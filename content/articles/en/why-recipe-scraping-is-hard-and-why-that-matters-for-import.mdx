@@ -1,0 +1,91 @@
+---
+title: "Why Recipe Scraping Is Hard and Why It Matters for Recipe Import"
+description: "Recipe import looks simple from the outside. In practice it is a messy systems problem that directly affects whether saved recipes are actually usable."
+date: "2026-04-10"
+author: "TasteBuddy Team"
+slug: "why-recipe-scraping-is-hard-and-why-that-matters-for-import"
+template_type: "technical_authority"
+target_query: "why recipe scraping is hard"
+source_refs:
+  - "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/content/README.md"
+  - "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/content/recipe-scraping-post.md"
+publish_status: "approved"
+canonical_url: "https://taste-buddy.app/en/blog/articles/why-recipe-scraping-is-hard-and-why-that-matters-for-import/"
+---
+
+From a user's perspective, recipe import sounds trivial:
+
+> paste link -> get recipe
+
+That is the right product expectation. It is not the real engineering shape of the problem.
+
+## Recipe pages are not as standardized as they look
+
+JSON-LD recipe schema helps, but it does not guarantee a clean result.
+
+In the real world you still see:
+
+- multiple schema blocks before the recipe
+- mixed `Recipe` and `HowTo` types
+- pages where key fields are missing or malformed
+- recipes hidden behind social or "link in bio" flows
+
+This matters because import quality is a growth issue, not just a technical issue.
+
+If a saved recipe imports badly, the user does not trust the system the next time either.
+
+## Social discovery changed the import problem
+
+Half of recipe discovery no longer starts on a traditional recipe blog.
+
+It starts on:
+
+- TikTok
+- Instagram
+- Pinterest
+- YouTube
+
+Often the recipe is not in the post itself. It is on a linked website, a bio hub, or a creator page that still needs one more step. Import systems that only assume "clean recipe page in, clean recipe out" miss the way people actually discover food now.
+
+## Import quality is really a fallback-quality problem
+
+The most reliable import systems are not built around a single parser. They are built around layered fallbacks.
+
+TasteBuddy's internal content notes describe a four-tier extraction approach:
+
+1. structured recipe data first
+2. secondary extraction when structure is weak
+3. AI-based extraction from page content
+4. last-resort URL-context fallback
+
+That layered approach exists because real recipe sources are inconsistent.
+
+## Why this matters for product marketing
+
+Import quality changes the entire activation funnel.
+
+If import works:
+
+- a saved recipe becomes useful immediately
+- the user builds a real recipe library
+- planning and shopping become easier
+
+If import fails:
+
+- the recipe becomes homework
+- trust drops
+- the user goes back to screenshots and tabs
+
+That is why import reliability is not a backend detail. It is one of the product's strongest acquisition and retention stories.
+
+## The marketing takeaway
+
+For recipe apps, "we import recipes" is too generic.
+
+The stronger message is:
+
+- we handle the messy places people actually save recipes from
+- we keep going when the clean path fails
+- we turn imported recipes into something useful after capture
+
+That is much closer to the real user value.

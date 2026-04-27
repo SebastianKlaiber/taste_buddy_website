@@ -1,0 +1,34 @@
+---
+import { getGoHref } from '../../lib/marketing/app-links';
+
+interface Props {
+  slug: string;
+  primaryLabel?: string;
+  secondaryLabel?: string;
+}
+
+const {
+  slug,
+  primaryLabel = 'Open TasteBuddy',
+  secondaryLabel = 'See recipe workflows',
+} = Astro.props;
+---
+
+<div class="flex flex-wrap gap-4">
+  <a
+    class="btn-primary"
+    href={getGoHref(slug)}
+    data-track-event="marketing_cta_clicked"
+    data-track-payload={JSON.stringify({ cta_slug: slug, cta_label: primaryLabel, cta_variant: 'primary', destination: 'go_redirect' })}
+  >
+    {primaryLabel}
+  </a>
+  <a
+    class="btn-secondary"
+    href="/features/recipe-organizer/"
+    data-track-event="marketing_cta_clicked"
+    data-track-payload={JSON.stringify({ cta_slug: slug, cta_label: secondaryLabel, cta_variant: 'secondary', destination: 'recipe_organizer_feature' })}
+  >
+    {secondaryLabel}
+  </a>
+</div>

@@ -1,0 +1,109 @@
+---
+import { AstroSeo } from '@astrolib/seo';
+import type { ImportSourceRecord, Locale } from '../../lib/marketing/types';
+import { buildAlternates } from '../../lib/marketing/app-links';
+import Layout from '../../layouts/Layout.astro';
+import Main from '../Main.astro';
+import DownloadCtas from './DownloadCtas.astro';
+
+interface Props {
+  record: ImportSourceRecord;
+  locale: Locale;
+}
+
+const { record, locale } = Astro.props;
+const pagePath = locale === 'de' ? `/de/import/${record.slug}/` : `/import/${record.slug}/`;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: record.title,
+  description: record.description,
+  inLanguage: locale,
+  dateModified: record.last_reviewed_at,
+  author: {
+    '@type': 'Organization',
+    name: 'TasteBuddy',
+  },
+};
+const labels = {
+  en: {
+    supported: 'Supported workflows',
+    limitations: 'Known limitations',
+    proof: 'Proof points',
+    faq: 'FAQ',
+  },
+  de: {
+    supported: 'Unterstuetzte Workflows',
+    limitations: 'Bekannte Grenzen',
+    proof: 'Belege',
+    faq: 'FAQ',
+  },
+} as const;
+---
+
+<AstroSeo
+  title={`${record.title} | TasteBuddy`}
+  description={record.description}
+  openGraph={{
+    title: record.title,
+    description: record.description,
+    images: [{ url: '/images/screenshots.png' }],
+  }}
+/>
+
+<Layout title={record.title} description={record.description} alternates={buildAlternates(pagePath)}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <Main>
+    <article class="max-w-5xl mx-auto py-12">
+      <header class="mb-12 rounded-3xl border border-[#2A2D24]/30 bg-[#1C2513]/80 p-8">
+        <p class="mb-4 text-sm uppercase tracking-[0.2em] text-[#8FECA8]">{record.source_name}</p>
+        <h1 class="mb-4 text-4xl font-bold text-white sm:text-5xl">{record.title}</h1>
+        <p class="max-w-3xl text-lg text-gray-300">{record.description}</p>
+      </header>
+
+      <section class="mb-10 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+        <DownloadCtas slug={record.cta_variant} primaryLabel={locale === 'de' ? 'TasteBuddy ausprobieren' : 'Try TasteBuddy'} />
+      </section>
+
+      <section class="mb-10 grid gap-6 md:grid-cols-2">
+        <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+          <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].supported}</h2>
+          <ul class="space-y-3 text-gray-300">
+            {record.supported_workflows.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+          <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].limitations}</h2>
+          <ul class="space-y-3 text-gray-300">
+            {record.limitations.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="mb-10 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].proof}</h2>
+        <ul class="space-y-3 text-gray-300">
+          {record.proof_points.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].faq}</h2>
+        <div class="space-y-6">
+          {record.faq.map((entry) => (
+            <div class="rounded-xl border border-[#2A2D24]/30 bg-[#1C2513]/80 p-5">
+              <h3 class="mb-2 text-lg font-semibold text-white">{entry.question}</h3>
+              <p class="text-gray-300">{entry.answer}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </article>
+  </Main>
+</Layout>

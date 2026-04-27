@@ -1,0 +1,23 @@
+---
+import FeedDirectoryPage from '../../../components/marketing/FeedDirectoryPage.astro';
+import { getFeedDirectoryPage, listFeedSites } from '../../../lib/marketing/content';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return [
+    { slug: 'recipe-websites-with-rss', country: 'US' },
+    { slug: 'best-german-food-blogs-with-rss', country: 'DE' },
+  ].map(({ slug, country }) => ({
+    params: { slug },
+    props: {
+      page: getFeedDirectoryPage('de', slug),
+      sites: listFeedSites(country),
+    },
+  }));
+}
+
+const { page, sites } = Astro.props;
+---
+
+<FeedDirectoryPage title={page.title} description={page.description} slug={page.slug} locale="de" sites={sites} />

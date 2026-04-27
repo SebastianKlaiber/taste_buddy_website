@@ -8,12 +8,14 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "netlify-build": "ROLLUP_SKIP_NODEJS=true npm install --legacy-peer-deps && mkdir -p dist && ROLLUP_SKIP_NODEJS=true astro build --verbose && cp public/_redirects dist/ && (test -f dist/404/index.html && cp dist/404/index.html dist/404.html || true) && (test -f public/500.html && cp public/500.html dist/ || true) && (npm run validate || echo 'Validation skipped during build')",
+    "article:draft": "node scripts/create-article-draft.js",
+    "netlify-build": "bash scripts/netlify-build.sh",
     "validate": "node scripts/validate-build.js",
-    "deploy": "npm run build && cp public/_redirects dist/ && (test -f dist/404/index.html && cp dist/404/index.html dist/404.html || true) && (test -f public/500.html && cp public/500.html dist/ || true) && npm run validate && netlify deploy --prod"
+    "deploy": "npm run netlify-build && netlify deploy --prod"
   },
   "dependencies": {
     "@astrojs/check": "0.9.4",
+    "@astrojs/mdx": "^4.3.0",
     "@astrojs/netlify": "^6.5.12",
     "@astrojs/sitemap": "^3.6.0",
     "@astrojs/tailwind": "6.0.2",

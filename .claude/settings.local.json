@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(cat:*)",
+      "Bash(sed:*)",
+      "Bash(python3:*)",
+      "Bash(grep:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run validate:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_evaluate",
+      "Bash(node --version:*)",
+      "Bash(npm --version)"
+    ],
+    "deny": []
+  }
+}

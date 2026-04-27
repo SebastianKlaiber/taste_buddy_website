@@ -12,10 +12,9 @@
   ROLLUP_SKIP_NODEJS = "true"
   NPM_CONFIG_LEGACY_PEER_DEPS = "true"
   SECRETS_SCAN_OMIT_KEYS = "PUBLIC_SUPABASE_URL,PUBLIC_SUPABASE_ANON_KEY"
-  # Make it clearer where build outputs go for debugging
-  DEBUG = "astro:*"
-  # Disable log output hiding to help debug build issues
-  NETLIFY_EXPERIMENTAL_BUILD_LOGS_HIDE_POTENTIAL_SECRETS = "false"
+  FLUTTER_VERSION = "3.41.7"
+  TASTE_BUDDY_APP_REF = "main"
+  TASTE_BUDDY_WEB_APP_BASE_HREF = "/app/"
 
 # Function configuration
 [functions]

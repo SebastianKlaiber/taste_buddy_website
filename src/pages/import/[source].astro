@@ -1,0 +1,17 @@
+---
+import ImportSourcePage from '../../components/marketing/ImportSourcePage.astro';
+import { listImportSources } from '../../lib/marketing/content';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return listImportSources('en').map((record) => ({
+    params: { source: record.slug },
+    props: { record },
+  }));
+}
+
+const { record } = Astro.props;
+---
+
+<ImportSourcePage record={record} locale="en" />

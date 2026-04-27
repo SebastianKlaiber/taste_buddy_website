@@ -1,0 +1,17 @@
+---
+import SolutionPage from '../../../components/marketing/SolutionPage.astro';
+import { listSolutions } from '../../../lib/marketing/content';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return listSolutions('de').map((record) => ({
+    params: { problem: record.slug },
+    props: { record },
+  }));
+}
+
+const { record } = Astro.props;
+---
+
+<SolutionPage record={record} locale="de" />

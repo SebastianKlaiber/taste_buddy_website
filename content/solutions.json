@@ -1,0 +1,182 @@
+[
+  {
+    "slug": "organize-saved-recipes",
+    "locale": "en",
+    "title": "How to Organize Saved Recipes Without Losing Them Again",
+    "description": "A practical system for turning recipe screenshots, bookmarks, TikTok saves, and blog links into one searchable recipe library.",
+    "primary_keyword": "organize saved recipes",
+    "search_intent": "problem_solution",
+    "page_type": "solution",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/docs/website-wording-updates.md",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/content/README.md"
+    ],
+    "claims": [
+      "TasteBuddy imports recipes from websites, social media, screenshots, and notes workflows.",
+      "TasteBuddy keeps recipes searchable in one place."
+    ],
+    "cta_variant": "organize_recipes",
+    "last_reviewed_at": "2026-04-10",
+    "problem": "Recipes are scattered across social saves, tabs, screenshots, and bookmarks.",
+    "outcomes": [
+      "One searchable recipe collection",
+      "Less duplicate saving",
+      "Faster planning and cooking"
+    ],
+    "steps": [
+      "Capture recipes from every source into one system.",
+      "Tag or group recipes by the way you actually cook.",
+      "Use the saved collection as the base for planning and shopping."
+    ]
+  },
+  {
+    "slug": "organize-saved-recipes",
+    "locale": "de",
+    "title": "Gespeicherte Rezepte endlich sinnvoll organisieren",
+    "description": "Ein praktisches System, um Screenshots, Bookmarks, TikTok-Saves und Foodblog-Links in eine durchsuchbare Rezeptsammlung zu verwandeln.",
+    "primary_keyword": "rezepte organisieren app",
+    "search_intent": "problem_solution",
+    "page_type": "solution",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/docs/website-wording-updates.md",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/content/README.md"
+    ],
+    "claims": [
+      "TasteBuddy importiert Rezepte aus Websites, Social Media, Screenshots und Notes-Workflows.",
+      "TasteBuddy haelt Rezepte an einem Ort durchsuchbar."
+    ],
+    "cta_variant": "organize_recipes",
+    "last_reviewed_at": "2026-04-10",
+    "problem": "Rezepte liegen verteilt in Social Saves, Tabs, Screenshots und Bookmarks.",
+    "outcomes": [
+      "Eine durchsuchbare Rezeptsammlung",
+      "Weniger doppelte Saves",
+      "Schnellere Planung und Kochroutine"
+    ],
+    "steps": [
+      "Rezeptquellen in ein einziges System uebernehmen.",
+      "Rezepte so gruppieren, wie Sie wirklich kochen.",
+      "Die Sammlung als Basis fuer Planung und Einkauf nutzen."
+    ]
+  },
+  {
+    "slug": "recipe-app-with-shopping-list",
+    "locale": "en",
+    "title": "Why a Recipe App With a Shopping List Changes the Workflow",
+    "description": "A recipe organizer is much more useful when it can turn planned meals into a grocery list you can actually shop from.",
+    "primary_keyword": "recipe app with shopping list",
+    "search_intent": "problem_solution",
+    "page_type": "solution",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/android/fastlane/metadata/android/en-US/full_description.txt",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/docs/prd/onboarding.md"
+    ],
+    "claims": [
+      "TasteBuddy generates shopping lists from your meal plan.",
+      "TasteBuddy links recipe saving, planning, and shopping."
+    ],
+    "cta_variant": "shopping_from_plan",
+    "last_reviewed_at": "2026-04-10",
+    "problem": "Saved recipes do not help much if shopping is still manual and fragmented.",
+    "outcomes": [
+      "Fewer forgotten ingredients",
+      "Less back-and-forth during grocery runs",
+      "A shorter path from saved recipe to cooked meal"
+    ],
+    "steps": [
+      "Save recipes into a personal collection.",
+      "Choose the recipes you want this week.",
+      "Generate one shopping list from the final plan."
+    ]
+  },
+  {
+    "slug": "recipe-app-with-shopping-list",
+    "locale": "de",
+    "title": "Warum eine Rezept-App mit Einkaufsliste den Unterschied macht",
+    "description": "Eine Rezept-App ist deutlich nuetzlicher, wenn sie aus geplanten Mahlzeiten direkt eine alltagstaugliche Einkaufsliste macht.",
+    "primary_keyword": "rezept app mit einkaufsliste",
+    "search_intent": "problem_solution",
+    "page_type": "solution",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/android/fastlane/metadata/android/en-US/full_description.txt",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/docs/prd/onboarding.md"
+    ],
+    "claims": [
+      "TasteBuddy erzeugt Einkaufslisten aus dem Wochenplan.",
+      "TasteBuddy verbindet Speichern, Planen und Einkaufen."
+    ],
+    "cta_variant": "shopping_from_plan",
+    "last_reviewed_at": "2026-04-10",
+    "problem": "Gespeicherte Rezepte helfen wenig, wenn der Einkauf weiterhin manuell und chaotisch bleibt.",
+    "outcomes": [
+      "Weniger vergessene Zutaten",
+      "Weniger Hin und Her beim Einkauf",
+      "Kuerzerer Weg vom Save zum gekochten Gericht"
+    ],
+    "steps": [
+      "Rezepte in einer persoenlichen Sammlung speichern.",
+      "Die Rezepte fuer diese Woche auswaehlen.",
+      "Eine gemeinsame Einkaufsliste aus dem Plan erzeugen."
+    ]
+  },
+  {
+    "slug": "decision-fatigue-cooking",
+    "locale": "en",
+    "title": "How to Beat Decision Fatigue Around Dinner",
+    "description": "A practical approach to reducing the daily mental load of figuring out what to cook using saved recipes, weekly planning, and repeatable defaults.",
+    "primary_keyword": "decision fatigue cooking",
+    "search_intent": "problem_solution",
+    "page_type": "solution",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/docs/prd/onboarding.md",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/docs/tiktok_strategy.md"
+    ],
+    "claims": [
+      "TasteBuddy supports weekly planning from your saved recipes.",
+      "TasteBuddy reduces the gap between inspiration and execution."
+    ],
+    "cta_variant": "plan_from_saves",
+    "last_reviewed_at": "2026-04-10",
+    "problem": "You save plenty of recipes but still do not know what to cook tonight.",
+    "outcomes": [
+      "Less weekday stress",
+      "More repeatable planning habits",
+      "Better use of recipes you already saved"
+    ],
+    "steps": [
+      "Collect the recipes you are actually willing to cook.",
+      "Plan a small set of dinners before the week starts.",
+      "Use the shopping list to remove last-minute friction."
+    ]
+  },
+  {
+    "slug": "decision-fatigue-cooking",
+    "locale": "de",
+    "title": "Weniger Entscheidungsstress beim Kochen",
+    "description": "Ein praktischer Ansatz gegen taeglichen Dinner-Stress mit gespeicherten Rezepten, Wochenplanung und wiederholbaren Routinen.",
+    "primary_keyword": "entscheidungsmuedigkeit kochen",
+    "search_intent": "problem_solution",
+    "page_type": "solution",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/docs/prd/onboarding.md",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/docs/tiktok_strategy.md"
+    ],
+    "claims": [
+      "TasteBuddy unterstuetzt Wochenplanung aus gespeicherten Rezepten.",
+      "TasteBuddy verringert die Luecke zwischen Inspiration und Umsetzung."
+    ],
+    "cta_variant": "plan_from_saves",
+    "last_reviewed_at": "2026-04-10",
+    "problem": "Sie speichern viele Rezepte und wissen trotzdem abends nicht, was Sie kochen sollen.",
+    "outcomes": [
+      "Weniger Alltagsstress",
+      "Stabilere Planungsroutinen",
+      "Mehr Nutzung der bereits gespeicherten Rezepte"
+    ],
+    "steps": [
+      "Nur die Rezepte sammeln, die Sie wirklich kochen wuerden.",
+      "Vor Wochenstart ein kleines Dinner-Set planen.",
+      "Mit der Einkaufsliste letzte Reibung entfernen."
+    ]
+  }
+]

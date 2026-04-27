@@ -1,0 +1,128 @@
+---
+import { AstroSeo } from '@astrolib/seo';
+import type { ComparisonRecord, Locale } from '../../lib/marketing/types';
+import { buildAlternates, getLocalizedPath } from '../../lib/marketing/app-links';
+import Layout from '../../layouts/Layout.astro';
+import Main from '../Main.astro';
+import DownloadCtas from './DownloadCtas.astro';
+
+interface Props {
+  record: ComparisonRecord;
+  locale: Locale;
+}
+
+const { record, locale } = Astro.props;
+
+const labels = {
+  en: {
+    overview: 'Who this comparison is for',
+    tasteBuddy: 'Why people pick TasteBuddy',
+    competitor: `When ${record.competitor} may fit better`,
+    migration: 'How to switch with less friction',
+    proof: 'Product-backed proof points',
+    finalCta: 'Try the workflow on your own saved recipes',
+  },
+  de: {
+    overview: 'Fuer wen dieser Vergleich gedacht ist',
+    tasteBuddy: 'Warum Nutzer TasteBuddy waehlen',
+    competitor: `Wann ${record.competitor} besser passen kann`,
+    migration: 'So gelingt der Wechsel mit weniger Reibung',
+    proof: 'Produktnahe Belege',
+    finalCta: 'Testen Sie den Workflow mit Ihren eigenen Rezept-Saves',
+  },
+} as const;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: record.title,
+  description: record.description,
+  inLanguage: locale,
+  dateModified: record.last_reviewed_at,
+  author: {
+    '@type': 'Organization',
+    name: 'TasteBuddy',
+  },
+};
+
+const pagePath =
+  locale === 'de' ? `/de/comparisons/${record.slug}/` : `/comparisons/${record.slug}/`;
+---
+
+<AstroSeo
+  title={`${record.title} | TasteBuddy`}
+  description={record.description}
+  openGraph={{
+    title: record.title,
+    description: record.description,
+    images: [{ url: '/images/screenshots.png' }],
+  }}
+/>
+
+<Layout title={record.title} description={record.description} alternates={buildAlternates(pagePath)}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+  <Main>
+    <article class="max-w-5xl mx-auto py-12">
+      <header class="mb-12 rounded-3xl border border-[#2A2D24]/30 bg-[#1C2513]/80 p-8">
+        <p class="mb-4 text-sm uppercase tracking-[0.2em] text-[#8FECA8]">{record.primary_keyword}</p>
+        <h1 class="mb-4 text-4xl font-bold text-white sm:text-5xl">{record.title}</h1>
+        <p class="max-w-3xl text-lg text-gray-300">{record.description}</p>
+      </header>
+
+      <section class="mb-10 grid gap-6 md:grid-cols-2">
+        <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+          <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].overview}</h2>
+          <p class="text-gray-300">{record.use_case}</p>
+        </div>
+        <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+          <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].finalCta}</h2>
+          <DownloadCtas slug={record.cta_variant} />
+        </div>
+      </section>
+
+      <section class="mb-10 grid gap-6 md:grid-cols-2">
+        <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#1C2513]/80 p-6">
+          <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].tasteBuddy}</h2>
+          <ul class="space-y-3 text-gray-300">
+            {record.strengths.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+          <p class="mt-6 text-sm text-[#8FECA8]">{record.best_for_tastebuddy}</p>
+        </div>
+
+        <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#1C2513]/80 p-6">
+          <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].competitor}</h2>
+          <ul class="space-y-3 text-gray-300">
+            {record.weaknesses.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+          <p class="mt-6 text-sm text-gray-400">{record.best_for_competitor}</p>
+        </div>
+      </section>
+
+      <section class="mb-10 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].migration}</h2>
+        <ol class="space-y-3 text-gray-300">
+          {record.migration_notes.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].proof}</h2>
+        <ul class="space-y-3 text-gray-300">
+          {record.proof_points.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+        <p class="mt-6 text-sm text-gray-500">
+          {locale === 'de' ? 'Letzte Review:' : 'Last reviewed:'} {record.last_reviewed_at}
+        </p>
+      </section>
+    </article>
+  </Main>
+</Layout>

@@ -1,4 +1,6 @@
 ---
+import { getGoHref, getWebAppHref } from '../lib/marketing/app-links';
+
 const currentPath = Astro.url.pathname;
 
 // Define navigation links
@@ -53,13 +55,17 @@ const navLinks = [
           </svg>
         </button>
 
-        <!-- Download App button (desktop only) -->
-        <div class="hidden md:block">
+        <!-- App buttons (desktop only) -->
+        <div class="hidden md:flex items-center gap-3">
           <a
-            href="https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=Website&mt=8"
+            href={getWebAppHref()}
+            class="btn-secondary text-sm"
+          >
+            Open App
+          </a>
+          <a
+            href={getGoHref('homepage-download')}
             class="btn-primary text-sm"
-            target="_blank"
-            rel="noopener noreferrer"
           >
             Download App
           </a>
@@ -83,6 +89,18 @@ const navLinks = [
           {link.text}
         </a>
       ))}
+      <a
+        href={getWebAppHref()}
+        class="block px-3 py-2 rounded-md text-base font-medium bg-[#00CE31]/20 text-white border border-[#00CE31]/30"
+      >
+        Open App
+      </a>
+      <a
+        href={getGoHref('homepage-download')}
+        class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-[#1C2513]/80 hover:text-white"
+      >
+        Download App
+      </a>
     </div>
   </div>
 </header>

@@ -1,0 +1,77 @@
+---
+title: "Warum Recipe Scraping so schwierig ist und warum das fuer Import entscheidend ist"
+description: "Rezeptimport wirkt von aussen simpel. In der Praxis ist es ein unordentliches Systemproblem, das direkt bestimmt, ob gespeicherte Rezepte spaeter nutzbar sind."
+date: "2026-04-10"
+author: "TasteBuddy Team"
+slug: "warum-recipe-scraping-so-schwer-ist-und-warum-das-fuer-import-wichtig-ist"
+template_type: "technical_authority"
+target_query: "warum recipe scraping schwierig ist"
+source_refs:
+  - "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/content/README.md"
+  - "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/content/recipe-scraping-post.md"
+publish_status: "approved"
+canonical_url: "https://taste-buddy.app/de/blog/articles/warum-recipe-scraping-so-schwer-ist-und-warum-das-fuer-import-wichtig-ist/"
+---
+
+Aus Nutzersicht klingt Rezeptimport simpel:
+
+> Link einfuegen -> Rezept erhalten
+
+Das ist eine richtige Produkterwartung. Es ist aber nicht die echte technische Form des Problems.
+
+## Rezeptseiten sind weniger standardisiert als sie aussehen
+
+JSON-LD hilft, garantiert aber kein sauberes Ergebnis.
+
+In der Praxis sieht man immer noch:
+
+- mehrere Schema-Bloecke vor dem eigentlichen Rezept
+- gemischte `Recipe`- und `HowTo`-Typen
+- fehlende oder fehlerhafte Felder
+- Social-Posts oder "Link in Bio"-Flows statt direkter Rezeptseiten
+
+Importqualitaet ist deshalb nicht nur eine Parser-Frage. Sie ist ein Wachstumsfaktor.
+
+Wenn ein Rezept schlecht importiert wird, sinkt das Vertrauen in den gesamten Workflow.
+
+## Social Discovery hat das Problem veraendert
+
+Viele Rezepte werden heute nicht zuerst auf einem klassischen Foodblog entdeckt, sondern auf:
+
+- TikTok
+- Instagram
+- Pinterest
+- YouTube
+
+Oft liegt das eigentliche Rezept noch eine Stufe tiefer: auf der Website, in einem Bio-Hub oder auf einer Creator-Seite. Importsysteme, die nur mit "saubere Rezeptseite rein, sauberes Rezept raus" rechnen, verfehlen das echte Nutzerverhalten.
+
+## Gute Importsysteme sind eigentlich gute Fallback-Systeme
+
+Die robustesten Systeme verlassen sich nicht auf einen einzigen Parser. Sie bauen mehrere Ebenen aufeinander.
+
+Die internen TasteBuddy-Notizen beschreiben einen vierstufigen Ansatz:
+
+1. strukturierte Rezeptdaten zuerst
+2. weitere Extraktion, wenn Struktur fehlt
+3. KI-basierte Extraktion aus Seiteninhalt
+4. URL-Kontext als letzte Rueckfallebene
+
+Diese Kette ist notwendig, weil reale Rezeptquellen inkonsistent sind.
+
+## Warum das fuer Produktmarketing relevant ist
+
+Importqualitaet veraendert die Aktivierung.
+
+Wenn Import funktioniert:
+
+- ein Save wird sofort nutzbar
+- die Sammlung wird wertvoller
+- Planung und Einkauf werden leichter
+
+Wenn Import scheitert:
+
+- das Rezept wird zur Nacharbeit
+- Vertrauen sinkt
+- Nutzer landen wieder bei Screenshots und Tabs
+
+Deshalb ist Importzuverlaessigkeit keine Backend-Randnotiz, sondern eine der staerksten Produktgeschichten des Produkts.

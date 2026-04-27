@@ -1,0 +1,20 @@
+{
+  "updated_at": "2026-04-10",
+  "source_of_truth": [
+    "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/content/README.md"
+  ],
+  "metrics": {
+    "total_tracked_imports": 1323,
+    "url_import_share_percent": 77,
+    "manual_entry_share_percent": 23,
+    "social_import_share_percent": 50,
+    "source_mix_percent": {
+      "tiktok": 30,
+      "websites": 28,
+      "manual": 23,
+      "instagram": 18,
+      "facebook": 1,
+      "youtube": 1
+    }
+  }
+}

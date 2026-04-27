@@ -1,0 +1,113 @@
+---
+const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+const analyticsEndpoint = '/api/analytics';
+---
+
+{gaMeasurementId && (
+  <>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}></script>
+    <script is:inline define:vars={{ gaMeasurementId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      window.gtag = window.gtag || gtag;
+      window.gtag('js', new Date());
+      window.gtag('config', gaMeasurementId, {
+        anonymize_ip: true,
+      });
+    </script>
+  </>
+)}
+
+<script is:inline define:vars={{ analyticsEndpoint }}>
+  const endpoint = analyticsEndpoint;
+
+  function sendToEndpoint(eventName, payload) {
+    const body = JSON.stringify({
+      event: eventName,
+      payload,
+      page_path: window.location.pathname,
+      page_title: document.title,
+      happened_at: new Date().toISOString(),
+    });
+
+    if (navigator.sendBeacon) {
+      const blob = new Blob([body], { type: 'application/json' });
+      navigator.sendBeacon(endpoint, blob);
+      return;
+    }
+
+    fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body,
+      keepalive: true,
+    }).catch(() => {});
+  }
+
+  function parsePayload(element) {
+    const rawPayload = element.getAttribute('data-track-payload');
+    if (!rawPayload) {
+      return {};
+    }
+
+    try {
+      return JSON.parse(rawPayload);
+    } catch {
+      return { raw_payload: rawPayload };
+    }
+  }
+
+  window.tbTrack = function tbTrack(eventName, payload = {}) {
+    const fullPayload = {
+      ...payload,
+      page_path: window.location.pathname,
+    };
+
+    window.dispatchEvent(
+      new CustomEvent('tb:analytics', {
+        detail: {
+          event: eventName,
+          payload: fullPayload,
+        },
+      }),
+    );
+
+    if (window.gtag) {
+      window.gtag('event', eventName, fullPayload);
+    }
+
+    sendToEndpoint(eventName, fullPayload);
+  };
+
+  document.addEventListener('click', (event) => {
+    const target = event.target instanceof Element ? event.target.closest('[data-track-event]') : null;
+    if (!target) {
+      return;
+    }
+
+    const eventName = target.getAttribute('data-track-event');
+    if (!eventName) {
+      return;
+    }
+
+    window.tbTrack(eventName, parsePayload(target));
+  });
+
+  document.addEventListener('submit', (event) => {
+    const target = event.target instanceof HTMLFormElement ? event.target : null;
+    if (!target || !target.hasAttribute('data-track-event')) {
+      return;
+    }
+
+    const eventName = target.getAttribute('data-track-event');
+    if (!eventName) {
+      return;
+    }
+
+    window.tbTrack(eventName, parsePayload(target));
+  });
+</script>

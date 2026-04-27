@@ -1,0 +1,246 @@
+[
+  {
+    "slug": "tastebuddy-vs-allrecipes",
+    "locale": "en",
+    "title": "TasteBuddy vs Allrecipes",
+    "description": "Compare TasteBuddy and Allrecipes for recipe organization, recipe import, weekly planning, and shopping-list workflows.",
+    "primary_keyword": "tastebuddy vs allrecipes",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/android/fastlane/metadata/android/en-US/full_description.txt"
+    ],
+    "claims": [
+      "TasteBuddy focuses on importing and organizing recipes from across the web and social platforms.",
+      "TasteBuddy connects saved recipes to planning and shopping workflows."
+    ],
+    "cta_variant": "save_from_anywhere",
+    "last_reviewed_at": "2026-04-10",
+    "competitor": "Allrecipes",
+    "use_case": "switching from recipe discovery to recipe organization",
+    "strengths": [
+      "Import recipes from websites and social sources into one personal collection",
+      "Turn saved recipes into a weekly plan and shopping list",
+      "Keep a focused private recipe system instead of browsing a large public catalog"
+    ],
+    "weaknesses": [
+      "Smaller built-in public recipe catalog than large publisher platforms",
+      "Best fit for people who want to save and organize, not browse forever"
+    ],
+    "migration_notes": [
+      "Start by importing the recipes you actually cook repeatedly.",
+      "Use TasteBuddy as the system of record for planning and shopping, even if discovery still happens elsewhere."
+    ],
+    "proof_points": [
+      "TasteBuddy supports import from websites and social media.",
+      "TasteBuddy includes meal planning and shopping lists."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "People who save recipes from multiple places and want one personal workflow.",
+    "best_for_competitor": "People who mainly want to browse a large public recipe catalog."
+  },
+  {
+    "slug": "tastebuddy-vs-allrecipes",
+    "locale": "de",
+    "title": "TasteBuddy vs Allrecipes",
+    "description": "Vergleichen Sie TasteBuddy und Allrecipes fuer Rezeptorganisation, Import, Wochenplanung und Einkaufslisten.",
+    "primary_keyword": "tastebuddy vs allrecipes",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/android/fastlane/metadata/android/en-US/full_description.txt"
+    ],
+    "claims": [
+      "TasteBuddy konzentriert sich auf Import und Organisation von Rezepten aus Web und Social Media.",
+      "TasteBuddy verbindet gespeicherte Rezepte mit Planung und Einkauf."
+    ],
+    "cta_variant": "save_from_anywhere",
+    "last_reviewed_at": "2026-04-10",
+    "competitor": "Allrecipes",
+    "use_case": "Wechsel von Rezeptsuche zu Rezeptorganisation",
+    "strengths": [
+      "Rezepte aus Websites und Social-Plattformen in einer persoenlichen Sammlung sichern",
+      "Gespeicherte Rezepte in Wochenplan und Einkaufsliste umwandeln",
+      "Eigener Rezept-Workflow statt endloses Browsing"
+    ],
+    "weaknesses": [
+      "Kleinerer oeffentlicher Rezeptkatalog als grosse Publisher-Plattformen",
+      "Besser fuer Organisation als fuer reines Entdecken"
+    ],
+    "migration_notes": [
+      "Importieren Sie zuerst die Rezepte, die Sie wirklich oft kochen.",
+      "Nutzen Sie TasteBuddy als zentrale Quelle fuer Planung und Einkauf."
+    ],
+    "proof_points": [
+      "TasteBuddy unterstuetzt Import aus Websites und Social Media.",
+      "TasteBuddy enthaelt Meal Planning und Einkaufslisten."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "Menschen mit verteilten Rezeptquellen, die einen klaren Workflow wollen.",
+    "best_for_competitor": "Menschen, die vor allem in einem grossen Rezeptkatalog stoebern wollen."
+  },
+  {
+    "slug": "tastebuddy-vs-paprika",
+    "locale": "en",
+    "title": "TasteBuddy vs Paprika",
+    "description": "Compare TasteBuddy and Paprika for importing recipes, organizing a personal recipe library, and planning what to cook next.",
+    "primary_keyword": "tastebuddy vs paprika",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/android/fastlane/metadata/android/en-US/full_description.txt",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/README.md"
+    ],
+    "claims": [
+      "TasteBuddy supports modern recipe capture workflows from social media and websites.",
+      "TasteBuddy includes AI-assisted meal planning."
+    ],
+    "cta_variant": "plan_from_saves",
+    "last_reviewed_at": "2026-04-10",
+    "competitor": "Paprika",
+    "use_case": "moving from a classic recipe manager to a social-first workflow",
+    "strengths": [
+      "Better fit for recipes saved from TikTok, Instagram, Pinterest, and food blogs",
+      "Weekly planning and shopping-list flow built around saved recipes",
+      "Additional import workflows for notes and social-first inspiration"
+    ],
+    "weaknesses": [
+      "Different philosophy than traditional manual recipe filing",
+      "People with a settled desktop-first workflow may need adjustment time"
+    ],
+    "migration_notes": [
+      "Migrate active recipes first, not your entire archive.",
+      "Use TasteBuddy for new recipe capture while gradually moving your staples."
+    ],
+    "proof_points": [
+      "TasteBuddy supports Notion and Obsidian import workflows.",
+      "TasteBuddy supports social and web import plus meal planning."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "Recipe collectors who save inspiration from modern web and social sources.",
+    "best_for_competitor": "People who want a more traditional recipe-manager workflow."
+  },
+  {
+    "slug": "tastebuddy-vs-paprika",
+    "locale": "de",
+    "title": "TasteBuddy vs Paprika",
+    "description": "Vergleichen Sie TasteBuddy und Paprika fuer Rezeptimport, private Rezeptsammlungen und die Planung des Wochenkochens.",
+    "primary_keyword": "tastebuddy vs paprika",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/android/fastlane/metadata/android/en-US/full_description.txt",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/README.md"
+    ],
+    "claims": [
+      "TasteBuddy unterstuetzt moderne Rezept-Capture-Workflows aus Social Media und Websites.",
+      "TasteBuddy enthaelt KI-gestuetzte Wochenplanung."
+    ],
+    "cta_variant": "plan_from_saves",
+    "last_reviewed_at": "2026-04-10",
+    "competitor": "Paprika",
+    "use_case": "Wechsel von klassischem Rezeptmanager zu Social-first Workflow",
+    "strengths": [
+      "Starker fuer Rezepte aus TikTok, Instagram, Pinterest und Food-Blogs",
+      "Wochenplanung und Einkaufsliste direkt aus gespeicherten Rezepten",
+      "Zusaetzliche Import-Workflows fuer Notes und Social-Inspiration"
+    ],
+    "weaknesses": [
+      "Andere Produktphilosophie als klassische manuelle Rezeptablage",
+      "Desktop-first Nutzer brauchen moeglicherweise etwas Umgewoehnung"
+    ],
+    "migration_notes": [
+      "Migrieren Sie zuerst aktive Rezepte statt das komplette Archiv.",
+      "Nutzen Sie TasteBuddy fuer neue Captures und ziehen Sie Ihre Basisrezepte schrittweise um."
+    ],
+    "proof_points": [
+      "TasteBuddy unterstuetzt Notion- und Obsidian-Import.",
+      "TasteBuddy verbindet Social/Web-Import mit Planung."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "Rezeptsammler mit modernen Web- und Social-Quellen.",
+    "best_for_competitor": "Menschen, die eher einen klassischen Rezeptmanager suchen."
+  },
+  {
+    "slug": "tastebuddy-vs-yummly",
+    "locale": "en",
+    "title": "TasteBuddy vs Yummly",
+    "description": "See how TasteBuddy compares with Yummly for saving recipes from the web, organizing them, and turning them into cook-ready plans.",
+    "primary_keyword": "tastebuddy vs yummly",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/content/README.md",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/android/fastlane/metadata/android/en-US/full_description.txt"
+    ],
+    "claims": [
+      "TasteBuddy is built around capturing recipes you already find elsewhere.",
+      "TasteBuddy turns saved recipes into planning and shopping workflows."
+    ],
+    "cta_variant": "shopping_from_plan",
+    "last_reviewed_at": "2026-04-10",
+    "competitor": "Yummly",
+    "use_case": "comparing discovery-first apps with organization-first apps",
+    "strengths": [
+      "Stronger workflow for recipes found across the open web and social platforms",
+      "Clearer path from recipe save to weekly plan and shopping list",
+      "More explicit focus on keeping your own collection organized"
+    ],
+    "weaknesses": [
+      "Less centered on a giant built-in browsing catalog",
+      "Best fit for users who already have recipe inspiration, not those who only want discovery"
+    ],
+    "migration_notes": [
+      "Bring over the recipes you repeat and the creators you trust most.",
+      "Use TasteBuddy when your pain is scattered recipe saves, not content discovery."
+    ],
+    "proof_points": [
+      "TasteBuddy supports URL import from websites and social platforms.",
+      "TasteBuddy includes shopping-list generation from planned recipes."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "Users who want a private recipe system built around their saved content.",
+    "best_for_competitor": "Users who mainly want app-native recipe discovery."
+  },
+  {
+    "slug": "tastebuddy-vs-yummly",
+    "locale": "de",
+    "title": "TasteBuddy vs Yummly",
+    "description": "So schneidet TasteBuddy gegen Yummly ab, wenn Sie Rezepte aus dem Web speichern, organisieren und in echte Kochplaene verwandeln wollen.",
+    "primary_keyword": "tastebuddy vs yummly",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/content/README.md",
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/android/fastlane/metadata/android/en-US/full_description.txt"
+    ],
+    "claims": [
+      "TasteBuddy ist fuer Rezepte gebaut, die Sie bereits anderswo finden.",
+      "TasteBuddy macht aus gespeicherten Rezepten Planung und Einkauf."
+    ],
+    "cta_variant": "shopping_from_plan",
+    "last_reviewed_at": "2026-04-10",
+    "competitor": "Yummly",
+    "use_case": "Vergleich zwischen Discovery-first und Organisation-first Apps",
+    "strengths": [
+      "Staerkerer Workflow fuer Rezepte aus offenem Web und Social Plattformen",
+      "Klarerer Weg vom Speichern zum Wochenplan und zur Einkaufsliste",
+      "Mehr Fokus auf Ihre eigene organisierte Sammlung"
+    ],
+    "weaknesses": [
+      "Weniger auf einen grossen integrierten Browse-Katalog ausgelegt",
+      "Besser fuer Nutzer mit vorhandener Inspiration als fuer reine Entdecker"
+    ],
+    "migration_notes": [
+      "Uebernehmen Sie zuerst die Rezepte und Creator, die Sie wirklich wieder nutzen.",
+      "Nutzen Sie TasteBuddy, wenn Ihr Hauptproblem verteilte Rezeptspeicherungen sind."
+    ],
+    "proof_points": [
+      "TasteBuddy unterstuetzt URL-Import aus Websites und Social Plattformen.",
+      "TasteBuddy erzeugt Einkaufslisten aus geplanten Rezepten."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "Menschen, die ein privates Rezeptsystem fuer eigene Saves wollen.",
+    "best_for_competitor": "Menschen, die vor allem in einer App Rezepte entdecken moechten."
+  }
+]

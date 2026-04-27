@@ -2,14 +2,21 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FAB from "../components/FAB.astro";
+import Analytics from "../components/Analytics.astro";
 
 interface Props {
   title: string;
   description?: string;
   skipDefaultStructuredData?: boolean;
+  alternates?: Partial<Record<'en' | 'de' | 'x-default', string>> | null;
 }
 
-const { title, description = "Save every recipe from anywhere—screenshots, websites, handwritten cards, and social media. Keep them searchable and ready on all your devices.", skipDefaultStructuredData = false } = Astro.props;
+const {
+  title,
+  description = "Save every recipe from anywhere—screenshots, websites, handwritten cards, and social media. Keep them searchable and ready on all your devices.",
+  skipDefaultStructuredData = false,
+  alternates = null,
+} = Astro.props;
 
 // Language detection and hreflang generation
 const currentPath = Astro.url.pathname;
@@ -35,7 +42,9 @@ function getHreflangUrls(path: string) {
   };
 }
 
-const hreflangUrls = getHreflangUrls(currentPath);
+const defaultAlternates =
+  currentPath === '/' || currentPath.startsWith('/de/') ? getHreflangUrls(currentPath) : null;
+const hreflangUrls = alternates ?? defaultAlternates;
 
 // Open Graph locale mapping
 const ogLocale = currentLang === 'de' ? 'de_DE' : 'en_US';
@@ -106,9 +115,9 @@ const websiteStructuredData = {
     
     <!-- Canonical and hreflang -->
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="alternate" hreflang="en" href={hreflangUrls.en} />
-    <link rel="alternate" hreflang="de" href={hreflangUrls.de} />
-    <link rel="alternate" hreflang="x-default" href={hreflangUrls['x-default']} />
+    {hreflangUrls?.en && <link rel="alternate" hreflang="en" href={hreflangUrls.en} />}
+    {hreflangUrls?.de && <link rel="alternate" hreflang="de" href={hreflangUrls.de} />}
+    {hreflangUrls?.['x-default'] && <link rel="alternate" hreflang="x-default" href={hreflangUrls['x-default']} />}
     
     <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -123,7 +132,8 @@ const websiteStructuredData = {
       </>
     ) }
   </head>
-  <body class="min-h-screen flex flex-col bg-[#10130B] font-['Inter',sans-serif] text-gray-100 pb-16 md:pb-0">
+  <body class="min-h-screen flex flex-col bg-[#10130B] font-['Inter',sans-serif] text-gray-100 pb-32 md:pb-0">
+    <Analytics />
     <Header />
     
     <main class="flex-grow">
