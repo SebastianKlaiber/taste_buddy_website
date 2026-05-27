@@ -110,7 +110,7 @@ const faqStructuredData = {
           Save recipes from any website or app. We organize ingredients, steps, and photos automatically.
         </p>
 
-        <div class="flex flex-wrap justify-center gap-4 mb-8">
+        <div class="hidden md:flex flex-wrap justify-center gap-4 mb-8">
           <a href={getWebAppHref()} class="btn-primary text-base sm:text-lg">
             Open Web App
           </a>
@@ -124,7 +124,7 @@ const faqStructuredData = {
           <a 
             href={getGoHref('homepage-download', 'ios')}
             aria-label="Download on the App Store"
-            class="transform transition-transform duration-300 hover:scale-105 hover:shadow-lg rounded-lg"
+            class="mobile-store-badge-ios transform transition-transform duration-300 hover:scale-105 hover:shadow-lg rounded-lg"
           >
             <img
               src="/images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
@@ -138,7 +138,7 @@ const faqStructuredData = {
           <a 
             href={getGoHref('homepage-download', 'android')}
             aria-label="Get it on Google Play"
-            class="transform transition-transform duration-300 hover:scale-105 hover:shadow-lg rounded-lg"
+            class="mobile-store-badge-android transform transition-transform duration-300 hover:scale-105 hover:shadow-lg rounded-lg"
           >
             <img
               src="/images/Google_Play_Badge.png"

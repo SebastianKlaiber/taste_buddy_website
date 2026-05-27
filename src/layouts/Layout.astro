@@ -131,6 +131,16 @@ const websiteStructuredData = {
         <script type="application/ld+json" set:html={JSON.stringify(websiteStructuredData)} />
       </>
     ) }
+    <script is:inline>
+      (() => {
+        const ua = navigator.userAgent || navigator.vendor || "";
+        const platform = navigator.platform || "";
+        const isAndroid = /android/i.test(ua);
+        const isIOS = /iPad|iPhone|iPod/.test(ua) || (platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+        document.documentElement.dataset.mobilePlatform = isAndroid ? "android" : isIOS ? "ios" : "fallback";
+      })();
+    </script>
   </head>
   <body class="min-h-screen flex flex-col bg-[#10130B] font-['Inter',sans-serif] text-gray-100 pb-32 md:pb-0">
     <Analytics />
@@ -172,5 +182,19 @@ const websiteStructuredData = {
   
   .btn-secondary {
     @apply bg-[#1C2513] hover:bg-[#2A2D24] border border-[#2A2D24] text-white font-medium py-3 px-6 rounded-lg transition-all duration-300;
+  }
+
+  @media (max-width: 767px) {
+    .mobile-store-badge-android {
+      display: none;
+    }
+
+    html[data-mobile-platform="android"] .mobile-store-badge-ios {
+      display: none;
+    }
+
+    html[data-mobile-platform="android"] .mobile-store-badge-android {
+      display: inline-flex;
+    }
   }
 </style>

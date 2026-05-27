@@ -1,16 +1,12 @@
 ---
 // Sticky mobile download bar
-import { getGoHref, getWebAppHref } from '../lib/marketing/app-links';
+import { getGoHref } from '../lib/marketing/app-links';
 ---
 <div id="mobile-download-bar" class="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-[#1C2513]/95 backdrop-blur-md border-t border-[#2A2D24]/30 px-4 py-3 safe-bottom">
-  <div class="grid gap-2">
-    <a href={getWebAppHref()} class="btn-primary text-center py-2" aria-label="Open TasteBuddy web app">
-      Open App
-    </a>
-    <div class="flex items-center justify-center gap-3">
+  <div class="flex items-center justify-center">
       <a 
         href={getGoHref('homepage-download', 'ios')}
-        class="flex-shrink-0"
+        class="mobile-store-badge-ios flex-shrink-0"
         aria-label="Download on the App Store"
       >
         <img 
@@ -23,7 +19,7 @@ import { getGoHref, getWebAppHref } from '../lib/marketing/app-links';
       </a>
       <a 
         href={getGoHref('homepage-download', 'android')}
-        class="flex-shrink-0"
+        class="mobile-store-badge-android flex-shrink-0"
         aria-label="Get it on Google Play"
       >
         <img 
@@ -34,7 +30,6 @@ import { getGoHref, getWebAppHref } from '../lib/marketing/app-links';
           height="80"
         />
       </a>
-    </div>
   </div>
 </div>
 

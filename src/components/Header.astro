@@ -90,16 +90,16 @@ const navLinks = [
         </a>
       ))}
       <a
-        href={getWebAppHref()}
-        class="block px-3 py-2 rounded-md text-base font-medium bg-[#00CE31]/20 text-white border border-[#00CE31]/30"
+        href={getGoHref('homepage-download', 'ios')}
+        class="mobile-store-badge-ios block px-3 py-2 rounded-md text-base font-medium bg-[#00CE31]/20 text-white border border-[#00CE31]/30"
       >
-        Open App
+        Download on the App Store
       </a>
       <a
-        href={getGoHref('homepage-download')}
-        class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-[#1C2513]/80 hover:text-white"
+        href={getGoHref('homepage-download', 'android')}
+        class="mobile-store-badge-android px-3 py-2 rounded-md text-base font-medium bg-[#00CE31]/20 text-white border border-[#00CE31]/30"
       >
-        Download App
+        Get it on Google Play
       </a>
     </div>
   </div>
