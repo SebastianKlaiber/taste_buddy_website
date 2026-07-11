@@ -1,0 +1,51 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Main from "../components/Main.astro";
+import H1 from "../components/H1.astro";
+
+const description =
+  "TasteBuddy terms of service for app and website users, including acceptable use, subscriptions, and support contact details.";
+---
+
+<Layout title="Terms of Service | TasteBuddy" description={description}>
+  <Main>
+    <section class="mx-auto max-w-4xl py-12 sm:py-16 lg:py-20">
+      <H1 text="Terms of Service" />
+      <div class="mt-8 space-y-6 text-sm leading-7 text-gray-200">
+        <p>
+          These terms govern use of the TasteBuddy website and app. By using TasteBuddy, you agree to use the service lawfully and only for personal recipe organization, meal planning, and related cooking workflows.
+        </p>
+        <section>
+          <h2 class="mb-2 text-xl font-semibold text-white">Accounts and access</h2>
+          <p>
+            You are responsible for keeping your account access secure. Shared cookbook invites and identity linking flows are intended only for the recipient of the original link.
+          </p>
+        </section>
+        <section>
+          <h2 class="mb-2 text-xl font-semibold text-white">Content</h2>
+          <p>
+            You remain responsible for recipes, notes, images, links, and other content you add. Do not upload unlawful content or content you do not have rights to use.
+          </p>
+        </section>
+        <section>
+          <h2 class="mb-2 text-xl font-semibold text-white">Subscriptions and purchases</h2>
+          <p>
+            Paid plans, trials, renewals, and cancellations are handled through the App Store, Google Play, or the payment provider shown during purchase. Store terms apply to those transactions.
+          </p>
+        </section>
+        <section>
+          <h2 class="mb-2 text-xl font-semibold text-white">Availability</h2>
+          <p>
+            TasteBuddy may change, pause, or discontinue features. We work to keep the service available, but uninterrupted access is not guaranteed.
+          </p>
+        </section>
+        <section>
+          <h2 class="mb-2 text-xl font-semibold text-white">Contact</h2>
+          <p>
+            Questions about these terms can be sent to <a class="text-[#8FECA8]" href="mailto:support@taste-buddy.app">support@taste-buddy.app</a>.
+          </p>
+        </section>
+      </div>
+    </section>
+  </Main>
+</Layout>

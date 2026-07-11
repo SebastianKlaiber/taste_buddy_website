@@ -15,7 +15,7 @@
       "TasteBuddy imports recipes from websites and social media into one searchable collection.",
       "TasteBuddy connects recipe saving with meal planning and shopping lists."
     ],
-    "cta_variant": "save_from_anywhere",
+    "cta_variant": "save-from-anywhere",
     "last_reviewed_at": "2026-04-10",
     "hero": "If your recipes are spread across tabs, screenshots, and social saves, the right recipe app should do more than store links.",
     "decision_criteria": [
@@ -47,9 +47,9 @@
     ],
     "claims": [
       "TasteBuddy includes weekly planning and shopping-list generation.",
-      "TasteBuddy supports AI-assisted meal planning based on saved recipes."
+      "TasteBuddy helps users plan meals from recipes they already saved."
     ],
-    "cta_variant": "plan_from_saves",
+    "cta_variant": "plan-from-saves",
     "last_reviewed_at": "2026-04-10",
     "hero": "The best meal-planning app for recipe collectors should shorten the gap between saving a recipe and actually cooking it.",
     "decision_criteria": [
@@ -83,7 +83,7 @@
       "TasteBuddy supports recipe import from URLs, social posts, screenshots, and notes workflows.",
       "TasteBuddy is built for organization, planning, and shopping instead of just browsing recipes."
     ],
-    "cta_variant": "organize_recipes",
+    "cta_variant": "organize-recipes",
     "last_reviewed_at": "2026-04-10",
     "hero": "A recipe app is only useful if it helps you find, plan, and cook the recipes you already save.",
     "decision_criteria": [
@@ -99,6 +99,40 @@
       "/guides/how-to-organize-recipes/",
       "/comparisons/tastebuddy-vs-paprika/",
       "/features/recipe-organizer/"
+    ]
+  },
+  {
+    "slug": "yummly-alternative",
+    "locale": "en",
+    "title": "Best Yummly Alternative for Former Users",
+    "description": "Yummly shut down in December 2024. Compare what former users need next: recipe saving, import, meal planning, shopping lists, and a private collection.",
+    "primary_keyword": "yummly alternative",
+    "search_intent": "comparison",
+    "page_type": "keyword_comparison",
+    "source_of_truth": [
+      "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/taste_buddy_flutter/android/fastlane/metadata/android/en-US/full_description.txt",
+      "Live SERP review on 2026-04-27 confirmed current demand for Yummly replacement pages after shutdown."
+    ],
+    "claims": [
+      "TasteBuddy imports recipes from websites, social platforms, screenshots, and notes into one searchable collection.",
+      "TasteBuddy connects saved recipes with meal planning and shopping lists."
+    ],
+    "cta_variant": "shopping-from-plan",
+    "last_reviewed_at": "2026-04-27",
+    "hero": "Former Yummly users need a current home for saved recipes, not another dead-end discovery feed.",
+    "decision_criteria": [
+      "Can it rebuild a personal recipe collection after Yummly?",
+      "Can it save recipes from the open web and social platforms?",
+      "Can it turn saved recipes into meal plans and shopping lists?"
+    ],
+    "best_for_tastebuddy": [
+      "Former Yummly users who want an active replacement for saving and organizing recipes",
+      "Home cooks rebuilding a recipe library around planning and grocery shopping"
+    ],
+    "internal_links": [
+      "/comparisons/tastebuddy-vs-yummly/",
+      "/features/recipe-organizer/",
+      "/solutions/recipe-app-with-shopping-list/"
     ]
   }
 ]

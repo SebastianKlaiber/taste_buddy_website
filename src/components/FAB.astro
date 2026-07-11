@@ -2,7 +2,7 @@
 // Sticky mobile download bar
 import { getGoHref } from '../lib/marketing/app-links';
 ---
-<div id="mobile-download-bar" class="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-[#1C2513]/95 backdrop-blur-md border-t border-[#2A2D24]/30 px-4 py-3 safe-bottom">
+<div id="mobile-download-bar" class="mobile-download-bar fixed bottom-0 left-0 right-0 z-50 md:hidden backdrop-blur-md px-4 py-3 safe-bottom">
   <div class="flex items-center justify-center">
       <a 
         href={getGoHref('homepage-download', 'ios')}
@@ -34,6 +34,11 @@ import { getGoHref } from '../lib/marketing/app-links';
 </div>
 
 <style>
+  .mobile-download-bar {
+    background: color-mix(in srgb, var(--tb-surface) 94%, transparent);
+    border-top: 1px solid var(--tb-border-soft);
+  }
+
   .safe-bottom {
     padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
   }

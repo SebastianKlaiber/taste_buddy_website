@@ -1,0 +1,47 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Main from "../components/Main.astro";
+import { APPLE_URL, GOOGLE_PLAY_URL, getWebAppHref } from "../lib/marketing/app-links";
+
+const description =
+  "Download TasteBuddy for iOS and Android, or open the web app to organize recipes, meal plans, and shopping lists.";
+---
+
+<Layout title="Download TasteBuddy" description={description}>
+  <Main>
+    <section class="mx-auto max-w-4xl py-12 sm:py-16 lg:py-20">
+      <header class="mb-10 rounded-3xl border border-[#2A2D24]/30 bg-[#1C2513]/80 p-8 text-center">
+        <h1 class="mb-4 text-4xl font-bold text-white sm:text-5xl">Download TasteBuddy</h1>
+        <p class="mx-auto max-w-2xl text-lg text-gray-300">{description}</p>
+      </header>
+
+      <div class="grid gap-6 md:grid-cols-3">
+        <a
+          class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6 transition hover:border-[#00CE31]/40"
+          href={APPLE_URL}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <h2 class="mb-3 text-2xl font-semibold text-white">iPhone and iPad</h2>
+          <p class="text-gray-300">Install TasteBuddy from the App Store.</p>
+        </a>
+        <a
+          class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6 transition hover:border-[#00CE31]/40"
+          href={GOOGLE_PLAY_URL}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <h2 class="mb-3 text-2xl font-semibold text-white">Android</h2>
+          <p class="text-gray-300">Install TasteBuddy from Google Play.</p>
+        </a>
+        <a
+          class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6 transition hover:border-[#00CE31]/40"
+          href={getWebAppHref()}
+        >
+          <h2 class="mb-3 text-2xl font-semibold text-white">Web app</h2>
+          <p class="text-gray-300">Open TasteBuddy in your browser.</p>
+        </a>
+      </div>
+    </section>
+  </Main>
+</Layout>

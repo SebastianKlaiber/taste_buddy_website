@@ -1,0 +1,296 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Main from "../../components/Main.astro";
+
+const title = "Authorize TasteBuddy Access | TasteBuddy";
+const description = "Authorize a connected app to access your TasteBuddy account.";
+---
+
+<Layout
+  title={title}
+  description={description}
+  robots="noindex, nofollow"
+  skipDefaultStructuredData={true}
+>
+  <Main>
+    <section class="flex min-h-[calc(100vh-10rem)] items-center justify-center py-12 sm:py-16">
+      <div class="w-full max-w-2xl rounded-lg border border-[#2A2D24] bg-[#15190F] p-6 shadow-2xl shadow-black/30 sm:p-8">
+        <div class="mb-8 flex items-center gap-4">
+          <img
+            src="/Icon.png"
+            alt=""
+            class="h-12 w-12 rounded-xl"
+            width="48"
+            height="48"
+            loading="eager"
+          />
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#00CE31]">TasteBuddy</p>
+            <h1 class="mt-1 text-2xl font-semibold text-white sm:text-3xl">Authorize access</h1>
+          </div>
+        </div>
+
+        <div id="oauth-loading" class="space-y-4" aria-live="polite">
+          <div class="h-2 w-full overflow-hidden rounded-full bg-[#2A2D24]">
+            <div class="h-full w-1/3 rounded-full bg-[#00CE31]"></div>
+          </div>
+          <p class="text-gray-300">Loading authorization request...</p>
+        </div>
+
+        <div id="oauth-error" class="hidden space-y-5" aria-live="assertive">
+          <div class="rounded-lg border border-red-500/30 bg-red-500/10 p-4">
+            <h2 class="text-lg font-semibold text-white">Authorization unavailable</h2>
+            <p id="oauth-error-message" class="mt-2 leading-7 text-gray-300"></p>
+          </div>
+          <a href="/developers/api/" class="btn-secondary inline-flex">View API docs</a>
+        </div>
+
+        <div id="oauth-signed-out" class="hidden space-y-5" aria-live="polite">
+          <div class="rounded-lg border border-[#2A2D24] bg-[#10130B] p-4">
+            <h2 class="text-lg font-semibold text-white">Sign in required</h2>
+            <p class="mt-2 leading-7 text-gray-300">
+              Sign in to TasteBuddy before approving a connected app. The authorization request stays in the URL.
+            </p>
+          </div>
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <a id="oauth-open-app" href="/app/" class="btn-primary inline-flex justify-center">Open TasteBuddy</a>
+            <button id="oauth-retry" class="btn-secondary" type="button">Retry</button>
+          </div>
+        </div>
+
+        <div id="oauth-consent" class="hidden space-y-6" aria-live="polite">
+          <div>
+            <p class="text-gray-300">
+              <span id="oauth-client-name" class="font-semibold text-white">This app</span> wants to access your TasteBuddy account.
+            </p>
+          </div>
+
+          <dl class="grid gap-4 rounded-lg border border-[#2A2D24] bg-[#10130B] p-4 text-sm sm:grid-cols-2">
+            <div>
+              <dt class="font-semibold text-white">Connected app</dt>
+              <dd id="oauth-client-id" class="mt-1 break-words text-gray-300"></dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-white">Redirect URI</dt>
+              <dd id="oauth-redirect-uri" class="mt-1 break-all text-gray-300"></dd>
+            </div>
+          </dl>
+
+          <div>
+            <h2 class="mb-3 text-base font-semibold text-white">Requested permissions</h2>
+            <ul id="oauth-scope-list" class="space-y-3"></ul>
+          </div>
+
+          <div class="flex flex-col-reverse gap-3 border-t border-[#2A2D24] pt-6 sm:flex-row sm:justify-end">
+            <button id="oauth-deny" type="button" class="btn-secondary">Deny</button>
+            <button id="oauth-approve" type="button" class="btn-primary">Approve</button>
+          </div>
+
+          <p id="oauth-decision-status" class="hidden text-sm text-gray-400" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+  </Main>
+</Layout>
+
+<script>
+  import { getSupabaseClient } from "../../lib/supabase.js";
+
+  const scopeDescriptions = new Map([
+    ["openid", "Confirm your TasteBuddy identity for this connected app."],
+    ["email", "Share the email address on your TasteBuddy account."],
+    ["profile", "Share basic profile details from your TasteBuddy account."],
+    ["recipes:read", "Read recipes that are visible to your TasteBuddy account."],
+    ["recipes:write", "Create or update recipes when you approve that action."],
+    ["shopping_lists:write", "Create or update shopping lists when you approve that action."],
+    ["offline_access", "Allow the connected app to refresh access after the first authorization."],
+  ]);
+
+  const loadingView = document.getElementById("oauth-loading");
+  const errorView = document.getElementById("oauth-error");
+  const signedOutView = document.getElementById("oauth-signed-out");
+  const consentView = document.getElementById("oauth-consent");
+  const errorMessage = document.getElementById("oauth-error-message");
+  const openAppLink = document.getElementById("oauth-open-app");
+  const retryButton = document.getElementById("oauth-retry");
+  const approveButton = document.getElementById("oauth-approve");
+  const denyButton = document.getElementById("oauth-deny");
+  const decisionStatus = document.getElementById("oauth-decision-status");
+
+  let authorizationId = null;
+  let supabase = null;
+
+  function setView(activeView) {
+    for (const view of [loadingView, errorView, signedOutView, consentView]) {
+      view?.classList.toggle("hidden", view !== activeView);
+    }
+  }
+
+  function showError(message) {
+    if (errorMessage) {
+      errorMessage.textContent = message;
+    }
+    setView(errorView);
+  }
+
+  function setDecisionPending(isPending, message = "") {
+    approveButton?.toggleAttribute("disabled", isPending);
+    denyButton?.toggleAttribute("disabled", isPending);
+
+    if (decisionStatus) {
+      decisionStatus.textContent = message;
+      decisionStatus.classList.toggle("hidden", !message);
+    }
+  }
+
+  function renderScopes(scope) {
+    const scopeList = document.getElementById("oauth-scope-list");
+    if (!scopeList) return;
+
+    const scopes = (scope || "")
+      .split(/\s+/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+
+    scopeList.innerHTML = "";
+
+    if (scopes.length === 0) {
+      const item = document.createElement("li");
+      item.className = "rounded-lg border border-[#2A2D24] bg-[#10130B] p-4 text-gray-300";
+      item.textContent = "No additional permissions requested.";
+      scopeList.append(item);
+      return;
+    }
+
+    for (const requestedScope of scopes) {
+      const item = document.createElement("li");
+      item.className = "rounded-lg border border-[#2A2D24] bg-[#10130B] p-4";
+
+      const code = document.createElement("code");
+      code.className = "text-sm font-semibold text-[#00CE31]";
+      code.textContent = requestedScope;
+
+      const description = document.createElement("p");
+      description.className = "mt-2 leading-6 text-gray-300";
+      description.textContent =
+        scopeDescriptions.get(requestedScope) || "Allow this connected app to use this TasteBuddy OAuth scope.";
+
+      item.append(code, description);
+      scopeList.append(item);
+    }
+  }
+
+  function renderConsent(details) {
+    const clientName = document.getElementById("oauth-client-name");
+    const clientId = document.getElementById("oauth-client-id");
+    const redirectUri = document.getElementById("oauth-redirect-uri");
+    const displayName = details.client?.name || details.client?.client_name || "This app";
+    const displayId =
+      details.client?.id || details.client?.client_id || details.client?.name || details.client?.client_name || "Unknown client";
+
+    if (clientName) {
+      clientName.textContent = displayName;
+    }
+
+    if (clientId) {
+      clientId.textContent = displayId;
+    }
+
+    if (redirectUri) {
+      redirectUri.textContent = details.redirect_uri || "No redirect URI provided";
+    }
+
+    renderScopes(details.scope);
+    setDecisionPending(false);
+    setView(consentView);
+  }
+
+  async function loadAuthorization() {
+    setView(loadingView);
+    const params = new URLSearchParams(window.location.search);
+    authorizationId = params.get("authorization_id");
+
+    if (!authorizationId) {
+      showError("Missing authorization_id. Start the OAuth flow from the connected app again.");
+      return;
+    }
+
+    const returnPath = `${window.location.pathname}${window.location.search}`;
+    if (openAppLink) {
+      openAppLink.href = `/app/?redirect=${encodeURIComponent(returnPath)}`;
+    }
+
+    supabase = getSupabaseClient();
+
+    if (!supabase?.auth?.oauth?.getAuthorizationDetails) {
+      showError("The Supabase client on this page does not include OAuth server helpers.");
+      return;
+    }
+
+    const { data: userData, error: userError } = await supabase.auth.getUser();
+
+    if (userError && userError.name !== "AuthSessionMissingError") {
+      showError(userError.message || "Could not verify the current TasteBuddy session.");
+      return;
+    }
+
+    if (!userData?.user) {
+      setView(signedOutView);
+      return;
+    }
+
+    const { data, error } = await supabase.auth.oauth.getAuthorizationDetails(authorizationId);
+
+    if (error) {
+      showError(error.message || "Could not load this authorization request.");
+      return;
+    }
+
+    if (!data) {
+      showError("Supabase did not return authorization details for this request.");
+      return;
+    }
+
+    if ("redirect_url" in data) {
+      window.location.assign(data.redirect_url);
+      return;
+    }
+
+    renderConsent(data);
+  }
+
+  async function submitDecision(decision) {
+    if (!authorizationId || !supabase?.auth?.oauth) return;
+
+    const method =
+      decision === "approve"
+        ? supabase.auth.oauth.approveAuthorization
+        : supabase.auth.oauth.denyAuthorization;
+
+    setDecisionPending(true, decision === "approve" ? "Approving access..." : "Denying access...");
+
+    const { data, error } = await method.call(supabase.auth.oauth, authorizationId, {
+      skipBrowserRedirect: true,
+    });
+
+    if (error) {
+      setDecisionPending(false);
+      showError(error.message || "Could not complete the authorization decision.");
+      return;
+    }
+
+    if (!data?.redirect_url) {
+      setDecisionPending(false);
+      showError("Supabase did not return a redirect URL for the connected app.");
+      return;
+    }
+
+    window.location.assign(data.redirect_url);
+  }
+
+  retryButton?.addEventListener("click", loadAuthorization);
+  approveButton?.addEventListener("click", () => submitDecision("approve"));
+  denyButton?.addEventListener("click", () => submitDecision("deny"));
+
+  loadAuthorization();
+</script>

@@ -13,6 +13,7 @@ const colors = {
 
 const contentDir = path.join(process.cwd(), 'content');
 const distDir = path.join(process.cwd(), 'dist');
+const pagesDir = path.join(process.cwd(), 'src', 'pages');
 
 const registryConfigs = [
   {
@@ -64,6 +65,7 @@ function validateRegistryData() {
   const errors = [];
   const seenSlugLocale = new Set();
   const seenRedirects = new Set();
+  const redirectSlugs = new Set(readJson('redirects.json').map((entry) => entry.slug));
 
   for (const config of registryConfigs) {
     const fullPath = path.join(contentDir, config.file);
@@ -95,6 +97,10 @@ function validateRegistryData() {
           errors.push(`Duplicate redirect slug: ${entry.slug}`);
         }
         seenRedirects.add(entry.slug);
+      }
+
+      if ('cta_variant' in entry && !redirectSlugs.has(entry.cta_variant)) {
+        errors.push(`${config.file}[${index}] cta_variant "${entry.cta_variant}" has no redirect record`);
       }
     });
   }
@@ -232,7 +238,7 @@ function validateArticles() {
   log('blue', '📝 Validating article frontmatter...');
 
   const errors = [];
-  const required = ['title', 'description', 'date', 'author', 'slug', 'template_type', 'target_query', 'source_refs', 'publish_status', 'canonical_url'];
+  const required = ['title', 'seo_title', 'description', 'date', 'author', 'slug', 'template_type', 'target_query', 'source_refs', 'publish_status', 'canonical_url'];
   const articleDirs = [path.join(contentDir, 'articles', 'en'), path.join(contentDir, 'articles', 'de')];
 
   for (const directory of articleDirs) {
@@ -317,6 +323,203 @@ function validateCriticalFiles() {
   };
 }
 
+function listHtmlFiles(directory) {
+  const files = [];
+
+  if (!fs.existsSync(directory)) {
+    return files;
+  }
+
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    const fullPath = path.join(directory, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...listHtmlFiles(fullPath));
+      continue;
+    }
+    if (entry.isFile() && entry.name.endsWith('.html')) {
+      files.push(fullPath);
+    }
+  }
+
+  return files;
+}
+
+function hasGeneratedPath(pathname) {
+  const cleanPath = pathname.replace(/^\/+/, '').replace(/\/+$/, '');
+  if (!cleanPath) {
+    return checkFileExists(path.join(distDir, 'index.html'));
+  }
+
+  return (
+    checkFileExists(path.join(distDir, cleanPath)) ||
+    checkFileExists(path.join(distDir, cleanPath, 'index.html')) ||
+    checkFileExists(path.join(distDir, `${cleanPath}.html`))
+  );
+}
+
+function hasSourcePage(pathname) {
+  const cleanPath = pathname.replace(/^\/+/, '').replace(/\/+$/, '');
+  const candidates = cleanPath
+    ? [
+        path.join(pagesDir, `${cleanPath}.astro`),
+        path.join(pagesDir, `${cleanPath}.md`),
+        path.join(pagesDir, `${cleanPath}.mdx`),
+        path.join(pagesDir, cleanPath, 'index.astro'),
+        path.join(pagesDir, cleanPath, 'index.md'),
+        path.join(pagesDir, cleanPath, 'index.mdx'),
+      ]
+    : [path.join(pagesDir, 'index.astro')];
+
+  return candidates.some((candidate) => checkFileExists(candidate));
+}
+
+function isAllowedDynamicPath(pathname) {
+  const allowedPrefixes = ['/go/', '/share_recipe/', '/api/', '/app/', '/.netlify/images'];
+  const allowedExactPaths = new Set([
+    '/tools/import-checker/',
+    '/tools/link-in-bio-resolver/',
+    '/tools/rss-feed-detector/',
+  ]);
+
+  return allowedExactPaths.has(pathname) || allowedPrefixes.some((prefix) => pathname.startsWith(prefix));
+}
+
+function htmlFileToUrl(relativeFile) {
+  if (relativeFile === 'index.html') {
+    return 'https://taste-buddy.app/';
+  }
+
+  if (relativeFile.endsWith('/index.html')) {
+    return `https://taste-buddy.app/${relativeFile.replace(/\/index\.html$/, '/')}`;
+  }
+
+  return `https://taste-buddy.app/${relativeFile}`;
+}
+
+function validateInternalLinks() {
+  log('blue', '🔗 Validating internal links and assets...');
+
+  const errors = [];
+  const htmlFiles = listHtmlFiles(distDir);
+  const seen = new Set();
+
+  for (const filePath of htmlFiles) {
+    const html = fs.readFileSync(filePath, 'utf8');
+    const relativeFile = path.relative(distDir, filePath);
+    const pageUrl = htmlFileToUrl(relativeFile);
+    const baseHref = html.match(/<base\s+[^>]*href=["']([^"']+)["']/i)?.[1];
+    const baseUrl = baseHref ? new URL(baseHref, pageUrl).toString() : pageUrl;
+
+    for (const match of html.matchAll(/\b(?:href|src|action)=["']([^"']+)["']/gi)) {
+      const rawUrl = match[1];
+      if (
+        rawUrl.startsWith('#') ||
+        rawUrl.startsWith('mailto:') ||
+        rawUrl.startsWith('tel:') ||
+        rawUrl.startsWith('javascript:') ||
+        rawUrl.startsWith('data:')
+      ) {
+        continue;
+      }
+
+      let url;
+      try {
+        url = new URL(rawUrl, baseUrl);
+      } catch {
+        errors.push(`Invalid URL in ${relativeFile}: ${rawUrl}`);
+        continue;
+      }
+
+      if (url.origin !== 'https://taste-buddy.app') {
+        continue;
+      }
+
+      const pathname = decodeURIComponent(url.pathname);
+      const key = `${relativeFile}:${pathname}`;
+      if (seen.has(key)) {
+        continue;
+      }
+      seen.add(key);
+
+      if (
+        pathname !== '/' &&
+        !pathname.endsWith('/') &&
+        !path.posix.extname(pathname) &&
+        !isAllowedDynamicPath(`${pathname}/`)
+      ) {
+        errors.push(`Internal page URL should use trailing slash in ${relativeFile}: ${pathname}`);
+      }
+
+      if (!hasGeneratedPath(pathname) && !hasSourcePage(pathname) && !isAllowedDynamicPath(pathname)) {
+        errors.push(`Broken internal URL in ${relativeFile}: ${pathname}`);
+      }
+    }
+  }
+
+  return {
+    passed: errors.length === 0,
+    errors,
+  };
+}
+
+function stripHtml(value) {
+  return value.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').trim();
+}
+
+function validateSeoMetadata() {
+  log('blue', '🔎 Validating SEO metadata and page structure...');
+
+  const errors = [];
+  const seenTitles = new Map();
+  const htmlFiles = listHtmlFiles(distDir).filter((filePath) => filePath.endsWith(`${path.sep}index.html`) || filePath === path.join(distDir, 'index.html'));
+
+  for (const filePath of htmlFiles) {
+    const relativeFile = path.relative(distDir, filePath);
+    if (relativeFile.startsWith(`app${path.sep}`)) {
+      continue;
+    }
+
+    const html = fs.readFileSync(filePath, 'utf8');
+    const canonical = html.match(/<link\s+rel="canonical"\s+href="([^"]+)"/i)?.[1];
+    if (!canonical) {
+      continue;
+    }
+
+    const title = stripHtml(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1] ?? '');
+    const description = html.match(/<meta\s+name="description"\s+content="([^"]*)"/i)?.[1]?.trim() ?? '';
+    const robots = html.match(/<meta\s+name="robots"\s+content="([^"]*)"/i)?.[1]?.toLowerCase() ?? '';
+    const h1Count = (html.match(/<h1\b/gi) ?? []).length;
+    const expectedCanonical = htmlFileToUrl(relativeFile);
+
+    if (title.length < 20 || title.length > 65) {
+      errors.push(`Title should be 20-65 characters in ${relativeFile}: ${title.length}`);
+    }
+    if (description.length < 90 || description.length > 165) {
+      errors.push(`Meta description should be 90-165 characters in ${relativeFile}: ${description.length}`);
+    }
+    if (h1Count !== 1) {
+      errors.push(`Expected exactly one H1 in ${relativeFile}, found ${h1Count}`);
+    }
+    if (!robots.includes('index') || !robots.includes('follow')) {
+      errors.push(`Indexable page has unexpected robots directive in ${relativeFile}: ${robots || 'missing'}`);
+    }
+    if (canonical !== expectedCanonical) {
+      errors.push(`Canonical mismatch in ${relativeFile}: expected ${expectedCanonical}, found ${canonical}`);
+    }
+
+    if (seenTitles.has(title)) {
+      errors.push(`Duplicate title in ${relativeFile} and ${seenTitles.get(title)}: ${title}`);
+    } else {
+      seenTitles.set(title, relativeFile);
+    }
+  }
+
+  return {
+    passed: errors.length === 0,
+    errors,
+  };
+}
+
 function printSection(title, result) {
   if (result.passed) {
     log('green', `✅ ${title}`);
@@ -340,6 +543,8 @@ function main() {
     ['MDX article frontmatter', validateArticles()],
     ['Generated routes', validateExpectedRoutes()],
     ['Generated sitemaps', validateSitemaps()],
+    ['SEO metadata and structure', validateSeoMetadata()],
+    ['Internal links and assets', validateInternalLinks()],
     ['Critical build files', validateCriticalFiles()],
   ];
 

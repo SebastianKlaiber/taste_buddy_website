@@ -1,5 +1,4 @@
 ---
-import { AstroSeo } from '@astrolib/seo';
 import type { KeywordRecord } from '../../lib/marketing/types';
 import Layout from '../../layouts/Layout.astro';
 import Main from '../Main.astro';
@@ -10,6 +9,14 @@ interface Props {
 }
 
 const { record } = Astro.props;
+const readableLinkLabel = (href: string) =>
+  href
+    .replace(/^\/|\/$/g, '')
+    .split('/')
+    .pop()
+    ?.replace(/-/g, ' ')
+    .replace(/\b\w/g, (letter) => letter.toUpperCase()) ?? href;
+
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Article',
@@ -22,20 +29,34 @@ const structuredData = {
     name: 'TasteBuddy',
   },
 };
----
 
-<AstroSeo
-  title={`${record.title} | TasteBuddy`}
-  description={record.description}
-  openGraph={{
-    title: record.title,
-    description: record.description,
-    images: [{ url: '/images/screenshots.png' }],
-  }}
-/>
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: `What should I look for in a ${record.primary_keyword}?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: record.decision_criteria.join(' '),
+      },
+    },
+    {
+      '@type': 'Question',
+      name: `Who is TasteBuddy best for?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: record.best_for_tastebuddy.join(' '),
+      },
+    },
+  ],
+};
+---
 
 <Layout title={record.title} description={record.description}>
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
   <Main>
     <article class="max-w-5xl mx-auto py-12">
       <header class="mb-12 rounded-3xl border border-[#2A2D24]/30 bg-[#1C2513]/80 p-8">
@@ -50,7 +71,10 @@ const structuredData = {
           <p class="mb-6 text-gray-300">{record.hero}</p>
           <ul class="space-y-3 text-gray-300">
             {record.decision_criteria.map((item) => (
-              <li>{item}</li>
+              <li class="flex gap-3">
+                <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#8FECA8]"></span>
+                <span>{item}</span>
+              </li>
             ))}
           </ul>
         </div>
@@ -63,9 +87,42 @@ const structuredData = {
         <h2 class="mb-4 text-2xl font-semibold text-white">Where TasteBuddy fits best</h2>
         <ul class="space-y-3 text-gray-300">
           {record.best_for_tastebuddy.map((item) => (
-            <li>{item}</li>
+            <li class="flex gap-3">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[#00CE31]"></span>
+              <span>{item}</span>
+            </li>
           ))}
         </ul>
+      </section>
+
+      <section class="mb-10 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-white">What the TasteBuddy workflow includes</h2>
+        <p class="mb-4 text-gray-300">
+          This guide evaluates the category around a practical path from saving a recipe to cooking it. TasteBuddy is designed around that complete workflow, not a discovery feed.
+        </p>
+        <ul class="space-y-3 text-gray-300">
+          {record.claims.map((claim) => (
+            <li class="flex gap-3">
+              <span aria-hidden="true" class="text-[#8FECA8]">✓</span>
+              <span>{claim}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="mb-10 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-white">FAQ</h2>
+        <div class="space-y-6 text-gray-300">
+          <div>
+            <h3 class="mb-2 text-lg font-semibold text-white">What should I compare first?</h3>
+            <p>{record.decision_criteria[0]}</p>
+          </div>
+          <div>
+            <h3 class="mb-2 text-lg font-semibold text-white">When is TasteBuddy the right choice?</h3>
+            <p>{record.best_for_tastebuddy.join(' ')}</p>
+          </div>
+        </div>
+        <p class="mt-6 text-sm text-gray-500">Last reviewed: {record.last_reviewed_at}</p>
       </section>
 
       <section class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
@@ -74,7 +131,7 @@ const structuredData = {
           {record.internal_links.map((item) => (
             <li>
               <a class="text-[#8FECA8]" href={item}>
-                {item}
+                {readableLinkLabel(item)}
               </a>
             </li>
           ))}

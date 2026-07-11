@@ -13,7 +13,12 @@ export default defineConfig({
   integrations: [
     mdx(),
     tailwind(),
-    sitemap(),
+    sitemap({
+      filter: (page) => {
+        const pathname = new URL(page).pathname;
+        return !new Set(['/404/', '/cookbook-invite/', '/link_identity_success/', '/oauth/consent/']).has(pathname);
+      },
+    }),
   ],
   adapter: netlify({
     mode: 'functions',

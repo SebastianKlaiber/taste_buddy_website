@@ -1,9 +1,7 @@
 ---
-import { AstroSeo } from '@astrolib/seo';
 import Layout from '../../../../layouts/Layout.astro';
 import Main from '../../../../components/Main.astro';
-import { buildAlternates } from '../../../../lib/marketing/app-links';
-import { listArticles } from '../../../../lib/marketing/articles';
+import { getArticleAlternates, listArticles } from '../../../../lib/marketing/articles';
 
 export const prerender = true;
 
@@ -31,20 +29,10 @@ const structuredData = {
 };
 ---
 
-<AstroSeo
-  title={`${frontmatter.title} | TasteBuddy Blog`}
-  description={frontmatter.description}
-  openGraph={{
-    title: frontmatter.title,
-    description: frontmatter.description,
-    images: [{ url: '/images/screenshots.png' }],
-  }}
-/>
-
 <Layout
-  title={`${frontmatter.title} | TasteBuddy Blog`}
+  title={frontmatter.seo_title}
   description={frontmatter.description}
-  alternates={buildAlternates(`/en/blog/articles/${slug}/`)}
+  alternates={getArticleAlternates('en', slug)}
 >
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   <Main>

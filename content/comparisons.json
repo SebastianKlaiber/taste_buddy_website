@@ -14,7 +14,7 @@
       "TasteBuddy focuses on importing and organizing recipes from across the web and social platforms.",
       "TasteBuddy connects saved recipes to planning and shopping workflows."
     ],
-    "cta_variant": "save_from_anywhere",
+    "cta_variant": "save-from-anywhere",
     "last_reviewed_at": "2026-04-10",
     "competitor": "Allrecipes",
     "use_case": "switching from recipe discovery to recipe organization",
@@ -42,7 +42,7 @@
   {
     "slug": "tastebuddy-vs-allrecipes",
     "locale": "de",
-    "title": "TasteBuddy vs Allrecipes",
+    "title": "TasteBuddy oder Allrecipes im Vergleich",
     "description": "Vergleichen Sie TasteBuddy und Allrecipes fuer Rezeptorganisation, Import, Wochenplanung und Einkaufslisten.",
     "primary_keyword": "tastebuddy vs allrecipes",
     "search_intent": "comparison",
@@ -54,7 +54,7 @@
       "TasteBuddy konzentriert sich auf Import und Organisation von Rezepten aus Web und Social Media.",
       "TasteBuddy verbindet gespeicherte Rezepte mit Planung und Einkauf."
     ],
-    "cta_variant": "save_from_anywhere",
+    "cta_variant": "save-from-anywhere",
     "last_reviewed_at": "2026-04-10",
     "competitor": "Allrecipes",
     "use_case": "Wechsel von Rezeptsuche zu Rezeptorganisation",
@@ -93,9 +93,9 @@
     ],
     "claims": [
       "TasteBuddy supports modern recipe capture workflows from social media and websites.",
-      "TasteBuddy includes AI-assisted meal planning."
+      "TasteBuddy connects saved recipes with weekly planning and shopping lists."
     ],
-    "cta_variant": "plan_from_saves",
+    "cta_variant": "plan-from-saves",
     "last_reviewed_at": "2026-04-10",
     "competitor": "Paprika",
     "use_case": "moving from a classic recipe manager to a social-first workflow",
@@ -123,7 +123,7 @@
   {
     "slug": "tastebuddy-vs-paprika",
     "locale": "de",
-    "title": "TasteBuddy vs Paprika",
+    "title": "TasteBuddy oder Paprika im Vergleich",
     "description": "Vergleichen Sie TasteBuddy und Paprika fuer Rezeptimport, private Rezeptsammlungen und die Planung des Wochenkochens.",
     "primary_keyword": "tastebuddy vs paprika",
     "search_intent": "comparison",
@@ -134,9 +134,9 @@
     ],
     "claims": [
       "TasteBuddy unterstuetzt moderne Rezept-Capture-Workflows aus Social Media und Websites.",
-      "TasteBuddy enthaelt KI-gestuetzte Wochenplanung."
+      "TasteBuddy verbindet gespeicherte Rezepte mit Wochenplanung und Einkaufslisten."
     ],
-    "cta_variant": "plan_from_saves",
+    "cta_variant": "plan-from-saves",
     "last_reviewed_at": "2026-04-10",
     "competitor": "Paprika",
     "use_case": "Wechsel von klassischem Rezeptmanager zu Social-first Workflow",
@@ -164,9 +164,9 @@
   {
     "slug": "tastebuddy-vs-yummly",
     "locale": "en",
-    "title": "TasteBuddy vs Yummly",
-    "description": "See how TasteBuddy compares with Yummly for saving recipes from the web, organizing them, and turning them into cook-ready plans.",
-    "primary_keyword": "tastebuddy vs yummly",
+    "title": "TasteBuddy vs Yummly: Replacement After Shutdown",
+    "description": "Yummly shut down in December 2024. See how TasteBuddy fits former Yummly users who need recipe saving, planning, and shopping lists.",
+    "primary_keyword": "yummly alternative",
     "search_intent": "comparison",
     "page_type": "comparison",
     "source_of_truth": [
@@ -177,37 +177,37 @@
       "TasteBuddy is built around capturing recipes you already find elsewhere.",
       "TasteBuddy turns saved recipes into planning and shopping workflows."
     ],
-    "cta_variant": "shopping_from_plan",
-    "last_reviewed_at": "2026-04-10",
+    "cta_variant": "shopping-from-plan",
+    "last_reviewed_at": "2026-04-27",
     "competitor": "Yummly",
-    "use_case": "comparing discovery-first apps with organization-first apps",
+    "use_case": "replacing Yummly after its December 2024 shutdown",
     "strengths": [
-      "Stronger workflow for recipes found across the open web and social platforms",
-      "Clearer path from recipe save to weekly plan and shopping list",
-      "More explicit focus on keeping your own collection organized"
+      "Current app for saving recipes from websites, social platforms, screenshots, and notes",
+      "Clear path from recipe save to weekly plan and shopping list",
+      "Private recipe system for rebuilding a collection after Yummly"
     ],
     "weaknesses": [
-      "Less centered on a giant built-in browsing catalog",
-      "Best fit for users who already have recipe inspiration, not those who only want discovery"
+      "Yummly is no longer available as an active app",
+      "Former Yummly users need a replacement workflow instead of a like-for-like switch"
     ],
     "migration_notes": [
-      "Bring over the recipes you repeat and the creators you trust most.",
-      "Use TasteBuddy when your pain is scattered recipe saves, not content discovery."
+      "Start with the recipes you still cook and the creator links you trust most.",
+      "Use TasteBuddy as the new system of record for saving, planning, and shopping."
     ],
     "proof_points": [
       "TasteBuddy supports URL import from websites and social platforms.",
       "TasteBuddy includes shopping-list generation from planned recipes."
     ],
     "review_status": "approved",
-    "best_for_tastebuddy": "Users who want a private recipe system built around their saved content.",
-    "best_for_competitor": "Users who mainly want app-native recipe discovery."
+    "best_for_tastebuddy": "Former Yummly users who need a current recipe organizer with planning and shopping.",
+    "best_for_competitor": "Yummly is shut down, so it is no longer a viable option for new workflows."
   },
   {
     "slug": "tastebuddy-vs-yummly",
     "locale": "de",
-    "title": "TasteBuddy vs Yummly",
-    "description": "So schneidet TasteBuddy gegen Yummly ab, wenn Sie Rezepte aus dem Web speichern, organisieren und in echte Kochplaene verwandeln wollen.",
-    "primary_keyword": "tastebuddy vs yummly",
+    "title": "TasteBuddy vs Yummly: Alternative nach der Abschaltung",
+    "description": "Yummly wurde im Dezember 2024 eingestellt. So hilft TasteBuddy ehemaligen Yummly-Nutzern beim Speichern, Planen und Einkaufen.",
+    "primary_keyword": "yummly alternative",
     "search_intent": "comparison",
     "page_type": "comparison",
     "source_of_truth": [
@@ -218,29 +218,29 @@
       "TasteBuddy ist fuer Rezepte gebaut, die Sie bereits anderswo finden.",
       "TasteBuddy macht aus gespeicherten Rezepten Planung und Einkauf."
     ],
-    "cta_variant": "shopping_from_plan",
-    "last_reviewed_at": "2026-04-10",
+    "cta_variant": "shopping-from-plan",
+    "last_reviewed_at": "2026-04-27",
     "competitor": "Yummly",
-    "use_case": "Vergleich zwischen Discovery-first und Organisation-first Apps",
+    "use_case": "Yummly nach der Abschaltung im Dezember 2024 ersetzen",
     "strengths": [
-      "Staerkerer Workflow fuer Rezepte aus offenem Web und Social Plattformen",
-      "Klarerer Weg vom Speichern zum Wochenplan und zur Einkaufsliste",
-      "Mehr Fokus auf Ihre eigene organisierte Sammlung"
+      "Aktive App fuer Rezepte aus Websites, Social Plattformen, Screenshots und Notizen",
+      "Klarer Weg vom Speichern zum Wochenplan und zur Einkaufsliste",
+      "Privates Rezeptsystem zum Neuaufbau der Sammlung nach Yummly"
     ],
     "weaknesses": [
-      "Weniger auf einen grossen integrierten Browse-Katalog ausgelegt",
-      "Besser fuer Nutzer mit vorhandener Inspiration als fuer reine Entdecker"
+      "Yummly ist nicht mehr als aktive App verfuegbar",
+      "Ehemalige Yummly-Nutzer brauchen einen Ersatz-Workflow statt eines direkten 1:1-Wechsels"
     ],
     "migration_notes": [
-      "Uebernehmen Sie zuerst die Rezepte und Creator, die Sie wirklich wieder nutzen.",
-      "Nutzen Sie TasteBuddy, wenn Ihr Hauptproblem verteilte Rezeptspeicherungen sind."
+      "Starten Sie mit den Rezepten, die Sie wirklich kochen, und den Creator-Links, denen Sie vertrauen.",
+      "Nutzen Sie TasteBuddy als neue zentrale Stelle fuer Speichern, Planen und Einkaufen."
     ],
     "proof_points": [
       "TasteBuddy unterstuetzt URL-Import aus Websites und Social Plattformen.",
       "TasteBuddy erzeugt Einkaufslisten aus geplanten Rezepten."
     ],
     "review_status": "approved",
-    "best_for_tastebuddy": "Menschen, die ein privates Rezeptsystem fuer eigene Saves wollen.",
-    "best_for_competitor": "Menschen, die vor allem in einer App Rezepte entdecken moechten."
+    "best_for_tastebuddy": "Ehemalige Yummly-Nutzer, die einen aktuellen Rezeptmanager mit Planung und Einkauf suchen.",
+    "best_for_competitor": "Yummly ist eingestellt und daher keine tragfaehige Option fuer neue Workflows."
   }
 ]

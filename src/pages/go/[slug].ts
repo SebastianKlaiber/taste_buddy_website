@@ -19,7 +19,13 @@ export const GET: APIRoute = async ({ params, request, redirect }) => {
     return redirect('/', 302);
   }
 
-  const record = getRedirectRecord(params.slug);
+  let record;
+  try {
+    record = getRedirectRecord(params.slug);
+  } catch {
+    return redirect('/', 302);
+  }
+
   const requestedPlatform = new URL(request.url).searchParams.get('platform');
   const platform = requestedPlatform ?? detectPlatform(request.headers.get('user-agent'));
 

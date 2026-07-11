@@ -119,7 +119,7 @@ const structuredData = {
   "@type": "CollectionPage",
   "name": "TasteBuddy Rezeptsammlung",
   "description": "Entdecken Sie köstliche Rezepte mit Schritt-für-Schritt-Anleitungen und Kochtipps",
-  "url": "https://tastebuddy.app/de/recipes",
+  "url": "https://taste-buddy.app/de/recipes/",
   "inLanguage": "de",
   "mainEntity": {
     "@type": "ItemList",
@@ -128,7 +128,7 @@ const structuredData = {
       "position": index + 1,
       "name": recipe.name,
       "description": recipe.description,
-      "url": `https://tastebuddy.app/de/recipes/${recipe.slug}`,
+      "url": `https://taste-buddy.app/de/recipes/${recipe.slug}/`,
       "recipeCategory": recipe.category,
       "recipeCuisine": recipe.cuisine,
       "image": `https://taste-buddy.app${recipe.image}`,
@@ -243,4 +243,4 @@ const description = "Entdecken Sie unsere Sammlung einfach zu befolgender Rezept
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-</style> 
+</style>

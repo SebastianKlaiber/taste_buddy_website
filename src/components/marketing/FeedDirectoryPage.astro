@@ -1,5 +1,4 @@
 ---
-import { AstroSeo } from '@astrolib/seo';
 import type { FeedSiteRecord, Locale } from '../../lib/marketing/types';
 import { buildAlternates } from '../../lib/marketing/app-links';
 import Layout from '../../layouts/Layout.astro';
@@ -29,16 +28,6 @@ const structuredData = {
   })),
 };
 ---
-
-<AstroSeo
-  title={`${title} | TasteBuddy`}
-  description={description}
-  openGraph={{
-    title,
-    description,
-    images: [{ url: '/images/screenshots.png' }],
-  }}
-/>
 
 <Layout title={title} description={description} alternates={buildAlternates(pagePath)}>
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />

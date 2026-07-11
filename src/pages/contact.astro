@@ -1,25 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { AstroSeo } from '@astrolib/seo';
----
-<AstroSeo
-  title="Contact Us - TasteBuddy"
-  description="Get in touch with the TasteBuddy team. We're here to help with any questions about our recipe organizer and meal planner app."
-  canonical="https://taste-buddy.app/contact"
-  openGraph={{
-    title: 'Contact Us - TasteBuddy',
-    description: 'Get in touch with the TasteBuddy team. We\'re here to help with any questions about our recipe organizer and meal planner app.',
-    url: 'https://taste-buddy.app/contact',
-    type: 'website',
-  }}
-  twitter={{
-    handle: '@tastebuddyapp',
-    site: '@tastebuddyapp',
-    cardType: 'summary_large_image',
-  }}
-/>
 
-<Layout title="Contact Us - TasteBuddy">
+const description =
+  "Get in touch with the TasteBuddy team for help with the recipe organizer and meal planner app.";
+---
+<Layout title="Contact Us - TasteBuddy" description={description}>
   <section class="py-12 sm:py-16 lg:py-20">
     <div class="max-w-3xl mx-auto px-4">
       <div class="text-center mb-12">
@@ -55,6 +40,16 @@ import { AstroSeo } from '@astrolib/seo';
           <p class="text-gray-300">
             We typically respond to all inquiries within 24 hours during business days. For urgent issues, please use the in-app support feature for faster assistance.
           </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 sm:p-8 rounded-2xl backdrop-blur-sm border border-[#2A2D24]/30">
+          <h2 class="text-2xl font-semibold text-white mb-6">For Creators</h2>
+          <p class="text-gray-300 mb-6">
+            Food creators, recipe bloggers, and publishers interested in working with TasteBuddy can reach us directly by email.
+          </p>
+          <a href="mailto:support@taste-buddy.app?subject=Creator%20collaboration%20with%20TasteBuddy" class="btn-secondary inline-block">
+            Contact us about a collaboration
+          </a>
         </div>
       </div>
       

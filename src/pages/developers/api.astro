@@ -1,0 +1,406 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Main from "../../components/Main.astro";
+
+const title = "Recipe App API, MCP and AI Agent Setup | TasteBuddy";
+const description =
+  "TasteBuddy developer preview: authenticated recipe API, local Model Context Protocol server, and setup notes for Codex, Claude Code, and Gemini CLI.";
+
+const productionBaseUrl = "https://epmcbwhdbxnteukryjdx.supabase.co";
+const localBaseUrl = "http://127.0.0.1:54321";
+const authHeaders = `Authorization: Bearer <USER_ACCESS_TOKEN>
+Content-Type: application/json
+Content-Profile: api`;
+
+const searchExample = `curl "${productionBaseUrl}/rest/v1/rpc/search_recipes" \\
+  -H "Authorization: Bearer <USER_ACCESS_TOKEN>" \\
+  -H "Content-Type: application/json" \\
+  -H "Content-Profile: api" \\
+  -d '{"search_query":"carbonara","limit_count":3}'`;
+
+const detailExample = `curl "${productionBaseUrl}/rest/v1/rpc/get_recipe" \\
+  -H "Authorization: Bearer <USER_ACCESS_TOKEN>" \\
+  -H "Content-Type: application/json" \\
+  -H "Content-Profile: api" \\
+  -d '{"recipe_id":1}'`;
+
+const signInExample = `curl "${localBaseUrl}/auth/v1/token?grant_type=password" \\
+  -H "apikey: <SUPABASE_PUBLISHABLE_KEY>" \\
+  -H "Content-Type: application/json" \\
+  -d '{"email":"<LOCAL_USER_EMAIL>","password":"<LOCAL_USER_PASSWORD>"}'`;
+
+const codexConfig = `[mcp_servers.tastebuddy]
+command = "npm"
+args = ["run", "--silent", "mcp:tastebuddy"]
+cwd = "/path/to/taste_buddy"
+
+[mcp_servers.tastebuddy.env]
+TASTEBUDDY_SUPABASE_URL = "${productionBaseUrl}"
+TASTEBUDDY_ACCESS_TOKEN = "<USER_ACCESS_TOKEN>"
+TASTEBUDDY_SUPABASE_PUBLISHABLE_KEY = "<SUPABASE_PUBLISHABLE_KEY>"`;
+
+const claudeCommand = `claude mcp add --scope user \\
+  --env TASTEBUDDY_SUPABASE_URL=${productionBaseUrl} \\
+  --env TASTEBUDDY_ACCESS_TOKEN=<USER_ACCESS_TOKEN> \\
+  --env TASTEBUDDY_SUPABASE_PUBLISHABLE_KEY=<SUPABASE_PUBLISHABLE_KEY> \\
+  --transport stdio tastebuddy -- \\
+  npm --prefix /path/to/taste_buddy run --silent mcp:tastebuddy`;
+
+const geminiConfig = `{
+  "mcpServers": {
+    "tastebuddy": {
+      "command": "npm",
+      "args": ["run", "--silent", "mcp:tastebuddy"],
+      "cwd": "/path/to/taste_buddy",
+      "env": {
+        "TASTEBUDDY_SUPABASE_URL": "${productionBaseUrl}",
+        "TASTEBUDDY_ACCESS_TOKEN": "$TASTEBUDDY_ACCESS_TOKEN",
+        "TASTEBUDDY_SUPABASE_PUBLISHABLE_KEY": "$TASTEBUDDY_SUPABASE_PUBLISHABLE_KEY"
+      },
+      "timeout": 30000,
+      "trust": false
+    }
+  }
+}`;
+
+const schemaGraph = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://taste-buddy.app/developers/api/#article",
+      headline: "TasteBuddy Recipe App API and MCP",
+      description,
+      url: "https://taste-buddy.app/developers/api/",
+      datePublished: "2026-06-30",
+      dateModified: "2026-06-30",
+      author: {
+        "@type": "Organization",
+        name: "TasteBuddy",
+        url: "https://taste-buddy.app/",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "TasteBuddy",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://taste-buddy.app/Icon.png",
+        },
+      },
+      about: [
+        "Recipe API",
+        "Model Context Protocol",
+        "AI agent tools",
+        "Private recipe library",
+        "PostgREST",
+        "Supabase Auth",
+        "Codex",
+        "Claude Code",
+        "Gemini CLI",
+      ],
+      keywords:
+        "recipe app API, recipe API, recipe MCP, Model Context Protocol recipe tools, AI agent recipe app, private cookbook API, Codex MCP, Claude MCP, Gemini CLI MCP",
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://taste-buddy.app/developers/api/#faq",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Does TasteBuddy have a recipe API?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text:
+              "TasteBuddy has an authenticated developer-preview recipe API for searching and reading recipes visible to a user account. It is backed by Supabase Auth, Postgres, and PostgREST.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does TasteBuddy support MCP?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text:
+              "TasteBuddy includes a local stdio Model Context Protocol server with read-only search_recipes and get_recipe tools for private recipe libraries.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can AI agents access a user's TasteBuddy recipes?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text:
+              "AI agents can access recipes only with an authenticated user access token. The API and MCP server use the same user-scoped cookbook and household access checks as TasteBuddy.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How do I add TasteBuddy MCP to Codex, Claude Code, or Gemini CLI?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text:
+              "Use the local stdio MCP configuration for each client. Codex uses config.toml, Claude Code can use claude mcp add, and Gemini CLI uses mcpServers in settings.json.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Where do I get the OAuth redirect URI?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text:
+              "Local stdio MCP setup does not need an OAuth redirect URI. Redirect URIs are required for hosted HTTP MCP or OAuth clients, and the exact value comes from the client or host that starts the OAuth flow.",
+          },
+        },
+      ],
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "TasteBuddy",
+          item: "https://taste-buddy.app/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Developers",
+          item: "https://taste-buddy.app/developers/api/",
+        },
+      ],
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
+  <Main>
+    <article class="py-12 sm:py-16 lg:py-20">
+      <div class="max-w-4xl">
+        <p class="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-[#00CE31]">
+          Developer Preview
+        </p>
+        <h1 class="mb-6 text-4xl font-bold text-white sm:text-5xl">
+          Recipe app API and MCP for AI agents
+        </h1>
+        <p class="mb-6 max-w-3xl text-lg leading-8 text-gray-300">
+          TasteBuddy exposes an authenticated recipe API and local Model Context Protocol server for private recipe libraries. Developers and AI agents can search a user's saved recipes and fetch structured recipe details without bypassing user-scoped access checks.
+        </p>
+        <p class="mb-10 max-w-3xl leading-7 text-gray-300">
+          This production developer preview is intentionally read-only. Recipe import, AI generation, image processing, subscription workflows, and long-running orchestration remain behind TasteBuddy app flows and Edge Functions.
+        </p>
+      </div>
+
+      <div class="space-y-10">
+        <section class="border-t border-[#2A2D24] pt-8">
+          <h2 class="mb-4 text-2xl font-semibold text-white">What This Enables</h2>
+          <dl class="grid gap-4 text-sm text-gray-300 sm:grid-cols-2">
+            <div class="rounded-lg border border-[#2A2D24] bg-[#15190F] p-4">
+              <dt class="font-semibold text-white">Recipe API</dt>
+              <dd class="mt-2 leading-6">PostgREST RPC endpoints for authenticated recipe search and recipe detail reads.</dd>
+            </div>
+            <div class="rounded-lg border border-[#2A2D24] bg-[#15190F] p-4">
+              <dt class="font-semibold text-white">Recipe MCP</dt>
+              <dd class="mt-2 leading-6">A stdio MCP server that exposes the same read-only recipe tools to AI assistants.</dd>
+            </div>
+            <div class="rounded-lg border border-[#2A2D24] bg-[#15190F] p-4">
+              <dt class="font-semibold text-white">User-Scoped Access</dt>
+              <dd class="mt-2 leading-6">Access is limited to recipes owned by the authenticated user, shared cookbooks, and household access.</dd>
+            </div>
+            <div class="rounded-lg border border-[#2A2D24] bg-[#15190F] p-4">
+              <dt class="font-semibold text-white">AI Agent Ready</dt>
+              <dd class="mt-2 leading-6">Structured JSON responses make recipe search and detail retrieval easy for assistants to cite and use.</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="border-t border-[#2A2D24] pt-8">
+          <h2 class="mb-4 text-2xl font-semibold text-white">Authentication</h2>
+          <p class="mb-4 max-w-3xl leading-7 text-gray-300">
+            MCP and third-party clients send a Supabase Auth user access token to PostgREST. The production gateway may also require the project publishable key; the local MCP server supports this with <code>TASTEBUDDY_SUPABASE_PUBLISHABLE_KEY</code>.
+          </p>
+          <pre class="overflow-x-auto rounded-lg border border-[#2A2D24] bg-[#070906] p-4 text-sm text-gray-200"><code>{authHeaders}</code></pre>
+        </section>
+
+        <section class="border-t border-[#2A2D24] pt-8">
+          <h2 class="mb-4 text-2xl font-semibold text-white">Production Endpoints</h2>
+          <dl class="grid gap-3 text-sm text-gray-300 sm:grid-cols-2">
+            <div>
+              <dt class="font-semibold text-white">Base URL</dt>
+              <dd><code>{productionBaseUrl}</code></dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-white">Local Base URL</dt>
+              <dd><code>{localBaseUrl}</code></dd>
+            </div>
+            <div class="sm:col-span-2">
+              <dt class="font-semibold text-white">OAuth Status</dt>
+              <dd>The Supabase OAuth server is enabled and the consent screen is live at <code>/oauth/consent/</code>. Local stdio MCP setup does not use an OAuth redirect URI.</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="border-t border-[#2A2D24] pt-8">
+          <h2 class="mb-4 text-2xl font-semibold text-white">search_recipes</h2>
+          <p class="mb-4 max-w-3xl leading-7 text-gray-300">
+            Searches recipes visible to the authenticated TasteBuddy user. Matching covers recipe title, description, ingredient names, and category names. Use this first when an agent needs to find candidate recipes.
+          </p>
+          <dl class="mb-4 grid gap-3 text-sm text-gray-300 sm:grid-cols-2">
+            <div>
+              <dt class="font-semibold text-white">Endpoint</dt>
+              <dd><code>/rest/v1/rpc/search_recipes</code></dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-white">Schema Header</dt>
+              <dd><code>Content-Profile: api</code></dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-white">Body</dt>
+              <dd><code>search_query</code>, <code>limit_count</code></dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-white">Max Limit</dt>
+              <dd>50 results</dd>
+            </div>
+          </dl>
+          <pre class="overflow-x-auto rounded-lg border border-[#2A2D24] bg-[#070906] p-4 text-sm text-gray-200"><code>{searchExample}</code></pre>
+        </section>
+
+        <section class="border-t border-[#2A2D24] pt-8">
+          <h2 class="mb-4 text-2xl font-semibold text-white">get_recipe</h2>
+          <p class="mb-4 max-w-3xl leading-7 text-gray-300">
+            Returns one visible recipe with categories, sections, ingredients, instructions, timing, nutrition fields, notes, and source metadata. Inaccessible recipe IDs return <code>null</code>.
+          </p>
+          <dl class="mb-4 grid gap-3 text-sm text-gray-300 sm:grid-cols-2">
+            <div>
+              <dt class="font-semibold text-white">Endpoint</dt>
+              <dd><code>/rest/v1/rpc/get_recipe</code></dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-white">Schema Header</dt>
+              <dd><code>Content-Profile: api</code></dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-white">Body</dt>
+              <dd><code>recipe_id</code></dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-white">Response</dt>
+              <dd>JSON object or <code>null</code></dd>
+            </div>
+          </dl>
+          <pre class="overflow-x-auto rounded-lg border border-[#2A2D24] bg-[#070906] p-4 text-sm text-gray-200"><code>{detailExample}</code></pre>
+        </section>
+
+        <section class="border-t border-[#2A2D24] pt-8">
+          <h2 class="mb-4 text-2xl font-semibold text-white">TasteBuddy MCP</h2>
+          <p class="mb-4 max-w-3xl leading-7 text-gray-300">
+            The local MCP server wraps the same API over stdio. It exposes read-only <code>search_recipes</code> and <code>get_recipe</code> tools and forwards the authenticated user token to Supabase.
+          </p>
+          <dl class="grid gap-3 text-sm text-gray-300 sm:grid-cols-2">
+            <div>
+              <dt class="font-semibold text-white">Run locally</dt>
+              <dd><code>npm run mcp:tastebuddy</code></dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-white">Verify locally</dt>
+              <dd><code>npm run mcp:tastebuddy:smoke</code></dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-white">Required env</dt>
+              <dd><code>TASTEBUDDY_ACCESS_TOKEN</code></dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-white">Optional env</dt>
+              <dd><code>TASTEBUDDY_SUPABASE_PUBLISHABLE_KEY</code></dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="border-t border-[#2A2D24] pt-8">
+          <h2 class="mb-4 text-2xl font-semibold text-white">Add TasteBuddy to Codex, Claude, and Gemini</h2>
+          <p class="mb-4 max-w-3xl leading-7 text-gray-300">
+            The current TasteBuddy MCP is a local stdio server. Add it to AI coding tools as a command that runs on your machine and passes a user access token through the environment. Do not register a Supabase OAuth app for this local setup.
+          </p>
+          <div class="mb-6 rounded-lg border border-[#2A2D24] bg-[#15190F] p-4 text-sm leading-6 text-gray-300">
+            <p>
+              <span class="font-semibold text-white">Where does the redirect URI come from?</span>
+              For local stdio MCP, there is none. For hosted HTTP MCP or connected-app OAuth, the client tells you the exact callback URL. Codex derives one during <code>codex mcp login</code>, Claude Code's OAuth callback settings apply only to HTTP and SSE servers, and Gemini CLI defaults to <code>http://localhost:&lt;random-port&gt;/oauth/callback</code> unless <code>redirectUri</code> is configured.
+            </p>
+          </div>
+
+          <div class="space-y-6">
+            <div>
+              <h3 class="mb-2 text-lg font-semibold text-white">Codex</h3>
+              <p class="mb-3 leading-7 text-gray-300">
+                Add this to <code>~/.codex/config.toml</code> or a trusted project-scoped <code>.codex/config.toml</code>.
+              </p>
+              <pre class="overflow-x-auto rounded-lg border border-[#2A2D24] bg-[#070906] p-4 text-sm text-gray-200"><code>{codexConfig}</code></pre>
+            </div>
+
+            <div>
+              <h3 class="mb-2 text-lg font-semibold text-white">Claude Code</h3>
+              <p class="mb-3 leading-7 text-gray-300">
+                Add TasteBuddy as a user-scoped stdio server with the Claude Code CLI.
+              </p>
+              <pre class="overflow-x-auto rounded-lg border border-[#2A2D24] bg-[#070906] p-4 text-sm text-gray-200"><code>{claudeCommand}</code></pre>
+            </div>
+
+            <div>
+              <h3 class="mb-2 text-lg font-semibold text-white">Gemini CLI</h3>
+              <p class="mb-3 leading-7 text-gray-300">
+                Add this to <code>~/.gemini/settings.json</code> or a project-level <code>.gemini/settings.json</code>. Export the token variables in your shell before starting Gemini.
+              </p>
+              <pre class="overflow-x-auto rounded-lg border border-[#2A2D24] bg-[#070906] p-4 text-sm text-gray-200"><code>{geminiConfig}</code></pre>
+            </div>
+          </div>
+
+          <div class="mt-6 text-sm leading-6 text-gray-400">
+            <p class="font-semibold text-gray-200">Official setup references</p>
+            <ul class="mt-2 list-disc space-y-1 pl-5">
+              <li><a class="text-[#00CE31] underline-offset-4 hover:underline" href="https://developers.openai.com/codex/mcp" rel="noopener noreferrer" target="_blank">Codex MCP configuration</a></li>
+              <li><a class="text-[#00CE31] underline-offset-4 hover:underline" href="https://code.claude.com/docs/en/mcp" rel="noopener noreferrer" target="_blank">Claude Code MCP configuration</a></li>
+              <li><a class="text-[#00CE31] underline-offset-4 hover:underline" href="https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md" rel="noopener noreferrer" target="_blank">Gemini CLI MCP configuration</a></li>
+              <li><a class="text-[#00CE31] underline-offset-4 hover:underline" href="https://supabase.com/docs/guides/auth/oauth-server/getting-started" rel="noopener noreferrer" target="_blank">Supabase OAuth redirect URI rules</a></li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="faq" class="border-t border-[#2A2D24] pt-8">
+          <h2 class="mb-4 text-2xl font-semibold text-white">FAQ</h2>
+          <div class="space-y-5 text-gray-300">
+            <div>
+              <h3 class="text-lg font-semibold text-white">Does TasteBuddy have a recipe API?</h3>
+              <p class="mt-2 leading-7">Yes. TasteBuddy has an authenticated developer-preview recipe API for searching and reading recipes visible to a user account.</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-white">Does TasteBuddy support MCP?</h3>
+              <p class="mt-2 leading-7">Yes. TasteBuddy includes a local stdio MCP server with read-only <code>search_recipes</code> and <code>get_recipe</code> tools.</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-white">Can AI agents access private recipes?</h3>
+              <p class="mt-2 leading-7">Only with an authenticated user token. The API and MCP server use user-scoped recipe access checks.</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-white">How do I add TasteBuddy to Codex, Claude Code, or Gemini CLI?</h3>
+              <p class="mt-2 leading-7">Use the local stdio MCP config on this page. Codex uses <code>config.toml</code>, Claude Code can use <code>claude mcp add</code>, and Gemini CLI uses <code>mcpServers</code> in <code>settings.json</code>.</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-white">Where do I get the OAuth redirect URI?</h3>
+              <p class="mt-2 leading-7">You do not need one for the local stdio MCP. For hosted HTTP MCP or OAuth clients, use the exact redirect URI provided by Codex, Claude, Gemini, or whichever client starts the OAuth flow.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="border-t border-[#2A2D24] pt-8">
+          <h2 class="mb-4 text-2xl font-semibold text-white">Local Sign In</h2>
+          <p class="mb-4 max-w-3xl leading-7 text-gray-300">
+            For local testing, sign in with a local Supabase user that owns recipe fixtures or create a local account through the app.
+          </p>
+          <pre class="overflow-x-auto rounded-lg border border-[#2A2D24] bg-[#070906] p-4 text-sm text-gray-200"><code>{signInExample}</code></pre>
+        </section>
+      </div>
+    </article>
+  </Main>
+</Layout>

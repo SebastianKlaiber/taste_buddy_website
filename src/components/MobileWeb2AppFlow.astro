@@ -1,0 +1,434 @@
+---
+import { getGoHref } from "../lib/marketing/app-links";
+
+type Locale = "en" | "de";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+
+const copy = {
+  en: {
+    headline: "Cook the recipes you saved",
+    body: "Share a TikTok, Reel, or recipe link with TasteBuddy and turn it into a clean recipe you can find, shop for, and cook.",
+    proof: "TikTok, Instagram, food blogs, screenshots, handwritten cards, and notes.",
+    primaryCta: "Download TasteBuddy",
+    secondaryCta: "See how it works",
+    explainerHeadline: "From saved reel to dinner",
+    explainerSteps: [
+      "Find a recipe on TikTok, Instagram, or a food blog.",
+      "Tap share or paste the link into TasteBuddy.",
+      "Get a clean recipe card, then plan it, shop it, or cook from the steps.",
+    ],
+    continueCta: "Download TasteBuddy",
+  },
+  de: {
+    headline: "Koche die Rezepte, die du gespeichert hast",
+    body: "Teile ein TikTok, Reel oder einen Rezept-Link mit TasteBuddy und mache daraus ein Rezept, das du finden, einkaufen und kochen kannst.",
+    proof: "TikTok, Instagram, Foodblogs, Screenshots, Rezeptkarten und Notizen.",
+    primaryCta: "TasteBuddy laden",
+    secondaryCta: "So funktioniert es",
+    explainerHeadline: "Vom gespeicherten Reel zum Abendessen",
+    explainerSteps: [
+      "Finde ein Rezept auf TikTok, Instagram oder einem Foodblog.",
+      "Tippe auf Teilen oder fuege den Link in TasteBuddy ein.",
+      "Erhalte eine klare Rezeptkarte und plane, kaufe oder koche direkt weiter.",
+    ],
+    continueCta: "TasteBuddy laden",
+  },
+}[locale];
+---
+
+<section
+  class="mobile-web2app-flow md:hidden"
+  data-mobile-web2app-flow
+  aria-label="TasteBuddy mobile app download flow"
+>
+  <div class="flow-shell" data-flow-step="intro">
+    <div class="brand-row">
+      <img src="/Icon.png" alt="" width="44" height="44" class="brand-icon" />
+      <span>TasteBuddy</span>
+    </div>
+
+    <div class="intro-stack">
+      <p class="hero-title">{copy.headline}</p>
+      <div class="video-frame">
+        <video
+          src="/videos/tiktok_import_demo.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-label="TasteBuddy recipe import demo"
+        ></video>
+      </div>
+      <p class="body-copy">{copy.body}</p>
+      <p class="proof-copy">{copy.proof}</p>
+    </div>
+
+    <div class="cta-stack">
+      <a class="flow-cta" href={getGoHref("mobile-social-save")}>{copy.primaryCta}</a>
+      <button class="flow-secondary" type="button" data-next-step>{copy.secondaryCta}</button>
+    </div>
+  </div>
+
+  <div class="flow-shell is-hidden" data-flow-step="testimonial">
+    <div class="brand-row compact">
+      <img src="/Icon.png" alt="" width="38" height="38" class="brand-icon" />
+      <span>TasteBuddy</span>
+    </div>
+
+    <div class="testimonial-stack">
+      <h2>{copy.explainerHeadline}</h2>
+      <ol class="flow-steps">
+        {copy.explainerSteps.map((step) => (
+          <li>{step}</li>
+        ))}
+      </ol>
+    </div>
+
+    <a class="flow-cta" href={getGoHref("mobile-social-save")}>{copy.continueCta}</a>
+  </div>
+</section>
+
+<script>
+  const flow = document.querySelector("[data-mobile-web2app-flow]");
+  const nextButton = flow?.querySelector("[data-next-step]");
+  const introStep = flow?.querySelector('[data-flow-step="intro"]');
+  const testimonialStep = flow?.querySelector('[data-flow-step="testimonial"]');
+
+  nextButton?.addEventListener("click", () => {
+    introStep?.classList.add("is-hidden");
+    testimonialStep?.classList.remove("is-hidden");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>
+
+<style>
+  .mobile-web2app-flow {
+    min-height: 100svh;
+    margin-inline: calc(50% - 50vw);
+    background: linear-gradient(180deg, var(--tb-surface) 0%, var(--tb-page-bg-soft) 100%);
+    color: var(--tb-text);
+    overflow: hidden;
+  }
+
+  .flow-shell {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 22px;
+    width: min(100%, 430px);
+    margin-inline: auto;
+    padding: max(20px, env(safe-area-inset-top)) 20px max(24px, env(safe-area-inset-bottom));
+    position: relative;
+  }
+
+  .flow-shell::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid var(--tb-border-soft);
+    border-radius: 26px;
+    pointer-events: none;
+  }
+
+  .flow-shell.is-hidden {
+    display: none;
+  }
+
+  .brand-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    color: var(--tb-text);
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .brand-row.compact {
+    font-size: 17px;
+  }
+
+  .brand-icon {
+    border-radius: 12px;
+    box-shadow: var(--tb-shadow-sm);
+  }
+
+  .intro-stack,
+  .testimonial-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-title,
+  h2 {
+    max-width: 360px;
+    margin: 0 auto;
+    text-align: center;
+    color: var(--tb-text);
+    font-weight: 900;
+    line-height: 1.04;
+    letter-spacing: 0;
+  }
+
+  .hero-title {
+    font-size: clamp(34px, 10vw, 46px);
+  }
+
+  h2 {
+    font-size: clamp(31px, 8.8vw, 42px);
+  }
+
+  .video-frame {
+    width: min(100%, 316px);
+    margin-top: 22px;
+    border: 1px solid rgba(143, 236, 168, 0.18);
+    border-radius: 24px;
+    padding: 8px;
+    background: var(--tb-surface);
+    box-shadow: var(--tb-shadow-md);
+  }
+
+  video {
+    display: block;
+    width: 100%;
+    max-height: 36svh;
+    aspect-ratio: 9 / 16;
+    border-radius: 16px;
+    object-fit: cover;
+    background: var(--tb-surface-muted);
+  }
+
+  .body-copy,
+  .proof-copy {
+    margin: 0;
+    max-width: 340px;
+    text-align: center;
+    line-height: 1.45;
+    letter-spacing: 0;
+  }
+
+  .body-copy {
+    margin-top: 16px;
+    color: var(--tb-text);
+    font-size: 17px;
+    font-weight: 650;
+  }
+
+  .proof-copy {
+    margin-top: 8px;
+    color: var(--tb-muted);
+    font-size: 14px;
+  }
+
+  .cta-stack {
+    display: grid;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .testimonial-card {
+    width: min(100%, 360px);
+    margin-top: 28px;
+    padding: 24px;
+    border: 1px solid var(--tb-border-soft);
+    border-radius: var(--tb-radius);
+    background: var(--tb-surface);
+    color: var(--tb-text);
+    box-shadow: var(--tb-shadow-md);
+    position: relative;
+  }
+
+  .founder-mark {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 10px;
+    border-radius: 999px;
+    background: var(--tb-accent);
+    color: var(--tb-text-inverse);
+    font-size: 19px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .testimonial-card p {
+    margin: 0;
+    color: var(--tb-text);
+    font-size: 17px;
+    font-weight: 560;
+    line-height: 1.55;
+    letter-spacing: 0;
+  }
+
+  .testimonial-card footer {
+    margin-top: 18px;
+    color: var(--tb-text);
+    font-size: 15px;
+    font-weight: 850;
+  }
+
+  .flow-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 62px;
+    width: 100%;
+    border: 0;
+    border-radius: 999px;
+    background: var(--tb-button-primary);
+    color: var(--tb-button-primary-text);
+    box-shadow: var(--tb-shadow-md);
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+  }
+
+  .flow-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    width: 100%;
+    border: 1px solid var(--tb-border);
+    border-radius: 999px;
+    background: var(--tb-surface);
+    color: var(--tb-text);
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .flow-secondary:focus-visible {
+    outline: 3px solid var(--tb-accent);
+    outline-offset: 4px;
+  }
+
+  .flow-steps {
+    display: grid;
+    gap: 14px;
+    width: min(100%, 360px);
+    margin: 28px 0 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: flow-step;
+  }
+
+  .flow-steps li {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    align-items: center;
+    gap: 14px;
+    min-height: 72px;
+    padding: 14px;
+    border: 1px solid var(--tb-border-soft);
+    border-radius: var(--tb-radius);
+    background: var(--tb-surface);
+    color: var(--tb-text);
+    font-size: 16px;
+    font-weight: 720;
+    line-height: 1.35;
+    letter-spacing: 0;
+    counter-increment: flow-step;
+  }
+
+  .flow-steps li::before {
+    content: counter(flow-step);
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    background: var(--tb-accent-soft);
+    color: var(--tb-primary);
+    font-size: 17px;
+    font-weight: 950;
+  }
+
+  .flow-cta:focus-visible {
+    outline: 3px solid var(--tb-accent);
+    outline-offset: 4px;
+  }
+
+  @media (max-height: 720px) {
+    .flow-shell {
+      gap: 16px;
+      padding-top: max(14px, env(safe-area-inset-top));
+      padding-bottom: max(16px, env(safe-area-inset-bottom));
+    }
+
+    .hero-title {
+      font-size: clamp(30px, 8.8vw, 39px);
+    }
+
+    h2 {
+      font-size: clamp(28px, 8vw, 36px);
+    }
+
+    .video-frame {
+      margin-top: 18px;
+      width: min(100%, 300px);
+    }
+
+    video {
+      max-height: 36svh;
+    }
+
+    .body-copy {
+      margin-top: 14px;
+      font-size: 16px;
+    }
+
+    .testimonial-card {
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    .flow-cta {
+      min-height: 56px;
+    }
+
+    .flow-secondary {
+      min-height: 44px;
+    }
+
+    .flow-steps {
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    .flow-steps li {
+      min-height: 64px;
+      padding: 12px;
+      font-size: 15px;
+    }
+
+    .testimonial-card p {
+      font-size: 16px;
+      line-height: 1.45;
+    }
+  }
+</style>

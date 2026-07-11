@@ -1,23 +1,12 @@
 ---
 import Layout from "./Layout.astro";
 import Main from "../components/Main.astro";
-import { AstroSeo } from '@astrolib/seo';
 
 const { frontmatter } = Astro.props;
-const { title, description, date, author, image } = frontmatter;
+const { title, seoTitle, description, date, author, image } = frontmatter;
 ---
 
-<AstroSeo
-  title={`${title} | TasteBuddy Blog`}
-  description={description}
-  openGraph={{
-    title: title,
-    description: description,
-    images: image ? [{ url: image }] : undefined,
-  }}
-/>
-
-<Layout title={`${title} | TasteBuddy Blog`}>
+<Layout title={seoTitle ?? title} description={description}>
   <Main>
     <article class="py-12 sm:py-16 lg:py-20">
       <div class="max-w-4xl mx-auto">
@@ -146,4 +135,4 @@ const { title, description, date, author, image } = frontmatter;
     padding: 0;
     border-radius: 0;
   }
-</style> 
+</style>

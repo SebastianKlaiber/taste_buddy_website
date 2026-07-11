@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/Main.astro";
+import MobileWeb2AppFlow from "../components/MobileWeb2AppFlow.astro";
 import { getGoHref, getWebAppHref } from "../lib/marketing/app-links";
 
 export const prerender = true;
@@ -10,38 +11,49 @@ const { pathname } = Astro.url;
 const isHomePage = pathname === "/" || pathname === "/de/";
 const enPath = isHomePage ? "/" : pathname.replace("/de/", "/en/");
 const dePath = isHomePage ? "/de/" : pathname.replace("/en/", "/de/");
+const pageTitle = "Recipe Organizer for Saved Recipes | TasteBuddy";
+const pageDescription =
+  "Save recipes from TikTok, Instagram, websites, screenshots, and notes. TasteBuddy turns saved recipes into a searchable cookbook, meal plan, and shopping list.";
 
 // MobileApplication structured data
 const mobileAppStructuredData = {
   "@context": "https://schema.org",
   "@type": "MobileApplication",
-  "name": "TasteBuddy - Recipe Organizer & Meal Planner",
-  "operatingSystem": "iOS, Android",
-  "applicationCategory": "LifestyleApplication",
-  "applicationSubCategory": "Food & Drink",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD",
-    "availability": "https://schema.org/InStock"
-  },
-  "author": {
-    "@type": "Organization",
-    "name": "TasteBuddy",
-    "url": "https://taste-buddy.app"
-  },
-  "screenshot": [
-    "https://taste-buddy.app/images/01_recipe_list.png",
-    "https://taste-buddy.app/images/02_recipe_detail.png",
-    "https://taste-buddy.app/images/03_nutrition.png",
-    "https://taste-buddy.app/images/04_transform.png",
-    "https://taste-buddy.app/images/05_cooking_mode.png",
-    "https://taste-buddy.app/images/06_dinner_mode.png",
-    "https://taste-buddy.app/images/07_shopping_list.png",
-    "https://taste-buddy.app/images/08_translation.png"
+  name: "TasteBuddy - Recipe Organizer & Meal Planner",
+  url: "https://taste-buddy.app/",
+  operatingSystem: "iOS, Android",
+  applicationCategory: "LifestyleApplication",
+  applicationSubCategory: "Food & Drink",
+  keywords:
+    "recipe organizer app, recipe saver app, meal planning app, digital cookbook, shopping list app, save recipes from TikTok, save recipes from Instagram",
+  featureList: [
+    "Save recipes from websites and social media",
+    "Import recipes from screenshots, handwritten cards, and notes",
+    "Organize recipes into a searchable personal cookbook",
+    "Create meal plans from saved recipes",
+    "Generate shopping lists from meal plans",
+    "Cook from clean step-by-step recipe views"
   ],
-  "description": "Save every recipe from anywhere: screenshots, websites, handwritten cards, and social media. Keep them searchable on every device.",
-  "downloadUrl": [
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+    availability: "https://schema.org/InStock"
+  },
+  author: {
+    "@type": "Organization",
+    name: "TasteBuddy",
+    url: "https://taste-buddy.app"
+  },
+  screenshot: [
+    "https://taste-buddy.app/images/tastebuddy-save-recipes.webp",
+    "https://taste-buddy.app/images/tastebuddy-recipe-details.webp",
+    "https://taste-buddy.app/images/tastebuddy-find-recipes.webp",
+    "https://taste-buddy.app/images/tastebuddy-cooking-steps.webp",
+    "https://taste-buddy.app/images/tastebuddy-meal-planning.webp"
+  ],
+  description: pageDescription,
+  downloadUrl: [
     "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=Website&mt=8",
     "https://play.google.com/store/apps/details?id=app.tastebuddy"
   ]
@@ -51,43 +63,65 @@ const mobileAppStructuredData = {
 const faqStructuredData = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": [
+  mainEntity: [
     {
       "@type": "Question",
-      "name": "Where can I import recipes from?",
-      "acceptedAnswer": {
+      name: "What is TasteBuddy?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "You can add recipes from social media, web pages, screenshots, photos of handwritten cards, and even your notes apps."
+        text: "TasteBuddy is a recipe organizer and meal planning app for people who save recipes from TikTok, Instagram, websites, screenshots, handwritten cards, and notes. It turns those saved recipes into a searchable cookbook, meal plan, shopping list, and clean cooking view."
       }
     },
     {
       "@type": "Question",
-      "name": "Is TasteBuddy free?",
-      "acceptedAnswer": {
+      name: "Can I save recipes from TikTok and Instagram?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Yes! You can start using TasteBuddy at no cost. Paid plans unlock additional features like unlimited recipe storage and advanced meal planning."
+        text: "Yes. You can share a TikTok, Instagram, Pinterest, YouTube, Facebook, or website recipe to TasteBuddy, or paste the link, and TasteBuddy extracts the ingredients, steps, and photos into a clean recipe card."
       }
     },
     {
       "@type": "Question",
-      "name": "Does it work on both iOS and Android?",
-      "acceptedAnswer": {
+      name: "How does TasteBuddy help me cook recipes I already saved?",
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": "Absolutely. TasteBuddy is available on the App Store and Google Play, so you can access your recipes on any device."
+        text: "TasteBuddy keeps saved recipes searchable, then lets you plan meals from them, send ingredients to a shopping list, and cook from step-by-step instructions instead of digging through old saves again."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "Does TasteBuddy make shopping lists from recipes?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Recipes added to a meal plan can become a shopping list, so saved recipe ideas turn into ingredients you can actually buy and cook."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "Is TasteBuddy a meal prep app?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "TasteBuddy is not built around rigid meal prep. It is a flexible recipe organizer for people who save recipes all week and want an easier way to choose, shop for, and cook them."
       }
     }
   ]
 };
 ---
-<Layout title="Your Recipes, Perfectly Organized | TasteBuddy" description="Save every recipe from anywhere&mdash;screenshots, websites, handwritten cards, and social media. Keep them searchable and ready on all your devices.">
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  hideMobileChrome
+>
+  <MobileWeb2AppFlow locale="en" />
+  <div class="hidden md:block">
   <Main>
     <!-- Language Switcher -->
     <div class="absolute top-6 right-6 z-10">
-      <div class="flex gap-3 bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-2 rounded-full border border-[#2A2D24]/30 backdrop-blur-sm">
-        <a href={enPath} class={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${pathname.includes('/de/') ? 'text-gray-400 hover:text-white' : 'bg-[#00CE31]/20 text-white border border-[#00CE31]/30'}`}>
+      <div class="tb-pill flex gap-3 p-2">
+        <a href={enPath} class={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${pathname.includes('/de/') ? 'tb-text-muted' : 'tb-pill-active'}`}>
           EN
         </a>
-        <a href={dePath} class={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${pathname.includes('/de/') ? 'bg-[#00CE31]/20 text-white border border-[#00CE31]/30' : 'text-gray-400 hover:text-white'}`}>
+        <a href={dePath} class={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${pathname.includes('/de/') ? 'tb-pill-active' : 'tb-text-muted'}`}>
           DE
         </a>
       </div>
@@ -96,18 +130,18 @@ const faqStructuredData = {
     <section class="relative overflow-hidden py-12 sm:py-16 lg:py-20">
       <!-- Hero -->
       <!-- Hero -->
-      <div class="absolute inset-0 -z-10 overflow-hidden">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[#00CE31]/20 rounded-full blur-[120px] opacity-30 pointer-events-none"></div>
-      </div>
-
       <div class="max-w-5xl mx-auto text-center mb-16 sm:mb-24 px-4">
-        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white mb-8 leading-tight tracking-tight drop-shadow-sm">
-          All your recipes <br class="hidden sm:block" />
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00CE31] to-[#4ADE80]">in one place</span>
+        <h1 class="tb-text-strong text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-8 leading-tight tracking-tight">
+          The recipe organizer <br class="hidden sm:block" />
+          <span class="tb-accent">for recipes you actually cook</span>
         </h1>
 
-        <p class="text-xl sm:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed font-light">
-          Save recipes from any website or app. We organize ingredients, steps, and photos automatically.
+        <p class="tb-text-muted text-xl sm:text-2xl mb-10 max-w-3xl mx-auto leading-relaxed font-light">
+          Save recipes from TikTok, Instagram, Pinterest, YouTube, websites, screenshots, and notes. TasteBuddy turns them into clean recipes you can find, plan, shop for, and cook.
+        </p>
+
+        <p class="tb-panel-muted mx-auto mb-10 max-w-3xl px-5 py-4 text-base leading-relaxed tb-text-muted">
+          TasteBuddy is a recipe organizer, recipe saver, meal planning app, and shopping list app in one. It is built for home cooks with recipes scattered across social saves, browser tabs, screenshots, bookmarks, handwritten cards, and food blogs.
         </p>
 
         <div class="hidden md:flex flex-wrap justify-center gap-4 mb-8">
@@ -151,51 +185,51 @@ const faqStructuredData = {
         </div>
       </div>
 
-      <div class="max-w-4xl mx-auto border-t border-[#2A2D24]/40 my-12"></div>
+      <div class="tb-divider max-w-4xl mx-auto border-t my-12"></div>
 
       <section id="features" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
         <div class="text-center mb-16">
-          <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Save recipes from anywhere</h2>
-          <p class="text-gray-400 max-w-2xl mx-auto text-lg">We organize them so you can actually cook them.</p>
+          <h2 class="tb-text-strong text-3xl sm:text-4xl font-bold mb-4">From saved recipe to dinner</h2>
+          <p class="tb-text-muted max-w-2xl mx-auto text-lg">Stop collecting recipes you never use. Save them once, find them later, then turn them into a plan and grocery list.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <!-- Feature 1 -->
-          <div class="group bg-[#1C2513]/50 backdrop-blur-sm border border-[#2A2D24]/50 rounded-3xl p-8 hover:bg-[#1C2513] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-[#00CE31]/5">
-            <div class="w-14 h-14 bg-[#00CE31]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#00CE31]/20 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-[#00CE31]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div class="tb-card group p-8 transition-all duration-300 hover:-translate-y-1">
+            <div class="tb-icon-tile w-14 h-14 rounded-[var(--tb-radius)] flex items-center justify-center mb-6 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-white mb-3">Import from anywhere</h3>
-            <p class="text-gray-400 leading-relaxed">
-              TikTok, Instagram, Pinterest, or any food blog. We extract ingredients, steps, and photos automatically.
+            <h3 class="tb-text-strong text-xl font-bold mb-3">Save recipes from social media</h3>
+            <p class="tb-text-muted leading-relaxed">
+              Share a TikTok, Instagram, Pinterest, YouTube, or food blog recipe to TasteBuddy. Ingredients, steps, and photos become a clean recipe card.
             </p>
           </div>
 
           <!-- Feature 2 -->
-          <div class="group bg-[#1C2513]/50 backdrop-blur-sm border border-[#2A2D24]/50 rounded-3xl p-8 hover:bg-[#1C2513] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-[#00CE31]/5">
-            <div class="w-14 h-14 bg-[#00CE31]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#00CE31]/20 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-[#00CE31]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div class="tb-card group p-8 transition-all duration-300 hover:-translate-y-1">
+            <div class="tb-icon-tile w-14 h-14 rounded-[var(--tb-radius)] flex items-center justify-center mb-6 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-white mb-3">Solve "What's for Dinner?"</h3>
-            <p class="text-gray-400 leading-relaxed">
-              Drag, drop, and done. Create a week's worth of meals in minutes and say goodbye to decision fatigue.
+            <h3 class="tb-text-strong text-xl font-bold mb-3">Find saved recipes again</h3>
+            <p class="tb-text-muted leading-relaxed">
+              Search one cookbook instead of digging through screenshots, bookmarks, browser tabs, and old social saves when dinner starts.
             </p>
           </div>
 
           <!-- Feature 3 -->
-          <div class="group bg-[#1C2513]/50 backdrop-blur-sm border border-[#2A2D24]/50 rounded-3xl p-8 hover:bg-[#1C2513] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-[#00CE31]/5">
-            <div class="w-14 h-14 bg-[#00CE31]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#00CE31]/20 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-[#00CE31]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div class="tb-card group p-8 transition-all duration-300 hover:-translate-y-1">
+            <div class="tb-icon-tile w-14 h-14 rounded-[var(--tb-radius)] flex items-center justify-center mb-6 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-white mb-3">Shop Like a Pro</h3>
-            <p class="text-gray-400 leading-relaxed">
-              Turn your meal plan into a sorted shopping list instantly. Stop buying duplicates and forgetting the garlic.
+            <h3 class="tb-text-strong text-xl font-bold mb-3">Plan, shop, and cook</h3>
+            <p class="tb-text-muted leading-relaxed">
+              Add saved recipes to your weekly meal plan, build a shopping list from the ingredients, and cook from clear step-by-step instructions.
             </p>
           </div>
         </div>
@@ -203,122 +237,88 @@ const faqStructuredData = {
 
       <!-- How It Works Section -->
       <section class="py-16 max-w-4xl mx-auto px-4">
-        <h2 class="text-3xl font-bold text-white text-center mb-12">How It Works</h2>
+        <h2 class="tb-text-strong text-3xl font-bold text-center mb-12">How TasteBuddy works</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div class="text-center">
-            <div class="bg-[#00CE31]/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-              <span class="text-2xl font-bold text-white">1</span>
+            <div class="tb-step-badge rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-bold">1</span>
             </div>
-            <h3 class="text-xl font-semibold text-white mb-3">Find a recipe</h3>
-            <p class="text-gray-400">From any website, TikTok, Instagram, Pinterest, or food blog.</p>
+            <h3 class="tb-text-strong text-xl font-semibold mb-3">Save the recipe</h3>
+            <p class="tb-text-muted">Use a TikTok, Instagram, Pinterest, YouTube, Facebook, or website link, or import from a screenshot or note.</p>
           </div>
 
           <div class="text-center">
-            <div class="bg-[#00CE31]/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-              <span class="text-2xl font-bold text-white">2</span>
+            <div class="tb-step-badge rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-bold">2</span>
             </div>
-            <h3 class="text-xl font-semibold text-white mb-3">Share the link</h3>
-            <p class="text-gray-400">Tap share and select TasteBuddy, or paste the URL.</p>
+            <h3 class="tb-text-strong text-xl font-semibold mb-3">Get a clean recipe</h3>
+            <p class="tb-text-muted">TasteBuddy extracts ingredients, steps, photos, servings, and source details into a readable recipe card.</p>
           </div>
 
           <div class="text-center">
-            <div class="bg-[#00CE31]/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-              <span class="text-2xl font-bold text-white">3</span>
+            <div class="tb-step-badge rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-bold">3</span>
             </div>
-            <h3 class="text-xl font-semibold text-white mb-3">Done</h3>
-            <p class="text-gray-400">We extract ingredients, steps, and photos automatically.</p>
+            <h3 class="tb-text-strong text-xl font-semibold mb-3">Turn it into dinner</h3>
+            <p class="tb-text-muted">Find it later, add it to a weekly meal plan, send ingredients to a shopping list, or start cooking mode.</p>
           </div>
         </div>
       </section>
 
       <!-- App Screenshots -->
       <div class="py-20 relative">
-        <!-- Decorative background -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-b from-[#1C2513]/0 via-[#1C2513]/50 to-[#1C2513]/0 -z-10 pointer-events-none"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#00CE31]/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
-
         <div class="app-screenshots-container">
           <div class="relative max-w-6xl mx-auto px-4">
             <div class="phone-carousel">
               <div class="screenshots-grid">
                 <div class="screenshot-wrapper">
                   <Image
-                    src="/images/01_recipe_list.png"
-                    alt="TasteBuddy Recipe List"
-                    width={320}
-                    height={640}
-                    format="png"
+                    src="/images/tastebuddy-save-recipes.webp"
+                    alt="TasteBuddy saves recipes from social media, websites, screenshots, and notes"
+                    width={330}
+                    height={717}
+                    format="webp"
                     class="app-screenshot"
                   />
                 </div>
                 <div class="screenshot-wrapper mt-8 sm:mt-12">
                   <Image
-                    src="/images/02_recipe_detail.png"
-                    alt="TasteBuddy Recipe Details"
-                    width={320}
-                    height={640}
-                    format="png"
+                    src="/images/tastebuddy-recipe-details.webp"
+                    alt="TasteBuddy recipe details with ingredients, steps, time, and servings"
+                    width={330}
+                    height={717}
+                    format="webp"
                     class="app-screenshot"
                   />
                 </div>
                 <div class="screenshot-wrapper">
                   <Image
-                    src="/images/03_nutrition.png"
-                    alt="TasteBuddy Nutrition Values"
-                    width={320}
-                    height={640}
-                    format="png"
+                    src="/images/tastebuddy-find-recipes.webp"
+                    alt="Find saved recipes quickly in the TasteBuddy recipe organizer"
+                    width={330}
+                    height={717}
+                    format="webp"
                     class="app-screenshot"
                   />
                 </div>
                 <div class="screenshot-wrapper mt-8 sm:mt-12">
                   <Image
-                    src="/images/04_transform.png"
-                    alt="TasteBuddy AI Recipe Transform"
-                    width={320}
-                    height={640}
-                    format="png"
+                    src="/images/tastebuddy-cooking-steps.webp"
+                    alt="TasteBuddy step-by-step cooking mode"
+                    width={330}
+                    height={717}
+                    format="webp"
                     class="app-screenshot"
                   />
                 </div>
                 <div class="screenshot-wrapper">
                   <Image
-                    src="/images/05_cooking_mode.png"
-                    alt="TasteBuddy Cooking Mode"
-                    width={320}
-                    height={640}
-                    format="png"
-                    class="app-screenshot"
-                  />
-                </div>
-                <div class="screenshot-wrapper mt-8 sm:mt-12">
-                  <Image
-                    src="/images/06_dinner_mode.png"
-                    alt="TasteBuddy Dinner Mode"
-                    width={320}
-                    height={640}
-                    format="png"
-                    class="app-screenshot"
-                  />
-                </div>
-                <div class="screenshot-wrapper">
-                  <Image
-                    src="/images/07_shopping_list.png"
-                    alt="TasteBuddy Shopping List"
-                    width={320}
-                    height={640}
-                    format="png"
-                    class="app-screenshot"
-                  />
-                </div>
-                <div class="screenshot-wrapper mt-8 sm:mt-12">
-                  <Image
-                    src="/images/08_translation.png"
-                    alt="TasteBuddy Recipe Translation"
-                    width={320}
-                    height={640}
-                    format="png"
+                    src="/images/tastebuddy-meal-planning.webp"
+                    alt="Build a meal plan and grocery list from saved recipes in TasteBuddy"
+                    width={330}
+                    height={717}
+                    format="webp"
                     class="app-screenshot"
                   />
                 </div>
@@ -328,113 +328,115 @@ const faqStructuredData = {
         </div>
       </div>
 
-      <div class="max-w-4xl mx-auto border-t border-[#2A2D24]/40 my-12"></div>
-
-      <div class="max-w-4xl mx-auto border-t border-[#2A2D24]/40 my-12"></div>
+      <div class="tb-divider max-w-4xl mx-auto border-t my-12"></div>
 
       <section class="py-12 max-w-4xl mx-auto text-center px-4">
-        <h2 class="text-3xl font-bold text-white mb-12">Why TasteBuddy?</h2>
-        
-        <div class="relative">
-          <!-- Quote icon decoration -->
-          <div class="absolute -top-6 -left-6 text-[#00CE31]/20">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z" />
-            </svg>
-          </div>
-
-          <blockquote class="bg-[#1C2513]/50 backdrop-blur-sm border border-[#2A2D24]/50 rounded-3xl p-8 sm:p-12 relative z-10">
-            <p class="text-xl sm:text-2xl text-gray-200 mb-6 leading-relaxed font-medium">
-              &ldquo;I've added hundreds of recipes to the app, and I use it every day. It helps me plan my meals and writes my grocery list for me. It's made me fall back in love with cooking.&rdquo;
-            </p>
-            <footer class="flex items-center justify-center gap-4">
-              <div class="w-10 h-10 bg-gradient-to-br from-[#00CE31] to-[#00A025] rounded-full flex items-center justify-center text-black font-bold text-lg">
-                H
-              </div>
-              <div class="text-left">
-                <div class="text-white font-bold">Happy User</div>
-                <div class="text-[#00CE31] text-sm">Home Cook</div>
-              </div>
-            </footer>
-          </blockquote>
-        </div>
+        <h2 class="tb-text-strong text-3xl font-bold mb-6">Built for how recipes are saved now</h2>
+        <p class="tb-text-muted mx-auto max-w-3xl text-lg leading-relaxed">
+          Most recipe apps were built for typed recipe cards or web bookmarks. TasteBuddy is built for the modern mess: saved Reels, TikToks, screenshots, food blogs, notes, and handwritten cards that should become recipes you can actually cook.
+        </p>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
-          <div class="bg-[#1C2513]/30 border border-[#2A2D24]/30 rounded-2xl p-6">
-            <div class="text-3xl font-bold text-white mb-2">1000+</div>
-            <div class="text-gray-400 text-sm">Recipes Organized</div>
+          <div class="tb-card p-6">
+            <div class="tb-text-strong text-2xl font-bold mb-2">Social saves</div>
+            <div class="tb-text-muted text-sm">TikTok, Instagram, Pinterest, YouTube, and Facebook recipe links.</div>
           </div>
-          <div class="bg-[#1C2513]/30 border border-[#2A2D24]/30 rounded-2xl p-6">
-            <div class="text-3xl font-bold text-white mb-2">4.8/5</div>
-            <div class="text-gray-400 text-sm">App Store Rating</div>
+          <div class="tb-card p-6">
+            <div class="tb-text-strong text-2xl font-bold mb-2">Offline mess</div>
+            <div class="tb-text-muted text-sm">Screenshots, handwritten recipe cards, notes, and old cookbook photos.</div>
           </div>
-          <div class="bg-[#1C2513]/30 border border-[#2A2D24]/30 rounded-2xl p-6">
-            <div class="text-3xl font-bold text-white mb-2">3 days</div>
-            <div class="text-gray-400 text-sm">Free Trial</div>
+          <div class="tb-card p-6">
+            <div class="tb-text-strong text-2xl font-bold mb-2">Dinner workflow</div>
+            <div class="tb-text-muted text-sm">Search, meal planning, shopping lists, and cooking mode after import.</div>
           </div>
         </div>
       </section>
 
-      <div class="max-w-4xl mx-auto border-t border-[#2A2D24]/40 my-12"></div>
+      <div class="tb-divider max-w-4xl mx-auto border-t my-12"></div>
 
       <!-- FAQ Section -->
       <section id="faq" class="py-12 sm:py-16 max-w-4xl mx-auto px-4 scroll-mt-24">
-        <h2 class="text-3xl font-bold text-center text-white mb-12">
+        <h2 class="tb-text-strong text-3xl font-bold text-center mb-12">
           Frequently Asked Questions
         </h2>
         
         <div class="grid gap-6">
-          <div class="bg-[#1C2513]/40 rounded-2xl border border-[#2A2D24]/40 p-6 hover:bg-[#1C2513]/60 transition-colors">
-            <h3 class="text-lg font-bold text-white mb-3 flex items-start gap-3">
-              <span class="text-[#00CE31] mt-1">
+          <div class="tb-card p-6">
+            <h3 class="tb-text-strong text-lg font-bold mb-3 flex items-start gap-3">
+              <span class="tb-accent mt-1">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
                 </svg>
               </span>
-              Can I really save from *any* app?
+              What is TasteBuddy?
             </h3>
-            <p class="text-gray-400 ml-8 leading-relaxed">Yes! If you can see it on your screen, you can save it. Share directly from Instagram, TikTok, YouTube, or your browser. For physical cards, just snap a photo.</p>
+            <p class="tb-text-muted ml-8 leading-relaxed">TasteBuddy is a recipe organizer and meal planning app for people who save recipes across social media, websites, screenshots, handwritten cards, and notes. It turns saved recipe ideas into a searchable cookbook, meal plan, shopping list, and cooking view.</p>
           </div>
           
-          <div class="bg-[#1C2513]/40 rounded-2xl border border-[#2A2D24]/40 p-6 hover:bg-[#1C2513]/60 transition-colors">
-            <h3 class="text-lg font-bold text-white mb-3 flex items-start gap-3">
-              <span class="text-[#00CE31] mt-1">
+          <div class="tb-card p-6">
+            <h3 class="tb-text-strong text-lg font-bold mb-3 flex items-start gap-3">
+              <span class="tb-accent mt-1">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
                 </svg>
               </span>
-              Is it actually free?
+              Can I save recipes from TikTok and Instagram?
             </h3>
-            <p class="text-gray-400 ml-8 leading-relaxed">TasteBuddy is 100% free to start. You get all the core features—saving recipes, meal planning, and grocery lists—without paying a cent. We have optional premium features for power users.</p>
+            <p class="tb-text-muted ml-8 leading-relaxed">Yes. Share a TikTok, Instagram, Pinterest, YouTube, Facebook, or website recipe to TasteBuddy, or paste the link. TasteBuddy extracts the recipe into clear ingredients, steps, and photos.</p>
           </div>
           
-          <div class="bg-[#1C2513]/40 rounded-2xl border border-[#2A2D24]/40 p-6 hover:bg-[#1C2513]/60 transition-colors">
-            <h3 class="text-lg font-bold text-white mb-3 flex items-start gap-3">
-              <span class="text-[#00CE31] mt-1">
+          <div class="tb-card p-6">
+            <h3 class="tb-text-strong text-lg font-bold mb-3 flex items-start gap-3">
+              <span class="tb-accent mt-1">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
                 </svg>
               </span>
-              Does it sync across my devices?
+              How does TasteBuddy help me cook recipes I already saved?
             </h3>
-            <p class="text-gray-400 ml-8 leading-relaxed">Seamlessly. Start planning on your iPad, check your list on your Android phone at the store, and cook with your iPhone. Your account stays in sync everywhere.</p>
+            <p class="tb-text-muted ml-8 leading-relaxed">TasteBuddy keeps your saved recipes searchable, then helps you plan meals from them, send ingredients to a shopping list, and cook from step-by-step instructions.</p>
+          </div>
+
+          <div class="tb-card p-6">
+            <h3 class="tb-text-strong text-lg font-bold mb-3 flex items-start gap-3">
+              <span class="tb-accent mt-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              Does TasteBuddy make shopping lists from recipes?
+            </h3>
+            <p class="tb-text-muted ml-8 leading-relaxed">Yes. Add saved recipes to a meal plan and use the ingredients to build a shopping list, so recipe saves become groceries you can actually buy.</p>
+          </div>
+
+          <div class="tb-card p-6">
+            <h3 class="tb-text-strong text-lg font-bold mb-3 flex items-start gap-3">
+              <span class="tb-accent mt-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              Is TasteBuddy a meal prep app?
+            </h3>
+            <p class="tb-text-muted ml-8 leading-relaxed">TasteBuddy is more flexible than a rigid meal prep app. It is built for people who save recipes all week and want an easier way to decide what to cook, shop for the ingredients, and start cooking.</p>
           </div>
         </div>
       </section>
 
-      <div class="max-w-4xl mx-auto border-t border-[#2A2D24]/40 my-12"></div>
+      <div class="tb-divider max-w-4xl mx-auto border-t my-12"></div>
 
       <!-- Final CTA -->
       <section class="py-12">
-        <div class="bg-gradient-to-r from-[#00CE31]/40 to-[#00CE31]/30 rounded-3xl p-8 sm:p-12 max-w-4xl mx-auto text-center backdrop-blur-sm border border-[#00CE31]/30">
-          <h2 class="text-3xl font-bold text-white mb-4">Ready to simplify your cooking?</h2>
-          <p class="text-xl text-gray-200">
-            Save recipes from anywhere, plan meals with ease and get organized grocery lists&mdash;all in one app.
+        <div class="tb-cta-panel p-8 sm:p-12 max-w-4xl mx-auto text-center">
+          <h2 class="text-3xl font-bold mb-4">Cook the recipes you already saved</h2>
+          <p class="text-xl">
+            Save recipes from anywhere, find them again, plan dinner, and build the shopping list in one app.
           </p>
         </div>
       </section>
     </section>
   </Main>
+  </div>
 </Layout>
 
 <script type="application/ld+json" set:html={JSON.stringify(mobileAppStructuredData)} />
@@ -452,7 +454,7 @@ const faqStructuredData = {
   
   @media (min-width: 768px) {
     .screenshots-grid {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
     }
   }
   
@@ -460,13 +462,13 @@ const faqStructuredData = {
     position: relative;
     border-radius: 1.5rem;
     overflow: hidden;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--tb-shadow-md);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
   .screenshot-wrapper:hover {
     transform: translateY(-5px);
-    box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--tb-shadow-md);
   }
   
   .app-screenshot {
@@ -474,7 +476,7 @@ const faqStructuredData = {
     width: 100%;
     height: auto;
     display: block;
-    border: 3px solid #2A2D24;
+    border: 3px solid var(--tb-border);
   }
   
   @media (max-width: 640px) {
@@ -507,5 +509,17 @@ const faqStructuredData = {
   
   .phone-carousel {
     animation: float 6s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .phone-carousel {
+      animation: none;
+    }
+
+    .screenshot-wrapper,
+    .screenshot-wrapper:hover {
+      transform: none;
+      transition: none;
+    }
   }
 </style>

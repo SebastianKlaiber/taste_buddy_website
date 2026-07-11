@@ -110,6 +110,7 @@ export interface ArticleRecord {
   source_refs: string[];
   publish_status: 'draft' | 'approved';
   canonical_url: string;
+  seo_title: string;
   title: string;
   description: string;
   date: string;

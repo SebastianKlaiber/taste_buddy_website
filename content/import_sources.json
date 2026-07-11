@@ -12,10 +12,10 @@
       "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/docs/tiktok_strategy.md"
     ],
     "claims": [
-      "TikTok is the largest single import source in TasteBuddy's internal dataset.",
-      "TasteBuddy supports TikTok recipe capture and conversion into a structured recipe workflow."
+      "TasteBuddy supports TikTok recipe capture and conversion into a structured recipe workflow.",
+      "TasteBuddy can turn saved TikTok recipes into clean recipe cards, meal plans, shopping lists, and cooking steps."
     ],
-    "cta_variant": "save_from_anywhere",
+    "cta_variant": "save-from-anywhere",
     "last_reviewed_at": "2026-04-10",
     "source_name": "TikTok",
     "supported_workflows": [
@@ -38,8 +38,8 @@
       }
     ],
     "proof_points": [
-      "TikTok accounts for 30% of the tracked import source mix in the internal metrics snapshot.",
-      "77% of tracked imports come from URLs rather than manual entry."
+      "TasteBuddy supports TikTok URL sharing and manual link paste workflows.",
+      "Imported recipes can stay searchable, move into a weekly plan, and feed a shopping list."
     ]
   },
   {
@@ -55,10 +55,10 @@
       "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/docs/tiktok_strategy.md"
     ],
     "claims": [
-      "TikTok ist die groesste einzelne Importquelle in TasteBuddys internem Snapshot.",
-      "TasteBuddy unterstuetzt TikTok-Rezeptimporte und ueberfuehrt sie in einen strukturierten Rezept-Workflow."
+      "TasteBuddy unterstuetzt TikTok-Rezeptimporte und ueberfuehrt sie in einen strukturierten Rezept-Workflow.",
+      "TasteBuddy kann gespeicherte TikTok-Rezepte in Rezeptkarten, Wochenplaene, Einkaufslisten und Kochschritte verwandeln."
     ],
-    "cta_variant": "save_from_anywhere",
+    "cta_variant": "save-from-anywhere",
     "last_reviewed_at": "2026-04-10",
     "source_name": "TikTok",
     "supported_workflows": [
@@ -81,8 +81,8 @@
       }
     ],
     "proof_points": [
-      "TikTok macht 30% des erfassten Importmixes im internen Snapshot aus.",
-      "77% der erfassten Importe kommen ueber URLs statt manueller Eingabe."
+      "TasteBuddy unterstuetzt TikTok-Link-Sharing und manuelles Einfuegen von Links.",
+      "Importierte Rezepte bleiben durchsuchbar und koennen in Wochenplan und Einkaufsliste weiterverwendet werden."
     ]
   },
   {
@@ -101,7 +101,7 @@
       "TasteBuddy supports recipe import from Pinterest and food blogs.",
       "The product is designed to turn saved inspiration into a weekly plan and shopping list."
     ],
-    "cta_variant": "organize_recipes",
+    "cta_variant": "organize-recipes",
     "last_reviewed_at": "2026-04-10",
     "source_name": "Pinterest",
     "supported_workflows": [
@@ -140,7 +140,7 @@
       "TasteBuddy unterstuetzt Rezeptimporte aus Pinterest und Food-Blogs.",
       "Das Produkt ist darauf ausgelegt, Inspiration in Planung und Einkauf zu verwandeln."
     ],
-    "cta_variant": "organize_recipes",
+    "cta_variant": "organize-recipes",
     "last_reviewed_at": "2026-04-10",
     "source_name": "Pinterest",
     "supported_workflows": [
@@ -178,7 +178,7 @@
       "TasteBuddy supports importing recipes from Notion databases.",
       "The Notion import flow is built around selecting a database and importing recipe pages."
     ],
-    "cta_variant": "organize_recipes",
+    "cta_variant": "organize-recipes",
     "last_reviewed_at": "2026-04-10",
     "source_name": "Notion",
     "supported_workflows": [
@@ -216,7 +216,7 @@
       "TasteBuddy unterstuetzt den Import aus Notion-Datenbanken.",
       "Der Import-Flow basiert auf Datenbankauswahl und gezieltem Import."
     ],
-    "cta_variant": "organize_recipes",
+    "cta_variant": "organize-recipes",
     "last_reviewed_at": "2026-04-10",
     "source_name": "Notion",
     "supported_workflows": [
@@ -254,7 +254,7 @@
       "TasteBuddy supports importing recipe markdown files from an Obsidian vault.",
       "The import flow is built around selecting folders and choosing recipe files."
     ],
-    "cta_variant": "organize_recipes",
+    "cta_variant": "organize-recipes",
     "last_reviewed_at": "2026-04-10",
     "source_name": "Obsidian",
     "supported_workflows": [
@@ -292,7 +292,7 @@
       "TasteBuddy unterstuetzt den Import von Rezept-Markdown-Dateien aus einem Obsidian Vault.",
       "Der Flow basiert auf Ordnerauswahl und Dateiauswahl."
     ],
-    "cta_variant": "organize_recipes",
+    "cta_variant": "organize-recipes",
     "last_reviewed_at": "2026-04-10",
     "source_name": "Obsidian",
     "supported_workflows": [

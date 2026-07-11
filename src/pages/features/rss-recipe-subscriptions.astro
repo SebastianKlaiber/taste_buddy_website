@@ -1,7 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Main from "../../components/Main.astro";
-import { AstroSeo } from '@astrolib/seo';
 
 // Schema.org structured data for Software Application feature
 const structuredData = {
@@ -9,7 +8,7 @@ const structuredData = {
   "@type": "WebPage",
   "name": "RSS Recipe Subscriptions - TasteBuddy Feature",
   "description": "Follow your favorite food blogs and recipe websites with RSS subscriptions in TasteBuddy. Never miss new recipes from your favorite food bloggers again.",
-  "url": "https://tastebuddy.app/features/rss-recipe-subscriptions/",
+  "url": "https://taste-buddy.app/features/rss-recipe-subscriptions/",
   "isPartOf": {
     "@type": "MobileApplication",
     "name": "TasteBuddy",
@@ -37,34 +36,12 @@ const structuredData = {
     "screenshot": "/images/features/rss-subscriptions-screenshot.jpg"
   }
 };
+
+const description =
+  "Follow favorite food blogs with RSS recipe subscriptions in TasteBuddy and import new recipes into your collection.";
 ---
 
-<AstroSeo
-  title="RSS Recipe Subscriptions - Never Miss New Recipes | TasteBuddy"
-  description="Follow your favorite food blogs automatically with TasteBuddy's RSS recipe subscriptions. Get instant notifications when new recipes are published. Subscribe to unlimited recipe websites."
-  canonical="https://tastebuddy.app/features/rss-recipe-subscriptions/"
-  openGraph={{
-    title: 'RSS Recipe Subscriptions - Follow Food Blogs Automatically',
-    description: 'Never miss another recipe from your favorite food bloggers. TasteBuddy monitors recipe websites and notifies you instantly when new content is published.',
-    url: 'https://tastebuddy.app/features/rss-recipe-subscriptions/',
-    images: [
-      {
-        url: '/images/features/rss-subscriptions-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'TasteBuddy RSS Recipe Subscriptions Feature',
-      },
-    ],
-    site_name: 'TasteBuddy',
-  }}
-  twitter={{
-    handle: '@tastebuddyapp',
-    site: '@tastebuddyapp',
-    cardType: 'summary_large_image',
-  }}
-/>
-
-<Layout title="RSS Recipe Subscriptions - Follow Food Blogs Automatically | TasteBuddy">
+<Layout title="RSS Recipe Subscriptions - Follow Food Blogs Automatically | TasteBuddy" description={description}>
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   
   <Main>
@@ -85,7 +62,7 @@ const structuredData = {
             One-tap import to your TasteBuddy collection.
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/download" class="px-8 py-4 bg-[#00CE31] text-black font-semibold rounded-full hover:bg-[#00CE31]/90 transition-colors inline-flex items-center justify-center">
+            <a href="/download/" class="px-8 py-4 bg-[#00CE31] text-black font-semibold rounded-full hover:bg-[#00CE31]/90 transition-colors inline-flex items-center justify-center">
               Try RSS Subscriptions Free
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -360,17 +337,17 @@ const structuredData = {
             Start Following Your Favorite Food Blogs Today
           </h2>
           <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Join thousands of home cooks who never miss a recipe from their favorite food bloggers. 
+            Follow your favorite food blogs and keep new recipes in the same place you plan, shop, and cook.
             RSS subscriptions are available free in TasteBuddy.
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/download" class="px-8 py-4 bg-[#00CE31] text-black font-semibold rounded-full hover:bg-[#00CE31]/90 transition-colors inline-flex items-center justify-center">
+            <a href="/download/" class="px-8 py-4 bg-[#00CE31] text-black font-semibold rounded-full hover:bg-[#00CE31]/90 transition-colors inline-flex items-center justify-center">
               Download TasteBuddy Free
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
               </svg>
             </a>
-            <a href="/features" class="px-8 py-4 bg-white/10 text-white font-semibold rounded-full hover:bg-white/20 transition-colors backdrop-blur-sm border border-white/20 inline-flex items-center justify-center">
+            <a href="/features/" class="px-8 py-4 bg-white/10 text-white font-semibold rounded-full hover:bg-white/20 transition-colors backdrop-blur-sm border border-white/20 inline-flex items-center justify-center">
               See All Features
             </a>
           </div>

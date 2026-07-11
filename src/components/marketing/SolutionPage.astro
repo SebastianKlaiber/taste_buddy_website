@@ -1,5 +1,4 @@
 ---
-import { AstroSeo } from '@astrolib/seo';
 import type { Locale, SolutionRecord } from '../../lib/marketing/types';
 import { buildAlternates } from '../../lib/marketing/app-links';
 import Layout from '../../layouts/Layout.astro';
@@ -31,29 +30,44 @@ const labels = {
     problem: 'The underlying problem',
     outcomes: 'What a better system changes',
     steps: 'A better workflow',
+    proof: 'How TasteBuddy supports this workflow',
+    faq: 'Common questions',
+    questionOne: 'Why is this problem hard to solve with bookmarks alone?',
+    questionTwo: 'What should I do first?',
   },
   de: {
     problem: 'Das eigentliche Problem',
     outcomes: 'Was ein besseres System veraendert',
     steps: 'Ein besserer Workflow',
+    proof: 'Wie TasteBuddy diesen Workflow unterstuetzt',
+    faq: 'Haeufige Fragen',
+    questionOne: 'Warum loesen Bookmarks dieses Problem nicht allein?',
+    questionTwo: 'Was ist der erste Schritt?',
   },
 } as const;
 
 const pagePath = locale === 'de' ? `/de/solutions/${record.slug}/` : `/solutions/${record.slug}/`;
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: labels[locale].questionOne,
+      acceptedAnswer: { '@type': 'Answer', text: record.problem },
+    },
+    {
+      '@type': 'Question',
+      name: labels[locale].questionTwo,
+      acceptedAnswer: { '@type': 'Answer', text: record.steps[0] },
+    },
+  ],
+};
 ---
-
-<AstroSeo
-  title={`${record.title} | TasteBuddy`}
-  description={record.description}
-  openGraph={{
-    title: record.title,
-    description: record.description,
-    images: [{ url: '/images/screenshots.png' }],
-  }}
-/>
 
 <Layout title={record.title} description={record.description} alternates={buildAlternates(pagePath)}>
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
   <Main>
     <article class="max-w-5xl mx-auto py-12">
       <header class="mb-12 rounded-3xl border border-[#2A2D24]/30 bg-[#1C2513]/80 p-8">
@@ -81,7 +95,7 @@ const pagePath = locale === 'de' ? `/de/solutions/${record.slug}/` : `/solutions
         </ul>
       </section>
 
-      <section class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+      <section class="mb-10 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
         <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].steps}</h2>
         <ol class="space-y-4 text-gray-300">
           {record.steps.map((step, index) => (
@@ -93,6 +107,29 @@ const pagePath = locale === 'de' ? `/de/solutions/${record.slug}/` : `/solutions
             </li>
           ))}
         </ol>
+      </section>
+
+      <section class="mb-10 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].proof}</h2>
+        <ul class="space-y-3 text-gray-300">
+          {record.claims.map((claim) => (
+            <li>{claim}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].faq}</h2>
+        <div class="space-y-6 text-gray-300">
+          <div>
+            <h3 class="mb-2 text-lg font-semibold text-white">{labels[locale].questionOne}</h3>
+            <p>{record.problem}</p>
+          </div>
+          <div>
+            <h3 class="mb-2 text-lg font-semibold text-white">{labels[locale].questionTwo}</h3>
+            <p>{record.steps[0]}</p>
+          </div>
+        </div>
       </section>
     </article>
   </Main>

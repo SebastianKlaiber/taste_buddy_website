@@ -1,7 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Main from "../../components/Main.astro";
-import { AstroSeo } from '@astrolib/seo';
 
 export const prerender = true;
 
@@ -169,17 +168,7 @@ const structuredData = {
 };
 ---
 
-<AstroSeo
-  title={`${guideData.title} | TasteBuddy`}
-  description={guideData.description}
-  openGraph={{
-    title: guideData.title,
-    description: guideData.description,
-    images: [{ url: '/images/screenshots.png' }],
-  }}
-/>
-
-<Layout title={guideData.title}>
+<Layout title={guideData.title} description={guideData.description}>
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   
   <Main>
@@ -390,4 +379,4 @@ const structuredData = {
   .btn-secondary {
     @apply bg-[#1C2513] hover:bg-[#2A2D24] border border-[#2A2D24] text-white font-medium py-3 px-6 rounded-lg transition-all duration-300;
   }
-</style> 
+</style>

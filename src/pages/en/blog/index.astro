@@ -1,7 +1,6 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import Main from "../../../components/Main.astro";
-import { AstroSeo } from '@astrolib/seo';
 import { listArticles } from '../../../lib/marketing/articles';
 
 // Get all blog posts
@@ -16,18 +15,12 @@ const automatedArticles = listArticles('en');
 // Get current path for language switcher
 const { pathname } = Astro.url;
 const dePath = pathname.replace("/en/", "/de/");
+
+const description =
+  "Read TasteBuddy cooking tips, recipe organization strategies, meal planning guides, and product updates.";
 ---
 
-<AstroSeo
-  title="TasteBuddy Blog - Cooking Tips & Updates"
-  description="Read the latest cooking tips, recipe organization strategies, and app updates from the TasteBuddy team."
-  openGraph={{
-    title: 'TasteBuddy Blog',
-    description: 'Cooking tips, recipe organization strategies, and app updates from the TasteBuddy team.',
-  }}
-/>
-
-<Layout title="TasteBuddy Blog">
+<Layout title="TasteBuddy Blog - Cooking Tips & Recipe Organization" description={description}>
   <Main>
     <!-- Language Switcher -->
     <div class="absolute top-6 right-6 z-10">
@@ -98,18 +91,18 @@ const dePath = pathname.replace("/en/", "/de/");
               <p class="text-gray-400 text-sm">Learn what features to look for in modern recipe management applications.</p>
             </a>
 
-            <!-- Food Waste Prevention -->
-            <a href="/solutions/food-waste-prevention/" class="block bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm hover:border-[#2A2D24]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#00CE31]/10">
-              <div class="text-2xl mb-3">🗑️</div>
-              <h3 class="text-lg font-semibold text-white mb-2">Stop Food Waste & Save $2,913</h3>
-              <p class="text-gray-400 text-sm">Proven strategies to prevent food waste and save thousands annually.</p>
+            <!-- Shopping List Workflow -->
+            <a href="/solutions/recipe-app-with-shopping-list/" class="block bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm hover:border-[#2A2D24]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#00CE31]/10">
+              <div class="text-2xl mb-3">🛒</div>
+              <h3 class="text-lg font-semibold text-white mb-2">Recipe App With Shopping List</h3>
+              <p class="text-gray-400 text-sm">Turn saved recipes into practical grocery lists and meal plans.</p>
             </a>
 
-            <!-- Pantry Organization -->
-            <a href="/solutions/pantry-organization/" class="block bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm hover:border-[#2A2D24]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#00CE31]/10">
+            <!-- Saved Recipe Systems -->
+            <a href="/solutions/organize-saved-recipes/" class="block bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm hover:border-[#2A2D24]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#00CE31]/10">
               <div class="text-2xl mb-3">📦</div>
-              <h3 class="text-lg font-semibold text-white mb-2">Pantry Organization Guide</h3>
-              <p class="text-gray-400 text-sm">Transform your chaotic pantry into an organized, efficient system.</p>
+              <h3 class="text-lg font-semibold text-white mb-2">Saved Recipe Systems</h3>
+              <p class="text-gray-400 text-sm">Move recipes out of scattered saves and into one searchable library.</p>
             </a>
           </div>
 

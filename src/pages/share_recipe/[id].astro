@@ -1,145 +1,379 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Main from "../../components/Main.astro";
-import { AstroSeo } from '@astrolib/seo';
+import { getSharedRecipeById } from "../../lib/supabase";
 
-// Enable SSR so any recipe ID works (not just hardcoded ones)
 export const prerender = false;
 
-// Get the ID from params
 const { id } = Astro.params;
+const shareId = String(id ?? '').trim();
+const shareUrl = `https://taste-buddy.app/share_recipe/${shareId}`;
 
-// App store URLs
-const iosStoreUrl = 'https://apps.apple.com/us/app/recipe-saver-tastebuddy/id6554007741';
+const iosStoreUrl = 'https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=SharedRecipe&mt=8';
 const androidStoreUrl = 'https://play.google.com/store/apps/details?id=app.tastebuddy';
 
-// Define page title and description
-const pageTitle = "Open this recipe in TasteBuddy";
-const pageDescription = "Download TasteBuddy and open this link again to view the recipe in the app.";
+const sharedRecipe = shareId ? await getSharedRecipeById(shareId) : null;
+const recipe = sharedRecipe?.recipe ?? null;
+
+const asArray = (value) => Array.isArray(value) ? value : [];
+
+const formatNumber = (value) => {
+  if (typeof value !== 'number' || !Number.isFinite(value)) {
+    return '';
+  }
+
+  const whole = Math.trunc(value);
+  const fraction = value - whole;
+  const commonFractions = [
+    [0.25, '1/4'],
+    [0.33, '1/3'],
+    [0.5, '1/2'],
+    [0.66, '2/3'],
+    [0.75, '3/4'],
+  ];
+  const match = commonFractions.find(([decimal]) => Math.abs(fraction - decimal) < 0.01);
+
+  if (match) {
+    return whole > 0 ? `${whole} ${match[1]}` : match[1];
+  }
+
+  return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
+};
+
+const compactText = (value) => typeof value === 'string' ? value.trim() : '';
+const recipeLanguage = compactText(recipe?.source_language).toLowerCase();
+const rawRecipeText = JSON.stringify(recipe ?? '').toLowerCase();
+const looksGerman = /[äöüß]/i.test(rawRecipeText)
+  || /\b(zutaten|zubereitung|schneide|koche|wasche|rühre|öffne|öl|für)\b/i.test(rawRecipeText);
+const isGermanRecipe = recipeLanguage.startsWith('de') || (!recipeLanguage && looksGerman);
+
+const labels = isGermanRecipe ? {
+  sharedRecipe: 'Geteiltes TasteBuddy-Rezept',
+  ingredients: 'Zutaten',
+  preparation: 'Zubereitung',
+  recipeDetail: 'Rezeptdetail',
+  prep: 'Vorbereitung',
+  cook: 'Kochzeit',
+  rest: 'Ruhezeit',
+  servings: 'Portionen',
+  moreIngredients: 'weitere Zutaten in TasteBuddy',
+  moreSteps: 'weitere Schritte in TasteBuddy',
+  ingredientsFallback: 'Öffne TasteBuddy, um die Zutatenliste anzusehen.',
+  preparationFallback: 'Öffne TasteBuddy, um die vollständige Zubereitung anzusehen.',
+  saveTitle: 'Vollständiges Rezept speichern',
+  saveBody: 'Öffne diesen Link in TasteBuddy, um das Rezept in deinem Kochbuch zu speichern. Wenn du die App noch nicht hast, installiere sie und kehre zu dieser Seite zurück.',
+  openInApp: 'In TasteBuddy öffnen',
+  copyHint: 'Der Rezeptlink wird kopiert, wenn du diese Buttons nutzt, damit du nach der Installation wieder zu dieser Vorschau zurückkommst.',
+  unavailableEyebrow: 'TasteBuddy-Rezept',
+  unavailableTitle: 'Dieses geteilte Rezept ist nicht mehr verfügbar',
+  unavailableBody: 'Der Link ist möglicherweise abgelaufen oder das Rezept wurde entfernt. Du kannst TasteBuddy trotzdem installieren, um eigene Rezepte zu speichern und zu organisieren.',
+} : {
+  sharedRecipe: 'Shared TasteBuddy recipe',
+  ingredients: 'Ingredients',
+  preparation: 'Preparation',
+  recipeDetail: 'Recipe detail',
+  prep: 'Prep',
+  cook: 'Cook',
+  rest: 'Rest',
+  servings: 'servings',
+  moreIngredients: 'more ingredients in TasteBuddy',
+  moreSteps: 'more steps in TasteBuddy',
+  ingredientsFallback: 'Open TasteBuddy to view the ingredient list.',
+  preparationFallback: 'Open TasteBuddy to view the full preparation.',
+  saveTitle: 'Save the full recipe',
+  saveBody: 'Open this link in TasteBuddy to add the recipe to your cookbook. If you do not have the app yet, install it and return to this page.',
+  openInApp: 'Open in TasteBuddy',
+  copyHint: 'The recipe link is copied when you use these buttons, so you can come back to the same preview after installing.',
+  unavailableEyebrow: 'TasteBuddy recipe',
+  unavailableTitle: 'This shared recipe is no longer available',
+  unavailableBody: 'The link may have expired or the recipe owner may have removed it. You can still install TasteBuddy to save and organize your own recipes.',
+};
+
+const formatUnit = (unit) => {
+  const text = compactText(unit);
+  const normalized = text.toLowerCase();
+
+  if (!isGermanRecipe) {
+    return text;
+  }
+
+  return {
+    tbsp: 'EL',
+    tablespoon: 'EL',
+    tablespoons: 'EL',
+    tsp: 'TL',
+    teaspoon: 'TL',
+    teaspoons: 'TL',
+    cup: 'Tasse',
+    cups: 'Tassen',
+  }[normalized] ?? text;
+};
+
+const formatTime = (value) => {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return `${value} min`;
+  }
+
+  return compactText(value);
+};
+
+const formatIngredient = (ingredient) => {
+  if (typeof ingredient === 'string') {
+    return ingredient.trim();
+  }
+
+  if (!ingredient || typeof ingredient !== 'object') {
+    return '';
+  }
+
+  const quantity = compactText(ingredient.quantity_text) || formatNumber(ingredient.quantity);
+  const unit = formatUnit(ingredient.unit);
+  const name = compactText(ingredient.name);
+  const note = compactText(ingredient.note);
+  const line = [quantity, unit, name].filter(Boolean).join(' ').trim();
+
+  return note ? `${line} (${note})` : line;
+};
+
+const sortInstructions = (items) => [...items].sort((a, b) => {
+  const aStep = typeof a?.step_number === 'number' ? a.step_number : 0;
+  const bStep = typeof b?.step_number === 'number' ? b.step_number : 0;
+  return aStep - bStep;
+});
+
+const sectionIngredients = asArray(recipe?.sections)
+  .flatMap((section) => asArray(section?.recipe_ingredients));
+const flatIngredients = asArray(recipe?.recipe_ingredients).length > 0
+  ? asArray(recipe.recipe_ingredients)
+  : asArray(recipe?.ingredients);
+const ingredients = (sectionIngredients.length > 0 ? sectionIngredients : flatIngredients)
+  .map(formatIngredient)
+  .filter(Boolean);
+const ingredientPreview = ingredients.slice(0, 8);
+const extraIngredientCount = Math.max(ingredients.length - ingredientPreview.length, 0);
+
+const instructions = sortInstructions(asArray(recipe?.instructions))
+  .map((instruction) => typeof instruction === 'string'
+    ? instruction.trim()
+    : compactText(instruction?.text) || compactText(instruction?.instruction))
+  .filter(Boolean);
+const instructionPreview = instructions.slice(0, 4);
+const extraInstructionCount = Math.max(instructions.length - instructionPreview.length, 0);
+
+const title = compactText(recipe?.title) || 'Shared recipe';
+const description = compactText(recipe?.description);
+const imageUrl = compactText(recipe?.image_url) || compactText(recipe?.imageUrl);
+const servings = recipe?.servings ? `${recipe.servings} ${labels.servings}` : '';
+const cookTime = formatTime(recipe?.cook_time ?? recipe?.cookTime ?? recipe?.cooking_time);
+const prepTime = formatTime(recipe?.prep_time ?? recipe?.prepTime ?? recipe?.preparation_time);
+const restTime = formatTime(recipe?.rest_time ?? recipe?.restTime);
+const metaItems = [
+  prepTime ? `${labels.prep} ${prepTime}` : '',
+  cookTime ? `${labels.cook} ${cookTime}` : '',
+  restTime ? `${labels.rest} ${restTime}` : '',
+  servings,
+].filter(Boolean);
+
+const pageTitle = recipe ? `${title} | TasteBuddy` : 'Open this recipe in TasteBuddy';
+const pageDescription = recipe
+  ? description || 'Preview this shared recipe and save the full recipe in TasteBuddy.'
+  : 'This shared TasteBuddy recipe is no longer available.';
 ---
 
-<AstroSeo
-  title={pageTitle}
-  description={pageDescription}
-  openGraph={{
-    title: "TasteBuddy - Save and organize your favorite recipes",
-    description: pageDescription,
-    images: [{ url: '/images/recipe-preview.png' }],
-  }}
-/>
-
-<Layout title={pageTitle}>
+<Layout title={pageTitle} description={pageDescription}>
   <Main>
-    <section class="relative overflow-hidden py-8 sm:py-12">
-      <div class="max-w-3xl mx-auto px-4 sm:px-6">
-        <!-- App Download Message -->
-        <div class="text-center mb-8">
-          <span class="inline-block text-6xl mb-6">🍳</span>
-          <h1 class="text-3xl sm:text-4xl font-bold text-white mb-6">View Recipe in the App</h1>
-          <p class="text-xl text-gray-300 mb-6">This recipe can be viewed in the TasteBuddy app.</p>
-          
-          <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-6 sm:p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm mb-8">
-            <h2 class="text-2xl font-bold text-white mb-4 text-left">How to open the recipe:</h2>
-            <ol class="text-left text-gray-200 mb-6 space-y-4 list-decimal pl-5">
-              <li>Download the TasteBuddy app</li>
-              <li>Open this link again</li>
-              <li>Tap "Open in App" when prompted</li>
-            </ol>
-            
-            <p class="text-lg text-gray-300 mb-6 text-left">
-              With TasteBuddy you can:
+    <section class="py-8 sm:py-12">
+      <div class="mx-auto max-w-5xl px-4 sm:px-6">
+        {recipe ? (
+          <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+            <article class="min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-[#11180F] shadow-2xl shadow-black/20">
+              {imageUrl && (
+                <div class="aspect-[16/9] w-full overflow-hidden bg-[#1C2513]">
+                  <img
+                    src={imageUrl}
+                    alt=""
+                    class="h-full w-full object-cover"
+                    loading="eager"
+                  />
+                </div>
+              )}
+
+              <div class="p-5 sm:p-8">
+                <p class="mb-3 text-sm font-semibold uppercase tracking-wide text-[#00CE31]">
+                  {labels.sharedRecipe}
+                </p>
+                <h1 class="text-3xl font-bold leading-tight text-white sm:text-4xl">
+                  {title}
+                </h1>
+
+                {description && (
+                  <p class="mt-4 text-lg leading-8 text-gray-300">
+                    {description}
+                  </p>
+                )}
+
+                {metaItems.length > 0 && (
+                  <dl class="mt-6 flex flex-wrap gap-2 text-sm text-gray-200">
+                    {metaItems.map((item) => (
+                      <div class="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                        <dt class="sr-only">{labels.recipeDetail}</dt>
+                        <dd>{item}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+
+                <div class="mt-8 grid gap-8 md:grid-cols-2">
+                  <section>
+                    <h2 class="text-xl font-semibold text-white">{labels.ingredients}</h2>
+                    {ingredientPreview.length > 0 ? (
+                      <ul class="mt-4 space-y-3 text-gray-200">
+                        {ingredientPreview.map((ingredient) => (
+                          <li class="flex gap-3">
+                            <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#00CE31]"></span>
+                            <span>{ingredient}</span>
+                          </li>
+                        ))}
+                        {extraIngredientCount > 0 && (
+                          <li class="text-sm text-gray-400">
+                            {isGermanRecipe ? `${extraIngredientCount} ${labels.moreIngredients}` : `and ${extraIngredientCount} ${labels.moreIngredients}`}
+                          </li>
+                        )}
+                      </ul>
+                    ) : (
+                      <p class="mt-4 text-gray-400">{labels.ingredientsFallback}</p>
+                    )}
+                  </section>
+
+                  <section>
+                    <h2 class="text-xl font-semibold text-white">{labels.preparation}</h2>
+                    {instructionPreview.length > 0 ? (
+                      <ol class="mt-4 space-y-4 text-gray-200">
+                        {instructionPreview.map((instruction, index) => (
+                          <li class="grid grid-cols-[28px_minmax(0,1fr)] gap-3">
+                            <span class="flex h-7 w-7 items-center justify-center rounded-full bg-[#00CE31] text-sm font-bold text-[#0B1209]">
+                              {index + 1}
+                            </span>
+                            <span class="leading-7">{instruction}</span>
+                          </li>
+                        ))}
+                        {extraInstructionCount > 0 && (
+                          <li class="text-sm text-gray-400">
+                            {isGermanRecipe ? `${extraInstructionCount} ${labels.moreSteps}` : `${extraInstructionCount} ${labels.moreSteps}`}
+                          </li>
+                        )}
+                      </ol>
+                    ) : (
+                      <p class="mt-4 text-gray-400">{labels.preparationFallback}</p>
+                    )}
+                  </section>
+                </div>
+              </div>
+            </article>
+
+            <aside class="rounded-2xl border border-[#00CE31]/20 bg-[#1C2513] p-5 shadow-xl shadow-black/20 sm:p-6 lg:sticky lg:top-6">
+              <h2 class="text-2xl font-bold text-white">{labels.saveTitle}</h2>
+              <p class="mt-3 leading-7 text-gray-300">
+                {labels.saveBody}
+              </p>
+
+              <a
+                href={shareUrl}
+                data-copy-share-link
+                class="mt-6 inline-flex w-full items-center justify-center rounded-lg bg-[#00CE31] px-5 py-3 text-center font-semibold text-[#0B1209] transition hover:bg-[#18DF48]"
+              >
+                {labels.openInApp}
+              </a>
+
+              <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+                <a
+                  href={iosStoreUrl}
+                  data-copy-share-link
+                  aria-label="Download TasteBuddy on the App Store"
+                  class="flex min-h-14 items-center justify-center rounded-lg border border-white/10 bg-black px-4 transition hover:border-white/25"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="/images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+                    alt="Download on the App Store"
+                    class="h-10"
+                    loading="lazy"
+                  />
+                </a>
+                <a
+                  href={androidStoreUrl}
+                  data-copy-share-link
+                  aria-label="Get TasteBuddy on Google Play"
+                  class="flex min-h-14 items-center justify-center rounded-lg border border-white/10 bg-black px-4 transition hover:border-white/25"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="/images/Google_Play_Badge.png"
+                    alt="Get it on Google Play"
+                    class="h-10"
+                    loading="lazy"
+                  />
+                </a>
+              </div>
+
+              <p class="mt-5 text-sm leading-6 text-gray-400">
+                {labels.copyHint}
+              </p>
+            </aside>
+          </div>
+        ) : (
+          <div class="mx-auto max-w-2xl rounded-2xl border border-white/10 bg-[#11180F] p-6 text-center shadow-2xl shadow-black/20 sm:p-8">
+            <p class="text-sm font-semibold uppercase tracking-wide text-[#00CE31]">{labels.unavailableEyebrow}</p>
+            <h1 class="mt-3 text-3xl font-bold text-white">{labels.unavailableTitle}</h1>
+            <p class="mt-4 leading-7 text-gray-300">
+              {labels.unavailableBody}
             </p>
-            <ul class="text-left text-gray-200 mb-6 space-y-2">
-              <li class="flex items-start">
-                <span class="text-[#00CE31] mr-2">✓</span> 
-                <span>Save recipes from anywhere on the internet</span>
-              </li>
-              <li class="flex items-start">
-                <span class="text-[#00CE31] mr-2">✓</span> 
-                <span>Create automatic shopping lists</span>
-              </li>
-              <li class="flex items-start">
-                <span class="text-[#00CE31] mr-2">✓</span> 
-                <span>Share recipes with friends and family</span>
-              </li>
-              <li class="flex items-start">
-                <span class="text-[#00CE31] mr-2">✓</span> 
-                <span>Have your favorite recipes always at hand</span>
-              </li>
-            </ul>
+
+            <div class="mt-6 flex flex-wrap justify-center gap-3">
+              <a
+                href={iosStoreUrl}
+                aria-label="Download TasteBuddy on the App Store"
+                class="flex min-h-14 items-center justify-center rounded-lg border border-white/10 bg-black px-4 transition hover:border-white/25"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="/images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+                  alt="Download on the App Store"
+                  class="h-10"
+                  loading="lazy"
+                />
+              </a>
+              <a
+                href={androidStoreUrl}
+                aria-label="Get TasteBuddy on Google Play"
+                class="flex min-h-14 items-center justify-center rounded-lg border border-white/10 bg-black px-4 transition hover:border-white/25"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="/images/Google_Play_Badge.png"
+                  alt="Get it on Google Play"
+                  class="h-10"
+                  loading="lazy"
+                />
+              </a>
+            </div>
           </div>
-        </div>
-        
-        <!-- CTA Banner -->
-        <div class="bg-gradient-to-r from-[#00CE31]/40 to-[#00CE31]/30 rounded-xl p-6 sm:p-8 text-center backdrop-blur-sm border border-[#00CE31]/30">
-          <h2 class="text-xl sm:text-2xl font-bold text-white mb-3">
-            Download TasteBuddy
-          </h2>
-          <p class="text-gray-200 mb-6">
-            Download TasteBuddy to save, organize, and share recipes. Never lose a recipe again!
-          </p>
-          
-          <div class="flex flex-wrap justify-center gap-4">
-            <a 
-              href="https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=Website&mt=8"
-              aria-label="Download TasteBuddy on the App Store"
-              class="transform transition-transform duration-300 hover:scale-105"
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              <img
-                src="/images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
-                alt="Download TasteBuddy on the App Store"
-                class="h-12"
-              />
-            </a>
-            <a 
-              href="https://play.google.com/store/apps/details?id=app.tastebuddy"
-              aria-label="Download TasteBuddy on Google Play"
-              class="transform transition-transform duration-300 hover:scale-105"
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              <img
-                src="/images/Google_Play_Badge.png"
-                alt="Download TasteBuddy on Google Play"
-                class="h-12"
-              />
-            </a>
-          </div>
-          
-          <div class="mt-6 text-sm text-gray-300">
-            <p>Or open this link in the app:</p>
-            <a href={`https://taste-buddy.app/share_recipe/${id}`} class="text-[#00CE31] underline mt-1 inline-block">
-              taste-buddy.app/share_recipe/{id}
-            </a>
-          </div>
-        </div>
+        )}
       </div>
     </section>
   </Main>
 </Layout>
 
-<script define:vars={{ iosStoreUrl, androidStoreUrl }}>
-  // OS Detection
-  function getOS() {
-    const ua = navigator.userAgent;
-    if (/iPad|iPhone|iPod/.test(ua)) return 'ios';
-    if (/android/i.test(ua)) return 'android';
-    return 'desktop';
+<script define:vars={{ shareUrl }}>
+  const copyTargets = document.querySelectorAll('[data-copy-share-link]');
+
+  for (const target of copyTargets) {
+    target.addEventListener('click', () => {
+      navigator.clipboard?.writeText(shareUrl).catch(() => {});
+    });
   }
-
-  const os = getOS();
-  const recipeUrl = window.location.href;
-
-  // Copy recipe link to clipboard (fire and forget)
-  navigator.clipboard.writeText(recipeUrl).catch(() => {});
-
-  // Immediate redirect for mobile users
-  if (os === 'ios') {
-    window.location.href = iosStoreUrl;
-  } else if (os === 'android') {
-    window.location.href = androidStoreUrl;
-  }
-  // Desktop users see the page with both store options
-</script> 
+</script>

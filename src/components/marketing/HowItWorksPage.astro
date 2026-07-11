@@ -1,0 +1,612 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Main from '../Main.astro';
+import { getGoHref, getWebAppHref, SITE_URL } from '../../lib/marketing/app-links';
+
+type Locale = 'en' | 'de';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const isDe = locale === 'de';
+
+const copy = isDe
+  ? {
+      title: 'So funktioniert TasteBuddy: Vom Rezept-Save zum Essen',
+      description: 'Speichere Rezepte aus Social Media, Websites oder Screenshots, finde sie wieder und mache daraus Wochenplan, Einkaufsliste und Abendessen.',
+      eyebrow: 'So funktioniert TasteBuddy',
+      headlineBefore: 'Vom Rezept-Save zum',
+      headlineAccent: 'Abendessen',
+      intro: 'TasteBuddy schliesst die Luecke zwischen „Das will ich kochen“ und „Das steht heute auf dem Tisch“. Ein Rezept geht durch fuenf klare Schritte.',
+      primaryCta: 'Ein Rezept speichern',
+      secondaryCta: 'Web-App oeffnen',
+      sourcesLabel: 'Startet dort, wo du Rezepte findest',
+      sources: ['TikTok', 'Instagram', 'Pinterest', 'Foodblogs', 'Screenshots', 'Notizen'],
+      trailLabel: 'Der Rezeptweg',
+      trailTitle: 'Einmal speichern. Danach weiterkochen.',
+      trailIntro: 'Jeder Schritt baut auf dem vorherigen auf. Du musst kein Rezept neu abtippen und keine zweite App fuer Planung oder Einkauf oeffnen.',
+      steps: [
+        {
+          label: 'Speichern',
+          title: 'Teile das Rezept mit TasteBuddy',
+          body: 'Teile einen unterstuetzten Social- oder Website-Link, fuege eine URL ein oder nutze ein Foto, einen Screenshot oder eine Notiz.',
+          detail: 'Wenn die Quelle wenig Informationen enthaelt, kannst du das Ergebnis nach dem Import bearbeiten.',
+          image: '/images/tastebuddy-rezepte-speichern.webp',
+          alt: 'TasteBuddy speichert Rezepte aus Social Media, Websites, Screenshots und Notizen',
+        },
+        {
+          label: 'Aufraeumen',
+          title: 'Erhalte eine klare Rezeptkarte',
+          body: 'Zutaten, Schritte, Zeit, Portionen, Bild und Originalquelle landen an einem Ort statt in Video, Caption und Browser-Tab verteilt zu bleiben.',
+          detail: 'Das importierte Rezept bleibt editierbar.',
+          image: '/images/tastebuddy-rezept-details.webp',
+          alt: 'TasteBuddy Rezeptkarte mit Zutaten, Schritten, Zeit und Portionen',
+        },
+        {
+          label: 'Wiederfinden',
+          title: 'Suche in deinem eigenen Kochbuch',
+          body: 'Finde gespeicherte Rezepte nach Quelle, Kategorie oder Appetit wieder, ohne alte Saves, Screenshots oder Bookmarks zu durchsuchen.',
+          detail: 'Deine Sammlung wird zum Ausgangspunkt, nicht noch ein weiterer Feed.',
+          image: '/images/tastebuddy-rezepte-finden.webp',
+          alt: 'Gespeicherte Rezepte in TasteBuddy schnell wiederfinden',
+        },
+        {
+          label: 'Planen und einkaufen',
+          title: 'Mache aus Rezepten einen Wochenplan',
+          body: 'Waehle die Gerichte, die du wirklich kochen willst. TasteBuddy verbindet den Plan mit einer Einkaufsliste aus den benoetigten Zutaten.',
+          detail: 'So fuehrt der Save direkt zum naechsten Einkauf.',
+          image: '/images/tastebuddy-wochenplanung.webp',
+          alt: 'Wochenplan und Einkaufsliste aus gespeicherten Rezepten in TasteBuddy',
+        },
+        {
+          label: 'Kochen',
+          title: 'Folge den Schritten am Herd',
+          body: 'Oeffne das Rezept beim Kochen und arbeite die Anweisungen Schritt fuer Schritt ab, statt im Originalvideo vor- und zurueckzuspulen.',
+          detail: 'Das Rezept bleibt sichtbar, waehrend du kochst.',
+          image: '/images/tastebuddy-kochschritte.webp',
+          alt: 'Schritt-fuer-Schritt-Kochmodus in TasteBuddy',
+        },
+      ],
+      proofTitle: 'Was TasteBuddy dabei nicht versteckt',
+      proofItems: [
+        ['Die Originalquelle bleibt erhalten', 'Du kannst jederzeit nachvollziehen, woher das Rezept kommt.'],
+        ['Importe bleiben editierbar', 'Unvollstaendige oder ungewoehnliche Quellen lassen sich korrigieren.'],
+        ['Deine Rezepte fuehren den Plan', 'Du planst aus deiner Sammlung statt aus einem generischen Vorschlagsfeed.'],
+      ],
+      faqTitle: 'Fragen zum Ablauf',
+      faqs: [
+        { question: 'Muss ich Rezepte manuell abtippen?', answer: 'Nein. Du kannst unterstuetzte Links teilen oder einfuegen und Rezepte auch aus Screenshots, Fotos und Notizen erfassen. Ein Import kann je nach Quelle Nachbearbeitung brauchen.' },
+        { question: 'Was passiert mit der Originalquelle?', answer: 'TasteBuddy speichert die Quelle zusammen mit dem Rezept, damit du spaeter zum Original zurueckkehren kannst.' },
+        { question: 'Kann ich direkt aus gespeicherten Rezepten planen?', answer: 'Ja. Du kannst Rezepte aus deiner Sammlung in den Wochenplan uebernehmen und daraus eine Einkaufsliste erstellen.' },
+      ],
+      finalTitle: 'Nimm das naechste Rezept, das du wirklich kochen willst.',
+      finalBody: 'Speichere es einmal. TasteBuddy hilft dir danach beim Wiederfinden, Planen, Einkaufen und Kochen.',
+      finalCta: 'TasteBuddy ausprobieren',
+      homeLabel: 'Startseite',
+    }
+  : {
+      title: 'How TasteBuddy Works: From Saved Recipe to Dinner',
+      description: 'Save recipes from social media, websites, or screenshots, find them again, and turn them into a meal plan, shopping list, and dinner.',
+      eyebrow: 'How TasteBuddy works',
+      headlineBefore: 'From saved recipe to',
+      headlineAccent: 'dinner',
+      intro: 'TasteBuddy closes the gap between “I want to cook that” and “this is dinner tonight.” One recipe moves through five clear steps.',
+      primaryCta: 'Save your first recipe',
+      secondaryCta: 'Open the web app',
+      sourcesLabel: 'Start wherever you find recipes',
+      sources: ['TikTok', 'Instagram', 'Pinterest', 'Food blogs', 'Screenshots', 'Notes'],
+      trailLabel: 'The recipe trail',
+      trailTitle: 'Save it once. Keep moving toward dinner.',
+      trailIntro: 'Each step builds on the last. You do not need to retype the recipe or open a second app for planning and shopping.',
+      steps: [
+        {
+          label: 'Save',
+          title: 'Share the recipe with TasteBuddy',
+          body: 'Share a supported social or website link, paste a URL, or start from a photo, screenshot, handwritten card, or note.',
+          detail: 'If the source contains too little information, you can review and edit the result after import.',
+          image: '/images/tastebuddy-save-recipes.webp',
+          alt: 'TasteBuddy saves recipes from social media, websites, screenshots, and notes',
+        },
+        {
+          label: 'Clean up',
+          title: 'Get one clear recipe card',
+          body: 'Ingredients, steps, time, servings, the photo, and the original source stay together instead of being split across a video, caption, and browser tab.',
+          detail: 'Every imported recipe remains editable.',
+          image: '/images/tastebuddy-recipe-details.webp',
+          alt: 'TasteBuddy recipe card with ingredients, steps, time, and servings',
+        },
+        {
+          label: 'Find',
+          title: 'Search your own cookbook',
+          body: 'Find saved recipes by source, category, or craving without digging through old saves, screenshots, browser tabs, and bookmarks.',
+          detail: 'Your collection becomes the starting point, not another discovery feed.',
+          image: '/images/tastebuddy-find-recipes.webp',
+          alt: 'Find saved recipes quickly in the TasteBuddy recipe organizer',
+        },
+        {
+          label: 'Plan and shop',
+          title: 'Turn recipes into a weekly plan',
+          body: 'Choose the dinners you actually want to cook. TasteBuddy connects the plan to a shopping list made from the ingredients you need.',
+          detail: 'The recipe save now leads directly to the next grocery trip.',
+          image: '/images/tastebuddy-meal-planning.webp',
+          alt: 'Meal plan and grocery list made from saved recipes in TasteBuddy',
+        },
+        {
+          label: 'Cook',
+          title: 'Follow the steps at the counter',
+          body: 'Open the recipe while you cook and work through each instruction without repeatedly scrubbing through the original video.',
+          detail: 'The recipe stays visible while your hands are busy.',
+          image: '/images/tastebuddy-cooking-steps.webp',
+          alt: 'Step-by-step cooking mode in TasteBuddy',
+        },
+      ],
+      proofTitle: 'What TasteBuddy keeps visible',
+      proofItems: [
+        ['The original source', 'You can always see where a recipe came from and return to it.'],
+        ['An editable result', 'Incomplete or unusual sources can be corrected after import.'],
+        ['Your recipes in control', 'Planning starts with your collection, not a generic recommendation feed.'],
+      ],
+      faqTitle: 'Questions about the workflow',
+      faqs: [
+        { question: 'Do I have to type recipes manually?', answer: 'No. You can share or paste supported links and also capture recipes from screenshots, photos, handwritten cards, and notes. Some sources may need review after import.' },
+        { question: 'What happens to the original source?', answer: 'TasteBuddy stores the source with the recipe so you can return to the original later.' },
+        { question: 'Can I plan directly from saved recipes?', answer: 'Yes. You can move recipes from your collection into the weekly plan and create a shopping list from them.' },
+      ],
+      finalTitle: 'Take the next recipe you actually want to cook.',
+      finalBody: 'Save it once. TasteBuddy helps you find it, plan it, shop for it, and cook it.',
+      finalCta: 'Try TasteBuddy',
+      homeLabel: 'Home',
+    };
+
+const pagePath = isDe ? '/de/so-funktioniert-es/' : '/how-it-works/';
+const alternates = {
+  en: `${SITE_URL}/how-it-works/`,
+  de: `${SITE_URL}/de/so-funktioniert-es/`,
+  'x-default': `${SITE_URL}/how-it-works/`,
+};
+
+const howToStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: copy.title,
+  description: copy.description,
+  inLanguage: locale,
+  totalTime: 'PT5M',
+  step: copy.steps.map((step, index) => ({
+    '@type': 'HowToStep',
+    position: index + 1,
+    name: step.title,
+    text: step.body,
+    image: `${SITE_URL}${step.image}`,
+    url: `${SITE_URL}${pagePath}#step-${index + 1}`,
+  })),
+};
+
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: copy.faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+---
+
+<Layout title={copy.title} description={copy.description} alternates={alternates}>
+  <script type="application/ld+json" set:html={JSON.stringify(howToStructuredData)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
+
+  <Main>
+    <article class="how-page">
+      <nav class="crumbs" aria-label={isDe ? 'Brotkrumen' : 'Breadcrumb'}>
+        <a href={isDe ? '/de/' : '/'}>{copy.homeLabel}</a>
+        <span aria-hidden="true">/</span>
+        <span>{copy.eyebrow}</span>
+      </nav>
+
+      <header class="how-hero">
+        <p class="eyebrow">{copy.eyebrow}</p>
+        <h1>{copy.headlineBefore} <em>{copy.headlineAccent}</em>.</h1>
+        <p class="hero-copy">{copy.intro}</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href={getGoHref('how-it-works')}>{copy.primaryCta}</a>
+          <a class="btn-secondary" href={getWebAppHref()}>{copy.secondaryCta}</a>
+        </div>
+
+        <div class="source-receipt" aria-label={copy.sourcesLabel}>
+          <span class="source-label">{copy.sourcesLabel}</span>
+          <div class="source-list">
+            {copy.sources.map((source, index) => (
+              <span><b>{String(index + 1).padStart(2, '0')}</b>{source}</span>
+            ))}
+          </div>
+        </div>
+      </header>
+
+      <section class="trail-intro">
+        <p class="eyebrow">{copy.trailLabel}</p>
+        <h2>{copy.trailTitle}</h2>
+        <p>{copy.trailIntro}</p>
+      </section>
+
+      <div class="recipe-trail">
+        {copy.steps.map((step, index) => (
+          <section class:list={['trail-step', index % 2 === 1 && 'is-reversed']} id={`step-${index + 1}`} data-trail-step>
+            <div class="trail-copy">
+              <div class="step-marker" aria-hidden="true">{String(index + 1).padStart(2, '0')}</div>
+              <p class="step-label">{step.label}</p>
+              <h2>{step.title}</h2>
+              <p class="step-body">{step.body}</p>
+              <p class="step-detail">{step.detail}</p>
+            </div>
+            <figure class="screenshot-stage">
+              <span class="stage-tab" aria-hidden="true">TasteBuddy · {String(index + 1).padStart(2, '0')}</span>
+              <img src={step.image} alt={step.alt} width="1320" height="2868" loading="lazy" decoding="async" />
+            </figure>
+          </section>
+        ))}
+      </div>
+
+      <section class="proof-strip">
+        <h2>{copy.proofTitle}</h2>
+        <div class="proof-grid">
+          {copy.proofItems.map(([title, body]) => (
+            <div>
+              <span aria-hidden="true">✓</span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="faq-section" id="faq">
+        <div>
+          <p class="eyebrow">FAQ</p>
+          <h2>{copy.faqTitle}</h2>
+        </div>
+        <div class="faq-list">
+          {copy.faqs.map((item, index) => (
+            <details open={index === 0}>
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="final-cta">
+        <p>{copy.finalTitle}</p>
+        <h2>{copy.finalBody}</h2>
+        <a class="btn-primary" href={getGoHref('how-it-works')}>{copy.finalCta}</a>
+      </section>
+    </article>
+  </Main>
+</Layout>
+
+<script>
+  const steps = document.querySelectorAll('[data-trail-step]');
+
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    steps.forEach((step) => observer.observe(step));
+  } else {
+    steps.forEach((step) => step.classList.add('is-visible'));
+  }
+</script>
+
+<style>
+  .how-page {
+    --trail-ink: var(--tb-text-strong);
+    --trail-muted: var(--tb-muted);
+    --trail-paper: var(--tb-surface);
+    --trail-soft: var(--tb-surface-muted);
+    padding: 2rem 0 6rem;
+  }
+
+  .crumbs {
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+    margin-bottom: 3rem;
+    color: var(--trail-muted);
+    font-size: 0.82rem;
+    font-weight: 650;
+  }
+
+  .crumbs a:hover { color: var(--tb-accent-text); }
+
+  .how-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.72fr);
+    gap: 2rem 5rem;
+    align-items: end;
+    padding: 2rem 0 5.5rem;
+  }
+
+  .eyebrow,
+  .step-label,
+  .source-label {
+    color: var(--tb-accent-text);
+    font-size: 0.76rem;
+    font-weight: 850;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .how-hero > .eyebrow,
+  .how-hero > h1,
+  .how-hero > .hero-copy,
+  .how-hero > .hero-actions { grid-column: 1; }
+
+  .how-hero h1 {
+    max-width: 13ch;
+    margin: 0;
+    color: var(--trail-ink);
+    font-size: clamp(3.4rem, 7vw, 7.4rem);
+    font-weight: 900;
+    letter-spacing: -0.065em;
+    line-height: 0.88;
+  }
+
+  .how-hero h1 em {
+    color: var(--tb-accent-text);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+  }
+
+  .hero-copy {
+    max-width: 39rem;
+    margin: 0.5rem 0 0;
+    color: var(--trail-muted);
+    font-size: clamp(1.08rem, 2vw, 1.35rem);
+    line-height: 1.55;
+  }
+
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+
+  .source-receipt {
+    grid-column: 2;
+    grid-row: 1 / span 4;
+    position: relative;
+    padding: 2rem;
+    border: 1px dashed var(--tb-border);
+    background: var(--trail-paper);
+    box-shadow: var(--tb-shadow-md);
+    transform: rotate(1.5deg);
+  }
+
+  .source-receipt::before,
+  .source-receipt::after {
+    content: '';
+    position: absolute;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 1.4rem;
+    z-index: -1;
+  }
+
+  .source-receipt::before { top: -1.5rem; right: -1.2rem; background: #F8C84A45; transform: rotate(12deg); }
+  .source-receipt::after { bottom: -1.4rem; left: -1.5rem; background: #F0643B38; transform: rotate(-9deg); }
+
+  .source-list { display: grid; margin-top: 1.2rem; }
+
+  .source-list span {
+    display: grid;
+    grid-template-columns: 2.2rem 1fr;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.78rem 0;
+    border-bottom: 1px solid var(--tb-border-soft);
+    color: var(--trail-ink);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .source-list b { color: var(--tb-subtle); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.7rem; }
+
+  .trail-intro {
+    max-width: 48rem;
+    margin: 2rem auto 5rem;
+    text-align: center;
+  }
+
+  .trail-intro h2,
+  .proof-strip h2,
+  .faq-section h2,
+  .final-cta h2 {
+    margin: 0.75rem 0 1rem;
+    color: var(--trail-ink);
+    font-size: clamp(2.2rem, 4.5vw, 4.1rem);
+    font-weight: 850;
+    letter-spacing: -0.045em;
+    line-height: 1;
+  }
+
+  .trail-intro > p:last-child { color: var(--trail-muted); font-size: 1.1rem; line-height: 1.7; }
+
+  .recipe-trail { position: relative; }
+
+  .recipe-trail::before {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    bottom: 2rem;
+    left: 50%;
+    width: 2px;
+    background: repeating-linear-gradient(to bottom, var(--tb-accent) 0 10px, transparent 10px 20px);
+    opacity: 0.55;
+  }
+
+  .trail-step {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.7fr);
+    gap: 7rem;
+    align-items: center;
+    min-height: 48rem;
+    padding: 4rem 0;
+    opacity: 0;
+    transform: translateY(2rem);
+    transition: opacity 600ms ease, transform 700ms ease;
+  }
+
+  .trail-step.is-visible { opacity: 1; transform: translateY(0); }
+  .trail-step.is-reversed .trail-copy { order: 2; }
+  .trail-step.is-reversed .screenshot-stage { order: 1; }
+
+  .trail-copy { position: relative; max-width: 34rem; }
+
+  .step-marker {
+    position: absolute;
+    top: -3.25rem;
+    left: -0.25rem;
+    color: color-mix(in srgb, var(--tb-accent) 26%, transparent);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .trail-copy h2 {
+    position: relative;
+    margin: 0.65rem 0 1.25rem;
+    color: var(--trail-ink);
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    font-weight: 850;
+    letter-spacing: -0.05em;
+    line-height: 0.98;
+  }
+
+  .step-body { color: var(--trail-muted); font-size: 1.08rem; line-height: 1.7; }
+
+  .step-detail {
+    margin-top: 1.4rem;
+    padding-left: 1rem;
+    border-left: 3px solid var(--tb-accent);
+    color: var(--trail-ink);
+    font-size: 0.92rem;
+    font-weight: 650;
+    line-height: 1.55;
+  }
+
+  .screenshot-stage {
+    position: relative;
+    width: min(100%, 23rem);
+    margin: 0 auto;
+    padding: 0.7rem;
+    border: 1px solid var(--tb-border-soft);
+    background: var(--trail-paper);
+    box-shadow: var(--tb-shadow-md);
+    transform: rotate(-1.2deg);
+  }
+
+  .is-reversed .screenshot-stage { transform: rotate(1.2deg); }
+
+  .screenshot-stage img { display: block; width: 100%; height: auto; }
+
+  .stage-tab {
+    position: absolute;
+    top: -1.9rem;
+    right: -1px;
+    padding: 0.45rem 0.7rem;
+    background: var(--tb-accent-soft);
+    color: var(--tb-accent-text);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .proof-strip {
+    margin: 6rem 0;
+    padding: 3rem;
+    border-radius: var(--tb-radius);
+    background: var(--tb-banner);
+    color: #00340E;
+  }
+
+  .proof-strip h2 { max-width: 15ch; color: #00340E; }
+  .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2.5rem; }
+  .proof-grid span { display: grid; width: 2rem; height: 2rem; place-items: center; margin-bottom: 1rem; border-radius: 50%; background: #00340E; color: #FFFFFF; }
+  .proof-grid h3 { margin-bottom: 0.55rem; font-size: 1.15rem; font-weight: 800; }
+  .proof-grid p { color: #31563B; line-height: 1.55; }
+
+  .faq-section {
+    display: grid;
+    grid-template-columns: 0.72fr 1.28fr;
+    gap: 5rem;
+    align-items: start;
+    padding: 5rem 0;
+  }
+
+  .faq-list details { border-top: 1px solid var(--tb-border); }
+  .faq-list details:last-child { border-bottom: 1px solid var(--tb-border); }
+  .faq-list summary { padding: 1.4rem 2.5rem 1.4rem 0; color: var(--trail-ink); font-size: 1.08rem; font-weight: 750; cursor: pointer; }
+  .faq-list p { max-width: 42rem; padding: 0 2rem 1.5rem 0; color: var(--trail-muted); line-height: 1.65; }
+
+  .final-cta {
+    display: grid;
+    grid-template-columns: 0.55fr 1fr auto;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 4rem;
+    padding: 3rem;
+    border-top: 1px solid var(--tb-border);
+    border-bottom: 1px solid var(--tb-border);
+  }
+
+  .final-cta > p { color: var(--tb-accent-text); font-size: 0.8rem; font-weight: 850; letter-spacing: 0.08em; text-transform: uppercase; }
+  .final-cta h2 { margin: 0; font-size: clamp(1.7rem, 3vw, 2.7rem); }
+
+  @media (max-width: 900px) {
+    .how-hero { grid-template-columns: 1fr; }
+    .how-hero > .eyebrow,
+    .how-hero > h1,
+    .how-hero > .hero-copy,
+    .how-hero > .hero-actions,
+    .source-receipt { grid-column: 1; grid-row: auto; }
+    .source-receipt { max-width: 34rem; margin-top: 2rem; }
+    .recipe-trail::before { left: 1rem; }
+    .trail-step,
+    .trail-step.is-reversed { grid-template-columns: 1fr 0.75fr; gap: 3rem; padding-left: 3.5rem; }
+    .trail-step.is-reversed .trail-copy,
+    .trail-step.is-reversed .screenshot-stage { order: initial; }
+    .proof-grid { grid-template-columns: 1fr; }
+    .faq-section { grid-template-columns: 1fr; gap: 2rem; }
+    .final-cta { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    .how-page { padding-top: 1rem; }
+    .crumbs { margin-bottom: 1.5rem; }
+    .how-hero { padding: 1rem 0 4rem; }
+    .how-hero h1 { font-size: clamp(3rem, 15vw, 4.6rem); }
+    .source-receipt { padding: 1.35rem; transform: none; }
+    .trail-intro { text-align: left; }
+    .recipe-trail::before { left: 0.5rem; }
+    .trail-step,
+    .trail-step.is-reversed { grid-template-columns: 1fr; min-height: 0; gap: 3.5rem; padding: 4.5rem 0 5rem 2rem; }
+    .trail-copy { order: 1 !important; }
+    .screenshot-stage { order: 2 !important; width: min(88%, 20rem); }
+    .proof-strip { margin: 3rem 0; padding: 2rem 1.4rem; }
+    .faq-section { padding: 3rem 0; }
+    .final-cta { padding: 2rem 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trail-step { opacity: 1; transform: none; transition: none; }
+  }
+</style>

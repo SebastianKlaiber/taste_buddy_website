@@ -1,30 +1,22 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Main from "../../components/Main.astro";
-import { AstroSeo } from '@astrolib/seo';
 
 export const prerender = true;
+
+const description =
+  "Plan weekly meals from recipes you already saved, generate shopping lists, and reduce dinner decision fatigue with TasteBuddy.";
 ---
 
-<AstroSeo
-  title="AI Meal Planner App - Smart Weekly Meal Planning | TasteBuddy"
-  description="The best AI meal planner app for busy families. Generate personalized weekly meal plans, automatic shopping lists, and reduce food waste. Free meal planning tool with 8,100+ searches monthly."
-  openGraph={{
-    title: 'AI Meal Planner App - Smart Weekly Meal Planning | TasteBuddy',
-    description: 'The best AI meal planner app for busy families. Generate personalized weekly meal plans, automatic shopping lists, and reduce food waste.',
-    images: [{ url: '/images/screenshots.png' }],
-  }}
-/>
-
-<Layout title="AI Meal Planner App - Smart Weekly Meal Planning | TasteBuddy">
+<Layout title="Meal Planning App for Saved Recipes | TasteBuddy" description={description}>
   <Main>
     <section class="py-12 sm:py-16">
       <div class="max-w-4xl mx-auto text-center mb-12">
         <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6 leading-tight">
-          The Best AI Meal Planner App for Smart Home Cooks
+          Meal planning from recipes you already saved
         </h1>
         <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-          Transform your weekly meal planning with AI-powered suggestions, automatic shopping lists, and personalized meal plans that fit your lifestyle and dietary preferences.
+          TasteBuddy helps you turn saved recipes from TikTok, Instagram, websites, screenshots, and notes into a weekly meal plan, organized shopping list, and clear cooking flow.
         </p>
         
         <div class="flex flex-wrap justify-center gap-4 mb-12">
@@ -42,9 +34,9 @@ export const prerender = true;
       <!-- Key Features Section -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
         <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm text-center">
-          <div class="text-4xl mb-4">🤖</div>
-          <h3 class="text-xl font-semibold text-white mb-3">AI-Powered Meal Plans</h3>
-          <p class="text-gray-300">TasteBuddy's meal planner uses advanced AI to create personalized weekly meal plans based on your preferences, dietary restrictions, and cooking habits.</p>
+          <div class="text-4xl mb-4">📚</div>
+          <h3 class="text-xl font-semibold text-white mb-3">Plan from your own recipes</h3>
+          <p class="text-gray-300">Build the week from recipes you already saved instead of starting with an empty calendar or another generic recipe feed.</p>
         </div>
         
         <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm text-center">
@@ -55,45 +47,45 @@ export const prerender = true;
         
         <div class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 p-8 rounded-2xl border border-[#2A2D24]/30 backdrop-blur-sm text-center">
           <div class="text-4xl mb-4">📊</div>
-          <h3 class="text-xl font-semibold text-white mb-3">Nutritional Balance</h3>
-          <p class="text-gray-300">The AI meal planner ensures your weekly plans include balanced nutrition, considering protein, vegetables, and dietary requirements for healthier eating.</p>
+          <h3 class="text-xl font-semibold text-white mb-3">Less dinner decision fatigue</h3>
+          <p class="text-gray-300">Keep reliable dinner ideas ready so weeknight cooking starts from saved recipes, not another search session.</p>
         </div>
       </div>
 
       <!-- How It Works Section -->
       <section class="py-12 bg-gradient-to-r from-[#1C2513]/50 to-[#1C2513]/30 rounded-3xl mb-16">
-        <h2 class="text-3xl font-bold text-white text-center mb-12">How TasteBuddy's Meal Planner Works</h2>
+        <h2 class="text-3xl font-bold text-white text-center mb-12">How TasteBuddy's meal planner works</h2>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div class="text-center">
             <div class="bg-[#00CE31]/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
               <span class="text-2xl font-bold text-white">1</span>
             </div>
-            <h3 class="text-xl font-semibold text-white mb-3">Set Your Preferences</h3>
-            <p class="text-gray-300">Tell TasteBuddy about your dietary preferences, family size, cooking time availability, and any food restrictions.</p>
+            <h3 class="text-xl font-semibold text-white mb-3">Save real recipes</h3>
+            <p class="text-gray-300">Capture recipes from social media, websites, screenshots, notes, and handwritten cards into your cookbook.</p>
           </div>
           
           <div class="text-center">
             <div class="bg-[#00CE31]/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
               <span class="text-2xl font-bold text-white">2</span>
             </div>
-            <h3 class="text-xl font-semibold text-white mb-3">AI Creates Your Plan</h3>
-            <p class="text-gray-300">The AI meal planner analyzes your preferences and generates a balanced weekly meal plan with breakfast, lunch, and dinner options.</p>
+            <h3 class="text-xl font-semibold text-white mb-3">Choose what to cook</h3>
+            <p class="text-gray-300">Pick dinners from the recipes you already wanted to make and place them into a practical weekly plan.</p>
           </div>
           
           <div class="text-center">
             <div class="bg-[#00CE31]/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
               <span class="text-2xl font-bold text-white">3</span>
             </div>
-            <h3 class="text-xl font-semibold text-white mb-3">Shop & Cook</h3>
-            <p class="text-gray-300">Get your organized shopping list and start cooking with confidence. The meal planner app tracks your progress and learns your preferences.</p>
+            <h3 class="text-xl font-semibold text-white mb-3">Shop and cook</h3>
+            <p class="text-gray-300">Turn planned recipes into a shopping list, then open the recipe steps when it is time to cook.</p>
           </div>
         </div>
       </section>
 
       <!-- Benefits Section -->
       <section class="py-12">
-        <h2 class="text-3xl font-bold text-white text-center mb-12">Why Choose TasteBuddy's AI Meal Planner?</h2>
+        <h2 class="text-3xl font-bold text-white text-center mb-12">Why choose TasteBuddy's meal planner?</h2>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div class="space-y-6">
@@ -102,8 +94,8 @@ export const prerender = true;
                 <span class="text-[#00CE31] font-bold">✓</span>
               </div>
               <div>
-                <h3 class="text-lg font-semibold text-white mb-2">Save 3+ Hours Weekly</h3>
-                <p class="text-gray-300">Stop spending hours planning meals. TasteBuddy reduces planning time by 70% with intelligent AI suggestions.</p>
+                <h3 class="text-lg font-semibold text-white mb-2">Use saved recipes instead of saving more</h3>
+                <p class="text-gray-300">Plan from the recipes already in your collection so your TikTok saves, bookmarks, and screenshots become actual dinners.</p>
               </div>
             </div>
             
@@ -112,8 +104,8 @@ export const prerender = true;
                 <span class="text-[#00CE31] font-bold">✓</span>
               </div>
               <div>
-                <h3 class="text-lg font-semibold text-white mb-2">Reduce Food Waste</h3>
-                <p class="text-gray-300">Smart meal planning means buying only what you need. Users report 30% less food waste with TasteBuddy.</p>
+                <h3 class="text-lg font-semibold text-white mb-2">Shop with a clearer list</h3>
+                <p class="text-gray-300">Turn planned meals into ingredients before you go to the store, instead of rebuilding every grocery list from memory.</p>
               </div>
             </div>
             
@@ -122,8 +114,8 @@ export const prerender = true;
                 <span class="text-[#00CE31] font-bold">✓</span>
               </div>
               <div>
-                <h3 class="text-lg font-semibold text-white mb-2">Healthier Eating</h3>
-                <p class="text-gray-300">AI-driven meal planning ensures balanced nutrition and variety in your weekly meal plans for better health outcomes.</p>
+                <h3 class="text-lg font-semibold text-white mb-2">Make healthier saved recipes easier to use</h3>
+                <p class="text-gray-300">If you save healthy recipe ideas all week, TasteBuddy gives them a place in your plan instead of leaving them buried.</p>
               </div>
             </div>
           </div>
@@ -134,8 +126,8 @@ export const prerender = true;
                 <span class="text-[#00CE31] font-bold">✓</span>
               </div>
               <div>
-                <h3 class="text-lg font-semibold text-white mb-2">Budget-Friendly</h3>
-                <p class="text-gray-300">Strategic meal planning helps reduce grocery costs by 25% through smarter shopping and ingredient optimization.</p>
+                <h3 class="text-lg font-semibold text-white mb-2">Plan before the grocery run</h3>
+                <p class="text-gray-300">A simple plan helps you buy around the recipes you intend to cook, not around vague dinner ideas.</p>
               </div>
             </div>
             
@@ -144,8 +136,8 @@ export const prerender = true;
                 <span class="text-[#00CE31] font-bold">✓</span>
               </div>
               <div>
-                <h3 class="text-lg font-semibold text-white mb-2">Dietary Flexibility</h3>
-                <p class="text-gray-300">Whether you're vegan, keto, gluten-free, or have other dietary needs, TasteBuddy adapts to your requirements.</p>
+                <h3 class="text-lg font-semibold text-white mb-2">Flexible by design</h3>
+                <p class="text-gray-300">Use TasteBuddy for a full week, three dinners, or just the next recipe you want to cook. It does not force rigid meal prep.</p>
               </div>
             </div>
             
@@ -154,8 +146,8 @@ export const prerender = true;
                 <span class="text-[#00CE31] font-bold">✓</span>
               </div>
               <div>
-                <h3 class="text-lg font-semibold text-white mb-2">Family-Friendly</h3>
-                <p class="text-gray-300">Plan meals that everyone will enjoy. The AI considers family preferences and suggests kid-friendly options when needed.</p>
+                <h3 class="text-lg font-semibold text-white mb-2">Works with shared cooking routines</h3>
+                <p class="text-gray-300">Keep recipes, plans, and shopping lists close to the same workflow when cooking for yourself, a partner, or a household.</p>
               </div>
             </div>
           </div>
@@ -165,8 +157,8 @@ export const prerender = true;
       <!-- CTA Section -->
       <section class="py-12">
         <div class="bg-gradient-to-r from-[#00CE31]/40 to-[#00CE31]/30 rounded-3xl p-8 sm:p-12 text-center backdrop-blur-sm border border-[#00CE31]/30">
-          <h2 class="text-3xl font-bold text-white mb-4">Start Smart Meal Planning Today</h2>
-          <p class="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">Join thousands of families who have simplified their meal planning with TasteBuddy's AI-powered meal planner.</p>
+          <h2 class="text-3xl font-bold text-white mb-4">Start planning from saved recipes</h2>
+          <p class="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">Turn recipe saves into a practical weekly plan and shopping list.</p>
           
           <div class="flex flex-wrap justify-center gap-6">
             <a 
@@ -190,4 +182,4 @@ export const prerender = true;
       </section>
     </section>
   </Main>
-</Layout> 
+</Layout>

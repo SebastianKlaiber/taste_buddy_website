@@ -1,7 +1,6 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import Main from "../../../components/Main.astro";
-import { AstroSeo } from '@astrolib/seo';
 import { listArticles } from '../../../lib/marketing/articles';
 
 // Get all blog posts
@@ -19,18 +18,12 @@ const featuredPost = sortedPosts.find(post => post.frontmatter.title.includes('M
 // Get current path for language switcher
 const { pathname } = Astro.url;
 const enPath = pathname.replace("/de/", "/en/");
+
+const description =
+  "Kochtipps, Meal-Prep-Strategien, Rezeptorganisation und Produkt-Updates vom TasteBuddy-Team.";
 ---
 
-<AstroSeo
-  title="TasteBuddy Blog - Kochtipps & Meal Prep Strategien"
-  description="Entdecken Sie praktische Kochtipps, Meal Prep Strategien und App-Updates vom TasteBuddy-Team. Perfekt für gestresste Eltern und vielbeschäftigte Köche."
-  openGraph={{
-    title: 'TasteBuddy Blog - Kochtipps & Meal Prep',
-    description: 'Praktische Kochtipps, Meal Prep Strategien und App-Updates vom TasteBuddy-Team.',
-  }}
-/>
-
-<Layout title="TasteBuddy Blog">
+<Layout title="TasteBuddy Blog - Kochtipps & Rezeptorganisation" description={description}>
   <Main>
     <!-- Language Switcher -->
     <div class="absolute top-6 right-6 z-10">

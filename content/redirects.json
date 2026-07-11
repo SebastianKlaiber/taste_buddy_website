@@ -10,6 +10,16 @@
     "fallback_url": "https://taste-buddy.app/"
   },
   {
+    "slug": "mobile-social-save",
+    "source": "website",
+    "medium": "mobile_hero_cta",
+    "campaign": "social-recipe-save",
+    "content": "tiktok-instagram-import",
+    "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=mobile-social-save&mt=8",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dmobile_hero_cta%26utm_campaign%3Dsocial-recipe-save%26utm_content%3Dtiktok-instagram-import",
+    "fallback_url": "https://taste-buddy.app/"
+  },
+  {
     "slug": "save-from-anywhere",
     "source": "website",
     "medium": "seo_cta",
@@ -38,6 +48,16 @@
     "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=shopping-from-plan&mt=8",
     "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dseo_cta%26utm_campaign%3Dshopping-from-plan%26utm_content%3Dshopping-list",
     "fallback_url": "https://taste-buddy.app/features/meal-planning/"
+  },
+  {
+    "slug": "organize-recipes",
+    "source": "website",
+    "medium": "seo_cta",
+    "campaign": "organize-recipes",
+    "content": "recipe-organizer",
+    "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=organize-recipes&mt=8",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dseo_cta%26utm_campaign%3Dorganize-recipes%26utm_content%3Drecipe-organizer",
+    "fallback_url": "https://taste-buddy.app/features/recipe-organizer/"
   },
   {
     "slug": "rss-tool",

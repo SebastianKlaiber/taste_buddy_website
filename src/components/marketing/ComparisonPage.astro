@@ -1,7 +1,6 @@
 ---
-import { AstroSeo } from '@astrolib/seo';
 import type { ComparisonRecord, Locale } from '../../lib/marketing/types';
-import { buildAlternates, getLocalizedPath } from '../../lib/marketing/app-links';
+import { buildAlternates } from '../../lib/marketing/app-links';
 import Layout from '../../layouts/Layout.astro';
 import Main from '../Main.astro';
 import DownloadCtas from './DownloadCtas.astro';
@@ -15,7 +14,16 @@ const { record, locale } = Astro.props;
 
 const labels = {
   en: {
+    recommendation: 'Quick recommendation',
+    recommendationText: `Choose TasteBuddy if you want ${record.use_case} with recipe saving, organization, planning, and shopping in one workflow.`,
     overview: 'Who this comparison is for',
+    table: 'TasteBuddy vs. competitor at a glance',
+    criteria: 'Criteria',
+    tasteBuddyColumn: 'TasteBuddy',
+    competitorColumn: record.competitor,
+    bestFit: 'Best fit',
+    tradeoff: 'Tradeoff',
+    proofRow: 'Proof point',
     tasteBuddy: 'Why people pick TasteBuddy',
     competitor: `When ${record.competitor} may fit better`,
     migration: 'How to switch with less friction',
@@ -23,7 +31,16 @@ const labels = {
     finalCta: 'Try the workflow on your own saved recipes',
   },
   de: {
+    recommendation: 'Kurzempfehlung',
+    recommendationText: `Waehlen Sie TasteBuddy, wenn es um ${record.use_case} mit Speichern, Organisieren, Planung und Einkauf in einem Workflow geht.`,
     overview: 'Fuer wen dieser Vergleich gedacht ist',
+    table: 'TasteBuddy und Wettbewerber auf einen Blick',
+    criteria: 'Kriterium',
+    tasteBuddyColumn: 'TasteBuddy',
+    competitorColumn: record.competitor,
+    bestFit: 'Beste Passung',
+    tradeoff: 'Abwaegung',
+    proofRow: 'Beleg',
     tasteBuddy: 'Warum Nutzer TasteBuddy waehlen',
     competitor: `Wann ${record.competitor} besser passen kann`,
     migration: 'So gelingt der Wechsel mit weniger Reibung',
@@ -49,16 +66,6 @@ const pagePath =
   locale === 'de' ? `/de/comparisons/${record.slug}/` : `/comparisons/${record.slug}/`;
 ---
 
-<AstroSeo
-  title={`${record.title} | TasteBuddy`}
-  description={record.description}
-  openGraph={{
-    title: record.title,
-    description: record.description,
-    images: [{ url: '/images/screenshots.png' }],
-  }}
-/>
-
 <Layout title={record.title} description={record.description} alternates={buildAlternates(pagePath)}>
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
@@ -70,6 +77,11 @@ const pagePath =
         <p class="max-w-3xl text-lg text-gray-300">{record.description}</p>
       </header>
 
+      <section class="mb-10 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+        <h2 class="mb-3 text-2xl font-semibold text-white">{labels[locale].recommendation}</h2>
+        <p class="text-gray-300">{labels[locale].recommendationText}</p>
+      </section>
+
       <section class="mb-10 grid gap-6 md:grid-cols-2">
         <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
           <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].overview}</h2>
@@ -78,6 +90,38 @@ const pagePath =
         <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
           <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].finalCta}</h2>
           <DownloadCtas slug={record.cta_variant} />
+        </div>
+      </section>
+
+      <section class="mb-10 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].table}</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[640px] border-collapse text-left text-sm text-gray-300">
+            <thead>
+              <tr class="border-b border-[#2A2D24]/50 text-white">
+                <th class="p-4 font-semibold">{labels[locale].criteria}</th>
+                <th class="p-4 font-semibold">{labels[locale].tasteBuddyColumn}</th>
+                <th class="p-4 font-semibold">{labels[locale].competitorColumn}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-[#2A2D24]/30">
+                <td class="p-4 font-medium text-white">{labels[locale].bestFit}</td>
+                <td class="p-4">{record.best_for_tastebuddy}</td>
+                <td class="p-4">{record.best_for_competitor}</td>
+              </tr>
+              <tr class="border-b border-[#2A2D24]/30">
+                <td class="p-4 font-medium text-white">{labels[locale].proofRow}</td>
+                <td class="p-4">{record.proof_points[0]}</td>
+                <td class="p-4">{record.use_case}</td>
+              </tr>
+              <tr>
+                <td class="p-4 font-medium text-white">{labels[locale].tradeoff}</td>
+                <td class="p-4">{record.strengths[0]}</td>
+                <td class="p-4">{record.weaknesses[0]}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 

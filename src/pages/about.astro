@@ -1,27 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/Main.astro";
-import { AstroSeo } from '@astrolib/seo';
+
+const description =
+  "Meet Sebastian Klaiber, the independent developer behind TasteBuddy - combining cooking and software development to create a better recipe organizer.";
 ---
 
-<AstroSeo
-  title="About Sebastian Klaiber | TasteBuddy"
-  description="Meet Sebastian Klaiber, the independent developer behind TasteBuddy - combining a passion for cooking and software development to create the ultimate recipe management solution."
-  canonical="https://taste-buddy.app/about"
-  openGraph={{
-    title: 'About Sebastian Klaiber | TasteBuddy',
-    description: 'Meet Sebastian Klaiber, the independent developer behind TasteBuddy - combining a passion for cooking and software development to create the ultimate recipe management solution.',
-    url: 'https://taste-buddy.app/about',
-    type: 'website',
-  }}
-  twitter={{
-    handle: '@tastebuddyapp',
-    site: '@tastebuddyapp',
-    cardType: 'summary_large_image',
-  }}
-/>
-
-<Layout title="About Sebastian Klaiber | TasteBuddy">
+<Layout title="About Sebastian Klaiber | TasteBuddy" description={description}>
   <Main>
     <section class="py-12 sm:py-16 lg:py-20">
       <div class="max-w-4xl mx-auto">
@@ -61,7 +46,7 @@ import { AstroSeo } from '@astrolib/seo';
               I love hearing from fellow cooking enthusiasts and users of TasteBuddy. Whether you have suggestions, questions, or just want to share your experience, I'm always eager to connect.
             </p>
             <a 
-              href="/contact" 
+              href="/contact/"
               class="inline-flex items-center text-[#00CE31] font-medium hover:text-[#00CE31]/80 transition-colors"
             >
               Contact Me
@@ -74,4 +59,4 @@ import { AstroSeo } from '@astrolib/seo';
       </div>
     </section>
   </Main>
-</Layout> 
+</Layout>

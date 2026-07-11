@@ -155,7 +155,7 @@ const structuredData = {
   "@type": "CollectionPage",
   "name": "TasteBuddy Recipes Collection",
   "description": "Discover delicious recipes with step-by-step instructions and cooking tips",
-  "url": "https://tastebuddy.app/en/recipes",
+  "url": "https://taste-buddy.app/en/recipes/",
   "mainEntity": {
     "@type": "ItemList",
     "itemListElement": recipes.map((recipe, index) => ({
@@ -163,7 +163,7 @@ const structuredData = {
       "position": index + 1,
       "name": recipe.name,
       "description": recipe.description,
-      "url": `https://tastebuddy.app/en/recipes/${recipe.slug}`,
+      "url": `https://taste-buddy.app/en/recipes/${recipe.slug}/`,
       "recipeCategory": recipe.category,
       "recipeCuisine": recipe.cuisine,
       "image": `https://taste-buddy.app${recipe.image}`,
@@ -277,4 +277,4 @@ const description = "Discover our collection of easy-to-follow recipes with step
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-</style> 
+</style>

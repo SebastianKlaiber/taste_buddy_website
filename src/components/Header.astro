@@ -2,18 +2,27 @@
 import { getGoHref, getWebAppHref } from '../lib/marketing/app-links';
 
 const currentPath = Astro.url.pathname;
+const isGerman = currentPath.startsWith('/de/');
 
 // Define navigation links
-const navLinks = [
-  { text: "Home", href: "/" },
-  { text: "Features", href: "/#features" },
-  { text: "Blog", href: "/en/blog" },
-  { text: "Contact", href: "/contact" },
-  { text: "FAQ", href: "/#faq" },
-];
+const navLinks = isGerman
+  ? [
+      { text: "Startseite", href: "/de/" },
+      { text: "So funktioniert's", href: "/de/so-funktioniert-es/" },
+      { text: "Ratgeber & FAQ", href: "/de/ratgeber/" },
+      { text: "Blog", href: "/de/blog/" },
+      { text: "Kontakt", href: "/contact/" },
+    ]
+  : [
+      { text: "Home", href: "/" },
+      { text: "How it works", href: "/how-it-works/" },
+      { text: "Guides & FAQ", href: "/guides/" },
+      { text: "Blog", href: "/en/blog/" },
+      { text: "Contact", href: "/contact/" },
+    ];
 ---
 
-<header class="sticky top-0 z-50 bg-[#10130B]/80 backdrop-blur-xl border-b border-[#2A2D24]/20 supports-[backdrop-filter]:bg-[#10130B]/60">
+<header class="tb-header sticky top-0 z-50 backdrop-blur-xl">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16 sm:h-20">
       <!-- Logo -->
@@ -27,7 +36,7 @@ const navLinks = [
           loading="eager"
           decoding="sync"
         />
-        <span class="text-white text-xl font-semibold hidden sm:inline-block">TasteBuddy</span>
+        <span class="tb-logo-text text-xl font-semibold hidden sm:inline-block">TasteBuddy</span>
       </a>
 
       <!-- Desktop Navigation -->
@@ -35,10 +44,10 @@ const navLinks = [
         {navLinks.map((link) => (
           <a 
             href={link.href} 
-            class={`text-sm font-medium transition-colors duration-200 hover:text-[#00CE31] ${
+            class={`tb-nav-link text-sm font-medium ${
               currentPath === link.href || (link.href !== "/" && currentPath.startsWith(link.href)) 
-                ? "text-[#00CE31]" 
-                : "text-gray-300"
+                ? "is-active"
+                : ""
             }`}
           >
             {link.text}
@@ -49,7 +58,7 @@ const navLinks = [
       <!-- Right side items container -->
       <div class="flex items-center space-x-4">
         <!-- Mobile menu button -->
-        <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-white hover:text-[#00CE31]" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+        <button id="mobile-menu-button" class="tb-menu-button md:hidden p-2" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
@@ -57,6 +66,33 @@ const navLinks = [
 
         <!-- App buttons (desktop only) -->
         <div class="hidden md:flex items-center gap-3">
+          <div class="tb-theme-toggle" role="group" aria-label="Theme">
+            <button type="button" class="tb-theme-option" data-theme-option="system" aria-label="Use system theme" title="System theme">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="12" rx="2"></rect>
+                <path d="M8 20h8"></path>
+                <path d="M12 16v4"></path>
+              </svg>
+            </button>
+            <button type="button" class="tb-theme-option" data-theme-option="light" aria-label="Use light theme" title="Light theme">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2"></path>
+                <path d="M12 20v2"></path>
+                <path d="m4.93 4.93 1.41 1.41"></path>
+                <path d="m17.66 17.66 1.41 1.41"></path>
+                <path d="M2 12h2"></path>
+                <path d="M20 12h2"></path>
+                <path d="m6.34 17.66-1.41 1.41"></path>
+                <path d="m19.07 4.93-1.41 1.41"></path>
+              </svg>
+            </button>
+            <button type="button" class="tb-theme-option" data-theme-option="dark" aria-label="Use dark theme" title="Dark theme">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.99 13.06A8.5 8.5 0 1 1 10.94 3.01a7 7 0 1 0 10.05 10.05Z"></path>
+              </svg>
+            </button>
+          </div>
           <a
             href={getWebAppHref()}
             class="btn-secondary text-sm"
@@ -75,29 +111,56 @@ const navLinks = [
   </div>
 
   <!-- Mobile Navigation Menu (hidden by default) -->
-  <div id="mobile-menu" class="hidden md:hidden bg-[#1C2513] border-b border-[#2A2D24]/30">
+  <div id="mobile-menu" class="tb-mobile-menu hidden md:hidden">
     <div class="px-2 pt-2 pb-3 space-y-1">
       {navLinks.map((link) => (
         <a
           href={link.href}
-          class={`block px-3 py-2 rounded-md text-base font-medium ${
+          class={`tb-mobile-link block px-3 py-2 text-base font-medium ${
             currentPath === link.href || (link.href !== "/" && currentPath.startsWith(link.href))
-              ? "bg-[#1C2513]/80 text-[#00CE31]"
-              : "text-gray-300 hover:bg-[#1C2513]/80 hover:text-white"
+              ? "is-active"
+              : ""
           }`}
         >
           {link.text}
         </a>
       ))}
+      <div class="tb-theme-toggle tb-theme-toggle-mobile" role="group" aria-label="Theme">
+        <button type="button" class="tb-theme-option" data-theme-option="system" aria-label="Use system theme" title="System theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="12" rx="2"></rect>
+            <path d="M8 20h8"></path>
+            <path d="M12 16v4"></path>
+          </svg>
+        </button>
+        <button type="button" class="tb-theme-option" data-theme-option="light" aria-label="Use light theme" title="Light theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+        </button>
+        <button type="button" class="tb-theme-option" data-theme-option="dark" aria-label="Use dark theme" title="Dark theme">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.99 13.06A8.5 8.5 0 1 1 10.94 3.01a7 7 0 1 0 10.05 10.05Z"></path>
+          </svg>
+        </button>
+      </div>
       <a
         href={getGoHref('homepage-download', 'ios')}
-        class="mobile-store-badge-ios block px-3 py-2 rounded-md text-base font-medium bg-[#00CE31]/20 text-white border border-[#00CE31]/30"
+        class="tb-mobile-download mobile-store-badge-ios block px-3 py-2 text-base font-medium"
       >
         Download on the App Store
       </a>
       <a
         href={getGoHref('homepage-download', 'android')}
-        class="mobile-store-badge-android px-3 py-2 rounded-md text-base font-medium bg-[#00CE31]/20 text-white border border-[#00CE31]/30"
+        class="tb-mobile-download mobile-store-badge-android px-3 py-2 text-base font-medium"
       >
         Get it on Google Play
       </a>
@@ -105,8 +168,111 @@ const navLinks = [
   </div>
 </header>
 
+<style>
+  .tb-header {
+    background: color-mix(in srgb, var(--tb-surface) 86%, transparent);
+    border-bottom: 1px solid var(--tb-border-soft);
+  }
+
+  .tb-logo-text,
+  .tb-menu-button {
+    color: var(--tb-text);
+  }
+
+  .tb-menu-button {
+    border-radius: var(--tb-radius-sm);
+    transition: background-color 160ms ease, color 160ms ease;
+  }
+
+  .tb-menu-button:hover {
+    background: var(--tb-surface-muted);
+    color: var(--tb-accent-text);
+  }
+
+  .tb-theme-toggle {
+    display: grid;
+    grid-template-columns: repeat(3, 2rem);
+    gap: 2px;
+    padding: 3px;
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius-pill);
+    background: color-mix(in srgb, var(--tb-surface) 92%, transparent);
+  }
+
+  .tb-theme-option {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border: 0;
+    border-radius: var(--tb-radius-pill);
+    background: transparent;
+    color: var(--tb-muted);
+    cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+  }
+
+  .tb-theme-option:hover {
+    color: var(--tb-text);
+    background: var(--tb-surface-muted);
+  }
+
+  .tb-theme-option.is-active {
+    background: var(--tb-primary);
+    color: var(--tb-text-inverse);
+  }
+
+  .tb-theme-option:focus-visible {
+    outline: 2px solid var(--tb-accent);
+    outline-offset: 2px;
+  }
+
+  .tb-theme-toggle-mobile {
+    grid-template-columns: repeat(3, 1fr);
+    margin: 0.5rem 0 0.75rem;
+  }
+
+  .tb-theme-toggle-mobile .tb-theme-option {
+    width: auto;
+    min-height: 2.5rem;
+  }
+
+  .tb-nav-link {
+    color: var(--tb-muted);
+    transition: color 160ms ease;
+  }
+
+  .tb-nav-link:hover,
+  .tb-nav-link.is-active {
+    color: var(--tb-accent-text);
+  }
+
+  .tb-mobile-menu {
+    background: var(--tb-surface);
+    border-bottom: 1px solid var(--tb-border-soft);
+  }
+
+  .tb-mobile-link,
+  .tb-mobile-download {
+    border-radius: var(--tb-radius-sm);
+    color: var(--tb-muted);
+    transition: background-color 160ms ease, color 160ms ease;
+  }
+
+  .tb-mobile-link:hover,
+  .tb-mobile-link.is-active {
+    background: var(--tb-surface-muted);
+    color: var(--tb-accent-text);
+  }
+
+  .tb-mobile-download {
+    background: var(--tb-accent-soft);
+    border: 1px solid color-mix(in srgb, var(--tb-accent) 28%, transparent);
+    color: var(--tb-text);
+  }
+</style>
+
 <script>
-  // Handle mobile menu toggle
   document.addEventListener('DOMContentLoaded', () => {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -118,5 +284,67 @@ const navLinks = [
         mobileMenu.classList.toggle('hidden');
       });
     }
+
+    const storageKey = 'tastebuddy-theme';
+    const validModes = new Set(['system', 'light', 'dark']);
+    const root = document.documentElement;
+    const media = window.matchMedia?.('(prefers-color-scheme: dark)');
+    const themeButtons = Array.from(document.querySelectorAll('[data-theme-option]'));
+
+    const resolveTheme = (mode) => {
+      if (mode === 'dark' || mode === 'light') {
+        return mode;
+      }
+      return media?.matches ? 'dark' : 'light';
+    };
+
+    const updateThemeColor = (resolvedTheme) => {
+      document
+        .querySelector('#tb-theme-color')
+        ?.setAttribute('content', resolvedTheme === 'dark' ? '#10130B' : '#FFFFFF');
+    };
+
+    const applyTheme = (mode, persist = false) => {
+      const nextMode = validModes.has(mode) ? mode : 'system';
+      const resolvedTheme = resolveTheme(nextMode);
+
+      root.dataset.theme = nextMode;
+      root.dataset.resolvedTheme = resolvedTheme;
+      root.style.colorScheme = resolvedTheme;
+      updateThemeColor(resolvedTheme);
+
+      if (persist) {
+        try {
+          if (nextMode === 'system') {
+            localStorage.removeItem(storageKey);
+          } else {
+            localStorage.setItem(storageKey, nextMode);
+          }
+        } catch {
+          // Theme choice is non-critical; ignore blocked storage.
+        }
+      }
+
+      themeButtons.forEach((button) => {
+        const isActive = button.getAttribute('data-theme-option') === nextMode;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+      });
+    };
+
+    const initialMode = validModes.has(root.dataset.theme ?? '') ? root.dataset.theme : 'system';
+    applyTheme(initialMode ?? 'system');
+
+    themeButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        applyTheme(button.getAttribute('data-theme-option') ?? 'system', true);
+      });
+    });
+
+    media?.addEventListener('change', () => {
+      if ((root.dataset.theme ?? 'system') === 'system') {
+        applyTheme('system');
+      }
+    });
   });
 </script>

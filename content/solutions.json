@@ -15,7 +15,7 @@
       "TasteBuddy imports recipes from websites, social media, screenshots, and notes workflows.",
       "TasteBuddy keeps recipes searchable in one place."
     ],
-    "cta_variant": "organize_recipes",
+    "cta_variant": "organize-recipes",
     "last_reviewed_at": "2026-04-10",
     "problem": "Recipes are scattered across social saves, tabs, screenshots, and bookmarks.",
     "outcomes": [
@@ -45,7 +45,7 @@
       "TasteBuddy importiert Rezepte aus Websites, Social Media, Screenshots und Notes-Workflows.",
       "TasteBuddy haelt Rezepte an einem Ort durchsuchbar."
     ],
-    "cta_variant": "organize_recipes",
+    "cta_variant": "organize-recipes",
     "last_reviewed_at": "2026-04-10",
     "problem": "Rezepte liegen verteilt in Social Saves, Tabs, Screenshots und Bookmarks.",
     "outcomes": [
@@ -75,7 +75,7 @@
       "TasteBuddy generates shopping lists from your meal plan.",
       "TasteBuddy links recipe saving, planning, and shopping."
     ],
-    "cta_variant": "shopping_from_plan",
+    "cta_variant": "shopping-from-plan",
     "last_reviewed_at": "2026-04-10",
     "problem": "Saved recipes do not help much if shopping is still manual and fragmented.",
     "outcomes": [
@@ -105,7 +105,7 @@
       "TasteBuddy erzeugt Einkaufslisten aus dem Wochenplan.",
       "TasteBuddy verbindet Speichern, Planen und Einkaufen."
     ],
-    "cta_variant": "shopping_from_plan",
+    "cta_variant": "shopping-from-plan",
     "last_reviewed_at": "2026-04-10",
     "problem": "Gespeicherte Rezepte helfen wenig, wenn der Einkauf weiterhin manuell und chaotisch bleibt.",
     "outcomes": [
@@ -135,7 +135,7 @@
       "TasteBuddy supports weekly planning from your saved recipes.",
       "TasteBuddy reduces the gap between inspiration and execution."
     ],
-    "cta_variant": "plan_from_saves",
+    "cta_variant": "plan-from-saves",
     "last_reviewed_at": "2026-04-10",
     "problem": "You save plenty of recipes but still do not know what to cook tonight.",
     "outcomes": [
@@ -165,7 +165,7 @@
       "TasteBuddy unterstuetzt Wochenplanung aus gespeicherten Rezepten.",
       "TasteBuddy verringert die Luecke zwischen Inspiration und Umsetzung."
     ],
-    "cta_variant": "plan_from_saves",
+    "cta_variant": "plan-from-saves",
     "last_reviewed_at": "2026-04-10",
     "problem": "Sie speichern viele Rezepte und wissen trotzdem abends nicht, was Sie kochen sollen.",
     "outcomes": [

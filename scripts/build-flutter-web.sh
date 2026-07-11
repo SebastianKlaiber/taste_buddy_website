@@ -66,6 +66,7 @@ fi
 
 if ! grep -q '^SUPABASE_URL=' "${APP_DIR}/${DART_DEFINE_FILE}" || \
   ! grep -q '^SUPABASE_ANON_KEY=' "${APP_DIR}/${DART_DEFINE_FILE}" || \
+  ! grep -q '^APP_CHECK_RECAPTCHA_SITE_KEY=' "${APP_DIR}/${DART_DEFINE_FILE}" || \
   ! grep -q '^USE_SUPABASE=true$' "${APP_DIR}/${DART_DEFINE_FILE}"; then
   echo "Dart define file is missing required production app keys: ${DART_DEFINE_FILE}" >&2
   exit 1
@@ -81,6 +82,7 @@ mkdir -p "${ROOT_DIR}/dist/app"
   flutter build web \
     --release \
     --base-href="${APP_BASE_HREF}" \
+    --no-wasm-dry-run \
     --no-web-resources-cdn \
     --dart-define-from-file="${DART_DEFINE_FILE}" \
     -o "${ROOT_DIR}/dist/app"

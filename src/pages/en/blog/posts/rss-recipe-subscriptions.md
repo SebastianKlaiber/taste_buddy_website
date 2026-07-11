@@ -4,7 +4,7 @@ title: "Never Miss Another Recipe from Your Favorite Food Bloggers Again"
 date: "2025-08-09"
 author: "TasteBuddy Team"
 description: "Introducing RSS Recipe Subscriptions in TasteBuddy - automatically discover new recipes from your favorite food blogs and cooking websites the moment they're published."
-image: "/images/blog/rss-subscriptions.jpg"
+image: "/images/tastebuddy-app-screenshots.webp"
 ---
 
 Picture this: You're scrolling through your phone on Sunday morning, coffee in hand, when you realize your go-to food blogger just posted the perfect fall soup recipe. But wait—when did they post that? Three days ago? How did you miss it?
@@ -81,7 +81,7 @@ The feature is live in TasteBuddy right now. Here's what I'd do if I were you:
 
 Your cooking routine is about to get a whole lot more exciting.
 
-Ready to never miss another great recipe? [Download TasteBuddy](/download) and start subscribing to your favorite food blogs today.
+Ready to never miss another great recipe? [Download TasteBuddy](/download/) and start subscribing to your favorite food blogs today.
 
 *Happy cooking!*  
 *The TasteBuddy Team*

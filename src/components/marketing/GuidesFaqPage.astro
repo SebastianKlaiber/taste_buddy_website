@@ -1,0 +1,573 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Main from '../Main.astro';
+import { getGoHref, SITE_URL } from '../../lib/marketing/app-links';
+
+type Locale = 'en' | 'de';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const isDe = locale === 'de';
+
+const copy = isDe
+  ? {
+      title: 'TasteBuddy Ratgeber und FAQs | Hilfe fuer Rezepte',
+      description: 'Praktische Ratgeber und klare Antworten zum Rezeptimport, Organisieren, Wochenplan, Einkaufsliste und Kochen mit TasteBuddy.',
+      home: 'Startseite',
+      pageLabel: 'Ratgeber und FAQs',
+      heroLead: 'Finde die naechste',
+      heroAccent: 'brauchbare Antwort',
+      heroBody: 'Starte mit einem Ratgeber, wenn du einen Ablauf brauchst. Nutze die FAQ-Suche, wenn du nur eine konkrete Frage klaeren willst.',
+      heroCta: 'TasteBuddy ausprobieren',
+      directoryLabel: 'In diesem Verzeichnis',
+      directory: [
+        ['01', 'Rezepte speichern'],
+        ['02', 'Organisieren und finden'],
+        ['03', 'Planen und einkaufen'],
+        ['04', 'Sammlung umziehen'],
+      ],
+      guidesLabel: 'Praktische Ratgeber',
+      guidesTitle: 'Waehle den Job, den du gerade erledigen willst.',
+      guidesBody: 'Jeder Ratgeber beginnt bei einem echten Problem: ein Rezept aus einem Video holen, eine verstreute Sammlung ordnen oder aus gespeicherten Rezepten einen Plan machen.',
+      readGuide: 'Ratgeber oeffnen',
+      minutes: 'Min. Lesezeit',
+      guideGroups: [
+        {
+          number: '01',
+          label: 'Einstieg',
+          accent: 'lime',
+          items: [
+            { title: 'So funktioniert TasteBuddy', description: 'Der komplette Weg vom Social Save bis zum Kochen in fuenf Schritten.', href: '/de/so-funktioniert-es/', time: '5' },
+            { title: 'Rezepte aus TikTok speichern', description: 'So werden Video-Saves zu durchsuchbaren Rezepten mit Zutaten und Schritten.', href: '/de/import/tiktok/', time: '4' },
+          ],
+        },
+        {
+          number: '02',
+          label: 'Ordnung',
+          accent: 'yellow',
+          items: [
+            { title: 'Gespeicherte Rezepte organisieren', description: 'Ein System fuer Screenshots, Bookmarks, TikTok-Saves und Foodblog-Links.', href: '/de/solutions/organize-saved-recipes/', time: '6' },
+            { title: 'Rezepte aus TikTok und Foodblogs ordnen', description: 'Ein praktischer Workflow, damit gespeicherte Rezepte nicht wieder verschwinden.', href: '/de/blog/articles/wie-man-rezepte-aus-tiktok-und-foodblogs-organisiert/', time: '7' },
+          ],
+        },
+        {
+          number: '03',
+          label: 'Planung',
+          accent: 'coral',
+          items: [
+            { title: 'Rezept-App mit Einkaufsliste', description: 'Warum Planung und Einkauf direkt aus gespeicherten Rezepten zusammengehoeren.', href: '/de/solutions/recipe-app-with-shopping-list/', time: '5' },
+            { title: 'TasteBuddy oder Paprika', description: 'Vergleiche einen Social-first Rezept-Workflow mit einem klassischen Rezeptmanager.', href: '/de/comparisons/tastebuddy-vs-paprika/', time: '6' },
+          ],
+        },
+      ],
+      faqLabel: 'Schnelle Antworten',
+      faqTitle: 'Was moechtest du wissen?',
+      searchLabel: 'FAQs durchsuchen',
+      searchPlaceholder: 'Zum Beispiel: TikTok, Einkaufsliste, Screenshot …',
+      allCategories: 'Alle',
+      noResults: 'Keine passende Antwort gefunden. Versuche einen kuerzeren Suchbegriff.',
+      resultSingular: 'Antwort',
+      resultPlural: 'Antworten',
+      categories: [
+        { id: 'import', label: 'Import' },
+        { id: 'organize', label: 'Organisation' },
+        { id: 'plan', label: 'Planung' },
+        { id: 'account', label: 'App und Daten' },
+      ],
+      faqs: [
+        { category: 'import', question: 'Kann ich Rezepte aus TikTok und Instagram speichern?', answer: 'Ja. Teile oder kopiere einen unterstuetzten Social-Link nach TasteBuddy. Die App versucht, daraus Zutaten, Schritte und weitere Rezeptdetails zu erstellen. Wenn der Post zu wenig Informationen enthaelt, kann Nachbearbeitung noetig sein.' },
+        { category: 'import', question: 'Funktioniert der Import mit jeder Website?', answer: 'TasteBuddy unterstuetzt viele Rezeptseiten, aber nicht jede Quelle liefert dieselbe Qualitaet. Paywalls, Login-Seiten oder unstrukturierte Inhalte koennen einen manuellen Fallback oder Korrekturen erfordern.' },
+        { category: 'import', question: 'Kann ich Screenshots oder handgeschriebene Karten importieren?', answer: 'Ja. Du kannst Fotos, Screenshots, Rezeptkarten und Notizen als Ausgangspunkt verwenden. Das Ergebnis bleibt editierbar, falls Text oder Mengen korrigiert werden muessen.' },
+        { category: 'organize', question: 'Bleibt die Originalquelle erhalten?', answer: 'Ja. TasteBuddy speichert die Quelle zusammen mit dem Rezept, damit du spaeter zum Original zurueckkehren kannst.' },
+        { category: 'organize', question: 'Kann ich ein importiertes Rezept bearbeiten?', answer: 'Ja. Titel, Zutaten, Schritte und weitere Details koennen nach dem Import angepasst werden.' },
+        { category: 'organize', question: 'Wie finde ich ein gespeichertes Rezept wieder?', answer: 'Nutze deine persoenliche Rezeptsammlung und suche nach Begriffen, Quelle oder Kategorien, statt alte Social Saves, Screenshots und Browser-Tabs zu durchsuchen.' },
+        { category: 'plan', question: 'Kann ich direkt aus meinen Rezepten einen Wochenplan erstellen?', answer: 'Ja. Waehle Rezepte aus deiner Sammlung und fuege sie dem Wochenplan hinzu. So planst du mit Gerichten, die du bereits speichern wolltest.' },
+        { category: 'plan', question: 'Wie entsteht die Einkaufsliste?', answer: 'Die Zutaten aus den geplanten Rezepten koennen in eine gemeinsame Einkaufsliste uebernommen werden. Pruefe Mengen und Vorrat vor dem Einkauf.' },
+        { category: 'plan', question: 'Muss ich jede Woche komplett durchplanen?', answer: 'Nein. Du kannst mit wenigen Abendessen starten und freie Tage bewusst offenlassen. Der Plan soll Entscheidungen erleichtern, nicht neue Pflichten schaffen.' },
+        { category: 'account', question: 'Auf welchen Geraeten gibt es TasteBuddy?', answer: 'TasteBuddy ist fuer iOS und Android verfuegbar. Eine Web-App kann ebenfalls im Browser geoeffnet werden.' },
+        { category: 'account', question: 'Kann ich Rezepte aus Notion oder Obsidian uebernehmen?', answer: 'TasteBuddy bietet Import-Workflows fuer Notion-Datenbanken und Rezeptdateien aus Obsidian. Die Struktur der Quelldaten beeinflusst die Importqualitaet.' },
+        { category: 'account', question: 'Was passiert bei einem unvollstaendigen Import?', answer: 'Das Rezept bleibt editierbar. Ergaenze fehlende Zutaten oder Schritte und behalte die Originalquelle als Referenz.' },
+      ],
+      ctaEyebrow: 'Keine weitere Ablage',
+      ctaTitle: 'Mach aus dem naechsten Rezept-Save einen echten Plan.',
+      ctaBody: 'Speichere ein Rezept, finde es wieder und nutze es fuer Einkauf und Kochen.',
+      ctaButton: 'TasteBuddy laden',
+    }
+  : {
+      title: 'TasteBuddy Guides and FAQs | Help With Your Recipes',
+      description: 'Practical guides and clear answers about recipe import, organization, meal planning, shopping lists, and cooking with TasteBuddy.',
+      home: 'Home',
+      pageLabel: 'Guides and FAQs',
+      heroLead: 'Find the next',
+      heroAccent: 'useful answer',
+      heroBody: 'Start with a guide when you need a workflow. Search the FAQs when you only need one specific question answered.',
+      heroCta: 'Try TasteBuddy',
+      directoryLabel: 'Inside this directory',
+      directory: [
+        ['01', 'Save recipes'],
+        ['02', 'Organize and find'],
+        ['03', 'Plan and shop'],
+        ['04', 'Move a collection'],
+      ],
+      guidesLabel: 'Practical guides',
+      guidesTitle: 'Choose the job you are trying to finish.',
+      guidesBody: 'Every guide starts with a real problem: getting a recipe out of a video, organizing a scattered collection, or turning saved recipes into a plan.',
+      readGuide: 'Open guide',
+      minutes: 'min read',
+      guideGroups: [
+        {
+          number: '01',
+          label: 'Start here',
+          accent: 'lime',
+          items: [
+            { title: 'How TasteBuddy works', description: 'The complete path from a social save to cooking, explained in five steps.', href: '/how-it-works/', time: '5' },
+            { title: 'How to organize recipes', description: 'Build a recipe system that replaces scattered tabs, screenshots, and bookmarks.', href: '/guides/how-to-organize-recipes/', time: '7' },
+          ],
+        },
+        {
+          number: '02',
+          label: 'Build your system',
+          accent: 'yellow',
+          items: [
+            { title: 'Meal planning for beginners', description: 'Start small, choose recipes for the week, and shop from one practical list.', href: '/guides/meal-planning-for-beginners/', time: '7' },
+            { title: 'What to look for in a recipe app', description: 'Evaluate import, search, planning, and cooking features around your real workflow.', href: '/guides/recipe-app-features/', time: '6' },
+          ],
+        },
+        {
+          number: '03',
+          label: 'Import and move',
+          accent: 'coral',
+          items: [
+            { title: 'Import recipes from TikTok', description: 'Turn video saves into searchable recipes with ingredients and steps.', href: '/import/tiktok/', time: '4' },
+            { title: 'Organize saved recipes', description: 'A practical system for social saves, food-blog links, screenshots, and notes.', href: '/solutions/organize-saved-recipes/', time: '6' },
+          ],
+        },
+      ],
+      faqLabel: 'Quick answers',
+      faqTitle: 'What do you need to know?',
+      searchLabel: 'Search FAQs',
+      searchPlaceholder: 'Try TikTok, shopping list, screenshot …',
+      allCategories: 'All',
+      noResults: 'No matching answer found. Try a shorter search term.',
+      resultSingular: 'answer',
+      resultPlural: 'answers',
+      categories: [
+        { id: 'import', label: 'Import' },
+        { id: 'organize', label: 'Organization' },
+        { id: 'plan', label: 'Planning' },
+        { id: 'account', label: 'App and data' },
+      ],
+      faqs: [
+        { category: 'import', question: 'Can I save recipes from TikTok and Instagram?', answer: 'Yes. Share or paste a supported social link into TasteBuddy. The app tries to turn it into ingredients, steps, and other recipe details. A post with too little information may need editing.' },
+        { category: 'import', question: 'Does recipe import work with every website?', answer: 'TasteBuddy supports many recipe websites, but not every source provides the same quality. Paywalls, login pages, or unstructured content can require a manual fallback or corrections.' },
+        { category: 'import', question: 'Can I import screenshots or handwritten recipe cards?', answer: 'Yes. You can start from photos, screenshots, recipe cards, and notes. The result remains editable if text or quantities need correction.' },
+        { category: 'organize', question: 'Does TasteBuddy keep the original recipe source?', answer: 'Yes. TasteBuddy stores the source with the recipe so you can return to the original later.' },
+        { category: 'organize', question: 'Can I edit an imported recipe?', answer: 'Yes. You can adjust the title, ingredients, steps, and other details after import.' },
+        { category: 'organize', question: 'How do I find a saved recipe again?', answer: 'Use your personal recipe collection and search by terms, source, or category instead of checking old social saves, screenshots, and browser tabs.' },
+        { category: 'plan', question: 'Can I build a meal plan from my saved recipes?', answer: 'Yes. Choose recipes from your collection and add them to the weekly plan, so planning starts with meals you already wanted to cook.' },
+        { category: 'plan', question: 'How does the shopping list work?', answer: 'Ingredients from planned recipes can be moved into one shopping list. Review quantities and what you already have before shopping.' },
+        { category: 'plan', question: 'Do I need to plan the entire week?', answer: 'No. Start with a few dinners and intentionally leave flexible days. The plan should reduce decisions, not become another obligation.' },
+        { category: 'account', question: 'Which devices support TasteBuddy?', answer: 'TasteBuddy is available for iOS and Android. A web app can also be opened in a browser.' },
+        { category: 'account', question: 'Can I move recipes from Notion or Obsidian?', answer: 'TasteBuddy includes import workflows for Notion databases and recipe files from Obsidian. The structure of the source data affects import quality.' },
+        { category: 'account', question: 'What happens when an import is incomplete?', answer: 'The recipe remains editable. Add missing ingredients or steps and keep the original source available as a reference.' },
+      ],
+      ctaEyebrow: 'One less place to lose recipes',
+      ctaTitle: 'Turn the next recipe save into an actual plan.',
+      ctaBody: 'Save one recipe, find it again, and use it for shopping and cooking.',
+      ctaButton: 'Get TasteBuddy',
+    };
+
+const pagePath = isDe ? '/de/ratgeber/' : '/guides/';
+const alternates = {
+  en: `${SITE_URL}/guides/`,
+  de: `${SITE_URL}/de/ratgeber/`,
+  'x-default': `${SITE_URL}/guides/`,
+};
+
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: locale,
+  mainEntity: copy.faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+
+const collectionStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: copy.title,
+  description: copy.description,
+  inLanguage: locale,
+  url: `${SITE_URL}${pagePath}`,
+  hasPart: copy.guideGroups.flatMap((group) => group.items.map((guide) => ({
+    '@type': 'Article',
+    headline: guide.title,
+    description: guide.description,
+    url: `${SITE_URL}${guide.href}`,
+  }))),
+};
+---
+
+<Layout title={copy.title} description={copy.description} alternates={alternates}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
+  <script type="application/ld+json" set:html={JSON.stringify(collectionStructuredData)} />
+
+  <Main>
+    <article class="resource-page">
+      <nav class="resource-crumbs" aria-label={isDe ? 'Brotkrumen' : 'Breadcrumb'}>
+        <a href={isDe ? '/de/' : '/'}>{copy.home}</a>
+        <span aria-hidden="true">/</span>
+        <span>{copy.pageLabel}</span>
+      </nav>
+
+      <header class="resource-hero">
+        <div class="hero-copy">
+          <p class="kicker">{copy.pageLabel}</p>
+          <h1>{copy.heroLead} <em>{copy.heroAccent}</em></h1>
+          <p>{copy.heroBody}</p>
+          <a class="btn-primary" href={getGoHref('guides-faq')}>{copy.heroCta}</a>
+        </div>
+
+        <aside class="index-drawer" aria-label={copy.directoryLabel}>
+          <div class="drawer-handle" aria-hidden="true"></div>
+          <p>{copy.directoryLabel}</p>
+          <ol>
+            {copy.directory.map(([number, label]) => (
+              <li><span>{number}</span>{label}</li>
+            ))}
+          </ol>
+        </aside>
+      </header>
+
+      <section class="guide-section" aria-labelledby="guide-heading">
+        <header class="section-intro">
+          <p class="kicker">{copy.guidesLabel}</p>
+          <h2 id="guide-heading">{copy.guidesTitle}</h2>
+          <p>{copy.guidesBody}</p>
+        </header>
+
+        <div class="guide-drawer">
+          {copy.guideGroups.map((group) => (
+            <section class:list={['guide-group', `accent-${group.accent}`]}>
+              <header>
+                <span>{group.number}</span>
+                <h3>{group.label}</h3>
+              </header>
+              <div class="guide-cards">
+                {group.items.map((guide) => (
+                  <a href={guide.href} class="guide-card">
+                    <div>
+                      <h4>{guide.title}</h4>
+                      <p>{guide.description}</p>
+                    </div>
+                    <footer>
+                      <span>{guide.time} {copy.minutes}</span>
+                      <strong>{copy.readGuide} <span aria-hidden="true">↗</span></strong>
+                    </footer>
+                  </a>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      </section>
+
+      <section class="faq-section" id="faq" aria-labelledby="faq-heading" data-faq-root>
+        <header class="faq-header">
+          <div>
+            <p class="kicker">{copy.faqLabel}</p>
+            <h2 id="faq-heading">{copy.faqTitle}</h2>
+          </div>
+          <label class="faq-search">
+            <span>{copy.searchLabel}</span>
+            <span class="search-field">
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.4-3.4"></path></svg>
+              <input type="search" placeholder={copy.searchPlaceholder} data-faq-search />
+            </span>
+          </label>
+        </header>
+
+        <div class="faq-tools">
+          <div class="category-filters" aria-label={isDe ? 'FAQ-Kategorien' : 'FAQ categories'}>
+            <button type="button" class="is-active" data-faq-category="all">{copy.allCategories}</button>
+            {copy.categories.map((category) => (
+              <button type="button" data-faq-category={category.id}>{category.label}</button>
+            ))}
+          </div>
+          <p class="result-count" aria-live="polite" data-faq-count data-singular={copy.resultSingular} data-plural={copy.resultPlural}>
+            {copy.faqs.length} {copy.resultPlural}
+          </p>
+        </div>
+
+        <div class="faq-list">
+          {copy.faqs.map((item, index) => (
+            <details data-faq-item data-category={item.category} open={index === 0}>
+              <summary>
+                <span>{item.question}</span>
+                <span class="faq-plus" aria-hidden="true"></span>
+              </summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+        <p class="no-results" hidden data-faq-empty>{copy.noResults}</p>
+      </section>
+
+      <section class="resource-cta">
+        <p class="kicker">{copy.ctaEyebrow}</p>
+        <h2>{copy.ctaTitle}</h2>
+        <p>{copy.ctaBody}</p>
+        <a class="btn-primary" href={getGoHref('guides-faq')}>{copy.ctaButton}</a>
+      </section>
+    </article>
+  </Main>
+</Layout>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-faq-root]');
+
+  if (root) {
+    const search = root.querySelector<HTMLInputElement>('[data-faq-search]');
+    const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-faq-category]'));
+    const items = Array.from(root.querySelectorAll<HTMLDetailsElement>('[data-faq-item]'));
+    const count = root.querySelector<HTMLElement>('[data-faq-count]');
+    const empty = root.querySelector<HTMLElement>('[data-faq-empty]');
+    let activeCategory = 'all';
+
+    const applyFilters = () => {
+      const query = search?.value.trim().toLocaleLowerCase() ?? '';
+      let visible = 0;
+
+      items.forEach((item) => {
+        const matchesCategory = activeCategory === 'all' || item.dataset.category === activeCategory;
+        const matchesQuery = !query || item.textContent?.toLocaleLowerCase().includes(query);
+        item.hidden = !(matchesCategory && matchesQuery);
+        if (!item.hidden) visible += 1;
+      });
+
+      if (count) {
+        const label = visible === 1 ? count.dataset.singular : count.dataset.plural;
+        count.textContent = `${visible} ${label}`;
+      }
+      if (empty) empty.hidden = visible !== 0;
+    };
+
+    search?.addEventListener('input', applyFilters);
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        activeCategory = button.dataset.faqCategory ?? 'all';
+        buttons.forEach((candidate) => candidate.classList.toggle('is-active', candidate === button));
+        applyFilters();
+      });
+    });
+  }
+</script>
+
+<style>
+  .resource-page {
+    --ink: var(--tb-text-strong);
+    --muted: var(--tb-muted);
+    padding: 2rem 0 6rem;
+  }
+
+  .resource-crumbs {
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+    margin-bottom: 3rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 650;
+  }
+
+  .resource-crumbs a:hover { color: var(--tb-accent-text); }
+
+  .kicker {
+    color: var(--tb-accent-text);
+    font-size: 0.76rem;
+    font-weight: 850;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .resource-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.65fr);
+    gap: 5rem;
+    align-items: center;
+    padding: 2rem 0 7rem;
+  }
+
+  .hero-copy h1 {
+    max-width: 12ch;
+    margin: 0.75rem 0 1.7rem;
+    color: var(--ink);
+    font-size: clamp(3.5rem, 7vw, 7rem);
+    font-weight: 900;
+    letter-spacing: -0.065em;
+    line-height: 0.9;
+  }
+
+  .hero-copy h1 em {
+    display: block;
+    color: var(--tb-accent-text);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+  }
+
+  .hero-copy > p:not(.kicker) {
+    max-width: 40rem;
+    margin-bottom: 2rem;
+    color: var(--muted);
+    font-size: 1.2rem;
+    line-height: 1.65;
+  }
+
+  .index-drawer {
+    position: relative;
+    padding: 2.5rem 2rem 2rem;
+    border: 1px solid var(--tb-border);
+    border-radius: 0 0 var(--tb-radius) var(--tb-radius);
+    background: var(--tb-surface);
+    box-shadow: var(--tb-shadow-md);
+  }
+
+  .drawer-handle {
+    position: absolute;
+    top: -1.4rem;
+    left: 2rem;
+    width: 9rem;
+    height: 1.4rem;
+    border: 1px solid var(--tb-border);
+    border-bottom: 0;
+    border-radius: 0.75rem 0.75rem 0 0;
+    background: var(--tb-accent-soft);
+  }
+
+  .index-drawer > p {
+    margin-bottom: 1rem;
+    color: var(--tb-accent-text);
+    font-size: 0.72rem;
+    font-weight: 850;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .index-drawer ol { list-style: none; padding: 0; }
+  .index-drawer li { display: grid; grid-template-columns: 2.5rem 1fr; gap: 0.5rem; padding: 1rem 0; border-bottom: 1px solid var(--tb-border-soft); color: var(--ink); font-weight: 750; }
+  .index-drawer li:last-child { border-bottom: 0; }
+  .index-drawer li span { color: var(--tb-subtle); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.7rem; }
+
+  .section-intro { max-width: 50rem; margin-bottom: 4rem; }
+  .section-intro h2,
+  .faq-header h2,
+  .resource-cta h2 {
+    margin: 0.7rem 0 1rem;
+    color: var(--ink);
+    font-size: clamp(2.5rem, 5vw, 4.8rem);
+    font-weight: 870;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+  }
+  .section-intro > p:last-child { color: var(--muted); font-size: 1.08rem; line-height: 1.7; }
+
+  .guide-drawer {
+    overflow: hidden;
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius);
+    background: var(--tb-surface);
+    box-shadow: var(--tb-shadow-sm);
+  }
+
+  .guide-group {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    min-height: 19rem;
+    border-bottom: 1px solid var(--tb-border);
+  }
+  .guide-group:last-child { border-bottom: 0; }
+
+  .guide-group > header { position: relative; padding: 2rem; border-right: 1px solid var(--tb-border); background: var(--tb-surface-muted); }
+  .guide-group > header::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 0.45rem; background: var(--group-accent); }
+  .accent-lime { --group-accent: #00CE31; }
+  .accent-yellow { --group-accent: #F8C84A; }
+  .accent-coral { --group-accent: #F0643B; }
+  .guide-group > header span { color: var(--group-accent); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 2rem; font-weight: 900; }
+  .guide-group > header h3 { margin-top: 1rem; color: var(--ink); font-size: 1.1rem; font-weight: 850; line-height: 1.2; }
+
+  .guide-cards { display: grid; grid-template-columns: repeat(2, 1fr); }
+  .guide-card { display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; padding: 2.25rem; border-right: 1px solid var(--tb-border-soft); color: inherit; transition: background-color 180ms ease; }
+  .guide-card:last-child { border-right: 0; }
+  .guide-card:hover { background: var(--tb-accent-soft); }
+  .guide-card:focus-visible { outline: 3px solid var(--tb-accent); outline-offset: -3px; }
+  .guide-card h4 { margin-bottom: 0.8rem; color: var(--ink); font-size: 1.55rem; font-weight: 820; letter-spacing: -0.035em; line-height: 1.08; }
+  .guide-card p { color: var(--muted); line-height: 1.6; }
+  .guide-card footer { display: flex; justify-content: space-between; gap: 1rem; align-items: center; color: var(--tb-subtle); font-size: 0.78rem; }
+  .guide-card footer strong { color: var(--tb-accent-text); font-size: 0.82rem; }
+
+  .faq-section { padding: 8rem 0 5rem; }
+  .faq-header { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 5rem; align-items: end; }
+  .faq-search > span:first-child { display: block; margin-bottom: 0.55rem; color: var(--muted); font-size: 0.8rem; font-weight: 750; }
+  .search-field { display: flex; align-items: center; gap: 0.75rem; min-height: 3.5rem; padding: 0 1rem; border: 1px solid var(--tb-border); border-radius: var(--tb-radius-pill); background: var(--tb-surface); color: var(--tb-muted); }
+  .search-field:focus-within { border-color: var(--tb-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--tb-accent) 18%, transparent); }
+  .search-field input { width: 100%; border: 0; outline: 0; background: transparent; color: var(--ink); font: inherit; }
+  .search-field input::placeholder { color: var(--tb-subtle); }
+
+  .faq-tools { display: flex; justify-content: space-between; gap: 2rem; align-items: center; margin: 3rem 0 1.5rem; }
+  .category-filters { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .category-filters button { min-height: 2.7rem; padding: 0.6rem 1rem; border: 1px solid var(--tb-border); border-radius: var(--tb-radius-pill); background: var(--tb-surface); color: var(--muted); font-weight: 750; cursor: pointer; }
+  .category-filters button:hover,
+  .category-filters button.is-active { border-color: var(--tb-primary); background: var(--tb-primary); color: var(--tb-text-inverse); }
+  .category-filters button:focus-visible { outline: 3px solid var(--tb-accent); outline-offset: 2px; }
+  .result-count { flex: none; color: var(--tb-subtle); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; }
+
+  .faq-list { border-top: 1px solid var(--tb-border); }
+  .faq-list details { border-bottom: 1px solid var(--tb-border); }
+  .faq-list details[hidden] { display: none; }
+  .faq-list summary { display: grid; grid-template-columns: 1fr 2rem; gap: 2rem; align-items: center; padding: 1.5rem 0; color: var(--ink); font-size: 1.08rem; font-weight: 780; cursor: pointer; list-style: none; }
+  .faq-list summary::-webkit-details-marker { display: none; }
+  .faq-list details > p { max-width: 50rem; padding: 0 4rem 1.6rem 0; color: var(--muted); line-height: 1.7; }
+  .faq-plus { position: relative; display: block; width: 1.5rem; height: 1.5rem; }
+  .faq-plus::before,
+  .faq-plus::after { content: ''; position: absolute; top: 50%; left: 50%; width: 1rem; height: 2px; background: var(--tb-accent-text); transform: translate(-50%, -50%); transition: transform 160ms ease; }
+  .faq-plus::after { transform: translate(-50%, -50%) rotate(90deg); }
+  details[open] .faq-plus::after { transform: translate(-50%, -50%) rotate(0); }
+  .no-results { padding: 2rem; border: 1px dashed var(--tb-border); color: var(--muted); text-align: center; }
+
+  .resource-cta { margin-top: 5rem; padding: 4rem; border-radius: var(--tb-radius); background: var(--tb-banner); color: #00340E; }
+  .resource-cta .kicker { color: #31563B; }
+  .resource-cta h2 { max-width: 18ch; color: #00340E; }
+  .resource-cta > p:not(.kicker) { max-width: 42rem; margin-bottom: 2rem; color: #31563B; font-size: 1.08rem; line-height: 1.6; }
+
+  @media (max-width: 900px) {
+    .resource-hero { grid-template-columns: 1fr; }
+    .index-drawer { max-width: 38rem; }
+    .faq-header { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  @media (max-width: 720px) {
+    .resource-page { padding-top: 1rem; }
+    .resource-crumbs { margin-bottom: 1.5rem; }
+    .resource-hero { gap: 4rem; padding: 1rem 0 5rem; }
+    .hero-copy h1 { font-size: clamp(3.1rem, 15vw, 4.8rem); }
+    .guide-group { grid-template-columns: 1fr; }
+    .guide-group > header { padding: 1.3rem 1.5rem; border-right: 0; border-bottom: 1px solid var(--tb-border); }
+    .guide-group > header h3 { display: inline; margin-left: 0.75rem; }
+    .guide-cards { grid-template-columns: 1fr; }
+    .guide-card { padding: 1.6rem; border-right: 0; border-bottom: 1px solid var(--tb-border-soft); }
+    .guide-card:last-child { border-bottom: 0; }
+    .faq-section { padding-top: 5rem; }
+    .faq-tools { align-items: flex-start; flex-direction: column; }
+    .category-filters { flex-wrap: nowrap; width: calc(100vw - 2.5rem); overflow-x: auto; padding-bottom: 0.5rem; }
+    .category-filters button { flex: none; }
+    .faq-list details > p { padding-right: 0; }
+    .resource-cta { padding: 2.2rem 1.5rem; }
+  }
+</style>

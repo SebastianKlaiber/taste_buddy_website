@@ -76,7 +76,8 @@ export function getFeedSiteByDomain(domain: string): FeedSiteRecord | undefined 
 }
 
 export function getRedirectRecord(slug: string): RedirectRecord {
-  const record = redirectRecords.find((entry) => entry.slug === slug);
+  const normalizedSlug = slug.replace(/_/g, '-');
+  const record = redirectRecords.find((entry) => entry.slug === normalizedSlug);
   if (!record) {
     throw new Error(`Missing redirect record for ${slug}`);
   }

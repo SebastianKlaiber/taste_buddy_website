@@ -1,4 +1,5 @@
 import type { ArticleRecord, Locale } from './types';
+import { SITE_URL } from './app-links';
 
 interface ArticleModule {
   file: string;
@@ -38,4 +39,26 @@ export function getArticle(locale: Locale, slug: string) {
     throw new Error(`Missing article for ${locale}:${slug}`);
   }
   return article;
+}
+
+export function getArticleAlternates(locale: Locale, slug: string) {
+  const current = getArticle(locale, slug);
+  const otherLocale: Locale = locale === 'en' ? 'de' : 'en';
+  const paired = listArticles(otherLocale).find(
+    (entry) => entry.frontmatter.template_type === current.frontmatter.template_type,
+  );
+
+  const enSlug = locale === 'en' ? current.slug : paired?.slug;
+  const deSlug = locale === 'de' ? current.slug : paired?.slug;
+
+  const alternates: Partial<Record<'en' | 'de' | 'x-default', string>> = {};
+  if (enSlug) {
+    alternates.en = `${SITE_URL}/en/blog/articles/${enSlug}/`;
+    alternates['x-default'] = alternates.en;
+  }
+  if (deSlug) {
+    alternates.de = `${SITE_URL}/de/blog/articles/${deSlug}/`;
+  }
+
+  return alternates;
 }

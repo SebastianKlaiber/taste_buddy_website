@@ -3,9 +3,10 @@
 import { getGoHref } from '../lib/marketing/app-links';
 
 const currentYear = new Date().getFullYear();
+const isGerman = Astro.url.pathname.startsWith('/de/');
 ---
 
-<footer class="bg-[#10130B] border-t border-[#2A2D24]/30 pt-16 pb-12">
+<footer class="tb-footer pt-16 pb-12">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
       <!-- Logo and App Description -->
@@ -18,12 +19,12 @@ const currentYear = new Date().getFullYear();
             width="48"
             height="48"
           />
-          <span class="text-white text-2xl font-bold tracking-tight">TasteBuddy</span>
+          <span class="tb-footer-brand text-2xl font-bold tracking-tight">TasteBuddy</span>
         </div>
-        <p class="text-gray-400 mb-4 max-w-md leading-relaxed text-lg">
+        <p class="tb-footer-description mb-4 max-w-md leading-relaxed text-lg">
           Built by recipe collectors who got tired of losing recipes in screenshots, bookmarks, and forgotten tabs.
         </p>
-        <p class="text-gray-500 mb-8 max-w-md leading-relaxed text-sm">
+        <p class="tb-footer-note mb-8 max-w-md leading-relaxed text-sm">
           No ads or fake ratings. Maintained by a small team who uses it daily.
         </p>
         <div class="flex space-x-4">
@@ -60,11 +61,12 @@ const currentYear = new Date().getFullYear();
       <div>
         <h3 class="text-white font-bold mb-6 text-lg">Navigation</h3>
         <ul class="space-y-4">
-          <li><a href="/" class="text-gray-400 hover:text-[#00CE31] transition-colors">Home</a></li>
-          <li><a href="/#features" class="text-gray-400 hover:text-[#00CE31] transition-colors">Features</a></li>
-          <li><a href="/en/blog" class="text-gray-400 hover:text-[#00CE31] transition-colors">Blog</a></li>
-          <li><a href="/contact" class="text-gray-400 hover:text-[#00CE31] transition-colors">Contact</a></li>
-          <li><a href="/#faq" class="text-gray-400 hover:text-[#00CE31] transition-colors">FAQ</a></li>
+          <li><a href={isGerman ? '/de/' : '/'} class="text-gray-400 hover:text-[#00CE31] transition-colors">{isGerman ? 'Startseite' : 'Home'}</a></li>
+          <li><a href={isGerman ? '/de/so-funktioniert-es/' : '/how-it-works/'} class="text-gray-400 hover:text-[#00CE31] transition-colors">{isGerman ? 'So funktioniert es' : 'How it works'}</a></li>
+          <li><a href={isGerman ? '/de/ratgeber/' : '/guides/'} class="text-gray-400 hover:text-[#00CE31] transition-colors">{isGerman ? 'Ratgeber & FAQ' : 'Guides & FAQ'}</a></li>
+          <li><a href="/features/" class="text-gray-400 hover:text-[#00CE31] transition-colors">{isGerman ? 'Funktionen' : 'Features'}</a></li>
+          <li><a href={isGerman ? '/de/blog/' : '/en/blog/'} class="text-gray-400 hover:text-[#00CE31] transition-colors">Blog</a></li>
+          <li><a href="/contact/" class="text-gray-400 hover:text-[#00CE31] transition-colors">{isGerman ? 'Kontakt' : 'Contact'}</a></li>
         </ul>
       </div>
 
@@ -73,9 +75,9 @@ const currentYear = new Date().getFullYear();
         <h3 class="text-white font-bold mb-6 text-lg">Resources</h3>
         <ul class="space-y-4">
           <li><a href="/import/tiktok/" class="text-gray-400 hover:text-[#00CE31] transition-colors">Import from TikTok</a></li>
-          <li><a href="/comparisons/tastebuddy-vs-allrecipes" class="text-gray-400 hover:text-[#00CE31] transition-colors">App Comparisons</a></li>
-          <li><a href="/guides/how-to-organize-recipes" class="text-gray-400 hover:text-[#00CE31] transition-colors">Recipe Organization</a></li>
-          <li><a href="/solutions/organize-saved-recipes" class="text-gray-400 hover:text-[#00CE31] transition-colors">Saved Recipe Systems</a></li>
+          <li><a href="/comparisons/tastebuddy-vs-allrecipes/" class="text-gray-400 hover:text-[#00CE31] transition-colors">App Comparisons</a></li>
+          <li><a href="/guides/how-to-organize-recipes/" class="text-gray-400 hover:text-[#00CE31] transition-colors">Recipe Organization</a></li>
+          <li><a href="/solutions/organize-saved-recipes/" class="text-gray-400 hover:text-[#00CE31] transition-colors">Saved Recipe Systems</a></li>
           <li><a href="/tools/rss-feed-detector/" class="text-gray-400 hover:text-[#00CE31] transition-colors">RSS Feed Detector</a></li>
         </ul>
       </div>
@@ -84,13 +86,13 @@ const currentYear = new Date().getFullYear();
       <div>
         <h3 class="text-white font-bold mb-6 text-lg">Legal</h3>
         <ul class="space-y-4">
-          <li><a href="/privacy" class="text-gray-400 hover:text-[#00CE31] transition-colors">Privacy Policy</a></li>
-          <li><a href="/terms" class="text-gray-400 hover:text-[#00CE31] transition-colors">Terms of Service</a></li>
+          <li><a href="/privacy/" class="text-gray-400 hover:text-[#00CE31] transition-colors">Privacy Policy</a></li>
+          <li><a href="/terms/" class="text-gray-400 hover:text-[#00CE31] transition-colors">Terms of Service</a></li>
         </ul>
       </div>
     </div>
     
-    <div class="border-t border-[#2A2D24]/30 mt-16 pt-8">
+    <div class="tb-footer-bottom mt-16 pt-8">
       <div class="flex flex-col md:flex-row justify-between items-center gap-4">
         <div class="text-gray-500 text-sm">
           &copy; {currentYear} TasteBuddy. All rights reserved.
@@ -113,3 +115,36 @@ const currentYear = new Date().getFullYear();
     </div>
   </div>
 </footer>
+
+<style>
+  .tb-footer {
+    background: var(--tb-surface);
+    border-top: 1px solid var(--tb-border-soft);
+  }
+
+  .tb-footer-brand,
+  .tb-footer h3 {
+    color: var(--tb-text);
+  }
+
+  .tb-footer-description {
+    color: var(--tb-muted);
+  }
+
+  .tb-footer-note,
+  .tb-footer-bottom {
+    color: var(--tb-subtle);
+  }
+
+  .tb-footer a {
+    color: var(--tb-muted);
+  }
+
+  .tb-footer a:hover {
+    color: var(--tb-accent-text);
+  }
+
+  .tb-footer-bottom {
+    border-top: 1px solid var(--tb-border-soft);
+  }
+</style>

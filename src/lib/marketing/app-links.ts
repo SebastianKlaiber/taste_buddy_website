@@ -11,10 +11,11 @@ export function getWebAppHref(path = '') {
 }
 
 export function getGoHref(slug: string, platform?: 'ios' | 'android') {
+  const normalizedSlug = slug.replace(/_/g, '-');
   if (!platform) {
-    return `/go/${slug}/`;
+    return `/go/${normalizedSlug}/`;
   }
-  return `/go/${slug}/?platform=${platform}`;
+  return `/go/${normalizedSlug}/?platform=${platform}`;
 }
 
 export function getLocalizedPath(locale: Locale, path: string) {

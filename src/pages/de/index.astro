@@ -1,0 +1,67 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Main from "../../components/Main.astro";
+import MobileWeb2AppFlow from "../../components/MobileWeb2AppFlow.astro";
+import { getGoHref, getWebAppHref } from "../../lib/marketing/app-links";
+
+export const prerender = true;
+
+const title = "Rezept-App zum Speichern und Planen | TasteBuddy";
+const description =
+  "Speichere Rezepte aus TikTok, Instagram, Websites, Screenshots und Notizen. TasteBuddy macht daraus ein Kochbuch, einen Wochenplan und eine Einkaufsliste.";
+---
+
+<Layout title={title} description={description} hideMobileChrome>
+  <MobileWeb2AppFlow locale="de" />
+  <div class="hidden md:block">
+  <Main>
+    <section class="mx-auto max-w-5xl px-4 py-16 text-center sm:py-20">
+      <div class="mb-8 flex justify-end">
+        <div class="tb-pill flex gap-3 p-2">
+          <a href="/" class="tb-text-muted rounded-full px-3 py-1 text-sm font-medium">EN</a>
+          <a href="/de/" class="tb-pill-active rounded-full px-3 py-1 text-sm font-medium">DE</a>
+        </div>
+      </div>
+
+      <h1 class="tb-text-strong mb-6 text-4xl font-extrabold leading-tight sm:text-6xl">
+        Koche die Rezepte, die du schon gespeichert hast
+      </h1>
+      <p class="tb-text-muted mx-auto mb-10 max-w-3xl text-lg leading-relaxed sm:text-xl">
+        TasteBuddy ist die Rezept-App fuer alle Rezepte, die in TikTok, Instagram, Pinterest,
+        Websites, Screenshots und Notizen verschwinden. Speichere sie als saubere Rezeptkarten,
+        finde sie wieder und plane daraus Abendessen, Wochenplan und Einkaufsliste.
+      </p>
+
+      <div class="mb-14 flex flex-wrap justify-center gap-4">
+        <a href={getWebAppHref()} class="btn-primary text-base sm:text-lg">Web-App oeffnen</a>
+        <a href={getGoHref('homepage-download')} class="btn-secondary text-base sm:text-lg">App laden</a>
+      </div>
+
+      <div class="grid gap-6 text-left md:grid-cols-3">
+        <article class="tb-card p-6">
+          <h2 class="tb-text-strong mb-3 text-xl font-semibold">Rezepte aus Social Media speichern</h2>
+          <p class="tb-text-muted">TikTok, Instagram, Pinterest, YouTube, Websites, Screenshots und Rezeptkarten werden zu klaren Zutaten und Schritten.</p>
+        </article>
+        <article class="tb-card p-6">
+          <h2 class="tb-text-strong mb-3 text-xl font-semibold">Gespeicherte Rezepte wiederfinden</h2>
+          <p class="tb-text-muted">Suche in einem Kochbuch statt in Screenshots, Bookmarks, Browser-Tabs und alten Social Saves.</p>
+        </article>
+        <article class="tb-card p-6">
+          <h2 class="tb-text-strong mb-3 text-xl font-semibold">Planen, einkaufen, kochen</h2>
+          <p class="tb-text-muted">Plane schnelle Abendessen aus gespeicherten Rezepten und erstelle daraus eine Einkaufsliste.</p>
+        </article>
+      </div>
+
+      <section class="tb-panel-muted mt-14 p-6 text-left">
+        <h2 class="tb-text-strong mb-4 text-2xl font-semibold">Weiter erkunden</h2>
+        <div class="grid gap-3 sm:grid-cols-2">
+          <a class="tb-link" href="/de/import/tiktok/">Rezepte aus TikTok speichern</a>
+          <a class="tb-link" href="/de/solutions/organize-saved-recipes/">Gespeicherte Rezepte organisieren</a>
+          <a class="tb-link" href="/de/comparisons/tastebuddy-vs-paprika/">TasteBuddy vs Paprika</a>
+          <a class="tb-link" href="/de/blog/">TasteBuddy Blog</a>
+        </div>
+      </section>
+    </section>
+  </Main>
+  </div>
+</Layout>
