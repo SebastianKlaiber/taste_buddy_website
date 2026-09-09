@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 APP_REPO_URL="${TASTE_BUDDY_APP_REPO_URL:-https://github.com/SebastianKlaiber/taste_buddy.git}"
 APP_REF="${TASTE_BUDDY_APP_REF:-main}"
-FLUTTER_VERSION="${FLUTTER_VERSION:-3.41.7}"
+FLUTTER_VERSION="${FLUTTER_VERSION:-3.44.7}"
 APP_BASE_HREF="${TASTE_BUDDY_WEB_APP_BASE_HREF:-/app/}"
 APP_LOCAL_PATH="${TASTE_BUDDY_APP_LOCAL_PATH:-}"
 DART_DEFINE_FILE="${TASTE_BUDDY_DART_DEFINE_FILE:-config/config.env}"
