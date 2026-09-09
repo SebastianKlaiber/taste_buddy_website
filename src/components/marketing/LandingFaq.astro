@@ -1,0 +1,43 @@
+---
+import { landingFaqs } from '../../lib/marketing/landing-seo';
+
+interface Props {
+  locale: 'en' | 'de';
+}
+
+const { locale } = Astro.props;
+const faqs = landingFaqs[locale];
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(({ question, answer }) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: { '@type': 'Answer', text: answer },
+  })),
+};
+---
+
+<section id="faq" aria-labelledby="faq-heading">
+  <h2 id="faq-heading">{locale === 'de' ? 'Noch Fragen?' : 'Good questions.'}</h2>
+  <div>
+    {faqs.map(({ question, answer }) => (
+      <details>
+        <summary>{question}</summary>
+        <p>{answer}</p>
+      </details>
+    ))}
+  </div>
+</section>
+<style>
+  section { max-width: 880px; margin: auto; padding: 20px 0; scroll-margin-top: 100px; }
+  h2 { color: var(--tb-text-strong); font-size: 36px; font-weight: 600; letter-spacing: -.04em; margin-bottom: 30px; }
+  details { border-bottom: 1px solid var(--tb-border); }
+  summary { color: var(--tb-text-strong); cursor: pointer; padding: 22px 32px 22px 0; font-size: 17px; font-weight: 500; list-style: none; position: relative; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: '+'; position: absolute; right: 0; top: 18px; font-size: 24px; font-weight: 400; }
+  details[open] summary::after { content: '−'; }
+  summary:focus-visible { outline: 2px solid var(--tb-accent); outline-offset: 3px; }
+  p { color: var(--tb-muted); line-height: 1.75; padding: 0 32px 24px 0; max-width: 740px; }
+</style>
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

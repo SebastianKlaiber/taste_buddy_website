@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Main from "../../components/Main.astro";
+import { getGoHref } from "../../lib/marketing/app-links";
 
 export const prerender = true;
 
@@ -357,7 +358,7 @@ const structuredData = {
               Download TasteBuddy Free
             </a>
             <a 
-              href="https://play.google.com/store/apps/details?id=app.tastebuddy"
+              href={getGoHref('organize-recipes', 'android')}
               class="btn-secondary text-lg px-8 py-4"
               target="_blank" 
               rel="noopener noreferrer"

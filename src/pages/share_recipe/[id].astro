@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Main from "../../components/Main.astro";
+import { buildGooglePlayHref } from "../../lib/marketing/app-links";
 import { getSharedRecipeById } from "../../lib/supabase";
 
 export const prerender = false;
@@ -10,7 +11,12 @@ const shareId = String(id ?? '').trim();
 const shareUrl = `https://taste-buddy.app/share_recipe/${shareId}`;
 
 const iosStoreUrl = 'https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=SharedRecipe&mt=8';
-const androidStoreUrl = 'https://play.google.com/store/apps/details?id=app.tastebuddy';
+const androidStoreUrl = buildGooglePlayHref({
+  utm_source: 'recipe_share',
+  utm_medium: 'referral',
+  utm_campaign: 'shared_recipe',
+  share_recipe_id: shareId,
+});
 
 const sharedRecipe = shareId ? await getSharedRecipeById(shareId) : null;
 const recipe = sharedRecipe?.recipe ?? null;
@@ -180,7 +186,12 @@ const pageDescription = recipe
   : 'This shared TasteBuddy recipe is no longer available.';
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  socialImage={imageUrl || undefined}
+  socialImageAlt={title}
+>
   <Main>
     <section class="py-8 sm:py-12">
       <div class="mx-auto max-w-5xl px-4 sm:px-6">

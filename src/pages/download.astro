@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/Main.astro";
-import { APPLE_URL, GOOGLE_PLAY_URL, getWebAppHref } from "../lib/marketing/app-links";
+import { APPLE_URL, getGoHref, getWebAppHref } from "../lib/marketing/app-links";
 
 const description =
   "Download TasteBuddy for iOS and Android, or open the web app to organize recipes, meal plans, and shopping lists.";
@@ -27,7 +27,7 @@ const description =
         </a>
         <a
           class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6 transition hover:border-[#00CE31]/40"
-          href={GOOGLE_PLAY_URL}
+          href={getGoHref('homepage-download', 'android')}
           rel="noopener noreferrer"
           target="_blank"
         >

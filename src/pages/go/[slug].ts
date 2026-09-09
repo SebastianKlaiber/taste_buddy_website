@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { mergeGooglePlayCampaign } from '../../lib/marketing/app-links';
 import { getRedirectRecord } from '../../lib/marketing/content';
 
 export const prerender = false;
@@ -26,7 +27,8 @@ export const GET: APIRoute = async ({ params, request, redirect }) => {
     return redirect('/', 302);
   }
 
-  const requestedPlatform = new URL(request.url).searchParams.get('platform');
+  const requestUrl = new URL(request.url);
+  const requestedPlatform = requestUrl.searchParams.get('platform');
   const platform = requestedPlatform ?? detectPlatform(request.headers.get('user-agent'));
 
   console.info('redirect_hit', {
@@ -43,7 +45,7 @@ export const GET: APIRoute = async ({ params, request, redirect }) => {
   }
 
   if (platform === 'android') {
-    return redirect(record.android_url, 302);
+    return redirect(mergeGooglePlayCampaign(record.android_url, requestUrl.searchParams), 302);
   }
 
   return redirect(record.fallback_url, 302);

@@ -7,6 +7,24 @@
 # Main page
 /  /index.html  200
 
+# Legacy discovery URLs point to their canonical destinations.
+/sitemap.xml  /sitemap-index.xml  301
+/en  /  301
+/en/  /  301
+
+# Historical localized links reported as 404s in Search Console (2026-09-06).
+/en/about/  /about/  301
+/de/about/  /about/  301
+/en/contact/  /contact/  301
+/de/privacy/  /privacy/  301
+/en/guides/how-to-organize-recipes/  /guides/how-to-organize-recipes/  301
+/de/guides/how-to-organize-recipes/  /guides/how-to-organize-recipes/  301
+/blog/articles/wie-man-rezepte-aus-tiktok-und-foodblogs-organisiert/  /de/blog/articles/wie-man-rezepte-aus-tiktok-und-foodblogs-organisiert/  301
+/blog/articles/warum-recipe-scraping-so-schwer-ist-und-warum-das-fuer-import-wichtig-ist/  /de/blog/articles/warum-recipe-scraping-so-schwer-ist-und-warum-das-fuer-import-wichtig-ist/  301
+/de/en/blog/articles/how-to-organize-recipes-from-tiktok-and-blogs/  /de/blog/articles/wie-man-rezepte-aus-tiktok-und-foodblogs-organisiert/  301
+/de/blog/posts/pickling-vegetables-made-easy/  /de/blog/posts/gemuese-einlegen-leicht-gemacht/  301
+/de/blog/posts/rss-recipe-subscriptions/  /en/blog/posts/rss-recipe-subscriptions/  301
+
 # Flutter web app
 /app  /app/  301
 /app/*  /app/index.html  200

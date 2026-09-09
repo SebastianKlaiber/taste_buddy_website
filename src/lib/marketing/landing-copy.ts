@@ -1,0 +1,38 @@
+export const landingCopy = {
+  en: {
+    title: 'Recipes worth saving. Finally worth cooking.',
+    intro: 'That recipe you saved somewhere? Give it a home. Bring your social saves, screenshots, and family favorites together in one recipe organizer app.',
+    web: 'Or open the web app', download: 'Download TasteBuddy',
+    sources: 'From wherever you find your next favorite',
+    sourceList: ['TikTok', 'Instagram', 'Pinterest', 'YouTube', 'Food blogs', 'Screenshots & notes'],
+    heading: 'Less searching. More cooking.',
+    steps: [
+      { title: 'Found something good? Save it.', body: 'Share a recipe link with TasteBuddy, or import a screenshot or note. Keep the ingredients, instructions, and original source together.', link: 'See how importing works', href: '/how-it-works/' },
+      { title: 'Your recipes, all in one place.', body: 'The weeknight pasta. The cake everyone asks for. Search your own cookbook instead of scrolling through old saved posts.', link: 'Explore recipe organization', href: '/solutions/organize-saved-recipes/' },
+      { title: 'Make a plan. Put dinner on the table.', body: 'Pick recipes for the week, add their ingredients to your shopping list, and follow the steps when it’s time to cook.', link: 'Explore meal planning', href: '/features/meal-planning/' },
+    ],
+    screenAlt: 'TasteBuddy recipe collection and recipe details, shown in English',
+    detailAlt: 'TasteBuddy recipe details and cooking instructions, shown in English',
+    closing: 'Your next dinner is already saved.', closingBody: 'Bring it into TasteBuddy and make something good.',
+    guides: 'A little help getting started',
+    links: [['Save TikTok recipes', '/import/tiktok/'], ['Save Instagram recipes', '/how-it-works/'], ['Organize saved recipes', '/solutions/organize-saved-recipes/'], ['Plan meals from your recipes', '/features/meal-planning/']],
+  },
+  de: {
+    title: 'Nicht nur speichern. Endlich auch kochen.',
+    intro: 'Das Rezept war doch irgendwo? Gib deinen gespeicherten Posts, Screenshots und Familienrezepten ein Zuhause. Alles zusammen in deiner Rezept-App.',
+    web: 'Oder die Web-App öffnen', download: 'TasteBuddy herunterladen',
+    sources: 'Wo auch immer du dein nächstes Lieblingsrezept findest',
+    sourceList: ['TikTok', 'Instagram', 'Pinterest', 'YouTube', 'Foodblogs', 'Screenshots & Notizen'],
+    heading: 'Weniger suchen. Mehr kochen.',
+    steps: [
+      { title: 'Etwas Leckeres entdeckt? Speichern.', body: 'Teile einen Rezept-Link mit TasteBuddy oder importiere einen Screenshot oder eine Notiz. Zutaten, Zubereitung und Quelle bleiben zusammen.', link: 'So funktioniert der Import', href: '/de/so-funktioniert-es/' },
+      { title: 'Deine Rezepte an einem Ort.', body: 'Die schnelle Pasta. Der Kuchen, nach dem alle fragen. Suche in deinem eigenen Kochbuch statt in alten gespeicherten Beiträgen.', link: 'Rezepte organisieren', href: '/de/solutions/organize-saved-recipes/' },
+      { title: 'Planen, einkaufen, Essen auf den Tisch.', body: 'Wähle Rezepte für die Woche, übernimm die Zutaten in deine Einkaufsliste und koche Schritt für Schritt.', link: 'Mehr über die Rezept-App', href: '/de/so-funktioniert-es/' },
+    ],
+    screenAlt: 'TasteBuddy Rezeptsammlung und Rezeptdetails, in englischer Sprache dargestellt',
+    detailAlt: 'TasteBuddy Rezeptdetails und Kochanleitung, in englischer Sprache dargestellt',
+    closing: 'Dein nächstes Abendessen ist schon gespeichert.', closingBody: 'Hol es in TasteBuddy und koch etwas Gutes.',
+    guides: 'Ein bisschen Hilfe zum Einstieg',
+    links: [['TikTok-Rezepte speichern', '/de/import/tiktok/'], ['Instagram-Rezepte speichern', '/de/so-funktioniert-es/'], ['Gespeicherte Rezepte organisieren', '/de/solutions/organize-saved-recipes/'], ['TasteBuddy vs Paprika', '/de/comparisons/tastebuddy-vs-paprika/'], ['TasteBuddy Blog', '/de/blog/']],
+  },
+};

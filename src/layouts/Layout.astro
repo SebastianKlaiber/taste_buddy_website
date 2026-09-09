@@ -11,6 +11,9 @@ interface Props {
   alternates?: Partial<Record<'en' | 'de' | 'x-default', string>> | null;
   robots?: string;
   hideMobileChrome?: boolean;
+  landingPage?: boolean;
+  socialImage?: string;
+  socialImageAlt?: string;
 }
 
 const {
@@ -20,12 +23,17 @@ const {
   alternates = null,
   robots = 'index, follow',
   hideMobileChrome = false,
+  landingPage = false,
+  socialImage,
+  socialImageAlt,
 } = Astro.props;
 
 // Language detection and hreflang generation
 const currentPath = Astro.url.pathname;
 const currentLang = currentPath.startsWith('/de/') ? 'de' : currentPath.startsWith('/en/') ? 'en' : 'en';
 const baseUrl = 'https://taste-buddy.app';
+const resolvedSocialImage = socialImage || `${baseUrl}/images/tastebuddy-app-screenshots.webp`;
+const resolvedSocialImageAlt = socialImageAlt || (socialImage ? title : 'TasteBuddy app screenshots');
 
 // Canonical URL with trailing slash normalization.
 const ensureTrailingSlash = (p: string) => (p.endsWith('/') ? p : `${p}/`);
@@ -130,17 +138,18 @@ const websiteStructuredData = {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${baseUrl}/images/tastebuddy-app-screenshots.webp`} />
-    <meta name="twitter:image:alt" content="TasteBuddy app screenshots" />
+    <meta name="twitter:image" content={resolvedSocialImage} />
+    <meta name="twitter:image:alt" content={resolvedSocialImageAlt} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={`${baseUrl}/images/tastebuddy-app-screenshots.webp`} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image" content={resolvedSocialImage} />
+    <meta property="og:image:alt" content={resolvedSocialImageAlt} />
+    {!socialImage && <meta property="og:image:width" content="1200" />}
+    {!socialImage && <meta property="og:image:height" content="630" />}
     <meta property="og:locale" content={ogLocale} />
     <meta property="og:locale:alternate" content={ogAltLocale} />
     
@@ -182,11 +191,11 @@ const websiteStructuredData = {
   </head>
   <body class:list={[
     "tb-site-shell min-h-screen flex flex-col font-['Inter',sans-serif]",
-    hideMobileChrome ? "pb-0" : "pb-32 md:pb-0",
+    hideMobileChrome || landingPage ? "pb-0" : "pb-32 md:pb-0",
   ]}>
     <Analytics />
     <div class:list={[hideMobileChrome && "hidden md:block"]}>
-      <Header />
+      {!landingPage && <Header />}
     </div>
     
     <main class="flex-grow">
@@ -197,7 +206,7 @@ const websiteStructuredData = {
       <Footer />
     </div>
     <div class:list={[hideMobileChrome && "hidden md:block"]}>
-      <FAB />
+      {!landingPage && <FAB />}
     </div>
   </body>
 </html>

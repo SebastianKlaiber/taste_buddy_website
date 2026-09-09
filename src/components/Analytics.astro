@@ -22,6 +22,49 @@ const analyticsEndpoint = '/api/analytics';
 
 <script is:inline define:vars={{ analyticsEndpoint }}>
   const endpoint = analyticsEndpoint;
+  const campaignKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  const campaignStorageKey = 'tastebuddy_campaign';
+
+  function readCampaign(searchParams) {
+    return Object.fromEntries(
+      campaignKeys.flatMap((key) => {
+        const value = searchParams.get(key)?.trim();
+        return value ? [[key, value.slice(0, 100)]] : [];
+      }),
+    );
+  }
+
+  function loadCampaign() {
+    const current = readCampaign(new URLSearchParams(window.location.search));
+    if (Object.keys(current).length > 0) {
+      try {
+        sessionStorage.setItem(campaignStorageKey, JSON.stringify(current));
+      } catch {}
+      return current;
+    }
+
+    try {
+      return JSON.parse(sessionStorage.getItem(campaignStorageKey) || '{}');
+    } catch {
+      return {};
+    }
+  }
+
+  const campaign = loadCampaign();
+
+  function preserveCampaignOnGoLink(anchor) {
+    const url = new URL(anchor.href, window.location.origin);
+    if (url.origin !== window.location.origin || !url.pathname.startsWith('/go/')) {
+      return;
+    }
+
+    for (const [key, value] of Object.entries(campaign)) {
+      if (!url.searchParams.has(key)) {
+        url.searchParams.set(key, value);
+      }
+    }
+    anchor.href = `${url.pathname}${url.search}${url.hash}`;
+  }
 
   function sendToEndpoint(eventName, payload) {
     const body = JSON.stringify({
@@ -63,6 +106,7 @@ const analyticsEndpoint = '/api/analytics';
 
   window.tbTrack = function tbTrack(eventName, payload = {}) {
     const fullPayload = {
+      ...campaign,
       ...payload,
       page_path: window.location.pathname,
     };
@@ -84,7 +128,13 @@ const analyticsEndpoint = '/api/analytics';
   };
 
   document.addEventListener('click', (event) => {
-    const target = event.target instanceof Element ? event.target.closest('[data-track-event]') : null;
+    const clickedElement = event.target instanceof Element ? event.target : null;
+    const anchor = clickedElement?.closest('a');
+    if (anchor instanceof HTMLAnchorElement) {
+      preserveCampaignOnGoLink(anchor);
+    }
+
+    const target = clickedElement?.closest('[data-track-event]') ?? null;
     if (!target) {
       return;
     }

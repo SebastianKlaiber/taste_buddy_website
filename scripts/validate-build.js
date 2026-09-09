@@ -187,6 +187,7 @@ function collectExpectedRoutes() {
   routes.push('/feeds/best-german-food-blogs-with-rss/');
   routes.push('/de/feeds/recipe-websites-with-rss/');
   routes.push('/de/feeds/best-german-food-blogs-with-rss/');
+  routes.push('/account-deletion/');
   articleFiles.forEach((slug) => routes.push(`/en/blog/articles/${slug}/`));
   articleFilesDe.forEach((slug) => routes.push(`/de/blog/articles/${slug}/`));
 
@@ -212,6 +213,13 @@ function validateExpectedRoutes() {
     }
     if (!html.includes('application/ld+json')) {
       errors.push(`Missing structured data: ${route}`);
+    }
+
+    if (
+      route === '/account-deletion/' &&
+      (!html.includes('mailto:support@taste-buddy.app') || !html.includes('Delete Account'))
+    ) {
+      errors.push('Account deletion route is missing its support request or in-app deletion instructions');
     }
 
     if (

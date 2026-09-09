@@ -68,5 +68,25 @@
     "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=rss-tool&mt=8",
     "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dtool_cta%26utm_campaign%3Drss-feed-detector%26utm_content%3Dfeed-discovery",
     "fallback_url": "https://taste-buddy.app/features/rss-recipe-subscriptions/"
+  },
+  {
+    "slug": "how-it-works",
+    "source": "website",
+    "medium": "seo_cta",
+    "campaign": "how-it-works",
+    "content": "product-workflow",
+    "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=how-it-works&mt=8",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dseo_cta%26utm_campaign%3Dhow-it-works%26utm_content%3Dproduct-workflow",
+    "fallback_url": "https://taste-buddy.app/how-it-works/"
+  },
+  {
+    "slug": "guides-faq",
+    "source": "website",
+    "medium": "seo_cta",
+    "campaign": "guides-faq",
+    "content": "guides-faq",
+    "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=guides-faq&mt=8",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dseo_cta%26utm_campaign%3Dguides-faq%26utm_content%3Dguides-faq",
+    "fallback_url": "https://taste-buddy.app/guides/"
   }
 ]
