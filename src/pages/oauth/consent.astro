@@ -49,11 +49,17 @@ const description = "Authorize a connected app to access your TasteBuddy account
           <div class="rounded-lg border border-[#2A2D24] bg-[#10130B] p-4">
             <h2 class="text-lg font-semibold text-white">Sign in required</h2>
             <p class="mt-2 leading-7 text-gray-300">
-              Sign in to TasteBuddy before approving a connected app. The authorization request stays in the URL.
+              Sign in to TasteBuddy in the new tab, then come back here. This page continues automatically.
             </p>
           </div>
           <div class="flex flex-col gap-3 sm:flex-row">
-            <a id="oauth-open-app" href="/app/" class="btn-primary inline-flex justify-center">Open TasteBuddy</a>
+            <a
+              id="oauth-open-app"
+              href="/app/"
+              target="_blank"
+              rel="noopener"
+              class="btn-primary inline-flex justify-center"
+            >Sign in to TasteBuddy</a>
             <button id="oauth-retry" class="btn-secondary" type="button">Retry</button>
           </div>
         </div>
@@ -287,6 +293,18 @@ const description = "Authorize a connected app to access your TasteBuddy account
 
     window.location.assign(data.redirect_url);
   }
+
+  // The web app at /app/ stores its session under the same sb-<ref>-auth-token key.
+  window.addEventListener("storage", (event) => {
+    if (event.newValue && /^sb-.+-auth-token$/.test(event.key || "") && !signedOutView?.classList.contains("hidden")) {
+      loadAuthorization();
+    }
+  });
+  window.addEventListener("focus", () => {
+    if (!signedOutView?.classList.contains("hidden")) {
+      loadAuthorization();
+    }
+  });
 
   retryButton?.addEventListener("click", loadAuthorization);
   approveButton?.addEventListener("click", () => submitDecision("approve"));
