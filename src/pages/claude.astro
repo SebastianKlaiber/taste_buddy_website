@@ -1,0 +1,110 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Main from "../components/Main.astro";
+
+export const prerender = true;
+
+const title = "TasteBuddy for Claude | TasteBuddy";
+const description =
+  "Connect TasteBuddy to Claude to search your recipes, plan meals, and add items to your shopping list from a Claude conversation.";
+
+const readTools = [
+  ["Search recipes", "Find recipes saved in your account and shared with your household."],
+  ["Get a recipe", "Read one recipe with its ingredients, sections, and steps."],
+  ["List cookbooks", "See your cookbooks and how many recipes each holds."],
+  ["Get cookbook recipes", "List the recipes in one cookbook."],
+  ["Get shopping list", "Read the shared household shopping list."],
+  ["Get meal plan", "Read the planned meals for a week (Monday to Sunday)."],
+];
+
+const writeTools = [
+  ["Save recipe", "Save a new recipe, for example one Claude found or wrote with you."],
+  ["Add to shopping list", "Add items to the household shopping list."],
+  ["Add to meal plan", "Plan a meal on a date."],
+];
+---
+
+<Layout title={title} description={description}>
+  <Main>
+    <section class="mx-auto max-w-3xl py-12 text-gray-300 sm:py-16">
+      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#00CE31]">Connector</p>
+      <h1 class="mt-2 text-3xl font-semibold text-white sm:text-4xl">TasteBuddy for Claude</h1>
+      <p class="mt-4 leading-7">
+        The TasteBuddy connector lets Claude work with your recipes, cookbooks, meal plan, and shopping list. Ask
+        things like "what can I cook from my saved pasta recipes?", "plan the lentil soup for Friday dinner", or
+        "add everything I need for it to my shopping list".
+      </p>
+
+      <h2 class="mt-12 text-xl font-semibold text-white">Connect TasteBuddy</h2>
+      <ol class="mt-4 list-decimal space-y-2 pl-6 leading-7">
+        <li>In Claude, open <strong class="text-white">Settings → Connectors</strong> and search for TasteBuddy.</li>
+        <li>Select <strong class="text-white">Connect</strong>.</li>
+        <li>
+          Sign in to TasteBuddy if asked, check that the request comes from Claude
+          (<code class="text-[#00CE31]">claude.ai</code>), and select <strong class="text-white">Approve</strong>.
+        </li>
+        <li>In a conversation, make sure TasteBuddy is turned on in the tools menu.</li>
+      </ol>
+      <p class="mt-4 leading-7">
+        You need a TasteBuddy account. The connector works in Claude on the web, the desktop apps, and mobile once
+        connected.
+      </p>
+
+      <h2 class="mt-12 text-xl font-semibold text-white">What Claude can do</h2>
+      <p class="mt-4 leading-7">Claude only sees data your TasteBuddy account can see, including data shared with your household.</p>
+      <h3 class="mt-6 font-semibold text-white">Read</h3>
+      <ul class="mt-3 space-y-3">
+        {readTools.map(([name, text]) => (
+          <li class="rounded-lg border border-[#2A2D24] bg-[#10130B] p-4">
+            <p class="font-semibold text-white">{name}</p>
+            <p class="mt-1 leading-6">{text}</p>
+          </li>
+        ))}
+      </ul>
+      <h3 class="mt-6 font-semibold text-white">Add</h3>
+      <ul class="mt-3 space-y-3">
+        {writeTools.map(([name, text]) => (
+          <li class="rounded-lg border border-[#2A2D24] bg-[#10130B] p-4">
+            <p class="font-semibold text-white">{name}</p>
+            <p class="mt-1 leading-6">{text}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-4 leading-7">
+        Claude asks before it adds anything. The connector cannot edit or delete existing recipes, list items, or
+        plans, and it cannot place grocery orders.
+      </p>
+
+      <h2 class="mt-12 text-xl font-semibold text-white">Disconnect</h2>
+      <p class="mt-4 leading-7">
+        In Claude, open <strong class="text-white">Settings → Connectors → TasteBuddy</strong> and select
+        <strong class="text-white">Disconnect</strong>. To have us revoke the access on our side as well,
+        <a class="text-[#00CE31] underline-offset-4 hover:underline" href="/contact/">contact us</a>.
+      </p>
+
+      <h2 class="mt-12 text-xl font-semibold text-white">Troubleshooting</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-6 leading-7">
+        <li>
+          <strong class="text-white">Connected, but Claude finds no TasteBuddy tools:</strong> disconnect and connect
+          again so Claude reloads the tool list.
+        </li>
+        <li>
+          <strong class="text-white">The approval page asks you to sign in:</strong> sign in in the tab that opens,
+          then return to the approval page. It continues automatically.
+        </li>
+        <li>
+          <strong class="text-white">Something else:</strong>
+          <a class="text-[#00CE31] underline-offset-4 hover:underline" href="/contact/">contact us</a> and include
+          the time it happened.
+        </li>
+      </ul>
+
+      <h2 class="mt-12 text-xl font-semibold text-white">Privacy</h2>
+      <p class="mt-4 leading-7">
+        TasteBuddy does not receive or store your Claude conversations. When Claude uses a tool, TasteBuddy sends
+        the requested data to Claude. See section 4 of our
+        <a class="text-[#00CE31] underline-offset-4 hover:underline" href="/privacy/">privacy policy</a>.
+      </p>
+    </section>
+  </Main>
+</Layout>
