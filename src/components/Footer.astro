@@ -67,6 +67,7 @@ const isGerman = Astro.url.pathname.startsWith('/de/');
           <li><a href="/features/" class="text-gray-400 hover:text-[#00CE31] transition-colors">{isGerman ? 'Funktionen' : 'Features'}</a></li>
           <li><a href={isGerman ? '/de/blog/' : '/en/blog/'} class="text-gray-400 hover:text-[#00CE31] transition-colors">Blog</a></li>
           <li><a href="/contact/" class="text-gray-400 hover:text-[#00CE31] transition-colors">{isGerman ? 'Kontakt' : 'Contact'}</a></li>
+          <li><a href="https://discord.gg/ZHz8j4neX" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-[#00CE31] transition-colors">{isGerman ? 'Discord-Community beitreten' : 'Join our Discord community'}</a></li>
         </ul>
       </div>
 
