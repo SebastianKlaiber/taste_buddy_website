@@ -34,18 +34,24 @@ verify_dist:
 	@printf "dist ok: Flutter web app ready under /app/\n"
 
 deploy_preview: build verify_dist
+	@mkdir -p .netlify/deploy-functions
+	@rsync -a --delete .netlify/v1/functions/ .netlify/deploy-functions/
 	netlify deploy \
 		--site "$(NETLIFY_SITE_ID)" \
 		--dir dist \
-		--functions .netlify/v1/functions \
+		--functions .netlify/deploy-functions \
+		--skip-functions-cache \
 		--message "$(DEPLOY_MESSAGE)"
 
 deploy deploy_prod: build verify_dist
+	@mkdir -p .netlify/deploy-functions
+	@rsync -a --delete .netlify/v1/functions/ .netlify/deploy-functions/
 	netlify deploy \
 		--prod \
 		--site "$(NETLIFY_SITE_ID)" \
 		--dir dist \
-		--functions .netlify/v1/functions \
+		--functions .netlify/deploy-functions \
+		--skip-functions-cache \
 		--message "$(DEPLOY_MESSAGE)" \
 		--timeout 600
 
