@@ -9,13 +9,16 @@ interface Props {
 }
 
 const { record } = Astro.props;
-const readableLinkLabel = (href: string) =>
-  href
-    .replace(/^\/|\/$/g, '')
-    .split('/')
-    .pop()
-    ?.replace(/-/g, ' ')
-    .replace(/\b\w/g, (letter) => letter.toUpperCase()) ?? href;
+const readableLinkLabel = (href: string) => {
+  const label =
+    href
+      .replace(/^\/|\/$/g, '')
+      .split('/')
+      .pop()
+      ?.replace(/-/g, ' ')
+      .replace(/\b\w/g, (letter) => letter.toUpperCase()) ?? href;
+  return href.startsWith('/alternatives/') ? `${label} Alternatives` : label;
+};
 
 const structuredData = {
   '@context': 'https://schema.org',
