@@ -20,6 +20,8 @@ export interface BaseMarketingRecord {
   cta_variant: string;
   last_reviewed_at: string;
   title: string;
+  // Optional <title> override when the on-page H1 should stay shorter or differ.
+  seo_title?: string;
   description: string;
 }
 

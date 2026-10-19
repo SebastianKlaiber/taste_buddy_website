@@ -32,9 +32,9 @@
   {
     "slug": "organize-saved-recipes",
     "locale": "de",
-    "title": "Gespeicherte Rezepte endlich sinnvoll organisieren",
-    "description": "Ein praktisches System, um Screenshots, Bookmarks, TikTok-Saves und Foodblog-Links in eine durchsuchbare Rezeptsammlung zu verwandeln.",
-    "primary_keyword": "rezepte organisieren app",
+    "title": "Rezepte organisieren: Gespeicherte Rezepte sinnvoll ordnen",
+    "description": "Rezepte organisieren ohne Chaos: So werden Screenshots, Bookmarks, TikTok-Saves und Foodblog-Links zu einer durchsuchbaren Rezeptsammlung.",
+    "primary_keyword": "rezepte organisieren",
     "search_intent": "problem_solution",
     "page_type": "solution",
     "source_of_truth": [
@@ -43,10 +43,10 @@
     ],
     "claims": [
       "TasteBuddy importiert Rezepte aus Websites, Social Media, Screenshots und Notes-Workflows.",
-      "TasteBuddy haelt Rezepte an einem Ort durchsuchbar."
+      "TasteBuddy hält Rezepte an einem Ort durchsuchbar."
     ],
     "cta_variant": "organize-recipes",
-    "last_reviewed_at": "2026-04-10",
+    "last_reviewed_at": "2026-10-19",
     "problem": "Rezepte liegen verteilt in Social Saves, Tabs, Screenshots und Bookmarks.",
     "outcomes": [
       "Eine durchsuchbare Rezeptsammlung",
@@ -54,10 +54,11 @@
       "Schnellere Planung und Kochroutine"
     ],
     "steps": [
-      "Rezeptquellen in ein einziges System uebernehmen.",
+      "Rezeptquellen in ein einziges System übernehmen.",
       "Rezepte so gruppieren, wie Sie wirklich kochen.",
-      "Die Sammlung als Basis fuer Planung und Einkauf nutzen."
-    ]
+      "Die Sammlung als Basis für Planung und Einkauf nutzen."
+    ],
+    "seo_title": "Rezepte organisieren: Gespeicherte Rezepte ordnen | TasteBuddy"
   },
   {
     "slug": "recipe-app-with-shopping-list",
@@ -93,7 +94,7 @@
     "slug": "recipe-app-with-shopping-list",
     "locale": "de",
     "title": "Warum eine Rezept-App mit Einkaufsliste den Unterschied macht",
-    "description": "Eine Rezept-App ist deutlich nuetzlicher, wenn sie aus geplanten Mahlzeiten direkt eine alltagstaugliche Einkaufsliste macht.",
+    "description": "Eine Rezept-App ist deutlich nützlicher, wenn sie aus geplanten Mahlzeiten direkt eine alltagstaugliche Einkaufsliste macht.",
     "primary_keyword": "rezept app mit einkaufsliste",
     "search_intent": "problem_solution",
     "page_type": "solution",
@@ -111,11 +112,11 @@
     "outcomes": [
       "Weniger vergessene Zutaten",
       "Weniger Hin und Her beim Einkauf",
-      "Kuerzerer Weg vom Save zum gekochten Gericht"
+      "Kürzerer Weg vom Save zum gekochten Gericht"
     ],
     "steps": [
-      "Rezepte in einer persoenlichen Sammlung speichern.",
-      "Die Rezepte fuer diese Woche auswaehlen.",
+      "Rezepte in einer persönlichen Sammlung speichern.",
+      "Die Rezepte für diese Woche auswählen.",
       "Eine gemeinsame Einkaufsliste aus dem Plan erzeugen."
     ]
   },
@@ -153,8 +154,8 @@
     "slug": "decision-fatigue-cooking",
     "locale": "de",
     "title": "Weniger Entscheidungsstress beim Kochen",
-    "description": "Ein praktischer Ansatz gegen taeglichen Dinner-Stress mit gespeicherten Rezepten, Wochenplanung und wiederholbaren Routinen.",
-    "primary_keyword": "entscheidungsmuedigkeit kochen",
+    "description": "Ein praktischer Ansatz gegen täglichen Dinner-Stress mit gespeicherten Rezepten, Wochenplanung und wiederholbaren Routinen.",
+    "primary_keyword": "entscheidungsmüdigkeit kochen",
     "search_intent": "problem_solution",
     "page_type": "solution",
     "source_of_truth": [
@@ -162,8 +163,8 @@
       "/Users/sebastianklaiber/conductor/workspaces/taste_buddy/istanbul-v1/docs/tiktok_strategy.md"
     ],
     "claims": [
-      "TasteBuddy unterstuetzt Wochenplanung aus gespeicherten Rezepten.",
-      "TasteBuddy verringert die Luecke zwischen Inspiration und Umsetzung."
+      "TasteBuddy unterstützt Wochenplanung aus gespeicherten Rezepten.",
+      "TasteBuddy verringert die Lücke zwischen Inspiration und Umsetzung."
     ],
     "cta_variant": "plan-from-saves",
     "last_reviewed_at": "2026-04-10",
@@ -174,7 +175,7 @@
       "Mehr Nutzung der bereits gespeicherten Rezepte"
     ],
     "steps": [
-      "Nur die Rezepte sammeln, die Sie wirklich kochen wuerden.",
+      "Nur die Rezepte sammeln, die Sie wirklich kochen würden.",
       "Vor Wochenstart ein kleines Dinner-Set planen.",
       "Mit der Einkaufsliste letzte Reibung entfernen."
     ]

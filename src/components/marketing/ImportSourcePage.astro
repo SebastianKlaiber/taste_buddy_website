@@ -44,7 +44,7 @@ const labels = {
     faq: 'FAQ',
   },
   de: {
-    supported: 'Unterstuetzte Workflows',
+    supported: 'Unterstützte Workflows',
     limitations: 'Bekannte Grenzen',
     proof: 'Was TasteBuddy kann',
     faq: 'FAQ',
@@ -52,7 +52,7 @@ const labels = {
 } as const;
 ---
 
-<Layout title={record.title} description={record.description} alternates={buildAlternates(pagePath)}>
+<Layout title={record.seo_title ?? record.title} description={record.description} alternates={buildAlternates(pagePath)}>
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
   <Main>
@@ -64,7 +64,11 @@ const labels = {
       </header>
 
       <section class="mb-10 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
-        <DownloadCtas slug={record.cta_variant} primaryLabel={locale === 'de' ? 'TasteBuddy ausprobieren' : 'Try TasteBuddy'} />
+        <DownloadCtas
+          slug={record.cta_variant}
+          primaryLabel={locale === 'de' ? 'TasteBuddy ausprobieren' : 'Try TasteBuddy'}
+          secondaryLabel={locale === 'de' ? 'Rezept-Workflows ansehen' : undefined}
+        />
       </section>
 
       <section class="mb-10 grid gap-6 md:grid-cols-2">

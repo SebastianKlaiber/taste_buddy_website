@@ -2,9 +2,9 @@
   {
     "slug": "all-recipe",
     "locale": "en",
-    "title": "Best App to Save Recipes From Anywhere",
-    "description": "A criteria-based guide to recipe apps for people who save recipes from TikTok, Instagram, Pinterest, and food blogs and want one searchable collection.",
-    "primary_keyword": "all recipe app",
+    "title": "Best App to Collect Recipes From Anywhere",
+    "description": "The best app to collect recipes from TikTok, Instagram, Pinterest, and food blogs: a criteria-based guide to recipe collection apps with one searchable place.",
+    "primary_keyword": "best app to collect recipes",
     "search_intent": "comparison",
     "page_type": "keyword_comparison",
     "source_of_truth": [
@@ -16,8 +16,8 @@
       "TasteBuddy connects recipe saving with meal planning and shopping lists."
     ],
     "cta_variant": "save-from-anywhere",
-    "last_reviewed_at": "2026-04-10",
-    "hero": "If your recipes are spread across tabs, screenshots, and social saves, the right recipe app should do more than store links.",
+    "last_reviewed_at": "2026-10-19",
+    "hero": "If your recipes are spread across tabs, screenshots, and social saves, the best recipe collection app should do more than store links.",
     "decision_criteria": [
       "Can it import from websites and social media without manual cleanup?",
       "Can it turn saved recipes into a weekly plan and shopping list?",
@@ -32,7 +32,8 @@
       "/import/tiktok/",
       "/import/pinterest/",
       "/solutions/organize-saved-recipes/"
-    ]
+    ],
+    "seo_title": "Best App to Collect & Save Recipes From Anywhere (2026)"
   },
   {
     "slug": "recipe-planner",

@@ -52,7 +52,7 @@ const description =
           <div class="mb-12">
             <h2 class="text-2xl font-semibold text-white mb-6">Aktueller Beitrag</h2>
             <article class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl overflow-hidden border border-[#2A2D24]/30 backdrop-blur-sm hover:border-[#2A2D24]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#00CE31]/10">
-              <a href={featuredPost.url} class="block">
+              <a href={`${featuredPost.url.replace(/\/$/, "")}/`} class="block">
                 {featuredPost.frontmatter.image && (
                   <div class="relative overflow-hidden">
                     <img 
@@ -112,7 +112,7 @@ const description =
         <div class="grid gap-8">
           {sortedPosts.filter(post => post !== featuredPost).map((post) => (
             <article class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl overflow-hidden border border-[#2A2D24]/30 backdrop-blur-sm hover:border-[#2A2D24]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#00CE31]/10">
-              <a href={post.url} class="block">
+              <a href={`${post.url.replace(/\/$/, "")}/`} class="block">
                 {post.frontmatter.image && (
                   <div class="relative overflow-hidden">
                     <img 

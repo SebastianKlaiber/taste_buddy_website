@@ -57,7 +57,7 @@ const faqStructuredData = {
 };
 ---
 
-<Layout title={record.title} description={record.description}>
+<Layout title={record.seo_title ?? record.title} description={record.description}>
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
   <Main>

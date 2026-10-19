@@ -1,29 +1,43 @@
 User-agent: *
 Allow: /
 Disallow: /app/
+Disallow: /api/
+Disallow: /go/
 
 User-agent: GPTBot
 Allow: /
 Disallow: /app/
+Disallow: /api/
+Disallow: /go/
 
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /app/
+Disallow: /api/
+Disallow: /go/
 
 User-agent: PerplexityBot
 Allow: /
 Disallow: /app/
+Disallow: /api/
+Disallow: /go/
 
 User-agent: ClaudeBot
 Allow: /
 Disallow: /app/
+Disallow: /api/
+Disallow: /go/
 
 User-agent: anthropic-ai
 Allow: /
 Disallow: /app/
+Disallow: /api/
+Disallow: /go/
 
 User-agent: Google-Extended
 Allow: /
 Disallow: /app/
+Disallow: /api/
+Disallow: /go/
 
 Sitemap: https://taste-buddy.app/sitemap-index.xml

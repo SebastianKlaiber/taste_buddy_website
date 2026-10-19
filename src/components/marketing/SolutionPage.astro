@@ -37,11 +37,11 @@ const labels = {
   },
   de: {
     problem: 'Das eigentliche Problem',
-    outcomes: 'Was ein besseres System veraendert',
+    outcomes: 'Was ein besseres System verändert',
     steps: 'Ein besserer Workflow',
-    proof: 'Wie TasteBuddy diesen Workflow unterstuetzt',
-    faq: 'Haeufige Fragen',
-    questionOne: 'Warum loesen Bookmarks dieses Problem nicht allein?',
+    proof: 'Wie TasteBuddy diesen Workflow unterstützt',
+    faq: 'Häufige Fragen',
+    questionOne: 'Warum lösen Bookmarks dieses Problem nicht allein?',
     questionTwo: 'Was ist der erste Schritt?',
   },
 } as const;
@@ -65,7 +65,7 @@ const faqStructuredData = {
 };
 ---
 
-<Layout title={record.title} description={record.description} alternates={buildAlternates(pagePath)}>
+<Layout title={record.seo_title ?? record.title} description={record.description} alternates={buildAlternates(pagePath)}>
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
   <Main>
@@ -82,7 +82,11 @@ const faqStructuredData = {
           <p class="text-gray-300">{record.problem}</p>
         </div>
         <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
-          <DownloadCtas slug={record.cta_variant} />
+          <DownloadCtas
+            slug={record.cta_variant}
+            primaryLabel={locale === 'de' ? 'TasteBuddy ausprobieren' : undefined}
+            secondaryLabel={locale === 'de' ? 'Rezept-Workflows ansehen' : undefined}
+          />
         </div>
       </section>
 

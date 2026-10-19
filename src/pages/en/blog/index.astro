@@ -133,7 +133,7 @@ const description =
         <div class="grid gap-8">
           {sortedPosts.map((post) => (
             <article class="bg-gradient-to-br from-[#1C2513]/90 to-[#1C2513]/80 rounded-2xl overflow-hidden border border-[#2A2D24]/30 backdrop-blur-sm hover:border-[#2A2D24]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#00CE31]/10">
-              <a href={post.url} class="block">
+              <a href={`${post.url.replace(/\/$/, "")}/`} class="block">
                 {post.frontmatter.image && (
                   <div class="relative h-64 overflow-hidden">
                     <img 
