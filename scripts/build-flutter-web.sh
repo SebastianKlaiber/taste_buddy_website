@@ -40,12 +40,15 @@ resolve_app_repo() {
 
   if [ -z "${TASTE_BUDDY_APP_REPO_TOKEN:-}" ]; then
     echo "Missing TASTE_BUDDY_APP_REPO_TOKEN for private app repo clone." >&2
+    echo "On Netlify, add it under Project configuration > Environment variables (Builds scope, all deploy contexts)." >&2
     exit 1
   fi
 
   rm -rf "${BUILD_DIR}"
   mkdir -p "$(dirname "${BUILD_DIR}")"
   git clone --depth 1 --branch "${APP_REF}" "https://x-access-token:${TASTE_BUDDY_APP_REPO_TOKEN}@${APP_REPO_URL#https://}" "${BUILD_DIR}"
+  # Drop the token from the clone's .git/config so Netlify secret scanning never finds it in the build tree.
+  git -C "${BUILD_DIR}" remote set-url origin "${APP_REPO_URL}"
   echo "${BUILD_DIR}"
 }
 
