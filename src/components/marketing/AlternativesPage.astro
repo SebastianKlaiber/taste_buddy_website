@@ -1,0 +1,304 @@
+---
+import type { AlternativesRecord, Locale } from '../../lib/marketing/types';
+import { SITE_URL, buildAlternates, getLocalizedPath } from '../../lib/marketing/app-links';
+import { getAlternativeApp, getComparison, listAlternatives } from '../../lib/marketing/content';
+import Layout from '../../layouts/Layout.astro';
+import Main from '../Main.astro';
+import DownloadCtas from './DownloadCtas.astro';
+
+interface Props {
+  record: AlternativesRecord;
+  locale: Locale;
+}
+
+const { record, locale } = Astro.props;
+const comparison = getComparison(locale, record.comparison_slug);
+
+// TasteBuddy's entry reuses the competitor-specific copy from the comparison record;
+// every other app comes straight from the shared app catalog.
+const apps = record.app_slugs.map((slug) => {
+  const app = getAlternativeApp(locale, slug);
+  if (slug !== 'tastebuddy') {
+    return app;
+  }
+  return { ...app, best_for: comparison.best_for_tastebuddy, highlights: comparison.strengths };
+});
+
+const comparisonPath = getLocalizedPath(locale, `/comparisons/${comparison.slug}/`);
+const pagePath = getLocalizedPath(locale, `/alternatives/${record.slug}/`);
+const otherAlternatives = listAlternatives(locale).filter((entry) => entry.slug !== record.slug);
+
+const labels = {
+  en: {
+    disclosure:
+      'We make TasteBuddy, so we list it first. The other apps are described from their public store listings and websites, including where each one fits better.',
+    quickAnswer: 'Quick answer',
+    rank: '#',
+    app: 'App',
+    bestFor: 'Best for',
+    platforms: 'Platforms',
+    pricing: 'Pricing',
+    whySwitch: `Why people look for a ${record.competitor} alternative`,
+    howWePicked: 'How we picked these apps',
+    listHeading: `The ${apps.length} best ${record.competitor} alternatives`,
+    highlights: 'Highlights',
+    tradeoff: 'Tradeoff',
+    visitWebsite: 'Visit website',
+    fullComparison: `Full TasteBuddy vs ${record.competitor} comparison`,
+    stay: `Should you stay with ${record.competitor}?`,
+    switchHeading: `How to switch from ${record.competitor}`,
+    faq: 'FAQ',
+    explore: 'Keep exploring',
+    otherAlternatives: (competitor: string) => `${competitor} alternatives`,
+    lastReviewed: 'Last reviewed:',
+    ctaPrimary: 'Try TasteBuddy',
+    ctaSecondary: 'See recipe workflows',
+  },
+  de: {
+    disclosure:
+      'Wir entwickeln TasteBuddy und nennen es deshalb zuerst. Die anderen Apps beschreiben wir anhand ihrer öffentlichen Store-Einträge und Websites, inklusive der Fälle, in denen sie besser passen.',
+    quickAnswer: 'Kurzantwort',
+    rank: '#',
+    app: 'App',
+    bestFor: 'Ideal für',
+    platforms: 'Plattformen',
+    pricing: 'Preismodell',
+    whySwitch: `Warum Nutzer eine Alternative zu ${record.competitor} suchen`,
+    howWePicked: 'Nach diesen Kriterien haben wir ausgewählt',
+    listHeading: `Die ${apps.length} besten Alternativen zu ${record.competitor}`,
+    highlights: 'Stärken',
+    tradeoff: 'Abwägung',
+    visitWebsite: 'Website besuchen',
+    fullComparison: `Ausführlicher Vergleich: TasteBuddy vs ${record.competitor}`,
+    stay: `Lohnt es sich, bei ${record.competitor} zu bleiben?`,
+    switchHeading: `So gelingt der Wechsel von ${record.competitor}`,
+    faq: 'Häufige Fragen',
+    explore: 'Weiterlesen',
+    otherAlternatives: (competitor: string) => `Alternativen zu ${competitor}`,
+    lastReviewed: 'Zuletzt geprüft:',
+    ctaPrimary: 'TasteBuddy testen',
+    ctaSecondary: 'Rezept-Workflows ansehen',
+  },
+}[locale];
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: record.title,
+    description: record.description,
+    inLanguage: locale,
+    dateModified: record.last_reviewed_at,
+    author: { '@type': 'Organization', name: 'TasteBuddy' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: record.title,
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    numberOfItems: apps.length,
+    itemListElement: apps.map((app, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: app.name,
+      url: app.slug === 'tastebuddy' ? `${SITE_URL}${getLocalizedPath(locale, '/')}` : app.website_url,
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: record.faq.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  },
+];
+---
+
+<Layout title={record.title} description={record.description} alternates={buildAlternates(pagePath)}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+  <Main>
+    <article class="max-w-5xl mx-auto py-12">
+      <header class="mb-10 rounded-3xl border border-[#2A2D24]/30 bg-[#1C2513]/80 p-6 sm:p-8">
+        <p class="mb-4 text-sm uppercase tracking-[0.2em] text-[#8FECA8]">{record.primary_keyword}</p>
+        <h1 class="mb-4 text-3xl font-bold text-white sm:text-5xl">{record.title}</h1>
+        <p class="max-w-3xl text-lg text-gray-300">{record.intro}</p>
+        <p class="mt-6 max-w-3xl text-sm text-gray-400">{labels.disclosure}</p>
+      </header>
+
+      <section class="mb-10 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-white">{labels.quickAnswer}</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[640px] border-collapse text-left text-sm text-gray-300">
+            <thead>
+              <tr class="border-b border-[#2A2D24]/50 text-white">
+                <th class="p-3 font-semibold">{labels.rank}</th>
+                <th class="p-3 font-semibold">{labels.app}</th>
+                <th class="p-3 font-semibold">{labels.bestFor}</th>
+                <th class="p-3 font-semibold">{labels.platforms}</th>
+                <th class="p-3 font-semibold">{labels.pricing}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {apps.map((app, index) => (
+                <tr class="border-b border-[#2A2D24]/30 last:border-b-0">
+                  <td class="p-3 text-[#8FECA8]">{index + 1}</td>
+                  <td class="p-3 font-medium text-white">
+                    <a class="hover:text-[#8FECA8]" href={`#${app.slug}`}>{app.name}</a>
+                  </td>
+                  <td class="p-3">{app.best_for}</td>
+                  <td class="p-3">{app.platforms.join(', ')}</td>
+                  <td class="p-3">{app.pricing_model}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-10 grid gap-6 md:grid-cols-2">
+        <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+          <h2 class="mb-4 text-2xl font-semibold text-white">{labels.whySwitch}</h2>
+          <ul class="space-y-3 text-gray-300">
+            {record.switch_reasons.map((item) => (
+              <li class="flex gap-3">
+                <span class="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#8FECA8]"></span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+          <h2 class="mb-4 text-2xl font-semibold text-white">{labels.howWePicked}</h2>
+          <ul class="space-y-3 text-gray-300">
+            {record.selection_criteria.map((item) => (
+              <li class="flex gap-3">
+                <span aria-hidden="true" class="text-[#8FECA8]">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="mb-6 text-2xl font-semibold text-white sm:text-3xl">{labels.listHeading}</h2>
+        <ol class="space-y-6">
+          {apps.map((app, index) => {
+            const isTasteBuddy = app.slug === 'tastebuddy';
+            return (
+              <li
+                id={app.slug}
+                class:list={[
+                  'scroll-mt-24 rounded-2xl border p-6',
+                  isTasteBuddy ? 'border-[#00CE31]/40 bg-[#1C2513]/80' : 'border-[#2A2D24]/30 bg-[#14180F]',
+                ]}
+              >
+                <div class="mb-4 flex items-start gap-4">
+                  <span class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#00CE31] font-bold text-black">
+                    {index + 1}
+                  </span>
+                  <div>
+                    <h3 class="text-2xl font-semibold text-white">{app.name}</h3>
+                    <p class="mt-1 text-gray-300">
+                      <span class="font-medium text-[#8FECA8]">{labels.bestFor}:</span> {app.best_for}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="mb-4 flex flex-wrap gap-2 text-xs">
+                  {app.platforms.map((platform) => (
+                    <span class="rounded-full border border-[#2A2D24] px-3 py-1 text-gray-300">{platform}</span>
+                  ))}
+                  <span class="rounded-full border border-[#8FECA8]/30 px-3 py-1 text-[#8FECA8]">{app.pricing_model}</span>
+                </div>
+
+                <h4 class="mb-2 text-sm font-semibold uppercase tracking-wide text-gray-400">{labels.highlights}</h4>
+                <ul class="mb-4 space-y-2 text-gray-300">
+                  {app.highlights.map((item) => (
+                    <li class="flex gap-3">
+                      <span aria-hidden="true" class="text-[#8FECA8]">✓</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <p class="text-gray-400">
+                  <span class="font-medium text-gray-300">{labels.tradeoff}:</span> {app.tradeoff}
+                </p>
+
+                {isTasteBuddy ? (
+                  <div class="mt-6 space-y-4">
+                    <DownloadCtas slug={record.cta_variant} primaryLabel={labels.ctaPrimary} secondaryLabel={labels.ctaSecondary} />
+                    <a class="inline-block text-sm text-[#8FECA8] hover:underline" href={comparisonPath}>
+                      {labels.fullComparison} →
+                    </a>
+                  </div>
+                ) : (
+                  <a
+                    class="mt-6 inline-block text-sm text-[#8FECA8] hover:underline"
+                    href={app.website_url}
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                  >
+                    {labels.visitWebsite} ↗
+                  </a>
+                )}
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+
+      <section class="mb-10 grid gap-6 md:grid-cols-2">
+        <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+          <h2 class="mb-4 text-2xl font-semibold text-white">{labels.stay}</h2>
+          <p class="text-gray-300">{comparison.best_for_competitor}</p>
+          <a class="mt-4 inline-block text-sm text-[#8FECA8] hover:underline" href={comparisonPath}>
+            {labels.fullComparison} →
+          </a>
+        </div>
+        <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+          <h2 class="mb-4 text-2xl font-semibold text-white">{labels.switchHeading}</h2>
+          <ol class="list-decimal space-y-3 pl-5 text-gray-300">
+            {comparison.migration_notes.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="mb-10 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-white">{labels.faq}</h2>
+        <div class="space-y-6 text-gray-300">
+          {record.faq.map((item) => (
+            <div>
+              <h3 class="mb-2 text-lg font-semibold text-white">{item.question}</h3>
+              <p>{item.answer}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-white">{labels.explore}</h2>
+        <ul class="space-y-3">
+          <li><a class="text-[#8FECA8] hover:underline" href={comparisonPath}>{labels.fullComparison}</a></li>
+          {otherAlternatives.map((entry) => (
+            <li>
+              <a class="text-[#8FECA8] hover:underline" href={getLocalizedPath(locale, `/alternatives/${entry.slug}/`)}>
+                {labels.otherAlternatives(entry.competitor)}
+              </a>
+            </li>
+          ))}
+          {record.internal_links.map((link) => (
+            <li><a class="text-[#8FECA8] hover:underline" href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+        <p class="mt-6 text-sm text-gray-500">{labels.lastReviewed} {record.last_reviewed_at}</p>
+      </section>
+    </article>
+  </Main>
+</Layout>

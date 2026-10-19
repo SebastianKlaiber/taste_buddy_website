@@ -3,6 +3,7 @@ export type SearchIntent = 'comparison' | 'problem_solution' | 'feature' | 'info
 export type PageType =
   | 'keyword_comparison'
   | 'comparison'
+  | 'alternatives'
   | 'solution'
   | 'import_source'
   | 'feed_directory'
@@ -41,6 +42,42 @@ export interface ComparisonRecord extends BaseMarketingRecord {
   review_status: 'approved' | 'draft' | 'frozen';
   best_for_tastebuddy: string;
   best_for_competitor: string;
+}
+
+export interface InternalLink {
+  href: string;
+  label: string;
+}
+
+export interface AlternativesFaq {
+  question: string;
+  answer: string;
+}
+
+export interface AlternativesRecord extends BaseMarketingRecord {
+  page_type: 'alternatives';
+  competitor: string;
+  comparison_slug: string;
+  intro: string;
+  switch_reasons: string[];
+  selection_criteria: string[];
+  app_slugs: string[];
+  faq: AlternativesFaq[];
+  internal_links: InternalLink[];
+}
+
+export interface AlternativeAppRecord {
+  slug: string;
+  locale: Locale;
+  name: string;
+  website_url: string;
+  platforms: string[];
+  pricing_model: string;
+  best_for: string;
+  highlights: string[];
+  tradeoff: string;
+  source_of_truth: string[];
+  last_reviewed_at: string;
 }
 
 export interface SolutionRecord extends BaseMarketingRecord {

@@ -1,0 +1,274 @@
+[
+  {
+    "slug": "tastebuddy",
+    "locale": "en",
+    "name": "TasteBuddy",
+    "website_url": "https://taste-buddy.app/",
+    "platforms": ["iOS", "Android", "Web"],
+    "pricing_model": "Free to start, optional premium features",
+    "best_for": "Saving recipes from social media, websites, screenshots, and notes into one plan-and-shop workflow",
+    "highlights": [
+      "Imports recipes from TikTok, Instagram, Pinterest, YouTube, food blogs, screenshots, and notes",
+      "Turns saved recipes into a weekly meal plan and shopping list",
+      "One searchable personal collection across iOS, Android, and web"
+    ],
+    "tradeoff": "Built around organizing recipes you find elsewhere, not around a large built-in recipe catalog",
+    "source_of_truth": ["public/app-info.md", "content/comparisons.json"],
+    "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "tastebuddy",
+    "locale": "de",
+    "name": "TasteBuddy",
+    "website_url": "https://taste-buddy.app/de/",
+    "platforms": ["iOS", "Android", "Web"],
+    "pricing_model": "Kostenlos starten, optionale Premium-Funktionen",
+    "best_for": "Rezepte aus Social Media, Websites, Screenshots und Notizen in einem Workflow für Planung und Einkauf",
+    "highlights": [
+      "Importiert Rezepte aus TikTok, Instagram, Pinterest, YouTube, Food-Blogs, Screenshots und Notizen",
+      "Macht aus gespeicherten Rezepten einen Wochenplan und eine Einkaufsliste",
+      "Eine durchsuchbare persönliche Sammlung auf iOS, Android und im Web"
+    ],
+    "tradeoff": "Gebaut für die Organisation von Rezepten, die Sie anderswo finden, nicht für einen großen eigenen Rezeptkatalog",
+    "source_of_truth": ["public/app-info.md", "content/comparisons.json"],
+    "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "paprika",
+    "locale": "en",
+    "name": "Paprika Recipe Manager",
+    "website_url": "https://www.paprikaapp.com/",
+    "platforms": ["iOS", "Android", "macOS", "Windows"],
+    "pricing_model": "One-time purchase, sold separately per platform",
+    "best_for": "Cooks who want a classic, long-established recipe manager with desktop apps",
+    "highlights": [
+      "Built-in browser for saving recipes from websites",
+      "Meal planner, grocery list, and pantry features",
+      "Native apps for mobile and desktop with cloud sync"
+    ],
+    "tradeoff": "Each platform is a separate purchase, and the workflow is built around websites rather than social video",
+    "source_of_truth": ["https://apps.apple.com/app/id1303222868"],
+    "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "paprika",
+    "locale": "de",
+    "name": "Paprika Recipe Manager",
+    "website_url": "https://www.paprikaapp.com/",
+    "platforms": ["iOS", "Android", "macOS", "Windows"],
+    "pricing_model": "Einmalkauf, pro Plattform separat",
+    "best_for": "Alle, die einen klassischen, lange etablierten Rezeptmanager mit Desktop-Apps suchen",
+    "highlights": [
+      "Integrierter Browser zum Speichern von Rezepten aus Websites",
+      "Essensplaner, Einkaufsliste und Vorratsfunktionen",
+      "Native Apps für Mobilgeräte und Desktop mit Cloud-Sync"
+    ],
+    "tradeoff": "Jede Plattform wird separat gekauft, und der Workflow ist eher auf Websites als auf Social-Videos ausgelegt",
+    "source_of_truth": ["https://apps.apple.com/app/id1303222868"],
+    "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "mela",
+    "locale": "en",
+    "name": "Mela",
+    "website_url": "https://mela.recipes/",
+    "platforms": ["iPhone", "iPad", "Mac"],
+    "pricing_model": "One-time purchase",
+    "best_for": "Apple-only households that want a clean, native recipe manager with iCloud sync",
+    "highlights": [
+      "Built-in browser that detects and saves recipes from websites",
+      "Cook mode with timers and iCloud library sharing",
+      "Can import an existing Paprika library and scan recipes from cookbooks"
+    ],
+    "tradeoff": "Apple platforms only, so it does not work for mixed iPhone and Android households",
+    "source_of_truth": ["https://apps.apple.com/app/id1568924476"],
+    "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "mela",
+    "locale": "de",
+    "name": "Mela",
+    "website_url": "https://mela.recipes/",
+    "platforms": ["iPhone", "iPad", "Mac"],
+    "pricing_model": "Einmalkauf",
+    "best_for": "Reine Apple-Haushalte, die einen aufgeräumten nativen Rezeptmanager mit iCloud-Sync wollen",
+    "highlights": [
+      "Integrierter Browser, der Rezepte auf Websites erkennt und speichert",
+      "Kochmodus mit Timern und geteilte iCloud-Bibliothek",
+      "Kann eine bestehende Paprika-Bibliothek importieren und Rezepte aus Kochbüchern scannen"
+    ],
+    "tradeoff": "Nur für Apple-Geräte, also keine Option für gemischte iPhone- und Android-Haushalte",
+    "source_of_truth": ["https://apps.apple.com/app/id1568924476"],
+    "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "samsung-food",
+    "locale": "en",
+    "name": "Samsung Food",
+    "website_url": "https://samsungfood.com/",
+    "platforms": ["iOS", "Android", "Web"],
+    "pricing_model": "Free, optional Samsung Food+ subscription",
+    "best_for": "People who want a large public recipe catalog combined with meal planning",
+    "highlights": [
+      "Large public recipe catalog with diet and ingredient filters",
+      "Saves recipes from websites into your own collection",
+      "Weekly meal plans that feed shared shopping lists"
+    ],
+    "tradeoff": "Personalized AI meal plans and some cooking features sit behind the paid tier",
+    "source_of_truth": ["https://apps.apple.com/app/id1133637674"],
+    "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "samsung-food",
+    "locale": "de",
+    "name": "Samsung Food",
+    "website_url": "https://samsungfood.com/",
+    "platforms": ["iOS", "Android", "Web"],
+    "pricing_model": "Kostenlos, optionales Samsung Food+ Abo",
+    "best_for": "Alle, die einen großen öffentlichen Rezeptkatalog mit Essensplanung kombinieren wollen",
+    "highlights": [
+      "Großer öffentlicher Rezeptkatalog mit Filtern nach Ernährung und Zutaten",
+      "Speichert Rezepte von Websites in der eigenen Sammlung",
+      "Wochenpläne, aus denen geteilte Einkaufslisten entstehen"
+    ],
+    "tradeoff": "Personalisierte KI-Essenspläne und einige Kochfunktionen gibt es nur im Bezahl-Abo",
+    "source_of_truth": ["https://apps.apple.com/app/id1133637674"],
+    "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "plan-to-eat",
+    "locale": "en",
+    "name": "Plan to Eat",
+    "website_url": "https://www.plantoeat.com/",
+    "platforms": ["Web", "iOS", "Android"],
+    "pricing_model": "Subscription with free trial",
+    "best_for": "Dedicated meal planners who plan the whole week from a personal recipe book",
+    "highlights": [
+      "Recipe clipper as a browser extension and through the mobile share menu",
+      "Drag-and-drop planner built from your own recipe book",
+      "Grocery list generated automatically from the plan"
+    ],
+    "tradeoff": "Subscription only after the trial, and less focused on saving from social video",
+    "source_of_truth": ["https://learn.plantoeat.com/doc/getting-started-the-basics"],
+    "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "plan-to-eat",
+    "locale": "de",
+    "name": "Plan to Eat",
+    "website_url": "https://www.plantoeat.com/",
+    "platforms": ["Web", "iOS", "Android"],
+    "pricing_model": "Abo mit kostenloser Testphase",
+    "best_for": "Konsequente Wochenplaner, die aus einem persönlichen Rezeptbuch planen",
+    "highlights": [
+      "Rezept-Clipper als Browser-Erweiterung und über das Teilen-Menü am Handy",
+      "Planer auf Basis des eigenen Rezeptbuchs",
+      "Einkaufsliste entsteht automatisch aus dem Plan"
+    ],
+    "tradeoff": "Nach der Testphase nur im Abo, englischsprachig und weniger auf Social-Videos ausgerichtet",
+    "source_of_truth": ["https://learn.plantoeat.com/doc/getting-started-the-basics"],
+    "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "recime",
+    "locale": "en",
+    "name": "ReciMe",
+    "website_url": "https://www.recime.app/",
+    "platforms": ["iOS", "Web"],
+    "pricing_model": "Free with in-app purchases",
+    "best_for": "iPhone users who mostly save recipes from Instagram and TikTok",
+    "highlights": [
+      "Saves recipes from Instagram, TikTok, YouTube, Pinterest, and Facebook",
+      "Meal planner and grocery list sorted by aisle or recipe",
+      "Web version and browser extension alongside the iOS app"
+    ],
+    "tradeoff": "No native Android app yet, so shared households on both platforms need the web version",
+    "source_of_truth": ["https://apps.apple.com/app/id1593779280"],
+    "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "recime",
+    "locale": "de",
+    "name": "ReciMe",
+    "website_url": "https://www.recime.app/",
+    "platforms": ["iOS", "Web"],
+    "pricing_model": "Kostenlos mit In-App-Käufen",
+    "best_for": "iPhone-Nutzer, die Rezepte vor allem aus Instagram und TikTok speichern",
+    "highlights": [
+      "Speichert Rezepte aus Instagram, TikTok, YouTube, Pinterest und Facebook",
+      "Essensplaner und Einkaufsliste, sortiert nach Gang oder Rezept",
+      "Web-Version und Browser-Erweiterung zusätzlich zur iOS-App"
+    ],
+    "tradeoff": "Noch keine native Android-App, gemischte Haushalte brauchen die Web-Version",
+    "source_of_truth": ["https://apps.apple.com/app/id1593779280"],
+    "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "chefkoch",
+    "locale": "en",
+    "name": "Chefkoch",
+    "website_url": "https://www.chefkoch.de/",
+    "platforms": ["iOS", "Android", "Web"],
+    "pricing_model": "Free, optional subscription",
+    "best_for": "German-speaking cooks who want a huge community recipe catalog",
+    "highlights": [
+      "Hundreds of thousands of community recipes with ratings and comments",
+      "Personal cookbook with your own categories and notes",
+      "Shopping list, with a weekly planner in the subscription"
+    ],
+    "tradeoff": "German-language catalog, and the cookbook is built around Chefkoch's own recipes",
+    "source_of_truth": ["https://apps.apple.com/de/app/id478618165"],
+    "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "chefkoch",
+    "locale": "de",
+    "name": "Chefkoch",
+    "website_url": "https://www.chefkoch.de/",
+    "platforms": ["iOS", "Android", "Web"],
+    "pricing_model": "Kostenlos, optionales Abo",
+    "best_for": "Alle, die einen riesigen deutschsprachigen Community-Rezeptkatalog suchen",
+    "highlights": [
+      "Hunderttausende Community-Rezepte mit Bewertungen und Kommentaren",
+      "Persönliches Kochbuch mit eigenen Kategorien und Notizen",
+      "Einkaufsliste, Wochenplaner im Abo"
+    ],
+    "tradeoff": "Das Kochbuch ist auf Chefkoch-Rezepte ausgelegt, nicht auf Rezepte aus Social Media oder anderen Blogs",
+    "source_of_truth": ["https://apps.apple.com/de/app/id478618165"],
+    "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "nyt-cooking",
+    "locale": "en",
+    "name": "NYT Cooking",
+    "website_url": "https://cooking.nytimes.com/",
+    "platforms": ["iOS", "Android", "Web"],
+    "pricing_model": "Subscription",
+    "best_for": "Cooks who want an edited, tested recipe catalog instead of user submissions",
+    "highlights": [
+      "Professionally developed and tested recipes",
+      "Recipe box for saving favorites",
+      "Strong editorial guides and techniques"
+    ],
+    "tradeoff": "Full access requires a paid subscription, and it is a catalog rather than a tool for your own recipes",
+    "source_of_truth": ["https://cooking.nytimes.com/"],
+    "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "nyt-cooking",
+    "locale": "de",
+    "name": "NYT Cooking",
+    "website_url": "https://cooking.nytimes.com/",
+    "platforms": ["iOS", "Android", "Web"],
+    "pricing_model": "Abo",
+    "best_for": "Alle, die einen redaktionell geprüften Rezeptkatalog statt Nutzer-Rezepten wollen",
+    "highlights": [
+      "Professionell entwickelte und getestete Rezepte",
+      "Rezeptbox zum Speichern von Favoriten",
+      "Starke redaktionelle Guides und Techniken"
+    ],
+    "tradeoff": "Englischsprachig, voller Zugriff nur im Abo, und eher Katalog als Werkzeug für eigene Rezepte",
+    "source_of_truth": ["https://cooking.nytimes.com/"],
+    "last_reviewed_at": "2026-10-19"
+  }
+]

@@ -1,3 +1,5 @@
+import alternativeApps from '../../../content/alternative_apps.json';
+import alternatives from '../../../content/alternatives.json';
 import comparisons from '../../../content/comparisons.json';
 import feedSites from '../../../content/feed_sites.json';
 import importSources from '../../../content/import_sources.json';
@@ -6,6 +8,8 @@ import redirects from '../../../content/redirects.json';
 import solutions from '../../../content/solutions.json';
 import stats from '../../../content/stats.json';
 import type {
+  AlternativeAppRecord,
+  AlternativesRecord,
   ComparisonRecord,
   FeedSiteRecord,
   ImportSourceRecord,
@@ -17,6 +21,8 @@ import type {
 } from './types';
 
 const comparisonRecords = comparisons as ComparisonRecord[];
+const alternativesRecords = alternatives as AlternativesRecord[];
+const alternativeAppRecords = alternativeApps as AlternativeAppRecord[];
 const solutionRecords = solutions as SolutionRecord[];
 const keywordRecords = keywords as KeywordRecord[];
 const importSourceRecords = importSources as ImportSourceRecord[];
@@ -38,6 +44,18 @@ export function getComparison(locale: Locale, slug: string): ComparisonRecord {
 
 export function listComparisons(locale: Locale): ComparisonRecord[] {
   return comparisonRecords.filter((record) => record.locale === locale);
+}
+
+export function listAlternatives(locale: Locale): AlternativesRecord[] {
+  return alternativesRecords.filter((record) => record.locale === locale);
+}
+
+export function findAlternativesForComparison(locale: Locale, comparisonSlug: string): AlternativesRecord | undefined {
+  return alternativesRecords.find((record) => record.locale === locale && record.comparison_slug === comparisonSlug);
+}
+
+export function getAlternativeApp(locale: Locale, slug: string): AlternativeAppRecord {
+  return byLocale(alternativeAppRecords, locale, slug);
 }
 
 export function getSolution(locale: Locale, slug: string): SolutionRecord {

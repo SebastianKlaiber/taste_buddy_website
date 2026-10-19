@@ -25,6 +25,14 @@ const registryConfigs = [
     required: ['slug', 'locale', 'title', 'description', 'competitor', 'use_case', 'strengths', 'weaknesses', 'migration_notes', 'proof_points', 'review_status'],
   },
   {
+    file: 'alternatives.json',
+    required: ['slug', 'locale', 'title', 'description', 'primary_keyword', 'competitor', 'comparison_slug', 'intro', 'switch_reasons', 'selection_criteria', 'app_slugs', 'faq', 'internal_links', 'cta_variant', 'last_reviewed_at'],
+  },
+  {
+    file: 'alternative_apps.json',
+    required: ['slug', 'locale', 'name', 'website_url', 'platforms', 'pricing_model', 'best_for', 'highlights', 'tradeoff', 'source_of_truth', 'last_reviewed_at'],
+  },
+  {
     file: 'solutions.json',
     required: ['slug', 'locale', 'title', 'description', 'problem', 'outcomes', 'steps'],
   },
@@ -105,6 +113,20 @@ function validateRegistryData() {
     });
   }
 
+  const comparisonKeys = new Set(readJson('comparisons.json').map((entry) => `${entry.locale}:${entry.slug}`));
+  const appKeys = new Set(readJson('alternative_apps.json').map((entry) => `${entry.locale}:${entry.slug}`));
+
+  readJson('alternatives.json').forEach((entry, index) => {
+    if (!comparisonKeys.has(`${entry.locale}:${entry.comparison_slug}`)) {
+      errors.push(`alternatives.json[${index}] comparison_slug "${entry.comparison_slug}" has no ${entry.locale} comparison record`);
+    }
+    for (const appSlug of entry.app_slugs ?? []) {
+      if (!appKeys.has(`${entry.locale}:${appSlug}`)) {
+        errors.push(`alternatives.json[${index}] app_slug "${appSlug}" has no ${entry.locale} alternative_apps record`);
+      }
+    }
+  });
+
   return {
     passed: errors.length === 0,
     errors,
@@ -153,6 +175,7 @@ function parseArticleFrontmatter(filePath) {
 
 function collectExpectedRoutes() {
   const comparisons = readJson('comparisons.json');
+  const alternatives = readJson('alternatives.json');
   const solutions = readJson('solutions.json');
   const imports = readJson('import_sources.json');
   const keywords = readJson('keywords.json');
@@ -170,6 +193,12 @@ function collectExpectedRoutes() {
   comparisons.forEach((record) => {
     routes.push(record.locale === 'de' ? `/de/comparisons/${record.slug}/` : `/comparisons/${record.slug}/`);
   });
+
+  alternatives.forEach((record) => {
+    routes.push(record.locale === 'de' ? `/de/alternatives/${record.slug}/` : `/alternatives/${record.slug}/`);
+  });
+  routes.push('/alternatives/');
+  routes.push('/de/alternatives/');
 
   solutions.forEach((record) => {
     routes.push(record.locale === 'de' ? `/de/solutions/${record.slug}/` : `/solutions/${record.slug}/`);
@@ -225,6 +254,7 @@ function validateExpectedRoutes() {
     if (
       route.includes('/de/') ||
       route.startsWith('/comparisons/') ||
+      route.startsWith('/alternatives/') ||
       route.startsWith('/solutions/') ||
       route.startsWith('/import/') ||
       route.startsWith('/feeds/') ||

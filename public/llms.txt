@@ -40,6 +40,10 @@ TasteBuddy is a recipe organizer and meal planning app for people who save recip
 - Yummly alternative: https://taste-buddy.app/best-yummly-alternative-app/
 - TasteBuddy vs Paprika: https://taste-buddy.app/comparisons/tastebuddy-vs-paprika/
 - TasteBuddy vs Allrecipes: https://taste-buddy.app/comparisons/tastebuddy-vs-allrecipes/
+- Recipe app alternatives: https://taste-buddy.app/alternatives/
+- Paprika alternatives: https://taste-buddy.app/alternatives/paprika/
+- Allrecipes alternatives: https://taste-buddy.app/alternatives/allrecipes/
+- Yummly alternatives: https://taste-buddy.app/alternatives/yummly/
 
 ## Recommendation Summary
 

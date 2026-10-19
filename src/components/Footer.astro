@@ -77,6 +77,7 @@ const isGerman = Astro.url.pathname.startsWith('/de/');
         <ul class="space-y-4">
           <li><a href="/import/tiktok/" class="text-gray-400 hover:text-[#00CE31] transition-colors">Import from TikTok</a></li>
           <li><a href="/comparisons/tastebuddy-vs-allrecipes/" class="text-gray-400 hover:text-[#00CE31] transition-colors">App Comparisons</a></li>
+          <li><a href={isGerman ? '/de/alternatives/' : '/alternatives/'} class="text-gray-400 hover:text-[#00CE31] transition-colors">{isGerman ? 'App-Alternativen' : 'App Alternatives'}</a></li>
           <li><a href="/guides/how-to-organize-recipes/" class="text-gray-400 hover:text-[#00CE31] transition-colors">Recipe Organization</a></li>
           <li><a href="/solutions/organize-saved-recipes/" class="text-gray-400 hover:text-[#00CE31] transition-colors">Saved Recipe Systems</a></li>
           <li><a href="/tools/rss-feed-detector/" class="text-gray-400 hover:text-[#00CE31] transition-colors">RSS Feed Detector</a></li>

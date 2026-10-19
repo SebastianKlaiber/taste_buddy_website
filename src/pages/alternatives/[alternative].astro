@@ -1,0 +1,17 @@
+---
+import AlternativesPage from '../../components/marketing/AlternativesPage.astro';
+import { listAlternatives } from '../../lib/marketing/content';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return listAlternatives('en').map((record) => ({
+    params: { alternative: record.slug },
+    props: { record },
+  }));
+}
+
+const { record } = Astro.props;
+---
+
+<AlternativesPage record={record} locale="en" />

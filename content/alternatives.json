@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "paprika",
+    "locale": "en",
+    "title": "Best Paprika Alternatives in 2026",
+    "description": "Looking for a Paprika alternative? Compare five recipe apps for saving recipes from social media and websites, meal planning, and shopping lists.",
+    "primary_keyword": "paprika alternatives",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": ["content/comparisons.json", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy supports modern recipe capture workflows from social media and websites.",
+      "TasteBuddy connects saved recipes with weekly planning and shopping lists."
+    ],
+    "cta_variant": "plan-from-saves",
+    "last_reviewed_at": "2026-10-19",
+    "competitor": "Paprika",
+    "comparison_slug": "tastebuddy-vs-paprika",
+    "intro": "Paprika is a dependable recipe manager, but many cooks now find recipes on TikTok, Instagram, and Pinterest, not only on food blogs. These alternatives fit different ways of saving, planning, and cooking.",
+    "switch_reasons": [
+      "Most new recipes come from social video, not only from websites",
+      "Each Paprika platform is a separate purchase",
+      "The household uses both iPhone and Android",
+      "Meal planning and shopping should start from the recipes you already saved"
+    ],
+    "selection_criteria": [
+      "Imports from the places you actually save recipes",
+      "Works on every device in your household",
+      "Turns saved recipes into a weekly plan and a shopping list",
+      "Has a clear, current pricing model"
+    ],
+    "app_slugs": ["tastebuddy", "mela", "samsung-food", "plan-to-eat", "recime"],
+    "faq": [
+      {
+        "question": "What is the best Paprika alternative?",
+        "answer": "For recipes saved from social media and websites, TasteBuddy is the closest fit because it connects saving, meal planning, and shopping lists on iOS, Android, and web. If you only use Apple devices and want a classic recipe manager, Mela is a strong option."
+      },
+      {
+        "question": "How do I move my recipes away from Paprika?",
+        "answer": "Move the recipes you actively cook first, ideally by re-importing them from their original links. Capture new recipes in the new app right away and move older staples over gradually."
+      },
+      {
+        "question": "Is there a free Paprika alternative?",
+        "answer": "TasteBuddy and Samsung Food are free to start, with optional paid upgrades. ReciMe is free with in-app purchases. Check each app store for current pricing."
+      }
+    ],
+    "internal_links": [
+      { "href": "/import/tiktok/", "label": "Save recipes from TikTok" },
+      { "href": "/features/recipe-organizer/", "label": "Recipe organizer features" }
+    ]
+  },
+  {
+    "slug": "paprika",
+    "locale": "de",
+    "title": "Die besten Paprika-Alternativen 2026",
+    "description": "Sie suchen eine Alternative zur Paprika-App? Fünf Rezept-Apps im Vergleich: Rezepte aus Social Media und Websites speichern, Essen planen, Einkaufslisten.",
+    "primary_keyword": "paprika app alternative",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": ["content/comparisons.json", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy unterstützt moderne Rezept-Workflows aus Social Media und Websites.",
+      "TasteBuddy verbindet gespeicherte Rezepte mit Wochenplanung und Einkaufslisten."
+    ],
+    "cta_variant": "plan-from-saves",
+    "last_reviewed_at": "2026-10-19",
+    "competitor": "Paprika",
+    "comparison_slug": "tastebuddy-vs-paprika",
+    "intro": "Paprika ist ein solider Rezeptmanager, aber viele finden ihre Rezepte heute auf TikTok, Instagram und Pinterest statt nur auf Food-Blogs. Diese Alternativen passen zu unterschiedlichen Arten, Rezepte zu speichern, zu planen und zu kochen.",
+    "switch_reasons": [
+      "Neue Rezepte kommen vor allem aus Social-Videos, nicht nur von Websites",
+      "Jede Paprika-Plattform wird separat gekauft",
+      "Im Haushalt werden iPhone und Android genutzt",
+      "Planung und Einkauf sollen direkt bei den gespeicherten Rezepten starten"
+    ],
+    "selection_criteria": [
+      "Importiert von dort, wo Sie Rezepte tatsächlich speichern",
+      "Läuft auf allen Geräten im Haushalt",
+      "Macht aus gespeicherten Rezepten einen Wochenplan und eine Einkaufsliste",
+      "Hat ein klares, aktuelles Preismodell"
+    ],
+    "app_slugs": ["tastebuddy", "mela", "samsung-food", "plan-to-eat", "recime"],
+    "faq": [
+      {
+        "question": "Was ist die beste Alternative zu Paprika?",
+        "answer": "Für Rezepte aus Social Media und von Websites passt TasteBuddy am besten, weil es Speichern, Essensplanung und Einkaufslisten auf iOS, Android und im Web verbindet. Wer nur Apple-Geräte nutzt und einen klassischen Rezeptmanager sucht, ist mit Mela gut beraten."
+      },
+      {
+        "question": "Wie ziehe ich meine Rezepte aus Paprika um?",
+        "answer": "Ziehen Sie zuerst die Rezepte um, die Sie wirklich kochen, am besten per erneutem Import über den Original-Link. Neue Rezepte speichern Sie direkt in der neuen App und verschieben ältere Klassiker nach und nach."
+      },
+      {
+        "question": "Gibt es eine kostenlose Paprika-Alternative?",
+        "answer": "TasteBuddy und Samsung Food können Sie kostenlos starten, Upgrades sind optional. ReciMe ist kostenlos mit In-App-Käufen. Aktuelle Preise finden Sie im jeweiligen App Store."
+      }
+    ],
+    "internal_links": [
+      { "href": "/de/import/tiktok/", "label": "Rezepte aus TikTok speichern" },
+      { "href": "/de/solutions/organize-saved-recipes/", "label": "Gespeicherte Rezepte organisieren" }
+    ]
+  },
+  {
+    "slug": "allrecipes",
+    "locale": "en",
+    "title": "Best Allrecipes Alternatives in 2026",
+    "description": "Compare Allrecipes alternatives for finding new recipes and for keeping the ones you cook in a personal collection with meal planning and shopping lists.",
+    "primary_keyword": "allrecipes alternatives",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": ["content/comparisons.json", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy focuses on importing and organizing recipes from across the web and social platforms.",
+      "TasteBuddy connects saved recipes to planning and shopping workflows."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-10-19",
+    "competitor": "Allrecipes",
+    "comparison_slug": "tastebuddy-vs-allrecipes",
+    "intro": "Allrecipes is great for browsing, but a giant public catalog is not the same as a recipe system. Some alternatives give you a different catalog to browse. Others help you keep, plan, and shop the recipes you already found.",
+    "switch_reasons": [
+      "Ads and endless browsing get in the way of cooking",
+      "Favorites are scattered across Allrecipes, blogs, and social media",
+      "You want a weekly plan and a shopping list from your favorites",
+      "You want an edited catalog or one in your own language"
+    ],
+    "selection_criteria": [
+      "Where your recipes come from today",
+      "Whether you need a catalog, an organizer, or both",
+      "Meal planning and shopping list support",
+      "Language and region of the recipe catalog"
+    ],
+    "app_slugs": ["tastebuddy", "samsung-food", "nyt-cooking", "chefkoch", "paprika"],
+    "faq": [
+      {
+        "question": "What is the best Allrecipes alternative?",
+        "answer": "If you want another large catalog, Samsung Food and NYT Cooking are the closest matches, and Chefkoch is the German-language equivalent. If you want to keep recipes from Allrecipes and everywhere else in one place, TasteBuddy is built for that."
+      },
+      {
+        "question": "Can I save Allrecipes recipes in another app?",
+        "answer": "Yes. Recipe organizers like TasteBuddy and Paprika import recipes from recipe websites, so you can keep using Allrecipes for discovery and cook from your own collection."
+      },
+      {
+        "question": "Is there a free Allrecipes alternative?",
+        "answer": "Samsung Food and Chefkoch have free tiers with large catalogs, and TasteBuddy is free to start. NYT Cooking needs a subscription for full access."
+      }
+    ],
+    "internal_links": [
+      { "href": "/best-all-recipe-app/", "label": "Best app to save recipes from anywhere" },
+      { "href": "/solutions/organize-saved-recipes/", "label": "Organize saved recipes" }
+    ]
+  },
+  {
+    "slug": "allrecipes",
+    "locale": "de",
+    "title": "Die besten Allrecipes-Alternativen 2026",
+    "description": "Allrecipes-Alternativen im Vergleich: neue Rezepte entdecken und die Rezepte, die Sie kochen, in einer eigenen Sammlung mit Wochenplan und Einkaufsliste behalten.",
+    "primary_keyword": "allrecipes alternative",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": ["content/comparisons.json", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy konzentriert sich auf Import und Organisation von Rezepten aus Web und Social Media.",
+      "TasteBuddy verbindet gespeicherte Rezepte mit Planung und Einkauf."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-10-19",
+    "competitor": "Allrecipes",
+    "comparison_slug": "tastebuddy-vs-allrecipes",
+    "intro": "Allrecipes eignet sich gut zum Stöbern, aber ein riesiger Rezeptkatalog ist noch kein Rezeptsystem. Manche Alternativen bieten einen anderen Katalog zum Entdecken. Andere helfen Ihnen, die Rezepte, die Sie schon gefunden haben, zu behalten, zu planen und einzukaufen.",
+    "switch_reasons": [
+      "Werbung und endloses Stöbern halten vom Kochen ab",
+      "Lieblingsrezepte liegen verteilt auf Allrecipes, Blogs und Social Media",
+      "Aus den Favoriten soll ein Wochenplan mit Einkaufsliste werden",
+      "Gesucht ist ein redaktioneller oder deutschsprachiger Katalog"
+    ],
+    "selection_criteria": [
+      "Woher Ihre Rezepte heute kommen",
+      "Ob Sie einen Katalog, einen Organizer oder beides brauchen",
+      "Unterstützung für Essensplanung und Einkaufsliste",
+      "Sprache und Region des Rezeptkatalogs"
+    ],
+    "app_slugs": ["tastebuddy", "chefkoch", "samsung-food", "nyt-cooking", "paprika"],
+    "faq": [
+      {
+        "question": "Was ist die beste Alternative zu Allrecipes?",
+        "answer": "Für deutschsprachige Rezepte ist Chefkoch die naheliegende Alternative, Samsung Food und NYT Cooking bieten weitere große Kataloge. Wer Rezepte von Allrecipes und allen anderen Quellen an einem Ort behalten will, ist mit TasteBuddy richtig."
+      },
+      {
+        "question": "Kann ich Allrecipes-Rezepte in einer anderen App speichern?",
+        "answer": "Ja. Rezept-Organizer wie TasteBuddy und Paprika importieren Rezepte von Rezept-Websites. So können Sie Allrecipes weiter zum Entdecken nutzen und aus Ihrer eigenen Sammlung kochen."
+      },
+      {
+        "question": "Gibt es eine kostenlose Allrecipes-Alternative?",
+        "answer": "Chefkoch und Samsung Food haben kostenlose Versionen mit großen Katalogen, und TasteBuddy können Sie kostenlos starten. NYT Cooking braucht für vollen Zugriff ein Abo."
+      }
+    ],
+    "internal_links": [
+      { "href": "/de/solutions/organize-saved-recipes/", "label": "Gespeicherte Rezepte organisieren" },
+      { "href": "/de/import/pinterest/", "label": "Rezepte aus Pinterest speichern" }
+    ]
+  },
+  {
+    "slug": "yummly",
+    "locale": "en",
+    "title": "Best Yummly Alternatives After the Shutdown (2026)",
+    "description": "Yummly shut down in December 2024. Compare the best Yummly alternatives for saving recipes, meal planning, and shopping lists.",
+    "primary_keyword": "yummly alternatives",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": ["content/comparisons.json", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy is built around capturing recipes you already find elsewhere.",
+      "TasteBuddy turns saved recipes into planning and shopping workflows."
+    ],
+    "cta_variant": "shopping-from-plan",
+    "last_reviewed_at": "2026-10-19",
+    "competitor": "Yummly",
+    "comparison_slug": "tastebuddy-vs-yummly",
+    "intro": "Yummly shut down in December 2024, and its users lost the app they used for saved recipes, meal plans, and shopping lists. These apps cover what Yummly did, from discovering recipes to planning the week and shopping for it.",
+    "switch_reasons": [
+      "Yummly is no longer available",
+      "Your recipe collection has to be rebuilt somewhere new",
+      "You still need meal planning and shopping lists",
+      "You want recipes in a personal library that does not depend on one catalog"
+    ],
+    "selection_criteria": [
+      "Actively maintained app",
+      "Saves recipes from any website or social platform",
+      "Meal planning connected to a shopping list",
+      "Works on all your devices"
+    ],
+    "app_slugs": ["tastebuddy", "samsung-food", "recime", "plan-to-eat", "paprika"],
+    "faq": [
+      {
+        "question": "What replaced Yummly?",
+        "answer": "Yummly has no official successor. For a personal recipe collection with meal planning and shopping lists, TasteBuddy is a close replacement. For a Yummly-style public recipe catalog, Samsung Food is the closest match."
+      },
+      {
+        "question": "How do I rebuild my recipe collection after Yummly?",
+        "answer": "Start with the recipes you still cook and the creators you trust. Re-import them from their original websites or social posts into your new app, then build your next weekly plan from those recipes."
+      },
+      {
+        "question": "Is there a free Yummly alternative?",
+        "answer": "TasteBuddy and Samsung Food are free to start, with optional paid upgrades. ReciMe is free with in-app purchases."
+      }
+    ],
+    "internal_links": [
+      { "href": "/best-yummly-alternative-app/", "label": "Best Yummly alternative for former users" },
+      { "href": "/solutions/recipe-app-with-shopping-list/", "label": "Recipe app with shopping list" }
+    ]
+  },
+  {
+    "slug": "yummly",
+    "locale": "de",
+    "title": "Die besten Yummly-Alternativen nach der Abschaltung (2026)",
+    "description": "Yummly wurde im Dezember 2024 eingestellt. Die besten Yummly-Alternativen zum Speichern von Rezepten, für Essensplanung und Einkaufslisten im Vergleich.",
+    "primary_keyword": "yummly alternative",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": ["content/comparisons.json", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy ist für Rezepte gebaut, die Sie bereits anderswo finden.",
+      "TasteBuddy macht aus gespeicherten Rezepten Planung und Einkauf."
+    ],
+    "cta_variant": "shopping-from-plan",
+    "last_reviewed_at": "2026-10-19",
+    "competitor": "Yummly",
+    "comparison_slug": "tastebuddy-vs-yummly",
+    "intro": "Yummly wurde im Dezember 2024 eingestellt, und mit der App verschwanden gespeicherte Rezepte, Essenspläne und Einkaufslisten. Diese Apps decken ab, was Yummly konnte: vom Entdecken über die Wochenplanung bis zum Einkauf.",
+    "switch_reasons": [
+      "Yummly ist nicht mehr verfügbar",
+      "Die Rezeptsammlung muss an einem neuen Ort neu aufgebaut werden",
+      "Essensplanung und Einkaufslisten werden weiter gebraucht",
+      "Rezepte sollen in einer eigenen Bibliothek liegen, unabhängig von einem Katalog"
+    ],
+    "selection_criteria": [
+      "Aktiv gepflegte App",
+      "Speichert Rezepte von jeder Website und Social-Plattform",
+      "Essensplanung mit verbundener Einkaufsliste",
+      "Läuft auf allen Ihren Geräten"
+    ],
+    "app_slugs": ["tastebuddy", "samsung-food", "recime", "plan-to-eat", "paprika"],
+    "faq": [
+      {
+        "question": "Was hat Yummly ersetzt?",
+        "answer": "Yummly hat keinen offiziellen Nachfolger. Für eine eigene Rezeptsammlung mit Essensplanung und Einkaufslisten ist TasteBuddy ein naher Ersatz. Für einen öffentlichen Rezeptkatalog im Stil von Yummly kommt Samsung Food am nächsten."
+      },
+      {
+        "question": "Wie baue ich meine Rezeptsammlung nach Yummly neu auf?",
+        "answer": "Starten Sie mit den Rezepten, die Sie noch kochen, und den Creators, denen Sie vertrauen. Importieren Sie diese von der Original-Website oder dem Social-Post in Ihre neue App und planen Sie daraus die nächste Woche."
+      },
+      {
+        "question": "Gibt es eine kostenlose Yummly-Alternative?",
+        "answer": "TasteBuddy und Samsung Food können Sie kostenlos starten, Upgrades sind optional. ReciMe ist kostenlos mit In-App-Käufen."
+      }
+    ],
+    "internal_links": [
+      { "href": "/de/solutions/recipe-app-with-shopping-list/", "label": "Rezept-App mit Einkaufsliste" },
+      { "href": "/de/solutions/organize-saved-recipes/", "label": "Gespeicherte Rezepte organisieren" }
+    ]
+  }
+]
