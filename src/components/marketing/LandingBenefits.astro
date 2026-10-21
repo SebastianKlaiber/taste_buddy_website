@@ -1,0 +1,215 @@
+---
+// Homepage section for the iOS features that keep people in the app they were using:
+// share-sheet import, the import Live Activity and the cooking-timer Live Activity.
+// Visual text mirrors the app: ios/SharedImport/ShareImportViewController.swift,
+// ios/WeeklyPlanWidget/{Import,Timer}ActivityWidget.swift and
+// supabase/functions/_shared/import-live-activity.ts in the app repo.
+interface Props {
+  locale: 'en' | 'de';
+}
+
+const { locale } = Astro.props;
+const copy = {
+  en: {
+    eyebrow: 'Built to stay out of your way',
+    title: 'Saving a recipe should feel like bookmarking it.',
+    intro: 'TasteBuddy works from the share sheet and your Lock Screen, so you rarely have to stop what you’re doing.',
+    cards: [
+      { title: 'As easy as a bookmark', body: 'Tap Share, then TasteBuddy. No copying links and no switching apps: the sheet confirms the import and closes on its own.' },
+      { title: 'Keep scrolling while it imports', body: 'The recipe is built in the background. A Live Activity on your Lock Screen and in the Dynamic Island shows the progress, and one tap opens the finished recipe.' },
+      { title: 'Timers on your Lock Screen', body: 'Start a step timer in cooking mode and keep an eye on the countdown without unlocking your phone with sticky hands.' },
+    ],
+    footnote: 'Live Activities need iOS 16.1 or later for cooking timers and iOS 17.2 or later for import progress. On Android, the current cooking step and your shopping list float in a bubble.',
+    sheet: { heading: 'Import started', message: 'Keep scrolling. We’ll notify you when your recipe is ready.', countdown: 'Closing in 2…' },
+    stages: ['Reading recipe…', 'Checking video…', 'Creating recipe…', 'Recipe saved'],
+    date: 'Tuesday, January 9',
+    reel: 'The 15-minute pasta I make every week',
+    step: 'Simmer in the sauce',
+  },
+  de: {
+    eyebrow: 'Damit du nicht unterbrechen musst',
+    title: 'Ein Rezept speichern, so leicht wie ein Lesezeichen.',
+    intro: 'TasteBuddy arbeitet im Teilen-Menü und auf deinem Sperrbildschirm. Du musst kaum unterbrechen, was du gerade machst.',
+    cards: [
+      { title: 'So leicht wie ein Lesezeichen', body: 'Tippe auf Teilen und dann auf TasteBuddy. Kein Link kopieren, kein App-Wechsel: Das Fenster bestätigt den Import und schließt sich von selbst.' },
+      { title: 'Weiterscrollen, während importiert wird', body: 'Das Rezept entsteht im Hintergrund. Eine Live-Aktivität auf dem Sperrbildschirm und in der Dynamic Island zeigt den Fortschritt. Ein Tippen öffnet das fertige Rezept.' },
+      { title: 'Timer auf dem Sperrbildschirm', body: 'Starte im Kochmodus einen Schritt-Timer und behalte den Countdown im Blick, ohne das Handy mit klebrigen Händen zu entsperren.' },
+    ],
+    footnote: 'Live-Aktivitäten brauchen iOS 16.1 oder neuer für Koch-Timer und iOS 17.2 oder neuer für den Import-Fortschritt. Auf Android schweben der aktuelle Kochschritt und deine Einkaufsliste in einer Bubble.',
+    sheet: { heading: 'Import gestartet', message: 'Scrolle weiter. Wir benachrichtigen dich, sobald dein Rezept bereit ist.', countdown: 'Schließt in 2…' },
+    stages: ['Rezept wird gelesen…', 'Video wird geprüft…', 'Rezept wird erstellt…', 'Rezept gespeichert'],
+    date: 'Dienstag, 9. Januar',
+    reel: 'Die 15-Minuten-Pasta, die ich jede Woche koche',
+    step: 'In der Sauce köcheln lassen',
+  },
+}[locale];
+const shareCard = locale === 'de' ? '/images/share-card-de.webp' : '/images/share-card.webp';
+const backdrop = '/images/landing-hero-food.webp';
+---
+<section class="benefits" aria-labelledby="benefits-title" data-benefits>
+  <p class="eyebrow">{copy.eyebrow}</p>
+  <h2 id="benefits-title">{copy.title}</h2>
+  <p class="intro">{copy.intro}</p>
+  <div class="cards">
+    <article>
+      <div class="visual share" aria-hidden="true">
+        <img class="share-card" src={shareCard} alt="" width="736" height="290" loading="lazy" decoding="async" />
+        <div class="import-sheet">
+          <span class="sheet-brand">TasteBuddy</span>
+          <span class="check"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" /><path d="M7 12.5l3.2 3.2L17 9" /></svg></span>
+          <strong>{copy.sheet.heading}</strong>
+          <span class="sheet-message">{copy.sheet.message}</span>
+          <span class="sheet-countdown">{copy.sheet.countdown}</span>
+        </div>
+      </div>
+      <h3>{copy.cards[0].title}</h3>
+      <p>{copy.cards[0].body}</p>
+    </article>
+    <article>
+      <div class="visual" aria-hidden="true">
+        <div class="mini-phone feed">
+          <div class="reel">
+            <span class="reel-title">{copy.reel}</span>
+            <span class="reel-actions">
+              <svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z" /></svg>
+              <svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.6 7.1L4 20l1.4-4.2A8 8 0 1 1 20 11.5z" /></svg>
+              <svg viewBox="0 0 24 24"><path d="M21 3 10 14M21 3l-7 18-4-7-7-4z" /></svg>
+            </span>
+            <span class="reel-meta"><i class="avatar"></i><i></i><i class="short"></i></span>
+          </div>
+          <div class="island" data-island>
+            {copy.stages.map((stage, index) => (
+              <div class:list={['island-state', index === copy.stages.length - 1 && 'is-saved', index === 0 && 'is-active']}>
+                {index === copy.stages.length - 1
+                  ? <svg class="saved-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" /><path d="M7 12.5l3.2 3.2L17 9" /></svg>
+                  : <svg class="hourglass" viewBox="0 0 24 24"><path d="M6 2h12v2.5c0 3.2-2.4 5.2-4.1 7.5 1.7 2.3 4.1 4.3 4.1 7.5V22H6v-2.5c0-3.2 2.4-5.2 4.1-7.5C8.4 9.7 6 7.7 6 4.5z" /></svg>}
+                <span><small>TasteBuddy</small>{stage}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <h3>{copy.cards[1].title}</h3>
+      <p>{copy.cards[1].body}</p>
+    </article>
+    <article>
+      <div class="visual" aria-hidden="true">
+        <div class="mini-phone lock">
+          <img class="wallpaper" src={backdrop} alt="" width="1024" height="1000" loading="lazy" decoding="async" />
+          <span class="lock-date">{copy.date}</span>
+          <span class="lock-time">9:41</span>
+          <div class="timer-activity">
+            <svg class="timer-icon" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="8" /><path d="M12 9.5v4l2.6 2.6M9 2.5h6" /></svg>
+            <span class="timer-text"><b>{copy.step}</b><small>Butter Chicken</small></span>
+            <span class="timer-count" data-countdown>12:00</span>
+          </div>
+        </div>
+      </div>
+      <h3>{copy.cards[2].title}</h3>
+      <p>{copy.cards[2].body}</p>
+    </article>
+  </div>
+  <p class="footnote">{copy.footnote}</p>
+</section>
+<script>
+  // The Dynamic Island steps through the import stages and the Lock Screen timer counts down,
+  // both only while the section is on screen and never for visitors who reduce motion.
+  document.querySelectorAll<HTMLElement>('[data-benefits]').forEach((root) => {
+    const states = [...root.querySelectorAll<HTMLElement>('[data-island] .island-state')];
+    const countdown = root.querySelector<HTMLElement>('[data-countdown]');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+      states.forEach((state, i) => state.classList.toggle('is-active', i === states.length - 1));
+      return;
+    }
+    let stage = 0;
+    let seconds = 12 * 60;
+    let tick = 0;
+    let timer: number | undefined;
+    const step = () => {
+      tick += 1;
+      seconds = seconds > 0 ? seconds - 1 : 12 * 60;
+      if (countdown) countdown.textContent = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
+      // Two seconds per import stage, four on "saved".
+      const hold = stage === states.length - 1 ? 4 : 2;
+      if (tick % hold === 0) {
+        tick = 0;
+        stage = (stage + 1) % states.length;
+        states.forEach((state, i) => state.classList.toggle('is-active', i === stage));
+      }
+    };
+    new IntersectionObserver(([entry]) => {
+      window.clearInterval(timer);
+      if (entry.isIntersecting) timer = window.setInterval(step, 1000);
+    }, { threshold: 0.3 }).observe(root);
+  });
+</script>
+<style>
+  .benefits { padding: 96px 0 40px; }
+  .eyebrow { color: var(--tb-accent-text); font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+  h2 { max-width: 15em; margin-top: 14px; color: var(--tb-text-strong); font-size: clamp(30px, 3vw, 42px); font-weight: 600; letter-spacing: -.04em; line-height: 1.15; text-wrap: balance; }
+  .intro { max-width: 560px; margin-top: 16px; color: var(--tb-muted); font-size: 17px; line-height: 1.7; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; margin-top: 48px; }
+  h3 { margin-top: 24px; color: var(--tb-text-strong); font-size: 20px; font-weight: 600; letter-spacing: -.025em; }
+  article p { margin-top: 8px; color: var(--tb-muted); line-height: 1.65; }
+  .footnote { max-width: 760px; margin-top: 36px; color: var(--tb-subtle); font-size: 13px; line-height: 1.6; }
+
+  .visual { position: relative; aspect-ratio: 5 / 4; overflow: hidden; border-radius: 24px; background: radial-gradient(90% 70% at 50% 0%, #0b5a20, #00340E 70%); }
+
+  /* 1 — share sheet, then the extension's confirmation */
+  .visual.share { background: radial-gradient(120% 80% at 50% 100%, color-mix(in srgb, var(--tb-accent) 20%, transparent), transparent 70%), var(--tb-surface-muted); }
+  .share-card { position: absolute; top: 9%; left: 7%; width: 86%; height: auto; filter: drop-shadow(0 10px 18px rgba(0, 30, 8, .18)); }
+  .import-sheet { position: absolute; left: 11%; right: 11%; bottom: -7%; display: grid; justify-items: center; gap: 6px; padding: 20px 20px 34px; border-radius: 22px; background: #fff; box-shadow: 0 -8px 30px rgba(0, 30, 8, .18); color: #000; text-align: center; }
+  .sheet-brand { justify-self: start; color: #00340E; font-size: 11px; font-weight: 700; }
+  .check svg { width: 30px; height: 30px; }
+  .check circle, .saved-icon circle { fill: #00A827; }
+  .check path, .saved-icon path { fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .import-sheet strong { font-size: 18px; font-weight: 600; letter-spacing: -.01em; }
+  .sheet-message { max-width: 22em; color: #6b6b70; font-size: 12.5px; line-height: 1.4; }
+  .sheet-countdown { color: #8e8e93; font-size: 11px; }
+
+  /* 2 and 3 — top of an iPhone over a blurred photo */
+  .mini-phone { position: absolute; inset: 18px 22px -30px; overflow: hidden; border: 7px solid #121410; border-radius: 40px; background: #000; box-shadow: 0 20px 40px rgba(0, 0, 0, .35); }
+  .wallpaper { position: absolute; inset: -8%; width: 116%; height: 116%; max-width: none; object-fit: cover; filter: blur(5px) brightness(.72) saturate(1.1); }
+  /* A generic short-video post, drawn rather than photographed: out-of-focus food colours,
+     a caption overlay, action icons and placeholder bars for the account name. */
+  .reel { position: absolute; inset: 0; overflow: hidden; background: #2a1a12; }
+  .reel::before { content: ''; position: absolute; inset: -20%; background:
+      radial-gradient(circle at 32% 38%, #E2733A 0 16%, transparent 34%),
+      radial-gradient(circle at 66% 52%, #C9432B 0 13%, transparent 32%),
+      radial-gradient(circle at 46% 72%, #7A9443 0 9%, transparent 28%),
+      radial-gradient(circle at 74% 28%, #F2D7A6 0 11%, transparent 30%),
+      radial-gradient(circle at 22% 70%, #F4E9D8 0 8%, transparent 26%),
+      linear-gradient(160deg, #4a2c1c, #1f1510);
+    filter: blur(22px); }
+  .reel::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 45%, rgba(0, 0, 0, .55)); }
+  .reel > * { position: absolute; z-index: 1; }
+  .reel-title { left: 16px; right: 64px; bottom: 74px; color: #fff; font-size: 19px; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; text-shadow: 0 1px 8px rgba(0, 0, 0, .35); }
+  .reel-actions { right: 14px; bottom: 58px; display: grid; gap: 16px; }
+  .reel-actions svg { width: 24px; height: 24px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round; }
+  .reel-meta { left: 16px; bottom: 44px; display: flex; align-items: center; gap: 8px; }
+  .reel-meta i { width: 72px; height: 8px; border-radius: 4px; background: rgba(255, 255, 255, .7); }
+  .reel-meta i.short { width: 40px; background: rgba(255, 255, 255, .45); }
+  .reel-meta i.avatar { width: 22px; height: 22px; border-radius: 50%; background: #F2D7A6; }
+  .island { position: absolute; top: 9px; left: 9px; right: 9px; height: 70px; border-radius: 34px; background: #000; box-shadow: 0 6px 18px rgba(0, 0, 0, .3); }
+  .island-state { position: absolute; inset: 0; display: flex; align-items: center; gap: 14px; padding: 0 20px; opacity: 0; transition: opacity .35s ease; }
+  .island-state.is-active { opacity: 1; }
+  .island-state svg { flex: none; width: 26px; height: 26px; }
+  .hourglass { fill: #fff; }
+  .island-state span { display: grid; gap: 2px; color: #fff; font-size: 15px; font-weight: 600; }
+  .island-state small { color: #8e8e93; font-size: 11px; font-weight: 500; }
+
+  .lock-date, .lock-time { position: relative; display: block; color: rgba(255, 255, 255, .92); text-align: center; }
+  .lock-date { margin-top: 26px; font-size: 13px; font-weight: 600; }
+  .lock-time { font-size: 64px; font-weight: 700; letter-spacing: -.02em; line-height: 1.05; }
+  .timer-activity { position: absolute; left: 10px; right: 10px; bottom: 44px; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 20px; background: rgba(0, 0, 0, .78); color: #fff; }
+  .timer-icon { flex: none; width: 24px; height: 24px; fill: none; stroke: #FF9F0A; stroke-width: 2; stroke-linecap: round; }
+  .timer-text { display: grid; min-width: 0; gap: 2px; margin-right: auto; }
+  .timer-text b { overflow: hidden; font-size: 13px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+  .timer-text small { color: rgba(255, 255, 255, .6); font-size: 11px; }
+  .timer-count { color: #FF9F0A; font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  @media (max-width: 767px) {
+    .benefits { padding: 56px 0 24px; }
+    .cards { gap: 40px; margin-top: 36px; }
+  }
+</style>

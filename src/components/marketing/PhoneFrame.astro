@@ -1,0 +1,69 @@
+---
+// Device frame for the 660x1434 app screens cropped by scripts/refresh-app-screenshots.sh.
+// Sizes are in container units, so the frame scales with whatever width the parent gives it.
+interface Props {
+  src?: string;
+  alt?: string;
+  loading?: 'eager' | 'lazy';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  /** Share-sheet card from App Store slot 01, floated where the store art places it. */
+  shareCard?: string;
+  class?: string;
+}
+
+const { src, alt = '', loading = 'lazy', fetchpriority, shareCard, class: className } = Astro.props;
+---
+<div class:list={['phone', className]}>
+  <div class="phone-body">
+    <div class="phone-screen">
+      {src ? <img src={src} alt={alt} width="660" height="1434" loading={loading} fetchpriority={fetchpriority} decoding="async" /> : <slot />}
+    </div>
+    {shareCard && <img class="phone-share-card" src={shareCard} alt="" width="736" height="290" loading={loading} decoding="async" />}
+  </div>
+</div>
+<style>
+  .phone { container-type: inline-size; }
+  .phone-body {
+    position: relative;
+    padding: 3.2cqw;
+    border-radius: 15cqw;
+    background: #121410;
+    box-shadow:
+      inset 0 0 0 0.45cqw #34382f,
+      0 1px 2px rgba(0, 20, 6, 0.18),
+      0 28px 56px -20px rgba(0, 30, 8, 0.45);
+  }
+  /* Dynamic Island; the store captures leave that strip of the status bar empty. */
+  .phone-body::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    top: 5.6cqw;
+    left: 50%;
+    width: 27cqw;
+    height: 7.8cqw;
+    border-radius: 999px;
+    background: #000;
+    transform: translateX(-50%);
+  }
+  .phone-screen {
+    position: relative;
+    aspect-ratio: 660 / 1434;
+    overflow: hidden;
+    border-radius: 11.4cqw;
+    /* Light stand-in while the screenshot loads, so the frame never shows as a black slab. */
+    background: #F2F1EC;
+  }
+  .phone-screen :global(img) { display: block; width: 100%; height: 100%; }
+  /* Card geometry from the store art: 119% of the screen width, 60% down, centred. */
+  .phone-share-card {
+    position: absolute;
+    z-index: 3;
+    top: 125.5cqw;
+    left: -5.8cqw;
+    width: 111.6cqw;
+    max-width: none;
+    height: auto;
+    filter: drop-shadow(0 14px 22px rgba(0, 30, 8, 0.28));
+  }
+</style>

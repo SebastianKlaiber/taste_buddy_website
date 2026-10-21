@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Main from '../Main.astro';
+import PhoneFrame from './PhoneFrame.astro';
 import { getGoHref, getWebAppHref, SITE_URL } from '../../lib/marketing/app-links';
 
 type Locale = 'en' | 'de';
@@ -34,6 +35,7 @@ const copy = isDe
           body: 'Teile einen unterstuetzten Social- oder Website-Link, fuege eine URL ein oder nutze ein Foto, einen Screenshot oder eine Notiz.',
           detail: 'Wenn die Quelle wenig Informationen enthaelt, kannst du das Ergebnis nach dem Import bearbeiten.',
           image: '/images/tastebuddy-rezepte-speichern.webp',
+          shareCard: '/images/share-card-de.webp',
           alt: 'TasteBuddy speichert Rezepte aus Social Media, Websites, Screenshots und Notizen',
         },
         {
@@ -107,6 +109,7 @@ const copy = isDe
           body: 'Share a supported social or website link, paste a URL, or start from a photo, screenshot, handwritten card, or note.',
           detail: 'If the source contains too little information, you can review and edit the result after import.',
           image: '/images/tastebuddy-save-recipes.webp',
+          shareCard: '/images/share-card.webp',
           alt: 'TasteBuddy saves recipes from social media, websites, screenshots, and notes',
         },
         {
@@ -244,7 +247,7 @@ const faqStructuredData = {
             </div>
             <figure class="screenshot-stage">
               <span class="stage-tab" aria-hidden="true">TasteBuddy · {String(index + 1).padStart(2, '0')}</span>
-              <img src={step.image} alt={step.alt} width="1320" height="2868" loading="lazy" decoding="async" />
+              <PhoneFrame src={step.image} alt={step.alt} shareCard={'shareCard' in step ? step.shareCard : undefined} />
             </figure>
           </section>
         ))}
@@ -503,24 +506,24 @@ const faqStructuredData = {
 
   .screenshot-stage {
     position: relative;
-    width: min(100%, 23rem);
+    width: min(100%, 25rem);
     margin: 0 auto;
-    padding: 0.7rem;
-    border: 1px solid var(--tb-border-soft);
-    background: var(--trail-paper);
-    box-shadow: var(--tb-shadow-md);
-    transform: rotate(-1.2deg);
+    padding: 2.75rem 3.25rem 0;
+    overflow: hidden;
+    border-radius: 2rem;
+    background: radial-gradient(120% 80% at 50% 100%, color-mix(in srgb, var(--tb-accent) 22%, transparent), transparent 70%), var(--trail-soft);
   }
 
-  .is-reversed .screenshot-stage { transform: rotate(1.2deg); }
-
-  .screenshot-stage img { display: block; width: 100%; height: auto; }
+  /* The phone bleeds off the bottom of the panel, so the copy beside it stays the focus. */
+  .screenshot-stage :global(.phone) { margin-bottom: -18%; }
 
   .stage-tab {
     position: absolute;
-    top: -1.9rem;
-    right: -1px;
-    padding: 0.45rem 0.7rem;
+    z-index: 1;
+    top: 0.9rem;
+    right: 0.9rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: var(--tb-radius-pill);
     background: var(--tb-accent-soft);
     color: var(--tb-accent-text);
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
