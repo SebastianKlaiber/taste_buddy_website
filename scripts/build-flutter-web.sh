@@ -33,7 +33,7 @@ resolve_app_repo() {
     return
   fi
 
-  if [ -d "${ROOT_DIR}/../taste_buddy/taste_buddy_flutter" ]; then
+  if [ -d "${ROOT_DIR}/../taste_buddy/app" ]; then
     echo "${ROOT_DIR}/../taste_buddy"
     return
   fi
@@ -55,7 +55,7 @@ resolve_app_repo() {
 ensure_flutter
 
 APP_REPO_DIR="$(resolve_app_repo)"
-APP_DIR="${APP_REPO_DIR}/taste_buddy_flutter"
+APP_DIR="${APP_REPO_DIR}/app"
 
 if [ ! -d "${APP_DIR}" ]; then
   echo "Flutter app directory not found: ${APP_DIR}" >&2
@@ -85,7 +85,7 @@ mkdir -p "${ROOT_DIR}/dist/app"
   flutter build web \
     --release \
     --base-href="${APP_BASE_HREF}" \
-    --no-wasm-dry-run \
+    --wasm \
     --no-web-resources-cdn \
     --dart-define-from-file="${DART_DEFINE_FILE}" \
     -o "${ROOT_DIR}/dist/app"
