@@ -71,9 +71,9 @@
     "last_reviewed_at": "2026-10-19",
     "source_name": "TikTok",
     "supported_workflows": [
-      "TikTok-Link direkt an TasteBuddy teilen",
-      "Rezept-URL manuell einfügen",
-      "Importiertes Rezept in der Sammlung speichern"
+      "Öffne das Rezeptvideo in TikTok.",
+      "Tippe auf Teilen.",
+      "Wähle TasteBuddy aus. Nach dem Import findest du die Rezeptkarte in deiner Sammlung."
     ],
     "limitations": [
       "Einige Posts brauchen Link-in-Bio-Auflösung oder manuellen Fallback",
