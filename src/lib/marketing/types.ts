@@ -62,6 +62,7 @@ export interface AlternativesRecord extends BaseMarketingRecord {
   comparison_slug: string;
   intro: string;
   switch_reasons: string[];
+  switch_steps?: string[];
   selection_criteria: string[];
   app_slugs: string[];
   faq: AlternativesFaq[];

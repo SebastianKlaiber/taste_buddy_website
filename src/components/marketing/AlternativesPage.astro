@@ -263,7 +263,7 @@ const structuredData = [
         <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
           <h2 class="mb-4 text-2xl font-semibold text-white">{labels.switchHeading}</h2>
           <ol class="list-decimal space-y-3 pl-5 text-gray-300">
-            {comparison.migration_notes.map((item) => (
+            {(record.switch_steps ?? comparison.migration_notes).map((item) => (
               <li>{item}</li>
             ))}
           </ol>

@@ -223,6 +223,12 @@
       "You still need meal planning and shopping lists",
       "You want recipes in a personal library that does not depend on one catalog"
     ],
+    "switch_steps": [
+      "Find the recipes you still cook. Search by dish and creator, then open the original recipe page or social post.",
+      "Share each link to TasteBuddy or paste it into the app. If you still have a screenshot of the recipe, import the screenshot instead.",
+      "Review the ingredients, amounts, and directions against the source. Fill in any missing details before you cook.",
+      "Add a few recipes to your meal plan and turn their ingredients into a shopping list. Rebuild the rest of your collection as you cook."
+    ],
     "selection_criteria": [
       "Actively maintained app",
       "Saves recipes from any website or social platform",
@@ -272,6 +278,12 @@
       "Die Rezeptsammlung muss an einem neuen Ort neu aufgebaut werden",
       "Essensplanung und Einkaufslisten werden weiter gebraucht",
       "Rezepte sollen in einer eigenen Bibliothek liegen, unabhängig von einem Katalog"
+    ],
+    "switch_steps": [
+      "Beginnen Sie mit den Rezepten, die Sie noch kochen. Suchen Sie nach dem Gericht und dem Namen des Foodblogs oder Accounts und öffnen Sie das Originalrezept.",
+      "Teilen Sie den Link mit TasteBuddy oder fügen Sie ihn in der App ein. Wenn Sie noch einen Screenshot des Rezepts haben, können Sie diesen importieren.",
+      "Vergleichen Sie Zutaten, Mengen und Zubereitung mit dem Original. Ergänzen Sie fehlende Angaben vor dem Kochen.",
+      "Übernehmen Sie ein paar Rezepte in Ihren Wochenplan und erstellen Sie daraus eine Einkaufsliste. Den Rest Ihrer Sammlung können Sie nach und nach ergänzen."
     ],
     "selection_criteria": [
       "Aktiv gepflegte App",

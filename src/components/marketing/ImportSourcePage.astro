@@ -12,6 +12,7 @@ interface Props {
 
 const { record, locale } = Astro.props;
 const pagePath = locale === 'de' ? `/de/import/${record.slug}/` : `/import/${record.slug}/`;
+const showTikTokDemo = locale === 'de' && record.slug === 'tiktok';
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Article',
@@ -71,15 +72,41 @@ const labels = {
         />
       </section>
 
-      <section class="mb-10 grid gap-6 md:grid-cols-2">
-        <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
-          <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].supported}</h2>
-          <ul class="space-y-3 text-gray-300">
-            {record.supported_workflows.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
-        </div>
+      {showTikTokDemo && (
+        <section class="mb-10 grid items-center gap-6 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6 md:grid-cols-2">
+          <div>
+            <h2 class="mb-4 text-2xl font-semibold text-white">So speicherst du ein TikTok-Rezept</h2>
+            <ol class="list-decimal space-y-3 pl-5 text-gray-300">
+              {record.supported_workflows.map((step) => <li>{step}</li>)}
+            </ol>
+            <p class="mt-4 text-gray-300">
+              Du kannst den Link auch kopieren und in TasteBuddy einfügen. Prüfe vor dem Kochen, ob Zutaten und Zubereitungsschritte vollständig sind.
+            </p>
+          </div>
+          <video
+            class="mx-auto h-auto w-full max-w-[240px] rounded-2xl"
+            src="/videos/tiktok_import_demo.mp4"
+            width="240"
+            height="426"
+            controls
+            playsinline
+            preload="metadata"
+            aria-label="Videobeispiel zum Speichern eines TikTok-Rezepts mit Zutaten und Zubereitungsschritten"
+          ></video>
+        </section>
+      )}
+
+      <section class:list={['mb-10 grid gap-6', !showTikTokDemo && 'md:grid-cols-2']}>
+        {!showTikTokDemo && (
+          <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
+            <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].supported}</h2>
+            <ul class="space-y-3 text-gray-300">
+              {record.supported_workflows.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         <div class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6">
           <h2 class="mb-4 text-2xl font-semibold text-white">{labels[locale].limitations}</h2>
           <ul class="space-y-3 text-gray-300">
