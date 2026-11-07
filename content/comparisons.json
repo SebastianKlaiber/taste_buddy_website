@@ -242,5 +242,401 @@
     "review_status": "approved",
     "best_for_tastebuddy": "Ehemalige Yummly-Nutzer, die einen aktuellen Rezeptmanager mit Planung und Einkauf suchen.",
     "best_for_competitor": "Yummly ist eingestellt und daher keine tragfähige Option für neue Workflows."
+  },
+  {
+    "slug": "tastebuddy-vs-recime",
+    "locale": "en",
+    "title": "TasteBuddy vs ReciMe: Recipe App Comparison",
+    "description": "Compare TasteBuddy and ReciMe for saving recipes from social media and websites, meal planning, shopping lists, and supported devices.",
+    "primary_keyword": "tastebuddy vs recime",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": ["public/app-info.md", "https://help.recime.app/en/articles/11594896-what-is-recime"],
+    "claims": [
+      "TasteBuddy saves recipes from social media, websites, screenshots, and notes into one collection.",
+      "TasteBuddy connects saved recipes with weekly planning and shopping lists."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "ReciMe",
+    "use_case": "saving social recipes and turning them into a full plan-and-shop workflow",
+    "strengths": [
+      "Saves recipes from social media, websites, screenshots, handwritten cards, and notes in one collection",
+      "Weekly meal plan and shopping list built directly from saved recipes",
+      "Same collection on iOS, Android, and web"
+    ],
+    "weaknesses": [
+      "ReciMe is equally focused on Instagram and TikTok imports",
+      "Both apps are free to start, so the choice comes down to workflow fit"
+    ],
+    "migration_notes": [
+      "Re-import the recipes you cook most from their original TikTok or Instagram links.",
+      "Add screenshots and handwritten family recipes to the same collection as you go."
+    ],
+    "proof_points": [
+      "TasteBuddy imports from TikTok, Instagram, Pinterest, YouTube, and food blogs.",
+      "TasteBuddy turns screenshots and handwritten cards into editable recipes."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "Cooks who save from social media and also from blogs, screenshots, and handwritten cards, and want planning and shopping in the same app.",
+    "best_for_competitor": "People who mainly save Instagram and TikTok recipes and already like the ReciMe interface."
+  },
+  {
+    "slug": "tastebuddy-vs-recime",
+    "locale": "de",
+    "title": "TasteBuddy oder ReciMe im Vergleich",
+    "description": "Vergleichen Sie TasteBuddy und ReciMe: Rezepte aus Social Media und Websites speichern, Wochenplanung, Einkaufslisten und unterstützte Geräte.",
+    "primary_keyword": "tastebuddy vs recime",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": ["public/app-info.md", "https://help.recime.app/en/articles/11594896-what-is-recime"],
+    "claims": [
+      "TasteBuddy speichert Rezepte aus Social Media, Websites, Screenshots und Notizen in einer Sammlung.",
+      "TasteBuddy verbindet gespeicherte Rezepte mit Wochenplanung und Einkaufslisten."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "ReciMe",
+    "use_case": "Social-Rezepte speichern und daraus einen kompletten Plan-und-Einkauf-Workflow machen",
+    "strengths": [
+      "Speichert Rezepte aus Social Media, Websites, Screenshots, handgeschriebenen Rezeptkarten und Notizen in einer Sammlung",
+      "Wochenplan und Einkaufsliste direkt aus gespeicherten Rezepten",
+      "Dieselbe Sammlung auf iOS, Android und im Web"
+    ],
+    "weaknesses": [
+      "ReciMe ist ebenso stark auf Instagram- und TikTok-Importe ausgerichtet",
+      "Beide Apps sind kostenlos startbar, die Wahl hängt also vom Workflow ab"
+    ],
+    "migration_notes": [
+      "Importieren Sie Ihre meistgekochten Rezepte erneut über die Original-Links aus TikTok oder Instagram.",
+      "Ergänzen Sie Screenshots und handgeschriebene Familienrezepte nach und nach in derselben Sammlung."
+    ],
+    "proof_points": [
+      "TasteBuddy importiert aus TikTok, Instagram, Pinterest, YouTube und Foodblogs.",
+      "TasteBuddy macht aus Screenshots und handgeschriebenen Rezeptkarten bearbeitbare Rezepte."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "Alle, die Rezepte aus Social Media, Blogs, Screenshots und von Rezeptkarten sammeln und Planung und Einkauf in derselben App wollen.",
+    "best_for_competitor": "Alle, die fast nur Instagram- und TikTok-Rezepte speichern und mit der ReciMe-Oberfläche zufrieden sind."
+  },
+  {
+    "slug": "tastebuddy-vs-samsung-food",
+    "locale": "en",
+    "title": "TasteBuddy vs Samsung Food: Recipe App Comparison",
+    "description": "Compare TasteBuddy and Samsung Food for saving recipes from social media and websites, meal planning, shopping lists, and supported devices.",
+    "primary_keyword": "tastebuddy vs samsung food",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": ["public/app-info.md", "https://www.samsung.com/us/mypage/rewards/"],
+    "claims": [
+      "TasteBuddy saves recipes from social media, websites, screenshots, and notes into one collection.",
+      "TasteBuddy connects saved recipes with weekly planning and shopping lists."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "Samsung Food",
+    "use_case": "organizing your own saved recipes instead of browsing a large public catalog",
+    "strengths": [
+      "Built around recipes you already saved from social media, blogs, screenshots, and notes",
+      "Imports from TikTok and Instagram as well as websites",
+      "Meal plans and shopping lists come straight from your own collection"
+    ],
+    "weaknesses": [
+      "Smaller built-in public recipe catalog than Samsung Food",
+      "No Samsung smart appliance integration"
+    ],
+    "migration_notes": [
+      "Re-import the recipes you actually cook from their original links.",
+      "Keep browsing for inspiration anywhere, and save the keepers to TasteBuddy."
+    ],
+    "proof_points": [
+      "TasteBuddy imports from TikTok, Instagram, Pinterest, YouTube, and food blogs.",
+      "TasteBuddy includes meal planning and shopping lists."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "People whose recipes come from social media, blogs, and screenshots and who want a private, focused collection.",
+    "best_for_competitor": "People who want a large public recipe catalog with diet filters and Samsung appliance features."
+  },
+  {
+    "slug": "tastebuddy-vs-samsung-food",
+    "locale": "de",
+    "title": "TasteBuddy oder Samsung Food im Vergleich",
+    "description": "Vergleichen Sie TasteBuddy und Samsung Food: Rezepte aus Social Media und Websites speichern, Wochenplanung, Einkaufslisten und unterstützte Geräte.",
+    "primary_keyword": "tastebuddy vs samsung food",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": ["public/app-info.md", "https://www.samsung.com/us/mypage/rewards/"],
+    "claims": [
+      "TasteBuddy speichert Rezepte aus Social Media, Websites, Screenshots und Notizen in einer Sammlung.",
+      "TasteBuddy verbindet gespeicherte Rezepte mit Wochenplanung und Einkaufslisten."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "Samsung Food",
+    "use_case": "eigene gespeicherte Rezepte organisieren statt in einem großen öffentlichen Katalog zu stöbern",
+    "strengths": [
+      "Ausgelegt auf Rezepte, die Sie schon aus Social Media, Blogs, Screenshots und Notizen gesammelt haben",
+      "Importiert aus TikTok und Instagram ebenso wie von Websites",
+      "Wochenplan und Einkaufsliste kommen direkt aus der eigenen Sammlung"
+    ],
+    "weaknesses": [
+      "Kleinerer eingebauter Rezeptkatalog als Samsung Food",
+      "Keine Anbindung an Samsung-Smart-Home-Geräte"
+    ],
+    "migration_notes": [
+      "Importieren Sie die Rezepte, die Sie wirklich kochen, erneut über die Original-Links.",
+      "Inspiration finden Sie weiter überall, die Favoriten speichern Sie in TasteBuddy."
+    ],
+    "proof_points": [
+      "TasteBuddy importiert aus TikTok, Instagram, Pinterest, YouTube und Foodblogs.",
+      "TasteBuddy enthält Wochenplanung und Einkaufslisten."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "Alle, deren Rezepte aus Social Media, Blogs und Screenshots stammen und die eine private, fokussierte Sammlung wollen.",
+    "best_for_competitor": "Alle, die einen großen öffentlichen Rezeptkatalog mit Ernährungsfiltern und Samsung-Gerätefunktionen suchen."
+  },
+  {
+    "slug": "tastebuddy-vs-mela",
+    "locale": "en",
+    "title": "TasteBuddy vs Mela: Recipe App Comparison",
+    "description": "Compare TasteBuddy and Mela for saving recipes from social media and websites, meal planning, shopping lists, and supported devices.",
+    "primary_keyword": "tastebuddy vs mela",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": [
+      "public/app-info.md",
+      "https://mela.recipes",
+      "https://apps.apple.com/us/app/mela-recipe-manager/id1548466041"
+    ],
+    "claims": [
+      "TasteBuddy saves recipes from social media, websites, screenshots, and notes into one collection.",
+      "TasteBuddy connects saved recipes with weekly planning and shopping lists."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "Mela",
+    "use_case": "a recipe collection that works on iPhone, Android, and the web",
+    "strengths": [
+      "Runs on iOS, Android, and web, so mixed households share one collection",
+      "Imports from TikTok, Instagram, and Pinterest, not only websites",
+      "Turns saved recipes into a weekly plan and shopping list"
+    ],
+    "weaknesses": [
+      "Mela is a native Apple app with deep iCloud integration",
+      "People who only use Apple devices may prefer a one-time purchase"
+    ],
+    "migration_notes": [
+      "Re-import the recipes you cook most from their original links.",
+      "Use TasteBuddy for new recipes and move older staples over gradually."
+    ],
+    "proof_points": [
+      "TasteBuddy runs on iOS, Android, and web.",
+      "TasteBuddy imports from social media and websites and includes meal planning."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "Households with both iPhone and Android, and cooks who save a lot from social media.",
+    "best_for_competitor": "Apple-only households that want a native recipe manager with iCloud sync and a one-time price."
+  },
+  {
+    "slug": "tastebuddy-vs-mela",
+    "locale": "de",
+    "title": "TasteBuddy oder Mela im Vergleich",
+    "description": "Vergleichen Sie TasteBuddy und Mela: Rezepte aus Social Media und Websites speichern, Wochenplanung, Einkaufslisten und unterstützte Geräte.",
+    "primary_keyword": "tastebuddy vs mela",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": [
+      "public/app-info.md",
+      "https://mela.recipes",
+      "https://apps.apple.com/us/app/mela-recipe-manager/id1548466041"
+    ],
+    "claims": [
+      "TasteBuddy speichert Rezepte aus Social Media, Websites, Screenshots und Notizen in einer Sammlung.",
+      "TasteBuddy verbindet gespeicherte Rezepte mit Wochenplanung und Einkaufslisten."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "Mela",
+    "use_case": "eine Rezeptsammlung, die auf iPhone, Android und im Web funktioniert",
+    "strengths": [
+      "Läuft auf iOS, Android und im Web, gemischte Haushalte teilen eine Sammlung",
+      "Importiert aus TikTok, Instagram und Pinterest, nicht nur von Websites",
+      "Macht aus gespeicherten Rezepten Wochenplan und Einkaufsliste"
+    ],
+    "weaknesses": [
+      "Mela ist eine native Apple-App mit tiefer iCloud-Integration",
+      "Reine Apple-Nutzer bevorzugen eventuell einen Einmalkauf"
+    ],
+    "migration_notes": [
+      "Importieren Sie Ihre meistgekochten Rezepte erneut über die Original-Links.",
+      "Nutzen Sie TasteBuddy für neue Rezepte und ziehen Sie ältere Klassiker nach und nach um."
+    ],
+    "proof_points": [
+      "TasteBuddy läuft auf iOS, Android und im Web.",
+      "TasteBuddy importiert aus Social Media und Websites und enthält Wochenplanung."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "Haushalte mit iPhone und Android sowie alle, die viel aus Social Media speichern.",
+    "best_for_competitor": "Reine Apple-Haushalte, die einen nativen Rezeptmanager mit iCloud-Sync und Einmalpreis wollen."
+  },
+  {
+    "slug": "tastebuddy-vs-recipe-keeper",
+    "locale": "en",
+    "title": "TasteBuddy vs Recipe Keeper: Recipe App Comparison",
+    "description": "Compare TasteBuddy and Recipe Keeper for saving recipes from social media and websites, meal planning, shopping lists, and supported devices.",
+    "primary_keyword": "tastebuddy vs recipe keeper",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": [
+      "public/app-info.md",
+      "https://www.recipekeeperonline.com/",
+      "https://apps.apple.com/us/app/recipe-keeper/id974683711"
+    ],
+    "claims": [
+      "TasteBuddy saves recipes from social media, websites, screenshots, and notes into one collection.",
+      "TasteBuddy connects saved recipes with weekly planning and shopping lists."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "Recipe Keeper",
+    "use_case": "moving from a website-first recipe manager to a social-first workflow",
+    "strengths": [
+      "Imports from TikTok, Instagram, Pinterest, and YouTube as well as food blogs",
+      "Turns screenshots and handwritten cards into editable recipes",
+      "One account across iOS, Android, and web without buying per platform"
+    ],
+    "weaknesses": [
+      "Recipe Keeper has native Windows and Mac apps",
+      "Long-time users may have large libraries built around its categories"
+    ],
+    "migration_notes": [
+      "Move the recipes you actively cook first, not the whole archive.",
+      "Use TasteBuddy for new recipes and bring older staples over gradually."
+    ],
+    "proof_points": [
+      "TasteBuddy imports from social media and websites.",
+      "TasteBuddy includes meal planning and shopping lists."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "Cooks who find most new recipes on social media and want one collection on every device.",
+    "best_for_competitor": "People who want a long-running recipe manager with native Windows and Mac apps."
+  },
+  {
+    "slug": "tastebuddy-vs-recipe-keeper",
+    "locale": "de",
+    "title": "TasteBuddy oder Recipe Keeper im Vergleich",
+    "description": "Vergleichen Sie TasteBuddy und Recipe Keeper: Rezepte aus Social Media und Websites speichern, Wochenplanung, Einkaufslisten und unterstützte Geräte.",
+    "primary_keyword": "tastebuddy vs recipe keeper",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": [
+      "public/app-info.md",
+      "https://www.recipekeeperonline.com/",
+      "https://apps.apple.com/us/app/recipe-keeper/id974683711"
+    ],
+    "claims": [
+      "TasteBuddy speichert Rezepte aus Social Media, Websites, Screenshots und Notizen in einer Sammlung.",
+      "TasteBuddy verbindet gespeicherte Rezepte mit Wochenplanung und Einkaufslisten."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "Recipe Keeper",
+    "use_case": "Wechsel von einem Website-orientierten Rezeptmanager zu einem Social-first Workflow",
+    "strengths": [
+      "Importiert aus TikTok, Instagram, Pinterest und YouTube ebenso wie aus Foodblogs",
+      "Macht aus Screenshots und Rezeptkarten bearbeitbare Rezepte",
+      "Ein Konto auf iOS, Android und im Web ohne Kauf pro Plattform"
+    ],
+    "weaknesses": [
+      "Recipe Keeper bietet native Windows- und Mac-Apps",
+      "Langjährige Nutzer haben oft große Sammlungen mit eigenen Kategorien"
+    ],
+    "migration_notes": [
+      "Ziehen Sie zuerst aktive Rezepte um, nicht das komplette Archiv.",
+      "Nutzen Sie TasteBuddy für neue Rezepte und ziehen Sie ältere Klassiker schrittweise um."
+    ],
+    "proof_points": [
+      "TasteBuddy importiert aus Social Media und Websites.",
+      "TasteBuddy enthält Wochenplanung und Einkaufslisten."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "Alle, die neue Rezepte vor allem in Social Media finden und eine Sammlung auf allen Geräten wollen.",
+    "best_for_competitor": "Alle, die einen bewährten Rezeptmanager mit nativen Windows- und Mac-Apps suchen."
+  },
+  {
+    "slug": "tastebuddy-vs-pestle",
+    "locale": "en",
+    "title": "TasteBuddy vs Pestle: Recipe App Comparison",
+    "description": "Compare TasteBuddy and Pestle for saving recipes from social media and websites, meal planning, shopping lists, and supported devices.",
+    "primary_keyword": "tastebuddy vs pestle",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": ["public/app-info.md", "https://apps.apple.com/us/app/id1574776971"],
+    "claims": [
+      "TasteBuddy saves recipes from social media, websites, screenshots, and notes into one collection.",
+      "TasteBuddy connects saved recipes with weekly planning and shopping lists."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "Pestle",
+    "use_case": "a recipe collection that works beyond Apple devices and saves from social media",
+    "strengths": [
+      "Runs on iOS, Android, and web, so mixed households share one collection",
+      "Imports from TikTok, Instagram, and Pinterest as well as websites",
+      "Free to start without a subscription"
+    ],
+    "weaknesses": [
+      "Pestle has deep Apple integration, including Apple Watch and Vision Pro",
+      "Its cooking mode is a strong fit for Apple-only kitchens"
+    ],
+    "migration_notes": [
+      "Re-import the recipes you cook most from their original links.",
+      "Use TasteBuddy for new recipes and move older favorites over gradually."
+    ],
+    "proof_points": [
+      "TasteBuddy runs on iOS, Android, and web.",
+      "TasteBuddy imports from social media and websites and includes meal planning."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "Households with both iPhone and Android, and cooks who save a lot from social media.",
+    "best_for_competitor": "Apple-only households that want a polished cooking mode on iPhone, iPad, Apple Watch, and Vision Pro."
+  },
+  {
+    "slug": "tastebuddy-vs-pestle",
+    "locale": "de",
+    "title": "TasteBuddy oder Pestle im Vergleich",
+    "description": "Vergleichen Sie TasteBuddy und Pestle: Rezepte aus Social Media und Websites speichern, Wochenplanung, Einkaufslisten und unterstützte Geräte.",
+    "primary_keyword": "tastebuddy vs pestle",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": ["public/app-info.md", "https://apps.apple.com/us/app/id1574776971"],
+    "claims": [
+      "TasteBuddy speichert Rezepte aus Social Media, Websites, Screenshots und Notizen in einer Sammlung.",
+      "TasteBuddy verbindet gespeicherte Rezepte mit Wochenplanung und Einkaufslisten."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "Pestle",
+    "use_case": "eine Rezeptsammlung, die über Apple-Geräte hinaus funktioniert und aus Social Media speichert",
+    "strengths": [
+      "Läuft auf iOS, Android und im Web, gemischte Haushalte teilen eine Sammlung",
+      "Importiert aus TikTok, Instagram und Pinterest ebenso wie von Websites",
+      "Kostenlos startbar ohne Abo"
+    ],
+    "weaknesses": [
+      "Pestle ist tief in Apple integriert, inklusive Apple Watch und Vision Pro",
+      "Der Kochmodus passt sehr gut zu reinen Apple-Küchen"
+    ],
+    "migration_notes": [
+      "Importieren Sie Ihre meistgekochten Rezepte erneut über die Original-Links.",
+      "Nutzen Sie TasteBuddy für neue Rezepte und ziehen Sie ältere Favoriten nach und nach um."
+    ],
+    "proof_points": [
+      "TasteBuddy läuft auf iOS, Android und im Web.",
+      "TasteBuddy importiert aus Social Media und Websites und enthält Wochenplanung."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "Haushalte mit iPhone und Android sowie alle, die viel aus Social Media speichern.",
+    "best_for_competitor": "Reine Apple-Haushalte, die einen ausgefeilten Kochmodus auf iPhone, iPad, Apple Watch und Vision Pro wollen."
   }
 ]

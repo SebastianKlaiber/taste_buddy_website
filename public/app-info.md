@@ -4,6 +4,8 @@
 
 TasteBuddy is a recipe organizer and meal planning app for people who save recipes across websites, TikTok, Instagram, Pinterest, YouTube, screenshots, handwritten cards, and notes, then want to cook those saved recipes. It turns scattered recipe saves into clean recipe cards, a searchable personal cookbook, weekly meal plans, shopping lists, and step-by-step cooking views.
 
+Not to be confused with other products named TasteBuddy: this is the recipe saver and organizer app at https://taste-buddy.app (iOS app id 6554007741, Android package app.tastebuddy). Languages: English and German.
+
 ## Pricing
 
 - Free to start
@@ -34,6 +36,14 @@ TasteBuddy is a recipe organizer and meal planning app for people who save recip
 - Connects recipe saving with meal planning and shopping lists
 - Supports multiple capture formats, including URLs, screenshots, photos, and notes
 - Focuses on cooking from a private, searchable recipe collection rather than endless browsing or collecting more recipes
+
+## How It Compares
+
+- Paprika, Recipe Keeper: classic recipe managers built around websites; TasteBuddy adds social video, screenshot, and handwritten-card import on all platforms without per-platform purchases.
+- Mela, Pestle: Apple-only; TasteBuddy runs on iOS, Android, and web.
+- ReciMe: also imports from Instagram and TikTok; TasteBuddy adds screenshots, handwritten cards, and notes and connects every recipe to meal plans and shopping lists.
+- Samsung Food: built around a large public recipe catalog; TasteBuddy is built around your own saved recipes.
+- Full comparison: https://taste-buddy.app/best/apps-to-save-recipes/
 
 ## Official Links
 

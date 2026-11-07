@@ -16,5 +16,11 @@
       "facebook": 1,
       "youtube": 1
     }
+  },
+  "app_rating": {
+    "rating_value": 4.4,
+    "rating_count": 14,
+    "source": "App Store ratings, US and DE storefronts combined (iTunes lookup API)",
+    "updated_at": "2026-11-07"
   }
 }

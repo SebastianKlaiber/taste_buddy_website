@@ -29,6 +29,10 @@ const registryConfigs = [
     required: ['slug', 'locale', 'title', 'description', 'primary_keyword', 'competitor', 'comparison_slug', 'intro', 'switch_reasons', 'selection_criteria', 'app_slugs', 'faq', 'internal_links', 'cta_variant', 'last_reviewed_at'],
   },
   {
+    file: 'roundups.json',
+    required: ['slug', 'locale', 'title', 'description', 'primary_keyword', 'intro', 'quick_answer', 'selection_criteria', 'app_slugs', 'faq', 'internal_links', 'cta_variant', 'last_reviewed_at'],
+  },
+  {
     file: 'alternative_apps.json',
     required: ['slug', 'locale', 'name', 'website_url', 'platforms', 'pricing_model', 'best_for', 'highlights', 'tradeoff', 'source_of_truth', 'last_reviewed_at'],
   },
@@ -127,6 +131,14 @@ function validateRegistryData() {
     }
   });
 
+  readJson('roundups.json').forEach((entry, index) => {
+    for (const appSlug of entry.app_slugs ?? []) {
+      if (!appKeys.has(`${entry.locale}:${appSlug}`)) {
+        errors.push(`roundups.json[${index}] app_slug "${appSlug}" has no ${entry.locale} alternative_apps record`);
+      }
+    }
+  });
+
   return {
     passed: errors.length === 0,
     errors,
@@ -176,6 +188,7 @@ function parseArticleFrontmatter(filePath) {
 function collectExpectedRoutes() {
   const comparisons = readJson('comparisons.json');
   const alternatives = readJson('alternatives.json');
+  const roundups = readJson('roundups.json');
   const solutions = readJson('solutions.json');
   const imports = readJson('import_sources.json');
   const keywords = readJson('keywords.json');
@@ -199,6 +212,10 @@ function collectExpectedRoutes() {
   });
   routes.push('/alternatives/');
   routes.push('/de/alternatives/');
+
+  roundups.forEach((record) => {
+    routes.push(record.locale === 'de' ? `/de/best/${record.slug}/` : `/best/${record.slug}/`);
+  });
 
   solutions.forEach((record) => {
     routes.push(record.locale === 'de' ? `/de/solutions/${record.slug}/` : `/solutions/${record.slug}/`);
@@ -331,7 +348,7 @@ function validateCriticalFiles() {
   log('blue', '📁 Validating critical build files...');
 
   const errors = [];
-  const requiredFiles = ['index.html', '500.html', '_redirects', 'robots.txt'];
+  const requiredFiles = ['index.html', 'privacy/index.html', '500.html', '_redirects', 'robots.txt'];
   const requiredAppFiles = ['app/index.html', 'app/flutter_bootstrap.js'];
 
   for (const file of requiredFiles) {

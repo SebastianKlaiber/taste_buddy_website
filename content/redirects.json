@@ -88,5 +88,15 @@
     "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=guides-faq&mt=8",
     "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dseo_cta%26utm_campaign%3Dguides-faq%26utm_content%3Dguides-faq",
     "fallback_url": "https://taste-buddy.app/guides/"
+  },
+  {
+    "slug": "ingredient-guides",
+    "source": "website",
+    "medium": "seo_cta",
+    "campaign": "ingredient-guides",
+    "content": "ingredient-guide",
+    "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=ingredient-guides&mt=8",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dseo_cta%26utm_campaign%3Dingredient-guides%26utm_content%3Dingredient-guide",
+    "fallback_url": "https://taste-buddy.app/features/recipe-organizer/"
   }
 ]

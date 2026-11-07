@@ -5,6 +5,7 @@ import feedSites from '../../../content/feed_sites.json';
 import importSources from '../../../content/import_sources.json';
 import keywords from '../../../content/keywords.json';
 import redirects from '../../../content/redirects.json';
+import roundups from '../../../content/roundups.json';
 import solutions from '../../../content/solutions.json';
 import stats from '../../../content/stats.json';
 import type {
@@ -16,6 +17,7 @@ import type {
   KeywordRecord,
   Locale,
   RedirectRecord,
+  RoundupRecord,
   SolutionRecord,
   StatsRecord,
 } from './types';
@@ -28,6 +30,7 @@ const keywordRecords = keywords as KeywordRecord[];
 const importSourceRecords = importSources as ImportSourceRecord[];
 const feedSiteRecords = feedSites as FeedSiteRecord[];
 const redirectRecords = redirects as RedirectRecord[];
+const roundupRecords = roundups as RoundupRecord[];
 const statsRecord = stats as StatsRecord;
 
 function byLocale<T extends { locale: Locale; slug: string }>(records: T[], locale: Locale, slug: string): T {
@@ -52,6 +55,10 @@ export function listAlternatives(locale: Locale): AlternativesRecord[] {
 
 export function findAlternativesForComparison(locale: Locale, comparisonSlug: string): AlternativesRecord | undefined {
   return alternativesRecords.find((record) => record.locale === locale && record.comparison_slug === comparisonSlug);
+}
+
+export function listRoundups(locale: Locale): RoundupRecord[] {
+  return roundupRecords.filter((record) => record.locale === locale);
 }
 
 export function getAlternativeApp(locale: Locale, slug: string): AlternativeAppRecord {

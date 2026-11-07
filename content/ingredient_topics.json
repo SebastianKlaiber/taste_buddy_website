@@ -1,0 +1,180 @@
+[
+  {
+    "id": "chestnuts",
+    "priority": 9,
+    "season_months": [10, 11, 12],
+    "fdc_id": 170190,
+    "fdc_query": "chestnuts european roasted",
+    "de": { "slug": "maronen", "name": "Maronen", "keywords": ["maronen", "maronen zubereiten", "maronen lagern", "sind maronen gesund", "maronen kastanien unterschied"] },
+    "en": { "slug": "chestnuts", "name": "Chestnuts", "keywords": ["chestnuts", "how to roast chestnuts", "how to store chestnuts", "are chestnuts healthy", "sweet chestnut vs horse chestnut"] }
+  },
+  {
+    "id": "pumpkin",
+    "priority": 9,
+    "season_months": [8, 9, 10, 11],
+    "fdc_id": 168448,
+    "fdc_query": "pumpkin raw",
+    "de": { "slug": "kuerbis", "name": "Kürbis", "keywords": ["kürbis", "kürbissorten", "kürbis lagern", "kürbis schälen", "hokkaido kürbis zubereiten"] },
+    "en": { "slug": "pumpkin", "name": "Pumpkin", "keywords": ["pumpkin", "pumpkin varieties", "how to store pumpkin", "how to peel pumpkin", "cooking pumpkin"] }
+  },
+  {
+    "id": "kale",
+    "priority": 8,
+    "season_months": [11, 12, 1, 2],
+    "fdc_id": 168421,
+    "fdc_query": "kale raw",
+    "de": { "slug": "gruenkohl", "name": "Grünkohl", "keywords": ["grünkohl", "grünkohl zubereiten", "grünkohl nach frost", "grünkohl einfrieren", "grünkohl gesund"] },
+    "en": { "slug": "kale", "name": "Kale", "keywords": ["kale", "how to cook kale", "kale after frost", "how to freeze kale", "is kale healthy"] }
+  },
+  {
+    "id": "brussels-sprouts",
+    "priority": 8,
+    "season_months": [10, 11, 12, 1, 2],
+    "fdc_id": 170383,
+    "fdc_query": "brussels sprouts raw",
+    "de": { "slug": "rosenkohl", "name": "Rosenkohl", "keywords": ["rosenkohl", "rosenkohl zubereiten", "rosenkohl bitter", "rosenkohl einfrieren", "rosenkohl putzen"] },
+    "en": { "slug": "brussels-sprouts", "name": "Brussels sprouts", "keywords": ["brussels sprouts", "how to cook brussels sprouts", "brussels sprouts bitter", "how to freeze brussels sprouts", "how to trim brussels sprouts"] }
+  },
+  {
+    "id": "rutabaga",
+    "priority": 5,
+    "season_months": [10, 11, 12, 1, 2, 3],
+    "fdc_id": 168454,
+    "fdc_query": "rutabagas raw",
+    "de": { "slug": "steckrueben", "name": "Steckrüben", "keywords": ["steckrüben", "steckrübe zubereiten", "steckrübe schälen", "steckrübe lagern"] },
+    "en": { "slug": "rutabaga", "name": "Rutabaga", "keywords": ["rutabaga", "how to cook rutabaga", "how to peel rutabaga", "rutabaga vs turnip"] }
+  },
+  {
+    "id": "parsnips",
+    "priority": 6,
+    "season_months": [10, 11, 12, 1, 2, 3],
+    "fdc_id": 170417,
+    "fdc_query": "parsnips raw",
+    "de": { "slug": "pastinaken", "name": "Pastinaken", "keywords": ["pastinaken", "pastinaken zubereiten", "pastinake petersilienwurzel unterschied", "pastinaken lagern"] },
+    "en": { "slug": "parsnips", "name": "Parsnips", "keywords": ["parsnips", "how to cook parsnips", "parsnip vs parsley root", "how to store parsnips"] }
+  },
+  {
+    "id": "quinces",
+    "priority": 6,
+    "season_months": [9, 10, 11],
+    "fdc_id": 168163,
+    "fdc_query": "quinces raw",
+    "de": { "slug": "quitten", "name": "Quitten", "keywords": ["quitten", "quitten verarbeiten", "quitten roh essen", "apfelquitte birnenquitte", "quitten lagern"] },
+    "en": { "slug": "quince", "name": "Quince", "keywords": ["quince", "how to cook quince", "can you eat quince raw", "how to store quince"] }
+  },
+  {
+    "id": "beetroot",
+    "priority": 6,
+    "season_months": [9, 10, 11, 12, 1, 2, 3],
+    "fdc_query": "beets raw",
+    "de": { "slug": "rote-bete", "name": "Rote Bete", "keywords": ["rote bete", "rote bete zubereiten", "rote bete roh essen", "rote bete lagern", "rote bete gesund"] },
+    "en": { "slug": "beetroot", "name": "Beetroot", "keywords": ["beetroot", "how to cook beetroot", "can you eat beetroot raw", "how to store beetroot"] }
+  },
+  {
+    "id": "jerusalem-artichoke",
+    "priority": 4,
+    "season_months": [10, 11, 12, 1, 2, 3],
+    "fdc_query": "jerusalem artichokes raw",
+    "de": { "slug": "topinambur", "name": "Topinambur", "keywords": ["topinambur", "topinambur zubereiten", "topinambur roh essen", "topinambur lagern"] },
+    "en": { "slug": "jerusalem-artichoke", "name": "Jerusalem artichoke", "keywords": ["jerusalem artichoke", "sunchoke", "how to cook jerusalem artichokes", "jerusalem artichoke raw"] }
+  },
+  {
+    "id": "lambs-lettuce",
+    "priority": 5,
+    "season_months": [10, 11, 12, 1, 2, 3],
+    "fdc_query": "cornsalad raw",
+    "de": { "slug": "feldsalat", "name": "Feldsalat", "keywords": ["feldsalat", "feldsalat waschen", "feldsalat lagern", "feldsalat gesund"] },
+    "en": { "slug": "lambs-lettuce", "name": "Lamb's lettuce", "keywords": ["lamb's lettuce", "corn salad", "mache", "how to wash lamb's lettuce"] }
+  },
+  {
+    "id": "red-cabbage",
+    "priority": 5,
+    "season_months": [10, 11, 12, 1, 2, 3],
+    "fdc_query": "cabbage red raw",
+    "de": { "slug": "rotkohl", "name": "Rotkohl", "keywords": ["rotkohl", "rotkohl zubereiten", "rotkohl einfrieren", "rotkohl blaukraut unterschied"] },
+    "en": { "slug": "red-cabbage", "name": "Red cabbage", "keywords": ["red cabbage", "how to cook red cabbage", "how to freeze red cabbage", "red cabbage color change"] }
+  },
+  {
+    "id": "wild-garlic",
+    "priority": 7,
+    "season_months": [3, 4, 5],
+    "de": { "slug": "baerlauch", "name": "Bärlauch", "keywords": ["bärlauch", "bärlauch verwechslung", "bärlauch haltbar machen", "bärlauch pesto", "bärlauch sammeln"] },
+    "en": { "slug": "wild-garlic", "name": "Wild garlic", "keywords": ["wild garlic", "wild garlic look alikes", "how to preserve wild garlic", "wild garlic pesto"] }
+  },
+  {
+    "id": "asparagus",
+    "priority": 9,
+    "season_months": [4, 5, 6],
+    "fdc_id": 168389,
+    "fdc_query": "asparagus raw",
+    "de": { "slug": "spargel", "name": "Spargel", "keywords": ["spargel", "spargel schälen", "spargel kochzeit", "weißer grüner spargel unterschied", "spargel lagern"] },
+    "en": { "slug": "asparagus", "name": "Asparagus", "keywords": ["asparagus", "how to peel asparagus", "white vs green asparagus", "how long to cook asparagus", "how to store asparagus"] }
+  },
+  {
+    "id": "rhubarb",
+    "priority": 7,
+    "season_months": [4, 5, 6],
+    "fdc_id": 167758,
+    "fdc_query": "rhubarb raw",
+    "de": { "slug": "rhabarber", "name": "Rhabarber", "keywords": ["rhabarber", "rhabarber schälen", "rhabarber roh essen", "rhabarber oxalsäure", "rhabarber einfrieren"] },
+    "en": { "slug": "rhubarb", "name": "Rhubarb", "keywords": ["rhubarb", "do you peel rhubarb", "can you eat rhubarb raw", "rhubarb oxalic acid", "how to freeze rhubarb"] }
+  },
+  {
+    "id": "strawberries",
+    "priority": 8,
+    "season_months": [5, 6, 7],
+    "fdc_id": 167762,
+    "fdc_query": "strawberries raw",
+    "de": { "slug": "erdbeeren", "name": "Erdbeeren", "keywords": ["erdbeeren", "erdbeeren lagern", "erdbeeren waschen", "erdbeeren einfrieren", "erdbeersaison"] },
+    "en": { "slug": "strawberries", "name": "Strawberries", "keywords": ["strawberries", "how to store strawberries", "how to wash strawberries", "how to freeze strawberries", "strawberry season"] }
+  },
+  {
+    "id": "apricots",
+    "priority": 5,
+    "season_months": [6, 7, 8],
+    "fdc_query": "apricots raw",
+    "de": { "slug": "aprikosen", "name": "Aprikosen", "keywords": ["aprikosen", "aprikosen reifen lassen", "aprikosen einfrieren", "aprikosenkerne giftig"] },
+    "en": { "slug": "apricots", "name": "Apricots", "keywords": ["apricots", "how to ripen apricots", "how to freeze apricots", "are apricot kernels poisonous"] }
+  },
+  {
+    "id": "zucchini",
+    "priority": 7,
+    "season_months": [6, 7, 8, 9],
+    "fdc_query": "squash summer zucchini includes skin raw",
+    "de": { "slug": "zucchini", "name": "Zucchini", "keywords": ["zucchini", "zucchini bitter", "zucchini roh essen", "zucchini lagern", "zucchini einfrieren"] },
+    "en": { "slug": "zucchini", "name": "Zucchini", "keywords": ["zucchini", "bitter zucchini", "can you eat zucchini raw", "how to store zucchini", "how to freeze zucchini"] }
+  },
+  {
+    "id": "blueberries",
+    "priority": 6,
+    "season_months": [7, 8, 9],
+    "fdc_id": 171711,
+    "fdc_query": "blueberries raw",
+    "de": { "slug": "heidelbeeren", "name": "Heidelbeeren", "keywords": ["heidelbeeren", "heidelbeeren blaubeeren unterschied", "heidelbeeren lagern", "heidelbeeren einfrieren"] },
+    "en": { "slug": "blueberries", "name": "Blueberries", "keywords": ["blueberries", "wild vs cultivated blueberries", "how to store blueberries", "how to freeze blueberries"] }
+  },
+  {
+    "id": "chanterelles",
+    "priority": 6,
+    "season_months": [7, 8, 9, 10],
+    "fdc_query": "mushrooms chanterelle raw",
+    "de": { "slug": "pfifferlinge", "name": "Pfifferlinge", "keywords": ["pfifferlinge", "pfifferlinge putzen", "pfifferlinge braten", "pfifferlinge lagern", "falscher pfifferling"] },
+    "en": { "slug": "chanterelles", "name": "Chanterelles", "keywords": ["chanterelles", "how to clean chanterelles", "how to cook chanterelles", "false chanterelle"] }
+  },
+  {
+    "id": "plums",
+    "priority": 6,
+    "season_months": [8, 9, 10],
+    "fdc_query": "plums raw",
+    "de": { "slug": "zwetschgen", "name": "Zwetschgen", "keywords": ["zwetschgen", "zwetschgen pflaumen unterschied", "zwetschgen einfrieren", "zwetschgen entsteinen"] },
+    "en": { "slug": "plums", "name": "Plums", "keywords": ["plums", "damson vs plum", "how to freeze plums", "how to pit plums"] }
+  },
+  {
+    "id": "leeks",
+    "priority": 5,
+    "season_months": [9, 10, 11, 12, 1, 2, 3],
+    "fdc_query": "leeks bulb and lower leaf-portion raw",
+    "de": { "slug": "lauch", "name": "Lauch", "keywords": ["lauch", "lauch putzen", "lauch porree unterschied", "lauch einfrieren"] },
+    "en": { "slug": "leeks", "name": "Leeks", "keywords": ["leeks", "how to clean leeks", "how to cook leeks", "how to freeze leeks"] }
+  }
+]

@@ -1,0 +1,17 @@
+---
+import RoundupPage from '../../components/marketing/RoundupPage.astro';
+import { listRoundups } from '../../lib/marketing/content';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return listRoundups('en').map((record) => ({
+    params: { roundup: record.slug },
+    props: { record },
+  }));
+}
+
+const { record } = Astro.props;
+---
+
+<RoundupPage record={record} locale="en" />

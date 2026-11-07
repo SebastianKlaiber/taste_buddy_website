@@ -1,0 +1,318 @@
+---
+import type { Locale } from '../../lib/marketing/types';
+import { SITE_URL, getLocalizedPath } from '../../lib/marketing/app-links';
+import {
+  getGuideAlternates,
+  guideHubPath,
+  guidePath,
+  isInSeason,
+  listIngredientGuides,
+  monthLabels,
+  seasonLabel,
+  type IngredientGuideFrontmatter,
+} from '../../lib/marketing/ingredients';
+import Layout from '../../layouts/Layout.astro';
+import Main from '../Main.astro';
+import DownloadCtas from './DownloadCtas.astro';
+
+interface Props {
+  guide: { frontmatter: IngredientGuideFrontmatter; Content: any };
+  locale: Locale;
+}
+
+const { guide, locale } = Astro.props;
+const { frontmatter: fm, Content } = guide;
+
+const labels = {
+  en: {
+    home: 'Home',
+    hub: 'Ingredient guides',
+    kicker: 'Ingredient guide',
+    updated: 'Updated',
+    facts: 'At a glance',
+    season: 'Season',
+    seasonNote: 'Central Europe',
+    shelfLife: 'Shelf life',
+    storage: 'Storage',
+    buying: 'Buying',
+    freezing: 'Freezing',
+    nutrition: 'Nutrition per 100 g',
+    nutrient: 'Nutrient',
+    amount: 'Amount',
+    source: 'Source',
+    ideas: 'Recipe ideas',
+    ctaTitle: 'Keep every recipe you try in one place',
+    ctaBody: 'Save recipes from any website, video or photo in TasteBuddy, plan your week around what is in season and get the shopping list automatically.',
+    ctaPrimary: 'Get TasteBuddy',
+    ctaSecondary: 'See the recipe organizer',
+    faq: 'Frequently asked questions',
+    more: 'More ingredient guides',
+    inSeason: 'in season',
+    draft: 'Draft preview: this guide is not published yet.',
+    nutrients: {
+      energy_kcal: ['Energy', 'kcal'],
+      protein_g: ['Protein', 'g'],
+      fat_g: ['Fat', 'g'],
+      carbs_g: ['Carbohydrates', 'g'],
+      sugars_g: ['of which sugars', 'g'],
+      fiber_g: ['Fiber', 'g'],
+      potassium_mg: ['Potassium', 'mg'],
+      magnesium_mg: ['Magnesium', 'mg'],
+      vitamin_c_mg: ['Vitamin C', 'mg'],
+    },
+  },
+  de: {
+    home: 'Startseite',
+    hub: 'Warenkunde',
+    kicker: 'Warenkunde',
+    updated: 'Aktualisiert',
+    facts: 'Steckbrief',
+    season: 'Saison',
+    seasonNote: 'Mitteleuropa',
+    shelfLife: 'Haltbarkeit',
+    storage: 'Lagerung',
+    buying: 'Einkauf',
+    freezing: 'Einfrieren',
+    nutrition: 'Nährwerte pro 100 g',
+    nutrient: 'Nährstoff',
+    amount: 'Menge',
+    source: 'Quelle',
+    ideas: 'Rezeptideen',
+    ctaTitle: 'Alle Rezepte, die du ausprobierst, an einem Ort',
+    ctaBody: 'Speichere Rezepte von jeder Website, aus Videos oder Fotos in TasteBuddy, plane deine Woche nach Saison und bekomm die Einkaufsliste automatisch.',
+    ctaPrimary: 'TasteBuddy holen',
+    ctaSecondary: 'Rezeptverwaltung ansehen',
+    faq: 'Häufige Fragen',
+    more: 'Mehr Warenkunde',
+    inSeason: 'Saison',
+    draft: 'Entwurfsvorschau: Dieser Artikel ist noch nicht veröffentlicht.',
+    nutrients: {
+      energy_kcal: ['Energie', 'kcal'],
+      protein_g: ['Eiweiß', 'g'],
+      fat_g: ['Fett', 'g'],
+      carbs_g: ['Kohlenhydrate', 'g'],
+      sugars_g: ['davon Zucker', 'g'],
+      fiber_g: ['Ballaststoffe', 'g'],
+      potassium_mg: ['Kalium', 'mg'],
+      magnesium_mg: ['Magnesium', 'mg'],
+      vitamin_c_mg: ['Vitamin C', 'mg'],
+    },
+  },
+}[locale];
+
+const pagePath = guidePath(locale, fm.slug);
+const hubPath = guideHubPath(locale);
+const months = monthLabels(locale);
+const numberFormat = new Intl.NumberFormat(locale === 'de' ? 'de-DE' : 'en-US', { maximumFractionDigits: 1 });
+const nutritionRows = fm.nutrition
+  ? (Object.entries(labels.nutrients) as [keyof typeof labels.nutrients, string[]][])
+      .filter(([key]) => typeof fm.nutrition?.per_100g[key] === 'number')
+      .map(([key, [name, unit]]) => ({ name, value: `${numberFormat.format(fm.nutrition!.per_100g[key]!)} ${unit}`, sub: key === 'sugars_g' }))
+  : [];
+const heroUrl = fm.hero_image ? new URL(fm.hero_image, SITE_URL).toString() : undefined;
+
+const otherGuides = listIngredientGuides(locale)
+  .filter((entry) => entry.frontmatter.slug !== fm.slug)
+  .sort((left, right) => Number(isInSeason(right.frontmatter.season_months)) - Number(isInSeason(left.frontmatter.season_months)))
+  .slice(0, 6);
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: fm.title,
+    description: fm.description,
+    inLanguage: locale,
+    datePublished: fm.date,
+    dateModified: fm.updated,
+    mainEntityOfPage: `${SITE_URL}${pagePath}`,
+    ...(heroUrl ? { image: heroUrl } : {}),
+    author: { '@type': 'Organization', name: fm.author, url: SITE_URL },
+    publisher: { '@type': 'Organization', name: 'TasteBuddy', logo: { '@type': 'ImageObject', url: `${SITE_URL}/Icon.png` } },
+    about: { '@type': 'Thing', name: fm.primary_keyword },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: fm.faq.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: labels.home, item: `${SITE_URL}${getLocalizedPath(locale, '/')}` },
+      { '@type': 'ListItem', position: 2, name: labels.hub, item: `${SITE_URL}${hubPath}` },
+      { '@type': 'ListItem', position: 3, name: fm.title, item: `${SITE_URL}${pagePath}` },
+    ],
+  },
+];
+---
+
+<Layout
+  title={fm.seo_title}
+  description={fm.description}
+  alternates={getGuideAlternates(locale, fm.topic_id)}
+  robots={fm.publish_status === 'approved' ? 'index, follow' : 'noindex, nofollow'}
+  socialImage={heroUrl}
+  socialImageAlt={fm.hero_alt ?? undefined}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+  <Main>
+    <article class="max-w-4xl mx-auto py-12 sm:py-16">
+      {fm.publish_status !== 'approved' && (
+        <p class="mb-6 rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 text-sm text-yellow-200">{labels.draft}</p>
+      )}
+
+      <nav aria-label="Breadcrumb" class="mb-6 text-sm text-gray-400">
+        <ol class="flex flex-wrap gap-2">
+          <li><a class="hover:text-[#8FECA8]" href={getLocalizedPath(locale, '/')}>{labels.home}</a> ›</li>
+          <li><a class="hover:text-[#8FECA8]" href={hubPath}>{labels.hub}</a> ›</li>
+          <li aria-current="page" class="text-gray-300">{fm.title}</li>
+        </ol>
+      </nav>
+
+      <header class="mb-10">
+        <p class="mb-3 text-sm uppercase tracking-[0.2em] text-[#8FECA8]">{labels.kicker}</p>
+        <h1 class="mb-5 text-3xl font-bold text-white sm:text-5xl">{fm.title}</h1>
+        <p class="text-lg text-gray-300">{fm.quick_answer}</p>
+        <p class="mt-4 text-sm text-gray-500">
+          {fm.author} · {labels.updated} <time datetime={fm.updated}>{fm.updated}</time>
+        </p>
+      </header>
+
+      {fm.hero_image && (
+        <img
+          class="mb-10 aspect-[16/9] w-full rounded-2xl object-cover"
+          src={fm.hero_image}
+          alt={fm.hero_alt ?? ''}
+          width="1600"
+          height="900"
+          loading="eager"
+          fetchpriority="high"
+        />
+      )}
+
+      <section class="mb-10 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6" aria-labelledby="facts-heading">
+        <h2 id="facts-heading" class="mb-5 text-2xl font-semibold text-white">{labels.facts}</h2>
+        <div class="mb-6">
+          <p class="mb-2 text-sm text-gray-400">
+            <span class="font-medium text-gray-200">{labels.season}:</span> {seasonLabel(locale, fm.season_months)} ({labels.seasonNote})
+          </p>
+          <ol class="grid grid-cols-6 gap-1 sm:grid-cols-12" aria-label={labels.season}>
+            {months.map((month, index) => {
+              const active = fm.season_months.includes(index + 1);
+              return (
+                <li
+                  class:list={[
+                    'rounded-md py-1.5 text-center text-xs',
+                    active ? 'bg-[#00CE31] font-semibold text-black' : 'bg-[#1C2513] text-gray-500',
+                  ]}
+                  aria-label={active ? `${month}: ${labels.inSeason}` : month}
+                >
+                  {month}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+        <dl class="grid gap-4 text-gray-300 sm:grid-cols-2">
+          <div><dt class="text-sm font-medium text-[#8FECA8]">{labels.shelfLife}</dt><dd>{fm.facts.shelf_life}</dd></div>
+          <div><dt class="text-sm font-medium text-[#8FECA8]">{labels.storage}</dt><dd>{fm.facts.storage}</dd></div>
+          <div><dt class="text-sm font-medium text-[#8FECA8]">{labels.buying}</dt><dd>{fm.facts.buying}</dd></div>
+          <div><dt class="text-sm font-medium text-[#8FECA8]">{labels.freezing}</dt><dd>{fm.facts.freezing}</dd></div>
+        </dl>
+      </section>
+
+      <div class="prose prose-invert prose-green mb-10 max-w-none prose-a:text-[#8FECA8]">
+        <Content />
+      </div>
+
+      {nutritionRows.length > 0 && fm.nutrition && (
+        <section class="mb-10 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6" aria-labelledby="nutrition-heading">
+          <h2 id="nutrition-heading" class="mb-4 text-2xl font-semibold text-white">{labels.nutrition}</h2>
+          <table class="w-full border-collapse text-left text-sm text-gray-300">
+            <thead>
+              <tr class="border-b border-[#2A2D24]/50 text-white">
+                <th class="py-2 pr-4 font-semibold">{labels.nutrient}</th>
+                <th class="py-2 text-right font-semibold">{labels.amount}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {nutritionRows.map((row) => (
+                <tr class="border-b border-[#2A2D24]/30 last:border-b-0">
+                  <td class:list={['py-2 pr-4', row.sub && 'pl-4 text-gray-400']}>{row.name}</td>
+                  <td class="py-2 text-right tabular-nums">{row.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p class="mt-4 text-xs text-gray-500">
+            {labels.source}:{' '}
+            <a class="underline hover:text-[#8FECA8]" href={fm.nutrition.source_url} target="_blank" rel="noopener noreferrer">
+              {fm.nutrition.source}
+            </a>{' '}
+            ({fm.nutrition.fdc_description})
+          </p>
+        </section>
+      )}
+
+      {fm.recipe_ideas.length > 0 && (
+        <section class="mb-10" aria-labelledby="ideas-heading">
+          <h2 id="ideas-heading" class="mb-5 text-2xl font-semibold text-white">{labels.ideas}</h2>
+          <ul class="grid gap-4 sm:grid-cols-2">
+            {fm.recipe_ideas.map((idea) => (
+              <li class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-5">
+                <h3 class="mb-1 font-semibold text-white">{idea.name}</h3>
+                <p class="text-sm text-gray-400">{idea.description}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <section class="mb-10 rounded-3xl border border-[#00CE31]/40 bg-[#1C2513]/80 p-6 sm:p-8">
+        <h2 class="mb-3 text-2xl font-semibold text-white">{labels.ctaTitle}</h2>
+        <p class="mb-6 text-gray-300">{labels.ctaBody}</p>
+        <DownloadCtas slug="ingredient-guides" primaryLabel={labels.ctaPrimary} secondaryLabel={labels.ctaSecondary} />
+      </section>
+
+      <section class="mb-10 rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-6" aria-labelledby="faq-heading">
+        <h2 id="faq-heading" class="mb-5 text-2xl font-semibold text-white">{labels.faq}</h2>
+        <div class="space-y-6 text-gray-300">
+          {fm.faq.map((item) => (
+            <div>
+              <h3 class="mb-2 text-lg font-semibold text-white">{item.question}</h3>
+              <p>{item.answer}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {otherGuides.length > 0 && (
+        <section aria-labelledby="more-heading">
+          <h2 id="more-heading" class="mb-4 text-2xl font-semibold text-white">{labels.more}</h2>
+          <ul class="flex flex-wrap gap-3">
+            {otherGuides.map((entry) => (
+              <li>
+                <a
+                  class="inline-flex items-center gap-2 rounded-full border border-[#2A2D24] px-4 py-2 text-sm text-gray-200 hover:border-[#8FECA8] hover:text-[#8FECA8]"
+                  href={guidePath(locale, entry.frontmatter.slug)}
+                >
+                  {entry.frontmatter.name ?? entry.frontmatter.title}
+                  {isInSeason(entry.frontmatter.season_months) && (
+                    <span class="rounded-full bg-[#00CE31]/20 px-2 text-xs text-[#8FECA8]">{labels.inSeason}</span>
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </article>
+  </Main>
+</Layout>

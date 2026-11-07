@@ -73,7 +73,7 @@
     "name": "Mela",
     "website_url": "https://mela.recipes/",
     "platforms": ["iPhone", "iPad", "Mac"],
-    "pricing_model": "One-time purchase",
+    "pricing_model": "Free download, one-time unlock per platform",
     "best_for": "Apple-only households that want a clean, native recipe manager with iCloud sync",
     "highlights": [
       "Built-in browser that detects and saves recipes from websites",
@@ -81,8 +81,8 @@
       "Can import an existing Paprika library and scan recipes from cookbooks"
     ],
     "tradeoff": "Apple platforms only, so it does not work for mixed iPhone and Android households",
-    "source_of_truth": ["https://apps.apple.com/app/id1568924476"],
-    "last_reviewed_at": "2026-10-19"
+    "source_of_truth": ["https://mela.recipes", "https://apps.apple.com/us/app/mela-recipe-manager/id1548466041"],
+    "last_reviewed_at": "2026-11-07"
   },
   {
     "slug": "mela",
@@ -90,7 +90,7 @@
     "name": "Mela",
     "website_url": "https://mela.recipes/",
     "platforms": ["iPhone", "iPad", "Mac"],
-    "pricing_model": "Einmalkauf",
+    "pricing_model": "Kostenloser Download, Einmalkauf pro Plattform",
     "best_for": "Reine Apple-Haushalte, die einen aufgeräumten nativen Rezeptmanager mit iCloud-Sync wollen",
     "highlights": [
       "Integrierter Browser, der Rezepte auf Websites erkennt und speichert",
@@ -98,8 +98,8 @@
       "Kann eine bestehende Paprika-Bibliothek importieren und Rezepte aus Kochbüchern scannen"
     ],
     "tradeoff": "Nur für Apple-Geräte, also keine Option für gemischte iPhone- und Android-Haushalte",
-    "source_of_truth": ["https://apps.apple.com/app/id1568924476"],
-    "last_reviewed_at": "2026-10-19"
+    "source_of_truth": ["https://mela.recipes", "https://apps.apple.com/us/app/mela-recipe-manager/id1548466041"],
+    "last_reviewed_at": "2026-11-07"
   },
   {
     "slug": "samsung-food",
@@ -174,34 +174,40 @@
     "locale": "en",
     "name": "ReciMe",
     "website_url": "https://www.recime.app/",
-    "platforms": ["iOS", "Web"],
+    "platforms": ["iOS", "Android", "Web"],
     "pricing_model": "Free with in-app purchases",
-    "best_for": "iPhone users who mostly save recipes from Instagram and TikTok",
+    "best_for": "People who mostly save recipes from Instagram and TikTok",
     "highlights": [
       "Saves recipes from Instagram, TikTok, YouTube, Pinterest, and Facebook",
       "Meal planner and grocery list sorted by aisle or recipe",
-      "Web version and browser extension alongside the iOS app"
+      "Apps for iOS and Android, plus a web version and browser extension"
     ],
-    "tradeoff": "No native Android app yet, so shared households on both platforms need the web version",
-    "source_of_truth": ["https://apps.apple.com/app/id1593779280"],
-    "last_reviewed_at": "2026-10-19"
+    "tradeoff": "Built mainly around social video imports; the Android app is newer than the iOS version and needs Android 12 or later",
+    "source_of_truth": [
+      "https://help.recime.app/en/articles/11594896-what-is-recime",
+      "https://play.google.com/store/apps/details?id=com.recime.app"
+    ],
+    "last_reviewed_at": "2026-11-07"
   },
   {
     "slug": "recime",
     "locale": "de",
     "name": "ReciMe",
     "website_url": "https://www.recime.app/",
-    "platforms": ["iOS", "Web"],
+    "platforms": ["iOS", "Android", "Web"],
     "pricing_model": "Kostenlos mit In-App-Käufen",
-    "best_for": "iPhone-Nutzer, die Rezepte vor allem aus Instagram und TikTok speichern",
+    "best_for": "Alle, die Rezepte vor allem aus Instagram und TikTok speichern",
     "highlights": [
       "Speichert Rezepte aus Instagram, TikTok, YouTube, Pinterest und Facebook",
       "Essensplaner und Einkaufsliste, sortiert nach Gang oder Rezept",
-      "Web-Version und Browser-Erweiterung zusätzlich zur iOS-App"
+      "Apps für iOS und Android, dazu Web-Version und Browser-Erweiterung"
     ],
-    "tradeoff": "Noch keine native Android-App, gemischte Haushalte brauchen die Web-Version",
-    "source_of_truth": ["https://apps.apple.com/app/id1593779280"],
-    "last_reviewed_at": "2026-10-19"
+    "tradeoff": "Vor allem auf Social-Video-Importe ausgelegt; die Android-App ist neuer als die iOS-Version und braucht Android 12 oder neuer",
+    "source_of_truth": [
+      "https://help.recime.app/en/articles/11594896-what-is-recime",
+      "https://play.google.com/store/apps/details?id=com.recime.app"
+    ],
+    "last_reviewed_at": "2026-11-07"
   },
   {
     "slug": "chefkoch",
@@ -270,5 +276,79 @@
     "tradeoff": "Englischsprachig, voller Zugriff nur im Abo, und eher Katalog als Werkzeug für eigene Rezepte",
     "source_of_truth": ["https://cooking.nytimes.com/"],
     "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "recipe-keeper",
+    "locale": "en",
+    "name": "Recipe Keeper",
+    "website_url": "https://www.recipekeeperonline.com/",
+    "platforms": ["iOS", "Android", "Windows", "Mac"],
+    "pricing_model": "Free to start, one-time Pro upgrade per platform",
+    "best_for": "Cooks who want a long-running recipe manager that also runs on Windows",
+    "highlights": [
+      "Saves recipes from websites and lets you type in or scan family recipes",
+      "Meal planner and shopping list built from your recipe library",
+      "Apps for iPhone, iPad, Android, Windows, and Mac with cloud sync"
+    ],
+    "tradeoff": "Pro is bought separately per platform, and the workflow is built around websites rather than social video",
+    "source_of_truth": [
+      "https://www.recipekeeperonline.com/",
+      "https://apps.apple.com/us/app/recipe-keeper/id974683711"
+    ],
+    "last_reviewed_at": "2026-11-07"
+  },
+  {
+    "slug": "recipe-keeper",
+    "locale": "de",
+    "name": "Recipe Keeper",
+    "website_url": "https://www.recipekeeperonline.com/",
+    "platforms": ["iOS", "Android", "Windows", "Mac"],
+    "pricing_model": "Kostenlos starten, Pro-Upgrade als Einmalkauf pro Plattform",
+    "best_for": "Alle, die einen bewährten Rezeptmanager suchen, der auch unter Windows läuft",
+    "highlights": [
+      "Speichert Rezepte von Websites und nimmt abgetippte oder gescannte Familienrezepte auf",
+      "Wochenplaner und Einkaufsliste aus der eigenen Rezeptsammlung",
+      "Apps für iPhone, iPad, Android, Windows und Mac mit Cloud-Sync"
+    ],
+    "tradeoff": "Pro muss pro Plattform separat gekauft werden, und der Workflow ist auf Websites statt auf Social-Videos ausgelegt",
+    "source_of_truth": [
+      "https://www.recipekeeperonline.com/",
+      "https://apps.apple.com/us/app/recipe-keeper/id974683711"
+    ],
+    "last_reviewed_at": "2026-11-07"
+  },
+  {
+    "slug": "pestle",
+    "locale": "en",
+    "name": "Pestle",
+    "website_url": "https://apps.apple.com/us/app/id1574776971",
+    "platforms": ["iPhone", "iPad", "Mac", "Apple Watch", "Vision Pro"],
+    "pricing_model": "Free download, Pestle Pro subscription or lifetime unlock",
+    "best_for": "Apple users who want a polished cooking mode with timers and hands-free steps",
+    "highlights": [
+      "Saves recipes from websites into a personal library",
+      "Cooking mode with step-by-step guidance and timers, including Apple Watch",
+      "Meal planning and grocery list features"
+    ],
+    "tradeoff": "Apple platforms only, so it does not work for mixed iPhone and Android households",
+    "source_of_truth": ["https://apps.apple.com/us/app/id1574776971"],
+    "last_reviewed_at": "2026-11-07"
+  },
+  {
+    "slug": "pestle",
+    "locale": "de",
+    "name": "Pestle",
+    "website_url": "https://apps.apple.com/de/app/id1574776971",
+    "platforms": ["iPhone", "iPad", "Mac", "Apple Watch", "Vision Pro"],
+    "pricing_model": "Kostenloser Download, Pestle Pro als Abo oder Lifetime-Kauf",
+    "best_for": "Apple-Nutzer, die einen ausgefeilten Kochmodus mit Timern und Schritt-für-Schritt-Ansicht wollen",
+    "highlights": [
+      "Speichert Rezepte von Websites in einer persönlichen Sammlung",
+      "Kochmodus mit Schritt-für-Schritt-Anleitung und Timern, auch auf der Apple Watch",
+      "Funktionen für Essensplanung und Einkaufsliste"
+    ],
+    "tradeoff": "Nur für Apple-Geräte, daher ungeeignet für Haushalte mit iPhone und Android",
+    "source_of_truth": ["https://apps.apple.com/us/app/id1574776971"],
+    "last_reviewed_at": "2026-11-07"
   }
 ]

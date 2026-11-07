@@ -1,0 +1,17 @@
+---
+import IngredientGuidePage from '../../components/marketing/IngredientGuidePage.astro';
+import { listIngredientGuides } from '../../lib/marketing/ingredients';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return listIngredientGuides('en').map((guide) => ({
+    params: { slug: guide.frontmatter.slug },
+    props: { guide },
+  }));
+}
+
+const { guide } = Astro.props;
+---
+
+<IngredientGuidePage guide={guide} locale="en" />
