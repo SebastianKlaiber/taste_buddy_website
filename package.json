@@ -9,6 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "article:draft": "node scripts/create-article-draft.js",
+    "guides:generate": "node scripts/generate-ingredient-guide.js",
+    "guides:validate": "node scripts/validate-ingredient-guides.js",
     "netlify-build": "bash scripts/netlify-build.sh",
     "validate": "node scripts/validate-build.js",
     "deploy": "npm run netlify-build && netlify deploy --prod"
@@ -27,7 +29,9 @@
     "typescript": "5.9.3"
   },
   "devDependencies": {
-    "@rollup/wasm-node": "4.68.0"
+    "@anthropic-ai/sdk": "^1.4.0",
+    "@rollup/wasm-node": "4.68.0",
+    "zod": "^4.6.7"
   },
   "peerDependencies": {
     "rollup": "4.13.0"

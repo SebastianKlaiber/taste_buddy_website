@@ -1,0 +1,119 @@
+---
+import type { Locale } from '../../lib/marketing/types';
+import { SITE_URL } from '../../lib/marketing/app-links';
+import { guideHubPath, guidePath, isInSeason, listIngredientGuides, seasonLabel } from '../../lib/marketing/ingredients';
+import Layout from '../../layouts/Layout.astro';
+import Main from '../Main.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const labels = {
+  en: {
+    title: 'Ingredient guides: seasonal produce explained',
+    seoTitle: 'Ingredient Guides: Seasonal Fruit & Vegetables',
+    description: 'How to buy, store and cook seasonal fruit and vegetables: season calendar, nutrition per 100 g and practical tips for every ingredient.',
+    intro: 'Short, practical guides to seasonal ingredients: when they are in season, how to pick and store them, and what to cook with them.',
+    inSeason: 'In season now',
+    all: 'All ingredient guides',
+    empty: 'The first guides are on their way.',
+    season: 'Season',
+  },
+  de: {
+    title: 'Warenkunde: Obst und Gemüse der Saison',
+    seoTitle: 'Warenkunde: Obst & Gemüse der Saison',
+    description: 'Warenkunde für Obst und Gemüse: Saisonkalender, Nährwerte pro 100 g, Tipps zu Einkauf, Lagerung und Zubereitung für jede Zutat.',
+    intro: 'Kompakte Warenkunde für saisonale Zutaten: wann sie Saison haben, woran du gute Ware erkennst, wie du sie lagerst und was du daraus kochst.',
+    inSeason: 'Jetzt in Saison',
+    all: 'Alle Zutaten',
+    empty: 'Die ersten Artikel sind in Arbeit.',
+    season: 'Saison',
+  },
+}[locale];
+
+const guides = listIngredientGuides(locale);
+const inSeason = guides.filter((guide) => isInSeason(guide.frontmatter.season_months));
+const hubPath = guideHubPath(locale);
+const otherHub = locale === 'de' ? guideHubPath('en') : guideHubPath('de');
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: labels.title,
+  description: labels.description,
+  inLanguage: locale,
+  url: `${SITE_URL}${hubPath}`,
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: guides.map((guide, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: `${SITE_URL}${guidePath(locale, guide.frontmatter.slug)}`,
+      name: guide.frontmatter.title,
+    })),
+  },
+};
+---
+
+<Layout
+  title={labels.seoTitle}
+  description={labels.description}
+  robots={guides.length > 0 ? 'index, follow' : 'noindex, follow'}
+  alternates={{
+    en: `${SITE_URL}${locale === 'en' ? hubPath : otherHub}`,
+    de: `${SITE_URL}${locale === 'de' ? hubPath : otherHub}`,
+    'x-default': `${SITE_URL}${guideHubPath('en')}`,
+  }}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <Main>
+    <div class="max-w-5xl mx-auto py-12 sm:py-16">
+      <header class="mb-10">
+        <h1 class="mb-4 text-3xl font-bold text-white sm:text-5xl">{labels.title}</h1>
+        <p class="max-w-3xl text-lg text-gray-300">{labels.intro}</p>
+      </header>
+
+      {guides.length === 0 && <p class="text-gray-400">{labels.empty}</p>}
+
+      {inSeason.length > 0 && (
+        <section class="mb-12">
+          <h2 class="mb-5 text-2xl font-semibold text-white">{labels.inSeason}</h2>
+          <ul class="flex flex-wrap gap-3">
+            {inSeason.map((guide) => (
+              <li>
+                <a
+                  class="inline-block rounded-full bg-[#00CE31] px-4 py-2 font-medium text-black hover:bg-[#8FECA8]"
+                  href={guidePath(locale, guide.frontmatter.slug)}
+                >
+                  {guide.frontmatter.name ?? guide.frontmatter.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {guides.length > 0 && (
+        <section>
+          <h2 class="mb-5 text-2xl font-semibold text-white">{labels.all}</h2>
+          <ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {guides.map((guide) => (
+              <li class="rounded-2xl border border-[#2A2D24]/30 bg-[#14180F] p-5 hover:border-[#8FECA8]/50">
+                <a href={guidePath(locale, guide.frontmatter.slug)} class="block">
+                  <h3 class="mb-2 text-lg font-semibold text-white">{guide.frontmatter.name ?? guide.frontmatter.title}</h3>
+                  <p class="mb-3 text-sm text-gray-400 line-clamp-3">{guide.frontmatter.quick_answer}</p>
+                  <p class="text-xs text-[#8FECA8]">
+                    {labels.season}: {seasonLabel(locale, guide.frontmatter.season_months)}
+                  </p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </div>
+  </Main>
+</Layout>

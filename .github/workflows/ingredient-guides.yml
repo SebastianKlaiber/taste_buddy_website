@@ -1,0 +1,104 @@
+name: Ingredient guides
+
+# Weekly: generate draft ingredient guides for what is (about to be) in season and open a PR.
+# Drafts never ship on their own: a reviewer checks the Netlify deploy preview, adds a photo,
+# sets publish_status to "approved", then merges.
+#
+# Required repository secrets: ANTHROPIC_API_KEY, FDC_API_KEY (free: https://fdc.nal.usda.gov/api-key-signup).
+# Required setting: Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests".
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # Mondays 06:00 UTC
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: 'Topic id from content/ingredient_topics.json (empty = pick in-season topics)'
+        required: false
+        default: ''
+      count:
+        description: 'How many in-season topics to generate when no topic is given'
+        required: false
+        default: '2'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ingredient-guides
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci --legacy-peer-deps
+
+      # Guides that still fail checks are kept as drafts, so the PR opens anyway and lists the errors.
+      - name: Generate guides
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FDC_API_KEY: ${{ secrets.FDC_API_KEY }}
+          GUIDE_SUMMARY_FILE: ${{ runner.temp }}/guide-summary.json
+          TOPIC: ${{ inputs.topic }}
+          COUNT: ${{ inputs.count || '2' }}
+        run: |
+          if [ -n "$TOPIC" ]; then
+            node scripts/generate-ingredient-guide.js --topic "$TOPIC"
+          else
+            node scripts/generate-ingredient-guide.js --auto --count "$COUNT"
+          fi
+
+      - name: Validate guides
+        continue-on-error: true
+        run: npm run guides:validate
+
+      - name: Write PR body
+        id: body
+        env:
+          GUIDE_SUMMARY_FILE: ${{ runner.temp }}/guide-summary.json
+          BODY_FILE: ${{ runner.temp }}/pr-body.md
+        run: |
+          node --input-type=module -e "
+          import fs from 'fs';
+          const file = process.env.GUIDE_SUMMARY_FILE;
+          if (!fs.existsSync(file)) { console.log('none=true'); process.exit(0); }
+          const rows = JSON.parse(fs.readFileSync(file, 'utf8'));
+          const lines = [
+            'Automatically generated ingredient guide drafts. Nothing is published until a guide is set to \`approved\`.',
+            '',
+            '| Guide | Words | Errors (fix before approving) | Warnings |',
+            '| --- | --- | --- | --- |',
+            ...rows.map((r) => '| \`' + r.file + '\` (' + r.url + ') | ' + r.words + ' | ' + (r.errors.join('; ') || '-') + ' | ' + (r.warnings.join('; ') || '-') + ' |'),
+            '',
+            '## Review checklist',
+            '- [ ] Open each URL in the Netlify deploy preview',
+            '- [ ] Facts are correct (season, storage times, safety notes); nutrition matches the USDA source',
+            '- [ ] Add at least one tip from your own cooking',
+            '- [ ] Add an own photo to \`public/images/ingredients/\` and set \`hero_image\` + \`hero_alt\`',
+            '- [ ] Set \`publish_status\` to \`approved\` in every guide that should go live',
+          ];
+          fs.writeFileSync(process.env.BODY_FILE, lines.join('\n'));
+          " >> "$GITHUB_OUTPUT"
+
+      - name: Open pull request
+        if: steps.body.outputs.none != 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: guides/auto-${{ github.run_id }}
+          commit-message: 'feat(seo): add ingredient guide drafts'
+          title: 'Ingredient guide drafts (${{ github.run_id }})'
+          body-path: ${{ runner.temp }}/pr-body.md
+          add-paths: content/ingredients/**
+          labels: content, seo
+          delete-branch: true
