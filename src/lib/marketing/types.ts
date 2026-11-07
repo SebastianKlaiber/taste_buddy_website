@@ -4,6 +4,7 @@ export type PageType =
   | 'keyword_comparison'
   | 'comparison'
   | 'alternatives'
+  | 'roundup'
   | 'solution'
   | 'import_source'
   | 'feed_directory'
@@ -63,6 +64,16 @@ export interface AlternativesRecord extends BaseMarketingRecord {
   intro: string;
   switch_reasons: string[];
   switch_steps?: string[];
+  selection_criteria: string[];
+  app_slugs: string[];
+  faq: AlternativesFaq[];
+  internal_links: InternalLink[];
+}
+
+export interface RoundupRecord extends BaseMarketingRecord {
+  page_type: 'roundup';
+  intro: string;
+  quick_answer: string;
   selection_criteria: string[];
   app_slugs: string[];
   faq: AlternativesFaq[];
@@ -130,9 +141,17 @@ export interface RedirectRecord {
   fallback_url: string;
 }
 
+export interface AppRatingRecord {
+  rating_value: number;
+  rating_count: number;
+  source: string;
+  updated_at: string;
+}
+
 export interface StatsRecord {
   updated_at: string;
   source_of_truth: string[];
+  app_rating?: AppRatingRecord;
   metrics: {
     total_tracked_imports: number;
     url_import_share_percent: number;

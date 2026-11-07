@@ -1,0 +1,113 @@
+[
+  {
+    "slug": "apps-to-save-recipes",
+    "locale": "en",
+    "title": "The Best Apps to Save Recipes in 2026",
+    "seo_title": "Best App to Save Recipes (2026): 8 Recipe Saver Apps Compared",
+    "description": "Which app should you use to save recipes from TikTok, Instagram, blogs, and screenshots? Eight recipe saver apps compared by import, devices, and price.",
+    "primary_keyword": "best app to save recipes",
+    "search_intent": "comparison",
+    "page_type": "roundup",
+    "source_of_truth": ["public/app-info.md", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy saves recipes from websites, social media, screenshots, handwritten cards, and notes into one searchable collection.",
+      "TasteBuddy turns saved recipes into meal plans and shopping lists on iOS, Android, and web."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "intro": "Most recipes are no longer found in cookbooks. They show up in TikTok videos, Instagram posts, Pinterest pins, food blogs, and screenshots. A good recipe saver app pulls all of those into one place, turns them into readable recipe cards, and helps you actually cook them.",
+    "quick_answer": "TasteBuddy is the best app to save recipes if you collect them from many places, such as TikTok, Instagram, Pinterest, food blogs, screenshots, and handwritten cards, and want them in one searchable cookbook with meal planning and shopping lists on iPhone, Android, and the web. Paprika suits cooks who want a classic recipe manager with desktop apps, Mela and Pestle suit Apple-only households, and ReciMe suits people who save mostly from Instagram and TikTok.",
+    "selection_criteria": [
+      "Saves recipes from the places people actually find them: social video, food blogs, and screenshots",
+      "Turns a link or image into a clean recipe card with ingredients and steps",
+      "Keeps the collection searchable and in sync across devices",
+      "Connects saved recipes to meal planning and shopping lists",
+      "Has a clear, current pricing model"
+    ],
+    "app_slugs": ["tastebuddy", "paprika", "recime", "samsung-food", "recipe-keeper", "mela", "pestle", "plan-to-eat"],
+    "faq": [
+      {
+        "question": "What is the best app to save recipes?",
+        "answer": "For recipes collected from social media, food blogs, screenshots, and notes, TasteBuddy is the best fit because it saves them into one searchable collection and connects them to meal planning and shopping lists on iOS, Android, and web. Paprika is a strong classic recipe manager with desktop apps, and Mela is a good choice for households that only use Apple devices."
+      },
+      {
+        "question": "Which app can save recipes from TikTok and Instagram?",
+        "answer": "TasteBuddy and ReciMe both import recipes from TikTok and Instagram links on iOS and Android. TasteBuddy also saves screenshots, handwritten cards, and notes, and connects every saved recipe to meal planning and shopping lists. Paprika, Mela, Recipe Keeper, and Plan to Eat focus mainly on saving from websites."
+      },
+      {
+        "question": "Is there a free app to save recipes?",
+        "answer": "TasteBuddy is free to start, with optional premium features. Samsung Food is free with an optional Food+ subscription, ReciMe is free with in-app purchases, and Recipe Keeper, Mela, and Pestle are free to download with paid upgrades. Paprika is a paid one-time purchase per platform, and Plan to Eat is a subscription after its trial."
+      },
+      {
+        "question": "What is the best recipe saver app for iPhone and Android in the same household?",
+        "answer": "Pick an app that runs on both platforms and syncs one collection: TasteBuddy, Samsung Food, ReciMe, and Plan to Eat all work on iOS, Android, and web. Paprika and Recipe Keeper also run on both, but upgrades are bought per platform. Mela and Pestle are Apple-only."
+      },
+      {
+        "question": "Can I save recipes from screenshots or handwritten recipe cards?",
+        "answer": "Yes. TasteBuddy can turn screenshots, photos of recipe cards, and handwritten notes into editable recipes, so family recipes and saved images end up in the same collection as your web and social recipes."
+      }
+    ],
+    "internal_links": [
+      { "href": "/import/tiktok/", "label": "Save recipes from TikTok" },
+      { "href": "/import/pinterest/", "label": "Save recipes from Pinterest" },
+      { "href": "/solutions/organize-saved-recipes/", "label": "Organize saved recipes" },
+      { "href": "/alternatives/", "label": "Recipe app alternatives" },
+      { "href": "/features/recipe-organizer/", "label": "TasteBuddy recipe organizer features" }
+    ]
+  },
+  {
+    "slug": "apps-to-save-recipes",
+    "locale": "de",
+    "title": "Die besten Apps zum Rezepte speichern 2026",
+    "seo_title": "Beste App zum Rezepte speichern 2026: 7 Rezept-Apps im Vergleich",
+    "description": "Welche App speichert Rezepte aus TikTok, Instagram, Foodblogs und Screenshots? Sieben Rezept-Apps im Vergleich: Import, Geräte, Planung und Preis.",
+    "primary_keyword": "app rezepte speichern",
+    "search_intent": "comparison",
+    "page_type": "roundup",
+    "source_of_truth": ["public/app-info.md", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy speichert Rezepte aus Websites, Social Media, Screenshots, handgeschriebenen Rezeptkarten und Notizen in einer durchsuchbaren Sammlung.",
+      "TasteBuddy macht aus gespeicherten Rezepten Wochenpläne und Einkaufslisten auf iOS, Android und im Web."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "intro": "Rezepte stehen heute selten im Kochbuch. Sie tauchen in TikTok-Videos, Instagram-Posts, Pinterest-Pins, Foodblogs und Screenshots auf. Eine gute App zum Rezepte speichern holt all das an einen Ort, macht daraus lesbare Rezeptkarten und hilft dabei, die Rezepte auch wirklich zu kochen.",
+    "quick_answer": "TasteBuddy ist die beste App zum Rezepte speichern, wenn Sie Rezepte aus vielen Quellen sammeln, etwa TikTok, Instagram, Pinterest, Foodblogs, Screenshots und handgeschriebenen Rezeptkarten, und sie in einem durchsuchbaren Kochbuch mit Wochenplan und Einkaufsliste auf iPhone, Android und im Web nutzen wollen. Paprika passt zu klassischer Rezeptverwaltung mit Desktop-Apps, Mela zu reinen Apple-Haushalten und Chefkoch zu allen, die vor allem im deutschen Chefkoch-Katalog stöbern.",
+    "selection_criteria": [
+      "Speichert Rezepte dort, wo man sie findet: Social-Videos, Foodblogs und Screenshots",
+      "Macht aus einem Link oder Bild eine saubere Rezeptkarte mit Zutaten und Schritten",
+      "Hält die Sammlung durchsuchbar und auf allen Geräten synchron",
+      "Verbindet gespeicherte Rezepte mit Wochenplan und Einkaufsliste",
+      "Hat ein klares, aktuelles Preismodell"
+    ],
+    "app_slugs": ["tastebuddy", "paprika", "recime", "samsung-food", "recipe-keeper", "mela", "chefkoch"],
+    "faq": [
+      {
+        "question": "Welche App ist die beste zum Rezepte speichern?",
+        "answer": "Wer Rezepte aus Social Media, Foodblogs, Screenshots und Notizen sammelt, ist mit TasteBuddy am besten bedient: Die App speichert alles in einer durchsuchbaren Sammlung und verbindet sie mit Wochenplan und Einkaufsliste auf iOS, Android und im Web. Paprika ist ein solider klassischer Rezeptmanager mit Desktop-Apps, Mela eine gute Wahl für reine Apple-Haushalte."
+      },
+      {
+        "question": "Mit welcher App kann ich Rezepte aus TikTok und Instagram speichern?",
+        "answer": "TasteBuddy und ReciMe importieren Rezepte aus TikTok- und Instagram-Links auf iOS und Android. TasteBuddy speichert zusätzlich Screenshots, handgeschriebene Rezeptkarten und Notizen und verbindet jedes Rezept mit Wochenplan und Einkaufsliste. Paprika, Mela und Recipe Keeper speichern vor allem von Websites."
+      },
+      {
+        "question": "Gibt es eine kostenlose App zum Rezepte speichern?",
+        "answer": "TasteBuddy können Sie kostenlos starten, Premium-Funktionen sind optional. Samsung Food und Chefkoch sind kostenlos mit optionalem Abo, ReciMe ist kostenlos mit In-App-Käufen, Recipe Keeper und Mela sind kostenlos ladbar mit kostenpflichtigem Upgrade. Paprika ist ein Einmalkauf pro Plattform."
+      },
+      {
+        "question": "Welche Rezept-App eignet sich für Haushalte mit iPhone und Android?",
+        "answer": "Wählen Sie eine App, die auf beiden Plattformen eine gemeinsame Sammlung synchronisiert: TasteBuddy, Samsung Food, ReciMe und Chefkoch laufen auf iOS, Android und im Web. Paprika und Recipe Keeper gibt es ebenfalls für beide, Upgrades werden aber pro Plattform gekauft. Mela läuft nur auf Apple-Geräten."
+      },
+      {
+        "question": "Kann ich Rezepte aus Screenshots oder handgeschriebenen Rezeptkarten speichern?",
+        "answer": "Ja. TasteBuddy macht aus Screenshots, Fotos von Rezeptkarten und handschriftlichen Notizen bearbeitbare Rezepte. So landen Familienrezepte und gespeicherte Bilder in derselben Sammlung wie Ihre Rezepte aus Web und Social Media."
+      }
+    ],
+    "internal_links": [
+      { "href": "/de/import/tiktok/", "label": "Rezepte aus TikTok speichern" },
+      { "href": "/de/import/pinterest/", "label": "Rezepte aus Pinterest speichern" },
+      { "href": "/de/solutions/organize-saved-recipes/", "label": "Gespeicherte Rezepte organisieren" },
+      { "href": "/de/alternatives/", "label": "Alternativen zu Rezept-Apps" }
+    ]
+  }
+]

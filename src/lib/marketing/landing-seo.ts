@@ -1,3 +1,5 @@
+import stats from '../../../content/stats.json';
+
 type Locale = 'en' | 'de';
 
 export const landingFaqs = {
@@ -38,5 +40,15 @@ export function getLandingPageSchema(locale: Locale, description: string) {
       'https://play.google.com/store/apps/details?id=app.tastebuddy',
     ],
     publisher: { '@type': 'Organization', name: 'TasteBuddy', url: 'https://taste-buddy.app/' },
+    offers: { '@type': 'Offer', price: '0', priceCurrency: locale === 'de' ? 'EUR' : 'USD' },
+    ...(stats.app_rating && {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: stats.app_rating.rating_value,
+        ratingCount: stats.app_rating.rating_count,
+        bestRating: 5,
+        worstRating: 1,
+      },
+    }),
   };
 }

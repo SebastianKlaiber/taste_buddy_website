@@ -19,17 +19,23 @@ const copy = {
     eyebrow: 'recipe app alternatives',
     title: 'Recipe App Alternatives',
     description:
-      'Find the right replacement for Paprika, Allrecipes, Yummly, and other recipe apps, with honest notes on where each alternative fits best.',
+      'Find a replacement for Paprika, ReciMe, Samsung Food, Mela, Recipe Keeper, Pestle, and other recipe apps, with honest notes on where each one fits.',
     readMore: 'See the alternatives',
     comparisons: 'Head-to-head comparisons',
+    roundupTitle: 'Not switching from a specific app?',
+    roundupText: 'Compare the best apps to save recipes from TikTok, Instagram, food blogs, and screenshots.',
+    roundupLink: 'See the best recipe saver apps',
   },
   de: {
     eyebrow: 'rezept app alternativen',
     title: 'Alternativen zu Rezept-Apps',
     description:
-      'Finden Sie den passenden Ersatz für Paprika, Allrecipes, Yummly und andere Rezept-Apps, mit ehrlichen Hinweisen, wofür jede Alternative am besten passt.',
+      'Ersatz für Paprika, ReciMe, Samsung Food, Mela, Recipe Keeper, Pestle und andere Rezept-Apps, mit ehrlichen Hinweisen, wofür jede App passt.',
     readMore: 'Alternativen ansehen',
     comparisons: 'Direkte Vergleiche',
+    roundupTitle: 'Sie wechseln nicht von einer bestimmten App?',
+    roundupText: 'Vergleichen Sie die besten Apps, um Rezepte aus TikTok, Instagram, Foodblogs und Screenshots zu speichern.',
+    roundupLink: 'Die besten Apps zum Rezepte speichern',
   },
 }[locale];
 
@@ -58,6 +64,15 @@ const structuredData = {
         <h1 class="mb-4 text-3xl font-bold text-white sm:text-5xl">{copy.title}</h1>
         <p class="max-w-3xl text-lg text-gray-300">{copy.description}</p>
       </header>
+
+      <a
+        class="mb-10 block rounded-2xl border border-[#00CE31]/40 bg-[#1C2513]/80 p-6 transition-colors hover:border-[#8FECA8]/60"
+        href={getLocalizedPath(locale, '/best/apps-to-save-recipes/')}
+      >
+        <h2 class="mb-2 text-xl font-semibold text-white">{copy.roundupTitle}</h2>
+        <p class="mb-4 text-gray-300">{copy.roundupText}</p>
+        <span class="text-sm text-[#8FECA8]">{copy.roundupLink} →</span>
+      </a>
 
       <section class="mb-10 grid gap-6 md:grid-cols-3">
         {alternatives.map((record) => (

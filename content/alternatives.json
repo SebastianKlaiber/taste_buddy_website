@@ -310,5 +310,505 @@
       { "href": "/de/solutions/recipe-app-with-shopping-list/", "label": "Rezept-App mit Einkaufsliste" },
       { "href": "/de/solutions/organize-saved-recipes/", "label": "Gespeicherte Rezepte organisieren" }
     ]
+  },
+  {
+    "slug": "recime",
+    "locale": "en",
+    "title": "Best ReciMe Alternatives in 2026",
+    "description": "Looking for a ReciMe alternative? Compare five recipe apps for saving recipes from social media and websites, meal planning, and shopping lists.",
+    "primary_keyword": "recime alternatives",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": ["content/comparisons.json", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy saves recipes from social media, websites, screenshots, and notes into one collection.",
+      "TasteBuddy connects saved recipes with weekly planning and shopping lists."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "ReciMe",
+    "comparison_slug": "tastebuddy-vs-recime",
+    "intro": "ReciMe is a popular way to save recipes, but it is not the right fit for every kitchen. These alternatives cover different ways of saving, planning, and cooking, from social-first collections to classic recipe managers.",
+    "switch_reasons": [
+      "Recipes also come from screenshots, handwritten cards, and notes, not only social posts",
+      "The household wants one shared collection across iPhone, Android, and the browser",
+      "Meal planning and shopping should start from every saved recipe",
+      "A second option is useful when a social import fails"
+    ],
+    "selection_criteria": [
+      "Imports from the places you actually save recipes",
+      "Works on every device in your household",
+      "Turns saved recipes into a weekly plan and a shopping list",
+      "Has a clear, current pricing model"
+    ],
+    "app_slugs": ["tastebuddy", "samsung-food", "paprika", "recipe-keeper", "mela"],
+    "faq": [
+      {
+        "question": "What is the best ReciMe alternative?",
+        "answer": "TasteBuddy is the closest alternative to ReciMe: it also imports recipes from TikTok and Instagram, adds screenshots, handwritten cards, and notes, and connects everything to meal planning and shopping lists on iOS, Android, and web. Samsung Food is a good option if you also want a large built-in recipe catalog."
+      },
+      {
+        "question": "How do I move my recipes away from ReciMe?",
+        "answer": "Start with the recipes you cook every week and re-import them from their original links. Save new recipes in the new app right away, and move older favorites over gradually."
+      },
+      {
+        "question": "Is there a free ReciMe alternative?",
+        "answer": "TasteBuddy and Samsung Food are free to start, with optional paid upgrades. Recipe Keeper and Mela are free to download with paid upgrades. Check each app store for current pricing."
+      }
+    ],
+    "internal_links": [
+      { "href": "/best/apps-to-save-recipes/", "label": "Best apps to save recipes" },
+      { "href": "/import/tiktok/", "label": "Save recipes from TikTok" }
+    ]
+  },
+  {
+    "slug": "recime",
+    "locale": "de",
+    "title": "Die besten ReciMe-Alternativen 2026",
+    "description": "Sie suchen eine Alternative zu ReciMe? Fünf Rezept-Apps im Vergleich: Rezepte aus Social Media und Websites speichern, Essen planen, Einkaufslisten.",
+    "primary_keyword": "recime alternative",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": ["content/comparisons.json", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy speichert Rezepte aus Social Media, Websites, Screenshots und Notizen in einer Sammlung.",
+      "TasteBuddy verbindet gespeicherte Rezepte mit Wochenplanung und Einkaufslisten."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "ReciMe",
+    "comparison_slug": "tastebuddy-vs-recime",
+    "intro": "ReciMe ist ein beliebter Weg, Rezepte zu speichern, passt aber nicht in jede Küche. Diese Alternativen decken unterschiedliche Arten ab, Rezepte zu speichern, zu planen und zu kochen, von Social-first-Sammlungen bis zu klassischen Rezeptmanagern.",
+    "switch_reasons": [
+      "Rezepte kommen auch aus Screenshots, Rezeptkarten und Notizen, nicht nur aus Social-Posts",
+      "Der Haushalt will eine gemeinsame Sammlung auf iPhone, Android und im Browser",
+      "Planung und Einkauf sollen bei jedem gespeicherten Rezept starten",
+      "Eine zweite Option hilft, wenn ein Social-Import scheitert"
+    ],
+    "selection_criteria": [
+      "Importiert von dort, wo Sie Rezepte tatsächlich speichern",
+      "Läuft auf allen Geräten im Haushalt",
+      "Macht aus gespeicherten Rezepten einen Wochenplan und eine Einkaufsliste",
+      "Hat ein klares, aktuelles Preismodell"
+    ],
+    "app_slugs": ["tastebuddy", "samsung-food", "paprika", "recipe-keeper", "mela"],
+    "faq": [
+      {
+        "question": "Was ist die beste Alternative zu ReciMe?",
+        "answer": "TasteBuddy ist die naheliegendste Alternative zu ReciMe: Die App importiert ebenfalls aus TikTok und Instagram, nimmt zusätzlich Screenshots, Rezeptkarten und Notizen auf und verbindet alles mit Wochenplan und Einkaufsliste auf iOS, Android und im Web. Samsung Food passt, wenn Sie zusätzlich einen großen Rezeptkatalog wollen."
+      },
+      {
+        "question": "Wie ziehe ich meine Rezepte aus ReciMe um?",
+        "answer": "Starten Sie mit den Rezepten, die Sie jede Woche kochen, und importieren Sie sie erneut über die Original-Links. Neue Rezepte speichern Sie direkt in der neuen App, ältere Favoriten ziehen Sie nach und nach um."
+      },
+      {
+        "question": "Gibt es eine kostenlose Alternative zu ReciMe?",
+        "answer": "TasteBuddy und Samsung Food können Sie kostenlos starten, Upgrades sind optional. Recipe Keeper und Mela sind kostenlos ladbar mit kostenpflichtigem Upgrade. Aktuelle Preise finden Sie im jeweiligen App Store."
+      }
+    ],
+    "internal_links": [
+      { "href": "/de/best/apps-to-save-recipes/", "label": "Die besten Apps zum Rezepte speichern" },
+      { "href": "/de/import/tiktok/", "label": "Rezepte aus TikTok speichern" }
+    ]
+  },
+  {
+    "slug": "samsung-food",
+    "locale": "en",
+    "title": "Best Samsung Food Alternatives in 2026",
+    "description": "Looking for a Samsung Food alternative? Compare five recipe apps for saving recipes from social media and websites, meal planning, and shopping lists.",
+    "primary_keyword": "samsung food alternatives",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": ["content/comparisons.json", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy saves recipes from social media, websites, screenshots, and notes into one collection.",
+      "TasteBuddy connects saved recipes with weekly planning and shopping lists."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "Samsung Food",
+    "comparison_slug": "tastebuddy-vs-samsung-food",
+    "intro": "Samsung Food is a popular way to save recipes, but it is not the right fit for every kitchen. These alternatives cover different ways of saving, planning, and cooking, from social-first collections to classic recipe managers.",
+    "switch_reasons": [
+      "Most recipes come from TikTok, Instagram, and screenshots, not from the in-app catalog",
+      "The app should feel like a personal cookbook, not a discovery feed",
+      "Planning should not depend on a paid AI tier",
+      "A simpler app is preferred over a large catalog"
+    ],
+    "selection_criteria": [
+      "Imports from the places you actually save recipes",
+      "Works on every device in your household",
+      "Turns saved recipes into a weekly plan and a shopping list",
+      "Has a clear, current pricing model"
+    ],
+    "app_slugs": ["tastebuddy", "recime", "plan-to-eat", "paprika", "recipe-keeper"],
+    "faq": [
+      {
+        "question": "What is the best Samsung Food alternative?",
+        "answer": "For people who mostly save their own recipes from social media, blogs, and screenshots, TasteBuddy is the closest Samsung Food alternative, with meal planning and shopping lists on iOS, Android, and web. Plan to Eat suits dedicated weekly planners, and Paprika suits classic recipe management."
+      },
+      {
+        "question": "How do I move my recipes away from Samsung Food?",
+        "answer": "Move the recipes you cook regularly first, ideally by re-importing them from their original links. Save new finds in the new app and leave the rest behind."
+      },
+      {
+        "question": "Is there a free Samsung Food alternative?",
+        "answer": "TasteBuddy is free to start, with optional premium features. ReciMe is free with in-app purchases, and Recipe Keeper is free to start with a one-time Pro upgrade. Check each app store for current pricing."
+      }
+    ],
+    "internal_links": [
+      { "href": "/best/apps-to-save-recipes/", "label": "Best apps to save recipes" },
+      { "href": "/import/tiktok/", "label": "Save recipes from TikTok" }
+    ]
+  },
+  {
+    "slug": "samsung-food",
+    "locale": "de",
+    "title": "Die besten Samsung Food-Alternativen 2026",
+    "description": "Sie suchen eine Alternative zu Samsung Food? Fünf Rezept-Apps im Vergleich: Rezepte aus Social Media und Websites speichern, Essen planen, Einkaufslisten.",
+    "primary_keyword": "samsung food alternative",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": ["content/comparisons.json", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy speichert Rezepte aus Social Media, Websites, Screenshots und Notizen in einer Sammlung.",
+      "TasteBuddy verbindet gespeicherte Rezepte mit Wochenplanung und Einkaufslisten."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "Samsung Food",
+    "comparison_slug": "tastebuddy-vs-samsung-food",
+    "intro": "Samsung Food ist ein beliebter Weg, Rezepte zu speichern, passt aber nicht in jede Küche. Diese Alternativen decken unterschiedliche Arten ab, Rezepte zu speichern, zu planen und zu kochen, von Social-first-Sammlungen bis zu klassischen Rezeptmanagern.",
+    "switch_reasons": [
+      "Die meisten Rezepte kommen aus TikTok, Instagram und Screenshots, nicht aus dem App-Katalog",
+      "Die App soll ein persönliches Kochbuch sein, kein Entdecken-Feed",
+      "Planung soll nicht von einem kostenpflichtigen KI-Abo abhängen",
+      "Eine schlankere App ist wichtiger als ein großer Katalog"
+    ],
+    "selection_criteria": [
+      "Importiert von dort, wo Sie Rezepte tatsächlich speichern",
+      "Läuft auf allen Geräten im Haushalt",
+      "Macht aus gespeicherten Rezepten einen Wochenplan und eine Einkaufsliste",
+      "Hat ein klares, aktuelles Preismodell"
+    ],
+    "app_slugs": ["tastebuddy", "recime", "chefkoch", "paprika", "recipe-keeper"],
+    "faq": [
+      {
+        "question": "Was ist die beste Alternative zu Samsung Food?",
+        "answer": "Wer vor allem eigene Rezepte aus Social Media, Blogs und Screenshots speichert, findet in TasteBuddy die naheliegendste Samsung-Food-Alternative, mit Wochenplan und Einkaufsliste auf iOS, Android und im Web. Chefkoch passt, wenn ein deutscher Rezeptkatalog wichtiger ist, Paprika für klassische Rezeptverwaltung."
+      },
+      {
+        "question": "Wie ziehe ich meine Rezepte aus Samsung Food um?",
+        "answer": "Ziehen Sie zuerst die Rezepte um, die Sie regelmäßig kochen, am besten per erneutem Import über den Original-Link. Neue Funde speichern Sie direkt in der neuen App."
+      },
+      {
+        "question": "Gibt es eine kostenlose Alternative zu Samsung Food?",
+        "answer": "TasteBuddy können Sie kostenlos starten, Premium-Funktionen sind optional. ReciMe ist kostenlos mit In-App-Käufen, Chefkoch kostenlos mit optionalem Abo. Aktuelle Preise finden Sie im jeweiligen App Store."
+      }
+    ],
+    "internal_links": [
+      { "href": "/de/best/apps-to-save-recipes/", "label": "Die besten Apps zum Rezepte speichern" },
+      { "href": "/de/import/tiktok/", "label": "Rezepte aus TikTok speichern" }
+    ]
+  },
+  {
+    "slug": "mela",
+    "locale": "en",
+    "title": "Best Mela Alternatives in 2026",
+    "description": "Looking for a Mela alternative? Compare five recipe apps for saving recipes from social media and websites, meal planning, and shopping lists.",
+    "primary_keyword": "mela alternatives",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": ["content/comparisons.json", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy saves recipes from social media, websites, screenshots, and notes into one collection.",
+      "TasteBuddy connects saved recipes with weekly planning and shopping lists."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "Mela",
+    "comparison_slug": "tastebuddy-vs-mela",
+    "intro": "Mela is a popular way to save recipes, but it is not the right fit for every kitchen. These alternatives cover different ways of saving, planning, and cooking, from social-first collections to classic recipe managers.",
+    "switch_reasons": [
+      "Someone in the household uses Android or a Windows PC",
+      "Most new recipes come from TikTok and Instagram",
+      "Meal planning and shopping lists should start from saved recipes",
+      "The collection should be reachable from any browser"
+    ],
+    "selection_criteria": [
+      "Imports from the places you actually save recipes",
+      "Works on every device in your household",
+      "Turns saved recipes into a weekly plan and a shopping list",
+      "Has a clear, current pricing model"
+    ],
+    "app_slugs": ["tastebuddy", "paprika", "recipe-keeper", "pestle", "recime"],
+    "faq": [
+      {
+        "question": "What is the best Mela alternative?",
+        "answer": "If you need Android or web access, TasteBuddy is the closest Mela alternative: it saves recipes from social media, websites, and screenshots and adds meal planning and shopping lists on iOS, Android, and web. Paprika and Recipe Keeper are classic recipe managers that also run on Android and Windows."
+      },
+      {
+        "question": "How do I move my recipes away from Mela?",
+        "answer": "Move the recipes you actively cook first, ideally by re-importing them from their original links, then capture new recipes in the new app right away."
+      },
+      {
+        "question": "Is there a free Mela alternative?",
+        "answer": "TasteBuddy and Samsung Food are free to start, with optional paid upgrades. ReciMe is free with in-app purchases, and Recipe Keeper is free to start. Check each app store for current pricing."
+      }
+    ],
+    "internal_links": [
+      { "href": "/best/apps-to-save-recipes/", "label": "Best apps to save recipes" },
+      { "href": "/import/tiktok/", "label": "Save recipes from TikTok" }
+    ]
+  },
+  {
+    "slug": "mela",
+    "locale": "de",
+    "title": "Die besten Mela-Alternativen 2026",
+    "description": "Sie suchen eine Alternative zu Mela? Fünf Rezept-Apps im Vergleich: Rezepte aus Social Media und Websites speichern, Essen planen, Einkaufslisten.",
+    "primary_keyword": "mela alternative",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": ["content/comparisons.json", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy speichert Rezepte aus Social Media, Websites, Screenshots und Notizen in einer Sammlung.",
+      "TasteBuddy verbindet gespeicherte Rezepte mit Wochenplanung und Einkaufslisten."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "Mela",
+    "comparison_slug": "tastebuddy-vs-mela",
+    "intro": "Mela ist ein beliebter Weg, Rezepte zu speichern, passt aber nicht in jede Küche. Diese Alternativen decken unterschiedliche Arten ab, Rezepte zu speichern, zu planen und zu kochen, von Social-first-Sammlungen bis zu klassischen Rezeptmanagern.",
+    "switch_reasons": [
+      "Jemand im Haushalt nutzt Android oder einen Windows-PC",
+      "Die meisten neuen Rezepte kommen aus TikTok und Instagram",
+      "Planung und Einkauf sollen bei gespeicherten Rezepten starten",
+      "Die Sammlung soll in jedem Browser erreichbar sein"
+    ],
+    "selection_criteria": [
+      "Importiert von dort, wo Sie Rezepte tatsächlich speichern",
+      "Läuft auf allen Geräten im Haushalt",
+      "Macht aus gespeicherten Rezepten einen Wochenplan und eine Einkaufsliste",
+      "Hat ein klares, aktuelles Preismodell"
+    ],
+    "app_slugs": ["tastebuddy", "paprika", "recipe-keeper", "recime", "samsung-food"],
+    "faq": [
+      {
+        "question": "Was ist die beste Alternative zu Mela?",
+        "answer": "Wenn Sie Android oder Web-Zugriff brauchen, ist TasteBuddy die naheliegendste Mela-Alternative: Die App speichert Rezepte aus Social Media, Websites und Screenshots und ergänzt Wochenplan und Einkaufsliste auf iOS, Android und im Web. Paprika und Recipe Keeper sind klassische Rezeptmanager, die auch auf Android und Windows laufen."
+      },
+      {
+        "question": "Wie ziehe ich meine Rezepte aus Mela um?",
+        "answer": "Ziehen Sie zuerst die Rezepte um, die Sie wirklich kochen, am besten per erneutem Import über den Original-Link, und speichern Sie neue Rezepte direkt in der neuen App."
+      },
+      {
+        "question": "Gibt es eine kostenlose Alternative zu Mela?",
+        "answer": "TasteBuddy und Samsung Food können Sie kostenlos starten, Upgrades sind optional. ReciMe ist kostenlos mit In-App-Käufen, Recipe Keeper kostenlos startbar. Aktuelle Preise finden Sie im jeweiligen App Store."
+      }
+    ],
+    "internal_links": [
+      { "href": "/de/best/apps-to-save-recipes/", "label": "Die besten Apps zum Rezepte speichern" },
+      { "href": "/de/import/tiktok/", "label": "Rezepte aus TikTok speichern" }
+    ]
+  },
+  {
+    "slug": "recipe-keeper",
+    "locale": "en",
+    "title": "Best Recipe Keeper Alternatives in 2026",
+    "description": "Looking for a Recipe Keeper alternative? Compare five recipe apps for saving recipes from social media and websites, meal planning, and shopping lists.",
+    "primary_keyword": "recipe keeper alternatives",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": ["content/comparisons.json", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy saves recipes from social media, websites, screenshots, and notes into one collection.",
+      "TasteBuddy connects saved recipes with weekly planning and shopping lists."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "Recipe Keeper",
+    "comparison_slug": "tastebuddy-vs-recipe-keeper",
+    "intro": "Recipe Keeper is a popular way to save recipes, but it is not the right fit for every kitchen. These alternatives cover different ways of saving, planning, and cooking, from social-first collections to classic recipe managers.",
+    "switch_reasons": [
+      "Most new recipes come from social video, not only websites",
+      "Upgrades should not be bought separately per platform",
+      "Screenshots and handwritten cards should become real recipes",
+      "Planning and shopping should start from saved recipes"
+    ],
+    "selection_criteria": [
+      "Imports from the places you actually save recipes",
+      "Works on every device in your household",
+      "Turns saved recipes into a weekly plan and a shopping list",
+      "Has a clear, current pricing model"
+    ],
+    "app_slugs": ["tastebuddy", "paprika", "recime", "mela", "samsung-food"],
+    "faq": [
+      {
+        "question": "What is the best Recipe Keeper alternative?",
+        "answer": "For recipes saved from social media and screenshots, TasteBuddy is the closest Recipe Keeper alternative, with meal planning and shopping lists on iOS, Android, and web. Paprika is a similar classic recipe manager, and Mela suits Apple-only households."
+      },
+      {
+        "question": "How do I move my recipes away from Recipe Keeper?",
+        "answer": "Start with the recipes you cook every week and re-import them from their original links. Add new recipes in the new app right away and move older favorites over gradually."
+      },
+      {
+        "question": "Is there a free Recipe Keeper alternative?",
+        "answer": "TasteBuddy and Samsung Food are free to start, with optional paid upgrades. ReciMe is free with in-app purchases. Check each app store for current pricing."
+      }
+    ],
+    "internal_links": [
+      { "href": "/best/apps-to-save-recipes/", "label": "Best apps to save recipes" },
+      { "href": "/import/tiktok/", "label": "Save recipes from TikTok" }
+    ]
+  },
+  {
+    "slug": "recipe-keeper",
+    "locale": "de",
+    "title": "Die besten Recipe Keeper-Alternativen 2026",
+    "description": "Sie suchen eine Alternative zu Recipe Keeper? Fünf Rezept-Apps im Vergleich: Rezepte aus Social Media und Websites speichern, Essen planen, Einkaufslisten.",
+    "primary_keyword": "recipe keeper alternative",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": ["content/comparisons.json", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy speichert Rezepte aus Social Media, Websites, Screenshots und Notizen in einer Sammlung.",
+      "TasteBuddy verbindet gespeicherte Rezepte mit Wochenplanung und Einkaufslisten."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "Recipe Keeper",
+    "comparison_slug": "tastebuddy-vs-recipe-keeper",
+    "intro": "Recipe Keeper ist ein beliebter Weg, Rezepte zu speichern, passt aber nicht in jede Küche. Diese Alternativen decken unterschiedliche Arten ab, Rezepte zu speichern, zu planen und zu kochen, von Social-first-Sammlungen bis zu klassischen Rezeptmanagern.",
+    "switch_reasons": [
+      "Die meisten neuen Rezepte kommen aus Social-Videos, nicht nur von Websites",
+      "Upgrades sollen nicht pro Plattform gekauft werden",
+      "Screenshots und Rezeptkarten sollen echte Rezepte werden",
+      "Planung und Einkauf sollen bei gespeicherten Rezepten starten"
+    ],
+    "selection_criteria": [
+      "Importiert von dort, wo Sie Rezepte tatsächlich speichern",
+      "Läuft auf allen Geräten im Haushalt",
+      "Macht aus gespeicherten Rezepten einen Wochenplan und eine Einkaufsliste",
+      "Hat ein klares, aktuelles Preismodell"
+    ],
+    "app_slugs": ["tastebuddy", "paprika", "recime", "mela", "samsung-food"],
+    "faq": [
+      {
+        "question": "Was ist die beste Alternative zu Recipe Keeper?",
+        "answer": "Für Rezepte aus Social Media und Screenshots ist TasteBuddy die naheliegendste Alternative zu Recipe Keeper, mit Wochenplan und Einkaufsliste auf iOS, Android und im Web. Paprika ist ein ähnlicher klassischer Rezeptmanager, Mela passt zu reinen Apple-Haushalten."
+      },
+      {
+        "question": "Wie ziehe ich meine Rezepte aus Recipe Keeper um?",
+        "answer": "Starten Sie mit den Rezepten, die Sie jede Woche kochen, und importieren Sie sie erneut über die Original-Links. Neue Rezepte speichern Sie direkt in der neuen App."
+      },
+      {
+        "question": "Gibt es eine kostenlose Alternative zu Recipe Keeper?",
+        "answer": "TasteBuddy und Samsung Food können Sie kostenlos starten, Upgrades sind optional. ReciMe ist kostenlos mit In-App-Käufen. Aktuelle Preise finden Sie im jeweiligen App Store."
+      }
+    ],
+    "internal_links": [
+      { "href": "/de/best/apps-to-save-recipes/", "label": "Die besten Apps zum Rezepte speichern" },
+      { "href": "/de/import/tiktok/", "label": "Rezepte aus TikTok speichern" }
+    ]
+  },
+  {
+    "slug": "pestle",
+    "locale": "en",
+    "title": "Best Pestle Alternatives in 2026",
+    "description": "Looking for a Pestle alternative? Compare five recipe apps for saving recipes from social media and websites, meal planning, and shopping lists.",
+    "primary_keyword": "pestle alternatives",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": ["content/comparisons.json", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy saves recipes from social media, websites, screenshots, and notes into one collection.",
+      "TasteBuddy connects saved recipes with weekly planning and shopping lists."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "Pestle",
+    "comparison_slug": "tastebuddy-vs-pestle",
+    "intro": "Pestle is a popular way to save recipes, but it is not the right fit for every kitchen. These alternatives cover different ways of saving, planning, and cooking, from social-first collections to classic recipe managers.",
+    "switch_reasons": [
+      "Someone in the household uses Android",
+      "Most new recipes come from TikTok and Instagram",
+      "A subscription is not wanted just to save recipes",
+      "The collection should be reachable from any browser"
+    ],
+    "selection_criteria": [
+      "Imports from the places you actually save recipes",
+      "Works on every device in your household",
+      "Turns saved recipes into a weekly plan and a shopping list",
+      "Has a clear, current pricing model"
+    ],
+    "app_slugs": ["tastebuddy", "mela", "paprika", "recime", "recipe-keeper"],
+    "faq": [
+      {
+        "question": "What is the best Pestle alternative?",
+        "answer": "If you need Android or web access, TasteBuddy is the closest Pestle alternative: it saves recipes from social media, websites, and screenshots and adds meal planning and shopping lists on iOS, Android, and web. Mela is the closest option for Apple-only households."
+      },
+      {
+        "question": "How do I move my recipes away from Pestle?",
+        "answer": "Move the recipes you actively cook first, ideally by re-importing them from their original links, then save new recipes in the new app right away."
+      },
+      {
+        "question": "Is there a free Pestle alternative?",
+        "answer": "TasteBuddy and Samsung Food are free to start, with optional paid upgrades. ReciMe is free with in-app purchases, and Recipe Keeper is free to start. Check each app store for current pricing."
+      }
+    ],
+    "internal_links": [
+      { "href": "/best/apps-to-save-recipes/", "label": "Best apps to save recipes" },
+      { "href": "/import/tiktok/", "label": "Save recipes from TikTok" }
+    ]
+  },
+  {
+    "slug": "pestle",
+    "locale": "de",
+    "title": "Die besten Pestle-Alternativen 2026",
+    "description": "Sie suchen eine Alternative zu Pestle? Fünf Rezept-Apps im Vergleich: Rezepte aus Social Media und Websites speichern, Essen planen, Einkaufslisten.",
+    "primary_keyword": "pestle alternative",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": ["content/comparisons.json", "content/alternative_apps.json"],
+    "claims": [
+      "TasteBuddy speichert Rezepte aus Social Media, Websites, Screenshots und Notizen in einer Sammlung.",
+      "TasteBuddy verbindet gespeicherte Rezepte mit Wochenplanung und Einkaufslisten."
+    ],
+    "cta_variant": "save-from-anywhere",
+    "last_reviewed_at": "2026-11-07",
+    "competitor": "Pestle",
+    "comparison_slug": "tastebuddy-vs-pestle",
+    "intro": "Pestle ist ein beliebter Weg, Rezepte zu speichern, passt aber nicht in jede Küche. Diese Alternativen decken unterschiedliche Arten ab, Rezepte zu speichern, zu planen und zu kochen, von Social-first-Sammlungen bis zu klassischen Rezeptmanagern.",
+    "switch_reasons": [
+      "Jemand im Haushalt nutzt Android",
+      "Die meisten neuen Rezepte kommen aus TikTok und Instagram",
+      "Für das Speichern von Rezepten soll kein Abo nötig sein",
+      "Die Sammlung soll in jedem Browser erreichbar sein"
+    ],
+    "selection_criteria": [
+      "Importiert von dort, wo Sie Rezepte tatsächlich speichern",
+      "Läuft auf allen Geräten im Haushalt",
+      "Macht aus gespeicherten Rezepten einen Wochenplan und eine Einkaufsliste",
+      "Hat ein klares, aktuelles Preismodell"
+    ],
+    "app_slugs": ["tastebuddy", "mela", "paprika", "recime", "recipe-keeper"],
+    "faq": [
+      {
+        "question": "Was ist die beste Alternative zu Pestle?",
+        "answer": "Wenn Sie Android oder Web-Zugriff brauchen, ist TasteBuddy die naheliegendste Pestle-Alternative: Die App speichert Rezepte aus Social Media, Websites und Screenshots und ergänzt Wochenplan und Einkaufsliste auf iOS, Android und im Web. Für reine Apple-Haushalte ist Mela die naheliegendste Option."
+      },
+      {
+        "question": "Wie ziehe ich meine Rezepte aus Pestle um?",
+        "answer": "Ziehen Sie zuerst die Rezepte um, die Sie wirklich kochen, am besten per erneutem Import über den Original-Link, und speichern Sie neue Rezepte direkt in der neuen App."
+      },
+      {
+        "question": "Gibt es eine kostenlose Alternative zu Pestle?",
+        "answer": "TasteBuddy und Samsung Food können Sie kostenlos starten, Upgrades sind optional. ReciMe ist kostenlos mit In-App-Käufen, Recipe Keeper kostenlos startbar. Aktuelle Preise finden Sie im jeweiligen App Store."
+      }
+    ],
+    "internal_links": [
+      { "href": "/de/best/apps-to-save-recipes/", "label": "Die besten Apps zum Rezepte speichern" },
+      { "href": "/de/import/tiktok/", "label": "Rezepte aus TikTok speichern" }
+    ]
   }
 ]
