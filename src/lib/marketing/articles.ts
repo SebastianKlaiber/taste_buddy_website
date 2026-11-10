@@ -1,10 +1,11 @@
+import type { MarkdownInstance } from 'astro';
 import type { ArticleRecord, Locale } from './types';
 import { SITE_URL } from './app-links';
 
 interface ArticleModule {
   file: string;
   url: string;
-  Content: unknown;
+  Content: MarkdownInstance<Record<string, unknown>>['Content'];
   frontmatter: ArticleRecord;
 }
 

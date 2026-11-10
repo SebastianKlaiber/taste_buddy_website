@@ -291,20 +291,20 @@ const navLinks = isGerman
     const media = window.matchMedia?.('(prefers-color-scheme: dark)');
     const themeButtons = Array.from(document.querySelectorAll('[data-theme-option]'));
 
-    const resolveTheme = (mode) => {
+    const resolveTheme = (mode: string) => {
       if (mode === 'dark' || mode === 'light') {
         return mode;
       }
       return media?.matches ? 'dark' : 'light';
     };
 
-    const updateThemeColor = (resolvedTheme) => {
+    const updateThemeColor = (resolvedTheme: string) => {
       document
         .querySelector('#tb-theme-color')
         ?.setAttribute('content', resolvedTheme === 'dark' ? '#10130B' : '#FFFFFF');
     };
 
-    const applyTheme = (mode, persist = false) => {
+    const applyTheme = (mode: string, persist = false) => {
       const nextMode = validModes.has(mode) ? mode : 'system';
       const resolvedTheme = resolveTheme(nextMode);
 

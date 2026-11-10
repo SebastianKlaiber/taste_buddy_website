@@ -15,7 +15,7 @@ import path from 'path';
 import { parseArgs } from 'util';
 import Anthropic from '@anthropic-ai/sdk';
 import { betaZodOutputFormat } from '@anthropic-ai/sdk/helpers/beta/zod';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import {
   LIMITS,
   LOCALES,
