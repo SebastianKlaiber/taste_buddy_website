@@ -36,7 +36,7 @@
     "zod": "^3.25.76"
   },
   "peerDependencies": {
-    "rollup": "4.68.0"
+    "rollup": "4.68.2"
   },
   "engines": {
     "node": ">=22.0.0",
