@@ -117,29 +117,29 @@ const description = "Authorize a connected app to access your TasteBuddy account
   const signedOutView = document.getElementById("oauth-signed-out");
   const consentView = document.getElementById("oauth-consent");
   const errorMessage = document.getElementById("oauth-error-message");
-  const openAppLink = document.getElementById("oauth-open-app");
+  const openAppLink = document.getElementById("oauth-open-app") as HTMLAnchorElement | null;
   const retryButton = document.getElementById("oauth-retry");
   const approveButton = document.getElementById("oauth-approve");
   const denyButton = document.getElementById("oauth-deny");
   const decisionStatus = document.getElementById("oauth-decision-status");
 
-  let authorizationId = null;
-  let supabase = null;
+  let authorizationId: string | null = null;
+  let supabase: ReturnType<typeof getSupabaseClient> | null = null;
 
-  function setView(activeView) {
+  function setView(activeView: HTMLElement | null) {
     for (const view of [loadingView, errorView, signedOutView, consentView]) {
       view?.classList.toggle("hidden", view !== activeView);
     }
   }
 
-  function showError(message) {
+  function showError(message: string) {
     if (errorMessage) {
       errorMessage.textContent = message;
     }
     setView(errorView);
   }
 
-  function setDecisionPending(isPending, message = "") {
+  function setDecisionPending(isPending: boolean, message = "") {
     approveButton?.toggleAttribute("disabled", isPending);
     denyButton?.toggleAttribute("disabled", isPending);
 
@@ -149,7 +149,7 @@ const description = "Authorize a connected app to access your TasteBuddy account
     }
   }
 
-  function renderScopes(scope) {
+  function renderScopes(scope: string | undefined) {
     const scopeList = document.getElementById("oauth-scope-list");
     if (!scopeList) return;
 
@@ -186,7 +186,7 @@ const description = "Authorize a connected app to access your TasteBuddy account
     }
   }
 
-  function renderConsent(details) {
+  function renderConsent(details: any) {
     const clientName = document.getElementById("oauth-client-name");
     const clientId = document.getElementById("oauth-client-id");
     const redirectUri = document.getElementById("oauth-redirect-uri");
@@ -265,7 +265,7 @@ const description = "Authorize a connected app to access your TasteBuddy account
     renderConsent(data);
   }
 
-  async function submitDecision(decision) {
+  async function submitDecision(decision: "approve" | "deny") {
     if (!authorizationId || !supabase?.auth?.oauth) return;
 
     const method =

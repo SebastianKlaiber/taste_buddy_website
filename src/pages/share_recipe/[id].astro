@@ -19,18 +19,18 @@ const androidStoreUrl = buildGooglePlayHref({
 });
 
 const sharedRecipe = shareId ? await getSharedRecipeById(shareId) : null;
-const recipe = sharedRecipe?.recipe ?? null;
+const recipe = (sharedRecipe as { recipe?: any } | null)?.recipe ?? null;
 
-const asArray = (value) => Array.isArray(value) ? value : [];
+const asArray = (value: unknown): any[] => Array.isArray(value) ? value : [];
 
-const formatNumber = (value) => {
+const formatNumber = (value: unknown) => {
   if (typeof value !== 'number' || !Number.isFinite(value)) {
     return '';
   }
 
   const whole = Math.trunc(value);
   const fraction = value - whole;
-  const commonFractions = [
+  const commonFractions: Array<[number, string]> = [
     [0.25, '1/4'],
     [0.33, '1/3'],
     [0.5, '1/2'],
@@ -46,7 +46,7 @@ const formatNumber = (value) => {
   return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
 };
 
-const compactText = (value) => typeof value === 'string' ? value.trim() : '';
+const compactText = (value: unknown) => typeof value === 'string' ? value.trim() : '';
 const recipeLanguage = compactText(recipe?.source_language).toLowerCase();
 const rawRecipeText = JSON.stringify(recipe ?? '').toLowerCase();
 const looksGerman = /[äöüß]/i.test(rawRecipeText)
@@ -95,7 +95,7 @@ const labels = isGermanRecipe ? {
   unavailableBody: 'The link may have expired or the recipe owner may have removed it. You can still install TasteBuddy to save and organize your own recipes.',
 };
 
-const formatUnit = (unit) => {
+const formatUnit = (unit: unknown) => {
   const text = compactText(unit);
   const normalized = text.toLowerCase();
 
@@ -103,7 +103,7 @@ const formatUnit = (unit) => {
     return text;
   }
 
-  return {
+  return ({
     tbsp: 'EL',
     tablespoon: 'EL',
     tablespoons: 'EL',
@@ -112,10 +112,10 @@ const formatUnit = (unit) => {
     teaspoons: 'TL',
     cup: 'Tasse',
     cups: 'Tassen',
-  }[normalized] ?? text;
+  } as Record<string, string>)[normalized] ?? text;
 };
 
-const formatTime = (value) => {
+const formatTime = (value: unknown) => {
   if (typeof value === 'number' && Number.isFinite(value)) {
     return `${value} min`;
   }
@@ -123,7 +123,7 @@ const formatTime = (value) => {
   return compactText(value);
 };
 
-const formatIngredient = (ingredient) => {
+const formatIngredient = (ingredient: any) => {
   if (typeof ingredient === 'string') {
     return ingredient.trim();
   }
@@ -141,7 +141,7 @@ const formatIngredient = (ingredient) => {
   return note ? `${line} (${note})` : line;
 };
 
-const sortInstructions = (items) => [...items].sort((a, b) => {
+const sortInstructions = (items: any[]) => [...items].sort((a, b) => {
   const aStep = typeof a?.step_number === 'number' ? a.step_number : 0;
   const bStep = typeof b?.step_number === 'number' ? b.step_number : 0;
   return aStep - bStep;
