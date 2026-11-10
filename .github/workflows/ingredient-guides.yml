@@ -93,7 +93,7 @@ jobs:
 
       - name: Open pull request
         if: steps.body.outputs.none != 'true'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           branch: guides/auto-${{ github.run_id }}
           commit-message: 'feat(seo): add ingredient guide drafts'
