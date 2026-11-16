@@ -78,7 +78,7 @@ export const TASTE_TYPES: readonly TasteType[] = [
   },
   {
     key: 'all_rounder',
-    icon: '🍽️',
+    icon: '🍱',
     label: { en: 'All-Rounder', de: 'Allrounder' },
     description: { en: 'A bit of everything', de: 'Von allem etwas' },
   },

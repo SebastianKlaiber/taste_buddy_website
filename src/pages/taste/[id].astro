@@ -6,6 +6,7 @@ import TasteTypeHero from '../../components/taste/TasteTypeHero.astro';
 import TasteStoreButtons from '../../components/taste/TasteStoreButtons.astro';
 import { getSharedTaste } from '../../lib/supabase';
 import {
+  FALLBACK_TASTE_TYPE,
   getPickerPath,
   getTasteType,
   normalizeSharedTaste,
@@ -156,7 +157,7 @@ if (result.status === 'found') {
     ) : (
       <div class="mx-auto max-w-xl text-center">
         <div class="tb-panel px-5 py-10 sm:px-10">
-          <div class="text-5xl" aria-hidden="true">🍽️</div>
+          <div class="text-5xl" aria-hidden="true">{getTasteType(FALLBACK_TASTE_TYPE).icon}</div>
           <h1 class="tb-text-strong mt-4 text-2xl font-bold sm:text-3xl">
             {result.status === 'error' ? copy.unavailableTitle : copy.notFoundTitle}
           </h1>
