@@ -1,0 +1,281 @@
+---
+// "What's your taste?" picker. Runs fully client-side; nothing is stored or sent
+// except the site's existing analytics events.
+import TasteTypeHero from './TasteTypeHero.astro';
+import TasteStoreButtons from './TasteStoreButtons.astro';
+import { PICKER_DISHES, PICKER_MIN_PICKS, TASTE_COPY, TASTE_TYPES, type TasteLocale } from '../../lib/taste';
+
+interface Props {
+  locale: TasteLocale;
+}
+
+const { locale } = Astro.props;
+const copy = TASTE_COPY[locale];
+---
+
+<section class="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-12" data-taste-picker data-min-picks={PICKER_MIN_PICKS}>
+  <div data-picker-step>
+    <div class="text-center">
+      <h1 class="tb-text-strong text-3xl font-extrabold sm:text-4xl">{copy.pickerTitle}</h1>
+      <p class="tb-text-muted mt-2 text-base sm:text-lg">{copy.pickerIntro(PICKER_MIN_PICKS)}</p>
+    </div>
+
+    <ul class="mt-5 grid grid-cols-4 gap-2 sm:mt-6 sm:gap-3">
+      {PICKER_DISHES.map((dish) => (
+        <li>
+          <button
+            type="button"
+            class="taste-tile"
+            aria-pressed="false"
+            data-dish={dish.id}
+            data-tastes={dish.tastes.join(' ')}
+          >
+            <span class="taste-tile__check" aria-hidden="true">✓</span>
+            <span class="taste-tile__icon" aria-hidden="true">{dish.icon}</span>
+            <span class="taste-tile__name">{dish.name[locale]}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+
+    <div class="taste-reveal-bar">
+      <button type="button" class="taste-reveal" disabled data-reveal>
+        {copy.pickerButton}
+        <span class="taste-reveal__count" data-count>0/{PICKER_MIN_PICKS}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-xl" data-result-step hidden>
+    {TASTE_TYPES.map((type) => (
+      <div data-result={type.key} hidden>
+        <TasteTypeHero tasteType={type.key} locale={locale} eyebrow={copy.resultEyebrow} />
+      </div>
+    ))}
+
+    <div class="mt-6 text-center">
+      <p class="tb-text-strong text-lg font-semibold leading-snug">{copy.resultCta}</p>
+      <TasteStoreButtons surface="picker" locale={locale} class="mt-4" />
+      <button type="button" class="tb-link mt-6 text-sm" data-restart>
+        {copy.startOver}
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .taste-tile {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-height: 5.75rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    border: 2px solid var(--tb-border-soft);
+    border-radius: var(--tb-radius);
+    background: var(--tb-surface-raised);
+    color: var(--tb-text);
+    padding: 0.625rem 0.25rem;
+    box-shadow: var(--tb-shadow-sm);
+    transition: transform 150ms ease, border-color 150ms ease, background-color 150ms ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .taste-tile:hover {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--tb-secondary) 50%, var(--tb-border-soft));
+  }
+
+  .taste-tile:focus-visible,
+  .taste-reveal:focus-visible {
+    outline: 3px solid var(--tb-secondary);
+    outline-offset: 2px;
+  }
+
+  .taste-tile[aria-pressed='true'] {
+    border-color: var(--tb-secondary);
+    background: var(--tb-accent-soft);
+  }
+
+  .taste-tile__icon {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .taste-tile__name {
+    font-size: 0.75rem;
+    font-weight: 650;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  @media (min-width: 640px) {
+    .taste-tile {
+      min-height: 7rem;
+      gap: 0.5rem;
+    }
+
+    .taste-tile__icon {
+      font-size: 2.5rem;
+    }
+
+    .taste-tile__name {
+      font-size: 0.875rem;
+    }
+  }
+
+  .taste-tile__check {
+    position: absolute;
+    top: 0.375rem;
+    right: 0.375rem;
+    display: flex;
+    width: 1.375rem;
+    height: 1.375rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--tb-secondary);
+    color: #00340E;
+    font-size: 0.75rem;
+    font-weight: 800;
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 150ms ease, transform 150ms ease;
+  }
+
+  .taste-tile[aria-pressed='true'] .taste-tile__check {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Stays reachable while scrolling the grid; sits above the site's mobile store bar. */
+  .taste-reveal-bar {
+    position: sticky;
+    bottom: calc(5rem + env(safe-area-inset-bottom));
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .taste-reveal-bar {
+      bottom: 1.5rem;
+    }
+  }
+
+  .taste-reveal {
+    display: inline-flex;
+    min-height: 52px;
+    width: 100%;
+    max-width: 24rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    border-radius: var(--tb-radius-pill);
+    background: var(--tb-button-primary);
+    color: var(--tb-button-primary-text);
+    font-size: 1.0625rem;
+    font-weight: 800;
+    padding: 0.875rem 1.5rem;
+    box-shadow: var(--tb-shadow-md);
+    transition: transform 180ms ease, opacity 180ms ease, background-color 180ms ease;
+  }
+
+  .taste-reveal:not(:disabled):hover {
+    transform: translateY(-1px);
+  }
+
+  .taste-reveal:disabled {
+    cursor: not-allowed;
+    background: color-mix(in srgb, var(--tb-button-primary) 55%, var(--tb-page-bg));
+  }
+
+  .taste-reveal__count {
+    border-radius: 999px;
+    background: #00CE31;
+    color: #00340E;
+    font-size: 0.8125rem;
+    padding: 0.125rem 0.5rem;
+    font-variant-numeric: tabular-nums;
+  }
+</style>
+
+<script>
+  import { pickTasteType } from '../../lib/taste';
+
+  type Track = (event: string, payload?: Record<string, unknown>) => void;
+  const track: Track = (event, payload) => (window as unknown as { tbTrack?: Track }).tbTrack?.(event, payload);
+
+  for (const root of document.querySelectorAll<HTMLElement>('[data-taste-picker]')) {
+    const minPicks = Number(root.dataset.minPicks) || 3;
+    const tiles = [...root.querySelectorAll<HTMLButtonElement>('[data-dish]')];
+    const pickerStep = root.querySelector<HTMLElement>('[data-picker-step]')!;
+    const resultStep = root.querySelector<HTMLElement>('[data-result-step]')!;
+    const revealButton = root.querySelector<HTMLButtonElement>('[data-reveal]')!;
+    const countLabel = root.querySelector<HTMLElement>('[data-count]')!;
+    const results = [...root.querySelectorAll<HTMLElement>('[data-result]')];
+    const storeLinks = [...resultStep.querySelectorAll<HTMLAnchorElement>('[data-track-event="taste_store_clicked"]')];
+    let started = false;
+
+    const selected = () => tiles.filter((tile) => tile.getAttribute('aria-pressed') === 'true');
+
+    const update = () => {
+      const count = selected().length;
+      countLabel.textContent = `${Math.min(count, minPicks)}/${minPicks}`;
+      countLabel.hidden = count >= minPicks;
+      revealButton.disabled = count < minPicks;
+    };
+
+    for (const tile of tiles) {
+      tile.addEventListener('click', () => {
+        const pressed = tile.getAttribute('aria-pressed') === 'true';
+        tile.setAttribute('aria-pressed', String(!pressed));
+        if (!started) {
+          started = true;
+          track('taste_picker_started');
+        }
+        update();
+      });
+    }
+
+    revealButton.addEventListener('click', () => {
+      const picks = selected();
+      if (picks.length < minPicks) {
+        return;
+      }
+      const tasteType = pickTasteType(picks.map((tile) => (tile.dataset.tastes ?? '').split(' ')));
+
+      for (const result of results) {
+        result.hidden = result.dataset.result !== tasteType;
+      }
+      for (const link of storeLinks) {
+        const payload = JSON.parse(link.dataset.trackPayload ?? '{}');
+        link.dataset.trackPayload = JSON.stringify({ ...payload, taste_type: tasteType });
+      }
+
+      pickerStep.hidden = true;
+      resultStep.hidden = false;
+      root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      track('taste_result_shown', {
+        taste_type: tasteType,
+        picks: picks.length,
+        dishes: picks.map((tile) => tile.dataset.dish).join(','),
+      });
+    });
+
+    root.querySelector<HTMLButtonElement>('[data-restart]')?.addEventListener('click', () => {
+      for (const tile of tiles) {
+        tile.setAttribute('aria-pressed', 'false');
+      }
+      update();
+      resultStep.hidden = true;
+      pickerStep.hidden = false;
+      root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    update();
+  }
+</script>

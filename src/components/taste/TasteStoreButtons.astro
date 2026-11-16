@@ -1,0 +1,54 @@
+---
+// App Store / Google Play badges with taste campaign parameters and tracking.
+import { getTasteStoreLinks, TASTE_COPY, type TasteLocale, type TasteSurface } from '../../lib/taste';
+
+interface Props {
+  surface: TasteSurface;
+  locale: TasteLocale;
+  tasteType?: string;
+  class?: string;
+}
+
+const { surface, locale, tasteType, class: className } = Astro.props;
+const links = getTasteStoreLinks(surface);
+const copy = TASTE_COPY[locale];
+const payload = (platform: 'ios' | 'android') =>
+  JSON.stringify({ platform, surface, ...(tasteType ? { taste_type: tasteType } : {}) });
+---
+
+<div class:list={['flex flex-wrap items-center justify-center gap-3', className]} data-taste-store-buttons>
+  <a
+    href={links.ios}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={copy.appStoreAlt}
+    class="inline-flex rounded-lg transition-transform duration-200 hover:scale-105"
+    data-track-event="taste_store_clicked"
+    data-track-payload={payload('ios')}
+  >
+    <img
+      src="/images/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+      alt={copy.appStoreAlt}
+      class="h-12 w-auto"
+      width="144"
+      height="48"
+    />
+  </a>
+  <a
+    href={links.android}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={copy.googlePlayAlt}
+    class="inline-flex rounded-lg transition-transform duration-200 hover:scale-105"
+    data-track-event="taste_store_clicked"
+    data-track-payload={payload('android')}
+  >
+    <img
+      src="/images/Google_Play_Badge.png"
+      alt={copy.googlePlayAlt}
+      class="h-12 w-auto"
+      width="162"
+      height="48"
+    />
+  </a>
+</div>

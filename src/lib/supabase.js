@@ -101,6 +101,53 @@ export async function getSharedRecipeById(id) {
 }
 
 /**
+ * Fetches a shared taste profile from the shared-taste Edge Function.
+ * @param {string} token - Share token (UUID) from /taste/<token>
+ * @returns {Promise<{ status: 'found', body: unknown } | { status: 'not_found' } | { status: 'error' }>}
+ */
+const anyUuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+export async function getSharedTaste(token) {
+  if (!anyUuidPattern.test(String(token ?? ''))) {
+    return { status: 'not_found' };
+  }
+
+  const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error('Missing Supabase public credentials');
+    return { status: 'error' };
+  }
+
+  try {
+    const response = await fetch(`${supabaseUrl}/functions/v1/shared-taste`, {
+      method: 'POST',
+      headers: {
+        apikey: supabaseAnonKey,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({ token }),
+      signal: AbortSignal.timeout(6000),
+    });
+
+    if (response.status === 404 || response.status === 400) {
+      return { status: 'not_found' };
+    }
+
+    if (!response.ok) {
+      console.error('Error fetching shared taste:', response.status);
+      return { status: 'error' };
+    }
+
+    return { status: 'found', body: await response.json() };
+  } catch (err) {
+    console.error('Unexpected error fetching shared taste:', err instanceof Error ? err.message : err);
+    return { status: 'error' };
+  }
+}
+
+/**
  * Fetches recipe data directly from the recipes table
  * @param {string|number} id - The recipe ID to fetch
  * @returns {Promise<Object|null>} - The formatted recipe data or null if not found
