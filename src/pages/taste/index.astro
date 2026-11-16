@@ -1,0 +1,14 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TastePicker from '../../components/taste/TastePicker.astro';
+import { buildAlternates } from '../../lib/marketing/app-links';
+import { TASTE_COPY } from '../../lib/taste';
+
+export const prerender = true;
+
+const copy = TASTE_COPY.en;
+---
+
+<Layout title={copy.pickerMetaTitle} description={copy.pickerDescription} alternates={buildAlternates('/taste/')} lang="en">
+  <TastePicker locale="en" />
+</Layout>

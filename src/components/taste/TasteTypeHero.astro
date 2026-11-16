@@ -1,0 +1,115 @@
+---
+// Dark green taste card that echoes the app's share card. Used for the shared
+// taste headline on /taste/<id> and for the picker result on /taste.
+import { getTasteType, TASTE_COPY, type TasteLocale } from '../../lib/taste';
+
+interface Props {
+  tasteType: string;
+  locale: TasteLocale;
+  eyebrow: string;
+  headingLevel?: 'h1' | 'h2';
+  recipeCount?: number | null;
+  cuisineCount?: number | null;
+}
+
+const { tasteType, locale, eyebrow, headingLevel = 'h2', recipeCount = null, cuisineCount = null } = Astro.props;
+const type = getTasteType(tasteType);
+const copy = TASTE_COPY[locale];
+const Heading = headingLevel;
+const stats = [
+  recipeCount !== null ? copy.recipes(recipeCount) : '',
+  cuisineCount !== null ? copy.cuisines(cuisineCount) : '',
+].filter(Boolean).join(' · ');
+---
+
+<div class="taste-card">
+  <p class="taste-card__eyebrow">{eyebrow}</p>
+  <div class="taste-card__head">
+    <span class="taste-card__icon" aria-hidden="true">{type.icon}</span>
+    <div class="min-w-0">
+      <Heading class="taste-card__label">{type.label[locale]}</Heading>
+      <p class="taste-card__description">{type.description[locale]}</p>
+    </div>
+  </div>
+  {stats && <p class="taste-card__stats">{stats}</p>}
+  <slot />
+</div>
+
+<style>
+  .taste-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--tb-radius);
+    background:
+      radial-gradient(120% 80% at 100% 0%, rgba(0, 206, 49, 0.22) 0%, rgba(0, 206, 49, 0) 60%),
+      #00340E;
+    color: #FFFFFF;
+    padding: 1.5rem 1.25rem;
+    box-shadow: var(--tb-shadow-md);
+  }
+
+  @media (min-width: 640px) {
+    .taste-card {
+      padding: 2rem;
+    }
+  }
+
+  .taste-card__eyebrow {
+    color: #00CE31;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .taste-card__head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .taste-card__icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 1.25rem;
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+
+  .taste-card__label {
+    color: #FFFFFF;
+    font-size: 1.875rem;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  @media (min-width: 640px) {
+    .taste-card__label {
+      font-size: 2.25rem;
+    }
+  }
+
+  .taste-card__description {
+    margin-top: 0.375rem;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .taste-card__stats {
+    display: inline-flex;
+    margin-top: 1.25rem;
+    border-radius: var(--tb-radius-pill);
+    background: rgba(0, 206, 49, 0.16);
+    color: #FFFFFF;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    padding: 0.4rem 0.875rem;
+  }
+</style>

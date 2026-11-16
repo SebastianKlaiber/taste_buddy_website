@@ -14,6 +14,7 @@ interface Props {
   landingPage?: boolean;
   socialImage?: string;
   socialImageAlt?: string;
+  lang?: 'en' | 'de';
 }
 
 const {
@@ -26,11 +27,12 @@ const {
   landingPage = false,
   socialImage,
   socialImageAlt,
+  lang,
 } = Astro.props;
 
 // Language detection and hreflang generation
 const currentPath = Astro.url.pathname;
-const currentLang = currentPath.startsWith('/de/') ? 'de' : currentPath.startsWith('/en/') ? 'en' : 'en';
+const currentLang = lang ?? (currentPath.startsWith('/de/') ? 'de' : 'en');
 const baseUrl = 'https://taste-buddy.app';
 const resolvedSocialImage = socialImage || `${baseUrl}/images/tastebuddy-app-screenshots.webp`;
 const resolvedSocialImageAlt = socialImageAlt || (socialImage ? title : 'TasteBuddy app screenshots');
