@@ -60,7 +60,7 @@ const socialImage = shared?.imageUrl && !shared.imageUrl.startsWith('data:') ? s
 // revocations visible within minutes. Missing shares and errors are not cached.
 if (result.status === 'found') {
   Astro.response.headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
-  Astro.response.headers.set('Netlify-CDN-Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
+  Astro.response.headers.set('Netlify-CDN-Cache-Control', 'public, s-maxage=120, stale-while-revalidate=60');
 } else {
   Astro.response.status = result.status === 'not_found' ? 404 : 503;
   Astro.response.headers.set('Cache-Control', 'no-store');
