@@ -1,0 +1,89 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const title = "Confirm your email | TasteBuddy";
+const description = "Confirm the email address for your TasteBuddy account.";
+---
+<Layout title={title} description={description} robots="noindex, follow" skipDefaultStructuredData={true}>
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-xl mx-auto text-center space-y-6">
+      <div class="flex justify-center">
+        <img src="/Icon.png" alt="TasteBuddy logo" class="h-16 w-16 rounded-2xl shadow-lg border border-[#2A2D24]/50" decoding="async" />
+      </div>
+
+      <div data-state="verifying" class="space-y-3">
+        <h1 class="text-3xl sm:text-4xl font-bold text-white">Confirming your email…</h1>
+        <p class="text-lg text-gray-300">This takes just a second.</p>
+      </div>
+
+      <div data-state="success" class="hidden space-y-3">
+        <h1 class="text-3xl sm:text-4xl font-bold text-white">Email confirmed</h1>
+        <p class="text-lg text-gray-300">Your account is ready. Open TasteBuddy on your phone and sign in with your email and password.</p>
+      </div>
+
+      <div data-state="error" class="hidden space-y-3">
+        <h1 class="text-3xl sm:text-4xl font-bold text-white">This link doesn't work anymore</h1>
+        <p class="text-lg text-gray-300">
+          It may have expired or already been used. If you already confirmed your email, just sign in to TasteBuddy.
+          Otherwise, open the app and sign up again to get a new link.
+        </p>
+      </div>
+
+      <div data-store-buttons class="hidden grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+        <a
+          href="https://apps.apple.com/app/apple-store/id6554007741?pt="
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center justify-center rounded-xl bg-black/40 border border-[#2A2D24]/50 px-4 py-3 text-white transition hover:border-[#00CE31]/60 hover:bg-black/60"
+        >
+          <span class="text-sm font-medium">Download on the App Store</span>
+        </a>
+        <a
+          href="https://play.google.com/store/apps/details?id=app.tastebuddy"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center justify-center rounded-xl bg-black/40 border border-[#2A2D24]/50 px-4 py-3 text-white transition hover:border-[#00CE31]/60 hover:bg-black/60"
+        >
+          <span class="text-sm font-medium">Get it on Google Play</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // The app normally opens this link itself (iOS universal link / Android app link).
+  // This page only runs when the link lands in a browser, e.g. older Android builds
+  // that don't claim /verify-email, or a link opened on a computer.
+  // It confirms the email with the token hash; no session is kept on the web.
+  const show = (state: "verifying" | "success" | "error") => {
+    document.querySelectorAll<HTMLElement>("[data-state]").forEach((el) => {
+      el.classList.toggle("hidden", el.dataset.state !== state);
+    });
+    document.querySelector("[data-store-buttons]")?.classList.toggle("hidden", state === "verifying");
+  };
+
+  async function verify() {
+    const token = new URLSearchParams(window.location.search).get("token");
+    const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+    if (!token || !supabaseUrl || !supabaseAnonKey) {
+      show("error");
+      return;
+    }
+
+    try {
+      // Same check the app runs: verifyOTP(tokenHash: token, type: OtpType.email).
+      const response = await fetch(`${supabaseUrl}/auth/v1/verify`, {
+        method: "POST",
+        headers: { apikey: supabaseAnonKey, "content-type": "application/json" },
+        body: JSON.stringify({ type: "email", token_hash: token }),
+      });
+      show(response.ok ? "success" : "error");
+    } catch {
+      show("error");
+    }
+  }
+
+  verify();
+</script>
