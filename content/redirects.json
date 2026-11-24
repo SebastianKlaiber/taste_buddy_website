@@ -108,5 +108,15 @@
     "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=party-food-calculator&mt=8",
     "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dseo_cta%26utm_campaign%3Dparty-food-calculator%26utm_content%3Dparty-planner-cta",
     "fallback_url": "https://taste-buddy.app/features/meal-planning/"
+  },
+  {
+    "slug": "cooking-unit-converter",
+    "source": "website",
+    "medium": "tool_cta",
+    "campaign": "cooking-unit-converter",
+    "content": "unit-converter",
+    "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=cooking-unit-converter&mt=8",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dtool_cta%26utm_campaign%3Dcooking-unit-converter%26utm_content%3Dunit-converter",
+    "fallback_url": "https://taste-buddy.app/tools/cooking-unit-converter/"
   }
 ]
