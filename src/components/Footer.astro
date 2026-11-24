@@ -80,6 +80,7 @@ const isGerman = Astro.url.pathname.startsWith('/de/');
           <li><a href={isGerman ? '/de/alternatives/' : '/alternatives/'} class="text-gray-400 hover:text-[#00CE31] transition-colors">{isGerman ? 'App-Alternativen' : 'App Alternatives'}</a></li>
           <li><a href="/guides/how-to-organize-recipes/" class="text-gray-400 hover:text-[#00CE31] transition-colors">Recipe Organization</a></li>
           <li><a href="/solutions/organize-saved-recipes/" class="text-gray-400 hover:text-[#00CE31] transition-colors">Saved Recipe Systems</a></li>
+          <li><a href={isGerman ? '/de/tools/' : '/tools/'} class="text-gray-400 hover:text-[#00CE31] transition-colors">{isGerman ? 'Kostenlose Küchen-Tools' : 'Free Kitchen Tools'}</a></li>
           <li><a href="/tools/rss-feed-detector/" class="text-gray-400 hover:text-[#00CE31] transition-colors">RSS Feed Detector</a></li>
         </ul>
       </div>

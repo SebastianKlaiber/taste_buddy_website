@@ -1,0 +1,293 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Main from '../../../components/Main.astro';
+import RoastCalculator from '../../../components/tools/RoastCalculator.astro';
+import RoastToolCta from '../../../components/tools/RoastToolCta.astro';
+import { SITE_URL } from '../../../lib/marketing/app-links';
+
+export const prerender = true;
+import { getProfiles, type MeatId } from '../../../lib/tools/roast-calculator';
+
+const enPath = '/tools/turkey-cooking-time-calculator/';
+const path = '/de/tools/braten-garzeit-rechner/';
+const alternates = {
+  en: `${SITE_URL}${enPath}`,
+  de: `${SITE_URL}${path}`,
+  'x-default': `${SITE_URL}${enPath}`,
+};
+
+const title = 'Braten Garzeit Rechner: Gans, Ente, Pute & Braten';
+const description =
+  'Kostenloser Garzeit-Rechner für Gans, Ente, Pute und Braten: Garzeit pro kg, Kerntemperatur, Auftauzeit, Einkaufsmenge und Zeitplan bis zum Servieren.';
+
+const profiles = getProfiles('de');
+const order: MeatId[] = ['goose', 'duck', 'turkey', 'chicken', 'pork', 'beef', 'ham'];
+const tableText: Record<MeatId, { name: string; time: string; example: string }> = {
+  goose: { name: 'Gans', time: '50–60 Min. pro kg (Faustregel: ca. 1 Std.)', example: '4,5 kg: 3¾–4½ Std.' },
+  duck: { name: 'Ente', time: '50–60 Min. pro kg', example: '2,5 kg: 2–2½ Std.' },
+  turkey: { name: 'Pute (USDA-Tabelle)', time: '5,4–6,3 kg: 3–3¾ Std.', example: '6,3–8,2 kg: 3¾–4¼ Std.' },
+  chicken: { name: 'Hähnchen', time: '45–60 Min. pro kg', example: '1,5 kg: 1–1½ Std.' },
+  pork: { name: 'Schweinebraten', time: '60–70 Min. pro kg', example: '1,5 kg: 1½–1¾ Std.' },
+  beef: { name: 'Rinderschmorbraten', time: '100–120 Min. pro kg', example: '1,5 kg: 2½–3 Std.' },
+  ham: { name: 'Schinken, vorgegart', time: '40–55 Min. pro kg (ab 4,5 kg: 33–40)', example: '3,5 kg: 2¼–3¼ Std.' },
+};
+const rows = order.map((id) => {
+  const p = profiles[id];
+  const target = p.targetCore
+    ? p.targetCore[0] === p.targetCore[1]
+      ? `${p.targetCore[0]} °C`
+      : `${p.targetCore[0]}–${p.targetCore[1]} °C`
+    : 'mind. 70 °C';
+  return { ...tableText[id], oven: `${p.ovenTemp} °C`, target };
+});
+
+const faqs = [
+  {
+    q: 'Wie lange braucht eine Gans pro kg?',
+    a: 'Die gängige Faustregel lautet: etwa 1 Stunde pro Kilogramm bei 150 bis 160 °C Ober-/Unterhitze. Eine 4,5-kg-Gans braucht damit rund 3¾ bis 4½ Stunden. Fertig ist sie, wenn die Keule an der dicksten Stelle etwa 80 bis 85 °C erreicht. Bei höheren Temperaturen geht es schneller, deshalb immer mit dem Thermometer prüfen.',
+  },
+  {
+    q: 'Welche Kerntemperatur ist bei Geflügel sicher?',
+    a: 'Das Bundesinstitut für Risikobewertung (BfR) empfiehlt, Fleisch und Geflügel so zu garen, dass im Kern mindestens 70 °C für mindestens 2 Minuten erreicht werden. Gans und Ente werden für zartes Keulenfleisch meist deutlich höher gegart.',
+  },
+  {
+    q: 'Wie lange muss eine tiefgekühlte Gans auftauen?',
+    a: 'Am sichersten im Kühlschrank: etwa einen Tag pro 2 kg, eine 5-kg-Gans also rund 2 bis 3 Tage. Im kalten Wasser geht es schneller (etwa 1 Stunde pro kg, Wasser alle 30 Minuten wechseln), danach muss sie sofort gegart werden. Auftauwasser weggießen und Flächen gründlich reinigen.',
+  },
+  {
+    q: 'Wie viel Gans oder Braten pro Person?',
+    a: 'Als Faustregel bei Gans etwa 500 bis 700 g Rohgewicht pro Person, weil viel Gewicht auf Knochen und Fett entfällt. Eine 4-kg-Gans reicht damit für etwa 6 Personen. Bei Ente rechnet man rund 500 g, bei Rinderbraten ohne Knochen 200 bis 250 g und bei Schweinebraten mit Schwarte 250 bis 300 g roh pro Person.',
+  },
+  {
+    q: 'Umluft oder Ober-/Unterhitze?',
+    a: 'Beides funktioniert. Bei Umluft die Temperatur um etwa 20 °C senken und früher messen, weil Umluft oft schneller gart. Am Ende entscheidet immer das Thermometer, nicht die Uhr.',
+  },
+  {
+    q: 'Wie lange sollte der Braten ruhen?',
+    a: 'Gans und Ente etwa 15 bis 20 Minuten, Pute etwa 20 Minuten (USDA) oder etwas länger, Schweine- und Rinderbraten 10 bis 20 Minuten, locker mit Alufolie abgedeckt. So verteilt sich der Fleischsaft und das Fleisch lässt sich sauber aufschneiden.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'de',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const appJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Braten Garzeit Rechner',
+  url: alternates.de,
+  description,
+  applicationCategory: 'LifestyleApplication',
+  operatingSystem: 'Any',
+  inLanguage: 'de',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+  publisher: { '@type': 'Organization', name: 'TasteBuddy', url: SITE_URL },
+};
+---
+
+<Layout title={title} description={description} lang="de" alternates={alternates}>
+  <script type="application/ld+json" set:html={JSON.stringify(appJsonLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+  <Main>
+    <div class="mx-auto max-w-4xl py-10 sm:py-14">
+      <header class="mb-8">
+        <p class="mb-3 text-sm font-bold uppercase tracking-[0.18em] tb-accent">Kostenloses Weihnachts-Tool</p>
+        <h1 class="mb-4 text-3xl font-bold leading-tight tb-text-strong sm:text-5xl">Braten-Rechner: Garzeit für Gans, Ente &amp; Braten</h1>
+        <p class="text-lg tb-text-muted">
+          Wie lange auftauen, wie lange in den Ofen, welche Kerntemperatur und wann die Gans in den Ofen muss, damit
+          das Essen pünktlich auf dem Tisch steht. Für Gans, Ente, Pute, Hähnchen, Schweinebraten, Rinderbraten und
+          Schinken.
+        </p>
+      </header>
+
+      <RoastCalculator locale="de" />
+
+      <article class="roast-content mt-12 space-y-10">
+        <section>
+          <h2>Garzeiten pro kg und Kerntemperaturen im Überblick</h2>
+          <p>
+            Die Tabelle zeigt gängige Richtwerte für Ober-/Unterhitze. Sie helfen beim Planen, ersetzen aber kein
+            Thermometer: Ofen, Form des Bratens und die Ausgangstemperatur des Fleisches verändern die tatsächliche
+            Garzeit.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <caption class="sr-only">Garzeiten und Kerntemperaturen für Weihnachtsbraten</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Braten</th>
+                  <th scope="col">Ofen</th>
+                  <th scope="col">Garzeit pro kg</th>
+                  <th scope="col">Beispiel</th>
+                  <th scope="col">Übliches Garziel (Kern)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row) => (
+                  <tr>
+                    <th scope="row">{row.name}</th>
+                    <td>{row.oven}</td>
+                    <td>{row.time}</td>
+                    <td>{row.example}</td>
+                    <td>{row.target}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="text-sm">
+            Sicherheitsuntergrenze laut BfR: mindestens 70 °C im Kern für mindestens 2 Minuten, auch beim Aufwärmen
+            von vorgegartem Schinken. Die Garziele sind Küchen-Richtwerte für zartes Fleisch, keine amtlichen Werte.
+            Rosa gebratenes Roastbeef (etwa 55–59 °C) ist eine Geschmacksentscheidung bei ganzen Muskelstücken; für
+            Geflügel gilt das nicht. Die Pute rechnet der Rechner nach der USDA-Tabelle für 325 °F (≈ 165 °C), den
+            Schinken nach den USDA-Werten für vorgegarten Schinken mit Knochen.
+          </p>
+        </section>
+
+        <section>
+          <h2>Gans auftauen: so viel Zeit brauchst du</h2>
+          <p>
+            Tiefgekühltes Geflügel taut am sichersten im Kühlschrank bei höchstens 4 °C auf. Rechne mit etwa einem Tag pro 2 kg (USDA: 24 Stunden pro 4–5 lb). Eine 4,5-kg-Gans sollte also spätestens zwei bis drei Tage vor Heiligabend in den
+            Kühlschrank. Lege sie in eine Schüssel, damit das Auftauwasser nicht auf andere Lebensmittel tropft, und gieß
+            es anschließend weg. Wenn es eilt, geht es im kalten Wasser schneller; dann muss das Geflügel aber direkt
+            danach in den Ofen.
+          </p>
+        </section>
+
+        <section>
+          <h2>Zeitplan: rückwärts vom Servieren planen</h2>
+          <p>
+            Der Rechner startet bei der Uhrzeit, zu der ihr essen wollt, und rechnet zurück: Tranchieren, Ruhezeit,
+            das obere Ende der Garzeit, Vorheizen und das Herausnehmen aus dem Kühlschrank. Die erste Messung mit dem
+            Thermometer liegt bewusst vor dem unteren Ende der Schätzung. Ist der Braten früher fertig, hält er
+            abgedeckt gut warm, und die Ruhezeit gibt dir Puffer für Soße und Beilagen.
+          </p>
+          <p>
+            Für das ganze Menü mit Mengen, Countdown und Ofenplan hilft unser Ratgeber
+            <a class="tb-link" href="/de/blog/articles/weihnachtsmenue-planen/">Weihnachtsmenü planen</a>. Und nach den
+            Feiertagen: <a class="tb-link" href="/de/blog/articles/resteverwertung-ideen/">Ideen für die Resteverwertung</a>.
+            Reste innerhalb von 2 Stunden in den Kühlschrank stellen.
+          </p>
+        </section>
+
+        <section>
+          <h2>Häufige Fragen zu Garzeit und Kerntemperatur</h2>
+          <div class="space-y-3">
+            {faqs.map((item) => (
+              <details class="faq">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h2>Quellen</h2>
+          <ul class="list-disc space-y-1 pl-5 text-sm">
+            <li><a class="tb-link" href="https://www.bfr.bund.de/presseinformation/mehr-salmonellen-infektionen-in-europa-hygieneregeln-helfen-gefluegel-sicher-zuzubereiten/" rel="noopener" target="_blank">BfR: Geflügel sicher zubereiten – mindestens 70 °C im Kern für 2 Minuten</a></li>
+            <li><a class="tb-link" href="https://www.bfr.bund.de/presseinformation/keime-in-der-kueche-tipps-zur-lebensmittelhygiene/" rel="noopener" target="_blank">BfR: Keime in der Küche – zwei Minuten oder länger auf mindestens 70 °C, auch beim Aufwärmen</a></li>
+            <li><a class="tb-link" href="https://www.bzfe.de/kueche-und-alltag/vom-acker-bis-zum-teller/schweinefleisch/schweinefleisch-vom-einkauf-in-die-kueche" rel="noopener" target="_blank">BZfE: Schweinefleisch vom Einkauf in die Küche (Kerntemperatur)</a></li>
+            <li><a class="tb-link" href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/poultry/lets-talk-turkey-roasting" rel="noopener" target="_blank">USDA FSIS: Let's Talk Turkey (Pute: Garzeiten bei 325 °F, Auftauen)</a></li>
+            <li><a class="tb-link" href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/meat-catfish/roasting-those-other-holiday-meats" rel="noopener" target="_blank">USDA FSIS: Roasting Those "Other" Holiday Meats (vorgegarter Schinken)</a></li>
+            <li><a class="tb-link" href="https://www.lidl.de/c/frische-gans-zu-weihnachten/s10009346" rel="noopener" target="_blank">Lidl: Gans zu Weihnachten (ca. 1 Std. pro kg, Kern 80–85 °C)</a></li>
+            <li><a class="tb-link" href="https://www.rewe.de/ernaehrung/gaensebraten/" rel="noopener" target="_blank">REWE: Gänsebraten (1 Std. pro kg, 600–700 g pro Person)</a></li>
+            <li><a class="tb-link" href="https://www.grillfuerst.de/magazin/kerntemperatur/ente/ganze-ente/" rel="noopener" target="_blank">Grillfürst: Kerntemperatur und Garzeit ganze Ente</a></li>
+            <li><a class="tb-link" href="https://www.grillfuerst.de/magazin/kerntemperatur/haehnchen/ganzes-haehnchen/" rel="noopener" target="_blank">Grillfürst: Kerntemperatur und Garzeit ganzes Hähnchen</a></li>
+            <li><a class="tb-link" href="https://www.grillfuerst.de/magazin/kerntemperatur/schweinebraten/" rel="noopener" target="_blank">Grillfürst: Kerntemperatur Schweinebraten (auch Umluft 20 °C weniger)</a></li>
+            <li><a class="tb-link" href="https://www.grillfuerst.de/magazin/kerntemperatur/rinderbraten/" rel="noopener" target="_blank">Grillfürst: Kerntemperatur Rinderbraten</a></li>
+            <li><a class="tb-link" href="https://www.grillfuerst.de/magazin/bbq-guides/wie-viel-gans-pro-person/" rel="noopener" target="_blank">Grillfürst: Wie viel Fleisch pro Person</a></li>
+          </ul>
+          <p class="mt-3 text-sm">
+            Für Garzeiten pro kg und Garziele gibt es keine amtlichen deutschen Tabellen; es sind gängige Küchen-Richtwerte
+            aus Handel und Fachpresse, die sich teils unterscheiden. Alle Zeiten sind
+            Schätzungen; entscheidend ist das Fleischthermometer an der dicksten Stelle. Einkaufsmengen sind
+            Faustregeln.
+          </p>
+        </section>
+
+        <RoastToolCta locale="de" />
+      </article>
+    </div>
+  </Main>
+</Layout>
+
+<style>
+  .roast-content h2 {
+    font-size: 1.5rem;
+    line-height: 1.25;
+    font-weight: 800;
+    color: var(--tb-text-strong);
+    margin-bottom: 0.75rem;
+  }
+
+  .roast-content p,
+  .roast-content li {
+    color: var(--tb-text);
+    line-height: 1.65;
+  }
+
+  .roast-content p + p {
+    margin-top: 0.75rem;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    margin: 1rem 0;
+    border: 1px solid var(--tb-border-soft);
+    border-radius: var(--tb-radius);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: 0.65rem 0.85rem;
+    border-top: 1px solid var(--tb-border-soft);
+    color: var(--tb-text);
+    vertical-align: top;
+  }
+
+  thead th {
+    border-top: 0;
+    background: var(--tb-surface-muted);
+    color: var(--tb-text-strong);
+    font-weight: 800;
+  }
+
+  tbody th {
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .faq {
+    background: var(--tb-surface-muted);
+    border: 1px solid var(--tb-border-soft);
+    border-radius: var(--tb-radius);
+    padding: 0.9rem 1.1rem;
+  }
+
+  .faq summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--tb-text-strong);
+  }
+
+  .faq p {
+    margin-top: 0.6rem;
+  }
+</style>

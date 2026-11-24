@@ -1,0 +1,25 @@
+---
+import type { FaqItem } from '../../lib/tools/kitchen-tool-seo';
+
+interface Props {
+  heading: string;
+  items: FaqItem[];
+}
+
+const { heading, items } = Astro.props;
+---
+
+<section class="mt-12" aria-labelledby="tool-faq-heading">
+  <h2 id="tool-faq-heading" class="mb-4 text-2xl font-bold text-[var(--tb-text-strong)]">{heading}</h2>
+  <div class="divide-y divide-[var(--tb-border)] rounded-[var(--tb-radius)] border border-[var(--tb-border)] bg-[var(--tb-surface)]">
+    {items.map((item) => (
+      <details class="group p-4 sm:p-5">
+        <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-semibold text-[var(--tb-text-strong)]">
+          <h3 class="text-base">{item.question}</h3>
+          <span aria-hidden="true" class="mt-0.5 shrink-0 text-[var(--tb-muted)] transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="mt-3 leading-7 text-[var(--tb-text)]">{item.answer}</p>
+      </details>
+    ))}
+  </div>
+</section>

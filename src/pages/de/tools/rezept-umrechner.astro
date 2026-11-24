@@ -1,0 +1,134 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Main from '../../../components/Main.astro';
+import RecipeScaler from '../../../components/tools/RecipeScaler.astro';
+import KitchenToolFaq from '../../../components/tools/KitchenToolFaq.astro';
+import KitchenToolCta from '../../../components/tools/KitchenToolCta.astro';
+import { KITCHEN_TOOL_PATHS, kitchenToolAlternates, kitchenToolStructuredData, type FaqItem } from '../../../lib/tools/kitchen-tool-seo';
+
+export const prerender = true;
+
+const paths = KITCHEN_TOOL_PATHS.recipeScaler;
+const title = 'Rezept umrechnen: Mengen für mehr Personen | TasteBuddy';
+const description =
+  'Rezept umrechnen für mehr oder weniger Personen: Zutatenliste einfügen, Personenzahl wählen, sofort alle Mengen erhalten. Mit EL, TL, Prise, Gramm und Eiern.';
+
+const faq: FaqItem[] = [
+  {
+    question: 'Wie rechne ich ein Rezept auf mehr Personen um?',
+    answer:
+      'Teile die gewünschte Personenzahl durch die Personenzahl im Rezept. Das Ergebnis ist der Faktor, mit dem du jede Zutat multiplizierst. Von 4 auf 6 Personen ist der Faktor 1,5: Aus 200 g Nudeln werden 300 g. Der Rezept-Umrechner oben macht das für alle Zeilen auf einmal.',
+  },
+  {
+    question: 'Wie halbiere ich ein Rezept mit 3 Eiern?',
+    answer:
+      'Die Hälfte von 3 Eiern sind 1,5 Eier. Verquirle 2 Eier, wiege sie ab und nimm drei Viertel davon, oder nimm 1 Ei plus 1 Eigelb. Ein Ei der Größe M wiegt ohne Schale etwa 50 g, 1,5 Eier also etwa 75 g.',
+  },
+  {
+    question: 'Ändert sich die Backzeit, wenn ich das Rezept verdopple?',
+    answer:
+      'Das hängt von der Form ab. Backst du die doppelte Menge in zwei Formen der Originalgröße, bleibt die Backzeit etwa gleich. In einer größeren Form entscheidet die Teighöhe. Mit dem Backform-Umrechner findest du eine Form, in der die Teighöhe gleich bleibt.',
+  },
+  {
+    question: 'Versteht der Umrechner auch Cups und amerikanische Rezepte?',
+    answer:
+      'Ja. Neben Gramm, Kilogramm, Milliliter, Liter, EL, TL, Prise, Päckchen, Becher und Stück erkennt der Rechner auch Cups, Tablespoons, Teaspoons, Ounces und Pounds. Cups und Löffel werden als Brüche ausgegeben, metrische Mengen gerundet.',
+  },
+  {
+    question: 'Muss ich Salz und Gewürze genau umrechnen?',
+    answer:
+      'Bei kleinen Änderungen ja. Bei doppelter oder dreifacher Menge erst etwa das 1,5-Fache an Salz und scharfen Gewürzen nehmen und dann abschmecken. Backpulver lässt sich bei üblichen Haushaltsmengen einfach mitrechnen: ein Päckchen reicht für etwa 500 g Mehl.',
+  },
+];
+
+const structuredData = kitchenToolStructuredData({
+  locale: 'de',
+  path: paths.de,
+  name: 'Rezept-Umrechner',
+  description,
+  faq,
+  breadcrumbHome: 'Startseite',
+});
+---
+
+<Layout lang="de" title={title} description={description} alternates={kitchenToolAlternates(paths)}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+  <Main>
+    <div class="mx-auto max-w-5xl py-10 sm:py-14">
+      <nav aria-label="Breadcrumb" class="mb-6 text-sm text-[var(--tb-muted)]">
+        <ol class="flex flex-wrap gap-2">
+          <li><a class="hover:text-[var(--tb-text)]" href="/de/">Startseite</a> ›</li>
+          <li aria-current="page" class="text-[var(--tb-text)]">Rezept-Umrechner</li>
+        </ol>
+      </nav>
+
+      <header class="mb-8 max-w-3xl">
+        <p class="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--tb-muted)]">Kostenloses Küchen-Tool</p>
+        <h1 class="mb-4 text-3xl font-bold text-[var(--tb-text-strong)] sm:text-5xl">Rezept umrechnen: Mengen für jede Personenzahl</h1>
+        <p class="text-lg leading-8 text-[var(--tb-text)]">
+          Zutatenliste einfügen, Personenzahl im Rezept und gewünschte Personenzahl eingeben: Alle Mengen werden sofort
+          umgerechnet, auch Brüche, Spannen wie 2–3 und Angaben wie 1,5 kg.
+        </p>
+      </header>
+
+      <RecipeScaler locale="de" />
+
+      <article class="tb-tool-content mt-12 max-w-3xl">
+        <h2>So funktioniert der Rezept-Umrechner</h2>
+        <ol>
+          <li>Zutatenliste aus einem Rezept kopieren und einfügen, eine Zutat pro Zeile.</li>
+          <li>Personenzahl im Rezept und gewünschte Personenzahl eingeben oder direkt einen Faktor wie 0,5 oder 2.</li>
+          <li>Rechts erscheint die umgerechnete Liste. Geänderte Zeilen sind fett, Zeilen ohne Mengenangabe bleiben gleich.</li>
+          <li>Liste kopieren und in die Küche oder auf den Einkaufszettel mitnehmen.</li>
+        </ol>
+
+        <h2>Rezept für mehr oder weniger Personen umrechnen</h2>
+        <p>
+          Beim Umrechnen wird jede Zutat mit demselben Faktor multipliziert: gewünschte Personen geteilt durch Personen
+          im Rezept. Ein Rezept für 4 Personen, das du für 6 kochst, hat den Faktor 6 ÷ 4 = 1,5. Aus 250 g Mehl werden
+          375 g, aus 1 EL Öl werden 1½ EL. Halbieren ist Faktor 0,5, verdoppeln Faktor 2.
+        </p>
+        <p>
+          Der Rechner liest die Menge am Zeilenanfang: ganze Zahlen, Kommazahlen (1,5), Brüche (1/2, ½), gemischte
+          Zahlen (1 1/2) und Spannen (2–3 Zehen). Er kennt Gramm, Kilogramm, Milliliter und Liter, EL, TL, Prise,
+          Päckchen, Becher, Stück, Dose und Bund sowie amerikanische Cups und Löffel.
+        </p>
+
+        <h2>Sinnvoll gerundet</h2>
+        <p>
+          Gramm- und Milliliter-Angaben werden auf ganze Zahlen gerundet, ab 100 auf 5er-Schritte, damit du sie
+          abwiegen kannst. EL, TL und Cups werden als Küchenbrüche (¼, ⅓, ½, ¾) ausgegeben. Päckchen, Becher und Dosen
+          werden auf Halbe und Viertel gerundet: ½ Päckchen Backpulver lässt sich noch gut abmessen.
+        </p>
+
+        <h2>Darauf solltest du beim Umrechnen achten</h2>
+        <h3>Eier</h3>
+        <p>
+          Ergibt die Umrechnung ein halbes Ei, zeigt das Tool einen Hinweis. Eier verquirlen und abwiegen: Ein Ei der
+          Größe M wiegt ohne Schale etwa 50 g.
+        </p>
+        <h3>Salz, Gewürze und Schärfe</h3>
+        <p>
+          Gewürze wirken nicht immer linear. Bei großen Mengen erst etwa das 1,5-Fache nehmen, dann abschmecken.
+        </p>
+        <h3>Backform und Garzeit</h3>
+        <p>
+          Mehr Teig braucht eine größere Form oder wird höher und braucht länger. Mit dem
+          <a href="/de/tools/backform-umrechner/">Backform-Umrechner</a> rechnest du ein Rezept auf deine Springform,
+          Kastenform oder dein Blech um. Für Eintöpfe und Soßen reicht meist ein größerer Topf und etwas mehr Zeit zum
+          Aufkochen.
+        </p>
+      </article>
+
+      <div class="max-w-3xl">
+        <KitchenToolFaq heading="Häufige Fragen zum Rezept umrechnen" items={faq} />
+        <KitchenToolCta locale="de" slug="recipe-scaler" />
+        <p class="mt-8 text-[var(--tb-text)]">
+          Andere Backform? Nutze den
+          <a class="font-semibold underline decoration-[var(--tb-accent)] underline-offset-4" href="/de/tools/backform-umrechner/">Backform-Umrechner</a>.
+        </p>
+      </div>
+    </div>
+  </Main>
+</Layout>

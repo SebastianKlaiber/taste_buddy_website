@@ -1,0 +1,181 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Main from '../../components/Main.astro';
+import YeastConverter from '../../components/tools/YeastConverter.astro';
+import YeastReferenceTables from '../../components/tools/YeastReferenceTables.astro';
+import { getGoHref, SITE_URL } from '../../lib/marketing/app-links';
+import '../../components/tools/yeast-tool-page.css';
+
+export const prerender = true;
+
+const title = 'Yeast Converter: Fresh, Active Dry & Instant | TasteBuddy';
+const description =
+  'Free yeast converter: fresh yeast to dry yeast, instant to active dry, packets, tsp and grams. Plus sourdough starter swaps and baking powder vs. baking soda.';
+const url = `${SITE_URL}/tools/yeast-converter/`;
+const alternates = {
+  en: url,
+  de: `${SITE_URL}/de/tools/hefe-umrechner/`,
+  'x-default': url,
+};
+
+const faq = [
+  {
+    question: 'How do I convert fresh yeast to dry yeast?',
+    answer:
+      'Divide the fresh yeast weight by 3 to get instant yeast, or by about 2.4 to get active dry yeast. One 42 g cube of fresh yeast equals roughly 14 g instant yeast (2 packets) or 17.5 g active dry yeast. These are common baking ratios, not exact constants.',
+  },
+  {
+    question: 'Can I use instant yeast instead of active dry yeast?',
+    answer:
+      'Yes. Use about 20% less instant yeast than active dry (multiply by 0.8) and mix it straight into the flour instead of proofing it in water first. Going the other way, use about 25% more active dry yeast. Many home recipes simply swap one packet for one packet, which also works with a slightly slower or faster rise.',
+  },
+  {
+    question: 'How much yeast is in one packet?',
+    answer:
+      'A standard US packet of dry yeast holds ¼ oz, which is 7 g or 2¼ teaspoons. A German packet of Trockenhefe is also 7 g. One packet of instant yeast replaces about 21 g of fresh yeast, or half a European cube.',
+  },
+  {
+    question: 'How much yeast do I need for 500 g of flour?',
+    answer:
+      'For a standard yeast dough that rises 1–2 hours, the usual package dosage is 7 g instant yeast, about 9 g active dry yeast or 21 g fresh yeast per 500 g flour. Enriched sweet doughs may need a little more; slow or overnight doughs need much less.',
+  },
+  {
+    question: 'How do I replace yeast with sourdough starter?',
+    answer:
+      'As a rule of thumb, use active starter worth about 20% of the flour weight (100 g starter for 500 g flour), remove the flour and water it contains from the recipe, and leave out the yeast. Expect the rise to take several hours longer. Treat this as a starting point and adjust for your starter.',
+  },
+  {
+    question: 'Can I use baking soda instead of baking powder?',
+    answer:
+      'Only together with an acid. Baking soda is roughly 3–4 times stronger, so 1 tsp baking powder can be replaced by about ¼ tsp baking soda plus ½ tsp cream of tartar, or ¼ tsp baking soda with an acidic liquid such as buttermilk or yogurt.',
+  },
+];
+
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+
+const appStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Yeast Converter',
+  url,
+  description,
+  inLanguage: 'en',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  browserRequirements: 'Requires JavaScript',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  publisher: { '@type': 'Organization', name: 'TasteBuddy', url: SITE_URL },
+};
+---
+
+<Layout title={title} description={description} lang="en" alternates={alternates}>
+  <script type="application/ld+json" set:html={JSON.stringify(appStructuredData)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
+  <Main>
+    <div class="ytool mx-auto max-w-4xl py-10 sm:py-14">
+      <header class="mb-8">
+        <p class="ytool-eyebrow"><a href="/tools/">Free kitchen tools</a></p>
+        <h1 class="ytool-h1">Yeast converter: fresh, active dry and instant yeast</h1>
+        <p class="ytool-lead">
+          Convert fresh yeast to dry yeast, instant yeast to active dry, and packets, teaspoons, ounces or cubes to
+          grams. Work out how much yeast your flour needs, swap yeast for sourdough starter, and check baking powder
+          versus baking soda.
+        </p>
+      </header>
+
+      <YeastConverter lang="en" />
+
+      <div class="mt-12">
+        <YeastReferenceTables lang="en" />
+      </div>
+
+      <article class="ytool-prose mt-12">
+        <h2>How the yeast conversion works</h2>
+        <p>
+          All three common types of baker's yeast are the same organism, <em>Saccharomyces cerevisiae</em>. They
+          differ in how much water they contain. Fresh yeast (also called cake or compressed yeast) is about 70% water,
+          so you need the most of it. Active dry and instant yeast are dried, so a smaller weight does the same work.
+        </p>
+        <p>
+          This converter uses the ratios most bakers and yeast makers work with: <strong>fresh yeast ≈ 3 × instant
+          yeast</strong> and <strong>active dry ≈ 1.25 × instant yeast</strong> by weight. That puts fresh yeast at about
+          2.4 × active dry. These are rules of thumb. Yeast strength varies by brand and age, and dough temperature has
+          a bigger effect on rise time than a gram here or there.
+        </p>
+
+        <h2>Packets, teaspoons and cubes</h2>
+        <p>
+          One US packet of dry yeast is ¼ oz, which is 7 g or 2¼ teaspoons, so a teaspoon of dry yeast weighs about
+          3.1 g. European fresh yeast comes in 42 g cubes; in the US, fresh yeast is sold in 0.6 oz (17 g) cakes, which
+          replace about one packet of active dry yeast. Teaspoon measurements are only offered for dry yeast because
+          fresh yeast is crumbly and does not measure reliably by volume.
+        </p>
+
+        <h2>Using the yeast after converting</h2>
+        <ul>
+          <li><strong>Instant yeast</strong> can go straight into the flour.</li>
+          <li><strong>Active dry yeast</strong> is traditionally dissolved in warm water (about 40 °C / 105 °F) for 5–10 minutes first.</li>
+          <li><strong>Fresh yeast</strong> is crumbled into lukewarm liquid or rubbed into the flour. Keep it in the fridge and use it within about two weeks.</li>
+        </ul>
+        <p>
+          Too hot liquid kills yeast: stay below about 45 °C (113 °F) for proofing. If you lower the yeast for a long,
+          cold overnight rise, the converter's ratios still hold; just scale the result down.
+        </p>
+
+        <h2>Sourdough and chemical leaveners</h2>
+        <p>
+          Sourdough starter is not a direct swap: wild yeast is slower and the starter adds flour and water. The
+          20% rule above is a common starting point, and the first bake will tell you whether your starter needs more
+          time or a larger share. Baking powder and baking soda are chemical leaveners and cannot replace yeast in
+          bread. Baking soda only works with an acid in the batter, and too much leaves a soapy taste, so the helper
+          above gives ranges rather than exact conversions.
+        </p>
+      </article>
+
+      <section class="ytool-faq mt-12" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Yeast conversion FAQ</h2>
+        {faq.map((item) => (
+          <details>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </section>
+
+      <section class="ytool-cta mt-12" aria-labelledby="cta-heading">
+        <h2 id="cta-heading">Keep your baking recipes in one place</h2>
+        <p>
+          TasteBuddy saves recipes from websites, social posts, screenshots and handwritten cards, lets you plan what to
+          bake and cook, and builds one shopping list from your plan.
+        </p>
+        <div class="mt-5 flex flex-wrap gap-3">
+          <a
+            class="btn-primary"
+            href={getGoHref('yeast-converter')}
+            data-track-event="marketing_cta_clicked"
+            data-track-payload={JSON.stringify({ cta_slug: 'yeast-converter', cta_label: 'Get TasteBuddy', cta_variant: 'primary', destination: 'go_redirect' })}
+          >
+            Get TasteBuddy
+          </a>
+          <a
+            class="btn-secondary"
+            href="/features/recipe-organizer/"
+            data-track-event="marketing_cta_clicked"
+            data-track-payload={JSON.stringify({ cta_slug: 'yeast-converter', cta_label: 'How the recipe organizer works', cta_variant: 'secondary', destination: 'recipe_organizer_feature' })}
+          >
+            How the recipe organizer works
+          </a>
+        </div>
+      </section>
+    </div>
+  </Main>
+</Layout>

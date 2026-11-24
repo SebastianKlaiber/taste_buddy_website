@@ -1,0 +1,186 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Main from '../Main.astro';
+
+interface Tool {
+  href: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  locale: 'en' | 'de';
+}
+
+const { locale } = Astro.props;
+const isDe = locale === 'de';
+const baseUrl = 'https://taste-buddy.app';
+
+const kitchenTools: Tool[] = isDe
+  ? [
+      {
+        href: '/de/tools/kuechen-umrechner/',
+        title: 'Küchen-Umrechner',
+        description: 'Cups in Gramm, Unzen, Esslöffel und Backofentemperaturen (Umluft, Ober-/Unterhitze) umrechnen.',
+      },
+      {
+        href: '/de/tools/rezept-umrechner/',
+        title: 'Rezept-Umrechner',
+        description: 'Zutatenliste einfügen, Personenzahl ändern und alle Mengen sofort umgerechnet bekommen.',
+      },
+      {
+        href: '/de/tools/backform-umrechner/',
+        title: 'Backform-Umrechner',
+        description: 'Rezept von 26 cm Springform auf andere Formen, Kastenform oder Blech umrechnen.',
+      },
+      {
+        href: '/de/tools/hefe-umrechner/',
+        title: 'Hefe-Umrechner',
+        description: 'Frischhefe, Trockenhefe und Sauerteig umrechnen, plus Backpulver und Natron.',
+      },
+      {
+        href: '/de/tools/braten-garzeit-rechner/',
+        title: 'Braten-Garzeit-Rechner',
+        description: 'Garzeit, Kerntemperatur und Zeitplan für Gans, Ente, Pute und Braten berechnen.',
+      },
+      {
+        href: '/de/tools/portionsrechner/',
+        title: 'Portionsrechner',
+        description: 'Wie viel Nudeln, Reis, Fleisch und Getränke pro Person? Mengen für Feiern und Buffets.',
+      },
+    ]
+  : [
+      {
+        href: '/tools/cooking-unit-converter/',
+        title: 'Cooking Unit Converter',
+        description: 'Convert cups to grams, ounces, spoons and oven temperatures between metric and US units.',
+      },
+      {
+        href: '/tools/recipe-scaler/',
+        title: 'Recipe Scaler',
+        description: 'Paste an ingredient list, change the servings and get every amount scaled instantly.',
+      },
+      {
+        href: '/tools/baking-pan-size-converter/',
+        title: 'Baking Pan Size Converter',
+        description: 'Scale a recipe to a different cake, loaf or sheet pan and see how the baking time changes.',
+      },
+      {
+        href: '/tools/yeast-converter/',
+        title: 'Yeast Converter',
+        description: 'Convert fresh, active dry and instant yeast, swap in sourdough starter and check leavening.',
+      },
+      {
+        href: '/tools/turkey-cooking-time-calculator/',
+        title: 'Turkey & Roast Calculator',
+        description: 'Thawing time, cooking time, safe internal temperature and a timeline back from serving time.',
+      },
+      {
+        href: '/tools/party-food-calculator/',
+        title: 'Party Food Calculator',
+        description: 'How much pasta, rice, meat, sides and drinks per person for dinners, buffets and parties.',
+      },
+    ];
+
+const importTools: Tool[] = isDe
+  ? []
+  : [
+      {
+        href: '/tools/rss-feed-detector/',
+        title: 'RSS Feed Detector',
+        description: 'Check whether a recipe website exposes RSS or Atom feeds you can follow in TasteBuddy.',
+      },
+      {
+        href: '/tools/import-checker/',
+        title: 'Import Checker',
+        description: 'See whether a TikTok, Pinterest, YouTube or website URL is a good fit for TasteBuddy import.',
+      },
+      {
+        href: '/tools/link-in-bio-resolver/',
+        title: 'Link-in-Bio Resolver',
+        description: 'Tell whether a URL is a link-in-bio hub that needs one more click before import.',
+      },
+    ];
+
+const title = isDe ? 'Kostenlose Küchen-Tools & Rechner | TasteBuddy' : 'Free Kitchen Tools & Cooking Calculators | TasteBuddy';
+const description = isDe
+  ? 'Kostenlose Küchenrechner: Cups in Gramm, Rezepte umrechnen, Backformen, Hefe, Garzeiten für Braten und Mengen pro Person. Ohne Anmeldung, direkt im Browser.'
+  : 'Free cooking calculators: cups to grams, recipe scaler, pan size converter, yeast converter, turkey cooking times and party food amounts. No sign-up needed.';
+const pagePath = isDe ? '/de/tools/' : '/tools/';
+const alternates = {
+  en: `${baseUrl}/tools/`,
+  de: `${baseUrl}/de/tools/`,
+  'x-default': `${baseUrl}/tools/`,
+};
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: title,
+  description,
+  url: `${baseUrl}${pagePath}`,
+  inLanguage: locale,
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: [...kitchenTools, ...importTools].map((tool, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: tool.title,
+      url: `${baseUrl}${tool.href}`,
+    })),
+  },
+};
+---
+
+<Layout lang={locale} title={title} description={description} alternates={alternates}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <Main>
+    <section class="mx-auto max-w-5xl py-10 sm:py-14">
+      <header class="mb-10 max-w-3xl">
+        <p class="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--tb-muted)]">
+          {isDe ? 'Kostenlos, ohne Anmeldung' : 'Free, no sign-up'}
+        </p>
+        <h1 class="mb-4 text-3xl font-bold text-[var(--tb-text-strong)] sm:text-5xl">
+          {isDe ? 'Kostenlose Küchen-Tools' : 'Free Kitchen Tools'}
+        </h1>
+        <p class="text-lg leading-8 text-[var(--tb-text)]">
+          {isDe
+            ? 'Rechner für den Küchenalltag: Mengen umrechnen, Rezepte anpassen, Garzeiten planen. Alles läuft direkt im Browser.'
+            : 'Calculators for everyday cooking: convert units, resize recipes and plan cooking times. Everything runs right in your browser.'}
+        </p>
+      </header>
+
+      <h2 class="mb-5 text-2xl font-semibold text-[var(--tb-text-strong)]">
+        {isDe ? 'Küchenrechner' : 'Cooking calculators'}
+      </h2>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {kitchenTools.map((tool) => (
+          <a
+            href={tool.href}
+            class="block rounded-2xl border border-[var(--tb-border)] bg-[var(--tb-surface)] p-6 transition hover:border-[var(--tb-accent)]"
+          >
+            <h3 class="mb-2 text-xl font-semibold text-[var(--tb-text-strong)]">{tool.title}</h3>
+            <p class="text-[var(--tb-muted)]">{tool.description}</p>
+          </a>
+        ))}
+      </div>
+
+      {importTools.length > 0 && (
+        <>
+          <h2 class="mb-5 mt-12 text-2xl font-semibold text-[var(--tb-text-strong)]">Recipe import tools</h2>
+          <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {importTools.map((tool) => (
+              <a
+                href={tool.href}
+                class="block rounded-2xl border border-[var(--tb-border)] bg-[var(--tb-surface)] p-6 transition hover:border-[var(--tb-accent)]"
+              >
+                <h3 class="mb-2 text-xl font-semibold text-[var(--tb-text-strong)]">{tool.title}</h3>
+                <p class="text-[var(--tb-muted)]">{tool.description}</p>
+              </a>
+            ))}
+          </div>
+        </>
+      )}
+    </section>
+  </Main>
+</Layout>

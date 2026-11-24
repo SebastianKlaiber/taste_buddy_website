@@ -1,0 +1,258 @@
+---
+/**
+ * Page body for the cooking unit converter (en + de): hero, tool, explanatory
+ * content, FAQ (+ FAQPage JSON-LD), WebApplication JSON-LD and app CTA.
+ * Copy is passed in by the locale pages.
+ */
+import Main from '../Main.astro';
+import CookingUnitConverter from './CookingUnitConverter.astro';
+import { getGoHref } from '../../lib/marketing/app-links';
+import type { ConverterLocale } from '../../lib/tools/cooking-unit-converter';
+
+const COOKING_CONVERTER_GO_SLUG = 'cooking-unit-converter';
+
+interface ContentSection {
+  heading: string;
+  paragraphs?: string[];
+  list?: string[];
+}
+
+interface Props {
+  locale: ConverterLocale;
+  url: string;
+  name: string;
+  description: string;
+  eyebrow: string;
+  h1: string;
+  intro: string;
+  sections: ContentSection[];
+  faqTitle: string;
+  faq: Array<{ question: string; answer: string }>;
+  cta: {
+    heading: string;
+    body: string;
+    primaryLabel: string;
+    secondaryLabel: string;
+    secondaryHref: string;
+  };
+}
+
+const { locale, url, name, description, eyebrow, h1, intro, sections, faqTitle, faq, cta } = Astro.props;
+
+const webApplicationStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name,
+  url,
+  description,
+  inLanguage: locale,
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  browserRequirements: 'Requires JavaScript for live results',
+  isAccessibleForFree: true,
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: locale === 'de' ? 'EUR' : 'USD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'TasteBuddy',
+    url: 'https://taste-buddy.app',
+  },
+};
+
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+
+const goHref = getGoHref(COOKING_CONVERTER_GO_SLUG);
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(webApplicationStructuredData)} />
+<script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
+
+<Main>
+  <article class="cucp">
+    <header class="cucp-hero">
+      <p class="cucp-eyebrow">{eyebrow}</p>
+      <h1>{h1}</h1>
+      <p class="cucp-lead">{intro}</p>
+    </header>
+
+    <CookingUnitConverter locale={locale} />
+
+    <div class="cucp-content">
+      {sections.map((section) => (
+        <section>
+          <h2>{section.heading}</h2>
+          {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+          {section.list && (
+            <ul>
+              {section.list.map((item) => <li>{item}</li>)}
+            </ul>
+          )}
+        </section>
+      ))}
+    </div>
+
+    <section class="cucp-faq" aria-labelledby="cucp-faq-title">
+      <h2 id="cucp-faq-title">{faqTitle}</h2>
+      {faq.map((item) => (
+        <details>
+          <summary>{item.question}</summary>
+          <p>{item.answer}</p>
+        </details>
+      ))}
+    </section>
+
+    <section class="cucp-cta" aria-labelledby="cucp-cta-title">
+      <h2 id="cucp-cta-title">{cta.heading}</h2>
+      <p>{cta.body}</p>
+      <div class="cucp-cta-actions">
+        <a
+          class="btn-primary"
+          href={goHref}
+          data-track-event="marketing_cta_clicked"
+          data-track-payload={JSON.stringify({ cta_slug: COOKING_CONVERTER_GO_SLUG, cta_label: cta.primaryLabel, cta_variant: 'primary', destination: 'go_redirect' })}
+        >
+          {cta.primaryLabel}
+        </a>
+        <a
+          class="btn-secondary"
+          href={cta.secondaryHref}
+          data-track-event="marketing_cta_clicked"
+          data-track-payload={JSON.stringify({ cta_slug: COOKING_CONVERTER_GO_SLUG, cta_label: cta.secondaryLabel, cta_variant: 'secondary', destination: 'how_it_works' })}
+        >
+          {cta.secondaryLabel}
+        </a>
+      </div>
+    </section>
+  </article>
+</Main>
+
+<style>
+  .cucp {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 2.5rem 0 4rem;
+    color: var(--tb-text);
+  }
+
+  .cucp-hero {
+    max-width: 46rem;
+    margin-bottom: 2rem;
+  }
+
+  .cucp-eyebrow {
+    color: var(--tb-accent-text);
+    font-size: 0.8rem;
+    font-weight: 750;
+    letter-spacing: 0.16em;
+    margin: 0 0 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .cucp h1 {
+    color: var(--tb-text-strong);
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 1rem;
+  }
+
+  .cucp-lead {
+    color: var(--tb-muted);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .cucp-content,
+  .cucp-faq {
+    max-width: 46rem;
+    margin-top: 3.5rem;
+  }
+
+  .cucp-content section + section {
+    margin-top: 2rem;
+  }
+
+  .cucp-content h2,
+  .cucp-faq h2,
+  .cucp-cta h2 {
+    color: var(--tb-text-strong);
+    font-size: 1.5rem;
+    font-weight: 780;
+    line-height: 1.25;
+    margin: 0 0 0.75rem;
+  }
+
+  .cucp-content p,
+  .cucp-content li,
+  .cucp-faq p,
+  .cucp-cta p {
+    color: var(--tb-text);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .cucp-content p + p {
+    margin-top: 0.75rem;
+  }
+
+  .cucp-content ul {
+    display: grid;
+    gap: 0.4rem;
+    list-style: disc;
+    margin: 0.5rem 0 0;
+    padding-left: 1.25rem;
+  }
+
+  .cucp-faq details {
+    border-bottom: 1px solid var(--tb-border);
+    padding: 0.9rem 0;
+  }
+
+  .cucp-faq summary {
+    color: var(--tb-text-strong);
+    cursor: pointer;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .cucp-faq details p {
+    margin: 0.6rem 0 0;
+  }
+
+  .cucp-cta {
+    margin-top: 3.5rem;
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius);
+    background: var(--tb-surface-muted);
+    padding: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .cucp-cta {
+      padding: 2rem;
+    }
+  }
+
+  .cucp-cta p {
+    max-width: 40rem;
+    margin: 0 0 1.25rem;
+  }
+
+  .cucp-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+</style>

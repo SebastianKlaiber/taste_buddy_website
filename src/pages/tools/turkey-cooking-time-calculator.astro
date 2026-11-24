@@ -1,0 +1,323 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Main from '../../components/Main.astro';
+import RoastCalculator from '../../components/tools/RoastCalculator.astro';
+import RoastToolCta from '../../components/tools/RoastToolCta.astro';
+import { SITE_URL } from '../../lib/marketing/app-links';
+
+export const prerender = true;
+import {
+  USDA_TURKEY_ROWS,
+  getProfiles,
+  formatDurationRange,
+  USDA_THAW_ROWS,
+} from '../../lib/tools/roast-calculator';
+
+const path = '/tools/turkey-cooking-time-calculator/';
+const dePath = '/de/tools/braten-garzeit-rechner/';
+const alternates = {
+  en: `${SITE_URL}${path}`,
+  de: `${SITE_URL}${dePath}`,
+  'x-default': `${SITE_URL}${path}`,
+};
+
+const title = 'Turkey Cooking Time Calculator: Roast, Thaw & Rest';
+const description =
+  'Free turkey and holiday roast calculator: how long to thaw and cook turkey, goose, duck, ham or beef, the safe temperature and a timeline back from dinner.';
+
+const profiles = getProfiles('en');
+const otherMeats = (['chicken', 'duck', 'goose', 'beef', 'pork', 'ham'] as const).map((id) => profiles[id]);
+const meatNames: Record<string, string> = {
+  chicken: 'Whole chicken',
+  duck: 'Whole duck',
+  goose: 'Whole goose',
+  beef: 'Beef rib roast, bone-in',
+  pork: 'Pork loin roast, bone-in',
+  ham: 'Ham, fully cooked, bone-in (reheat)',
+};
+const otherTiming: Record<string, string> = {
+  chicken: '3–4 lb: 1¼–1½ h · 5–7 lb: 2–2¼ h',
+  duck: '4–6 lb: 30–35 min per lb (do not stuff)',
+  goose: '8–12 lb: 2½–3 h (+15–30 min stuffed)',
+  beef: '4–8 lb: 23–30 min per lb',
+  pork: '3–5 lb: 20–25 min per lb',
+  ham: 'half (7–8 lb): 18–25 min per lb · whole (14–16 lb): 15–18 min per lb',
+};
+
+const thawRows = USDA_THAW_ROWS.map((row) => ({
+  label: `${row.from}–${row.to} lb`,
+  fridge: `${row.fridgeDays[0]}–${row.fridgeDays[1]} days`,
+  water: `${row.waterHours[0]}–${row.waterHours[1]} hours`,
+}));
+
+const faqs = [
+  {
+    q: 'How long does it take to cook a turkey?',
+    a: 'At 325 °F, USDA estimates 3 to 3¾ hours for an unstuffed 12–14 lb turkey and 3¾ to 4¼ hours for 14–18 lb. A stuffed bird takes about 15–30 minutes longer. The turkey is done when a thermometer in the thickest part of the thigh, wing and breast reads 165 °F.',
+  },
+  {
+    q: 'How long does it take to thaw a turkey?',
+    a: 'In the refrigerator, allow about 24 hours for every 4 to 5 pounds, so a 16 lb turkey needs 3–4 days. In cold water it is about 30 minutes per pound, changing the water every 30 minutes, and the turkey must be cooked right after thawing.',
+  },
+  {
+    q: 'What temperature should turkey be when done?',
+    a: 'USDA says all poultry is safe at an internal temperature of 165 °F (74 °C). Check the innermost part of the thigh and wing and the thickest part of the breast. If the bird is stuffed, the center of the stuffing must also reach 165 °F.',
+  },
+  {
+    q: 'How long should a turkey rest before carving?',
+    a: 'Let the turkey stand about 20 minutes after it comes out of the oven (USDA). This is also the time to remove the stuffing and make gravy. Larger birds can rest up to 30 minutes, loosely covered with foil.',
+  },
+  {
+    q: 'How much turkey do I need per person?',
+    a: 'USDA says to allow 1 pound of turkey per person (1¼ pounds for a frozen pre-stuffed turkey). For duck and goose, USDA suggests about 1 to 1½ pounds of raw weight per person, because more of the weight is bone and fat.',
+  },
+  {
+    q: 'Do I need to change the time for a fan or convection oven?',
+    a: 'USDA publishes its timetables for conventional ovens and advises not to set the oven below 325 °F for turkey. Convection usually roasts faster, so follow your oven manual and start checking the temperature earlier. The calculator schedules the first check earlier when you pick a fan oven.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const appJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Turkey & Holiday Roast Cooking Time Calculator',
+  url: alternates.en,
+  description,
+  applicationCategory: 'LifestyleApplication',
+  operatingSystem: 'Any',
+  inLanguage: 'en',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  publisher: { '@type': 'Organization', name: 'TasteBuddy', url: SITE_URL },
+};
+---
+
+<Layout title={title} description={description} lang="en" alternates={alternates}>
+  <script type="application/ld+json" set:html={JSON.stringify(appJsonLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+  <Main>
+    <div class="mx-auto max-w-4xl py-10 sm:py-14">
+      <header class="mb-8">
+        <p class="mb-3 text-sm font-bold uppercase tracking-[0.18em] tb-accent">Free holiday tool</p>
+        <h1 class="mb-4 text-3xl font-bold leading-tight tb-text-strong sm:text-5xl">
+          Turkey cooking time calculator
+        </h1>
+        <p class="text-lg tb-text-muted">
+          How long to thaw it, how long to roast it, when it goes into the oven and when it is safe to eat. Works for
+          turkey, goose, duck, chicken, beef, pork and ham, based on USDA roasting tables.
+        </p>
+      </header>
+
+      <RoastCalculator locale="en" />
+
+      <article class="roast-content mt-12 space-y-10">
+        <section>
+          <h2>Turkey roasting times at 325 °F (USDA)</h2>
+          <p>
+            These are the times USDA publishes for a fresh or fully thawed turkey in a conventional oven set to 325 °F.
+            They are a guide to plan your day, not a promise: oven accuracy, the shape of the bird and how cold it is when
+            it goes in all change the real time.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <caption class="sr-only">USDA turkey roasting timetable at 325 °F</caption>
+              <thead>
+                <tr><th scope="col">Weight</th><th scope="col">Unstuffed</th><th scope="col">Stuffed</th></tr>
+              </thead>
+              <tbody>
+                {USDA_TURKEY_ROWS.map((row) => (
+                  <tr>
+                    <th scope="row">{row.from}–{row.to} lb</th>
+                    <td>{formatDurationRange(row.unstuffed, 'en')}</td>
+                    <td>{row.stuffed ? formatDurationRange(row.stuffed, 'en') : '—'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h2>How long to thaw a turkey</h2>
+          <p>
+            Never thaw a turkey on the counter. USDA recommends the refrigerator (about 24 hours per 4–5 lb) or cold
+            water (about 30 minutes per lb, changing the water every 30 minutes and cooking immediately afterwards).
+          </p>
+          <div class="table-wrap">
+            <table>
+              <caption class="sr-only">Turkey thawing times</caption>
+              <thead>
+                <tr><th scope="col">Weight</th><th scope="col">In the refrigerator</th><th scope="col">In cold water</th></tr>
+              </thead>
+              <tbody>
+                {thawRows.map((row) => (
+                  <tr><th scope="row">{row.label}</th><td>{row.fridge}</td><td>{row.water}</td></tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h2>Roasting times for goose, duck, chicken, beef, pork and ham</h2>
+          <p>
+            Approximate times from USDA FSIS charts. Where USDA publishes two different charts, the calculator uses the
+            FSIS holiday-meats chart. Always confirm with a food thermometer.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <caption class="sr-only">Roasting times and safe temperatures for other holiday roasts</caption>
+              <thead>
+                <tr><th scope="col">Roast</th><th scope="col">Oven</th><th scope="col">Approx. time</th><th scope="col">Safe minimum</th></tr>
+              </thead>
+              <tbody>
+                {otherMeats.map((p) => (
+                  <tr>
+                    <th scope="row">{meatNames[p.id]}</th>
+                    <td>{p.ovenTemp} °F</td>
+                    <td>{otherTiming[p.id]}</td>
+                    <td>{p.safeCore} °F{p.safeHoldMinutes ? ` + ${p.safeHoldMinutes} min rest` : ''}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="text-sm">
+            Fully cooked ham: reheat to 140 °F if it was packaged in a USDA-inspected plant, otherwise to 165 °F. Beef and
+            pork at 145 °F are safe; many cooks take beef out lower for rare, which is a choice, not a safety value.
+          </p>
+        </section>
+
+        <section>
+          <h2>How to plan the roast backwards from dinner</h2>
+          <p>
+            The calculator starts at the time you want to eat and counts back: carving, resting, the upper end of the
+            roasting time, preheating and taking the meat out of the fridge. The first thermometer check is scheduled
+            before the lower end of the estimate, so an early finish doesn't surprise you. If the roast is done early,
+            keep it loosely covered: a large bird stays warm for a while, and the resting time gives you a buffer.
+          </p>
+          <p>
+            For the rest of the menu, the
+            <a class="tb-link" href="/en/blog/articles/holiday-dinner-planning-checklist/">holiday dinner planning checklist</a>
+            walks through quantities, a two-week countdown and an oven schedule for the sides. After the holidays,
+            <a class="tb-link" href="/en/blog/articles/how-to-use-up-leftovers/">here's how to use up the leftovers</a>.
+            Refrigerate leftovers within 2 hours.
+          </p>
+        </section>
+
+        <section>
+          <h2>Turkey and roast FAQ</h2>
+          <div class="space-y-3">
+            {faqs.map((item) => (
+              <details class="faq">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h2>Sources</h2>
+          <ul class="list-disc space-y-1 pl-5 text-sm">
+            <li><a class="tb-link" href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/poultry/lets-talk-turkey-roasting" rel="noopener" target="_blank">USDA FSIS: Let's Talk Turkey – Roasting (timetable at 325 °F, thawing, 1 lb per person)</a></li>
+            <li><a class="tb-link" href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/poultry/chicken-farm-table" rel="noopener" target="_blank">USDA FSIS: Chicken from Farm to Table (roasting times at 350 °F)</a></li>
+            <li><a class="tb-link" href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart" rel="noopener" target="_blank">USDA FSIS: Safe Minimum Internal Temperature Chart</a></li>
+            <li><a class="tb-link" href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/meat-catfish/roasting-those-other-holiday-meats" rel="noopener" target="_blank">USDA FSIS: Roasting Those "Other" Holiday Meats (beef, pork, ham)</a></li>
+            <li><a class="tb-link" href="https://www.foodsafety.gov/food-safety-charts/meat-poultry-charts" rel="noopener" target="_blank">FoodSafety.gov: Meat and Poultry Roasting Charts</a></li>
+            <li><a class="tb-link" href="https://www.grillfuerst.de/magazin/bbq-guides/wie-viel-gans-pro-person/" rel="noopener" target="_blank">Grillfürst: portion planner (raw weight per person, German)</a></li>
+            <li><a class="tb-link" href="https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/poultry/duck-and-goose-farm-table" rel="noopener" target="_blank">USDA FSIS: Duck and Goose from Farm to Table</a></li>
+          </ul>
+          <p class="mt-3 text-sm">
+            Times are estimates for planning. Use a food thermometer; the reading decides when the meat is done, not the
+            clock. Purchase amounts for turkey, duck and goose follow USDA; for beef, pork and ham they are butcher
+            rules of thumb (Grillfürst portion planner), not official values.
+          </p>
+        </section>
+
+        <RoastToolCta locale="en" />
+      </article>
+    </div>
+  </Main>
+</Layout>
+
+<style>
+  .roast-content h2 {
+    font-size: 1.5rem;
+    line-height: 1.25;
+    font-weight: 800;
+    color: var(--tb-text-strong);
+    margin-bottom: 0.75rem;
+  }
+
+  .roast-content p,
+  .roast-content li {
+    color: var(--tb-text);
+    line-height: 1.65;
+  }
+
+  .roast-content p + p {
+    margin-top: 0.75rem;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    margin: 1rem 0;
+    border: 1px solid var(--tb-border-soft);
+    border-radius: var(--tb-radius);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: 0.65rem 0.85rem;
+    border-top: 1px solid var(--tb-border-soft);
+    color: var(--tb-text);
+    vertical-align: top;
+  }
+
+  thead th {
+    border-top: 0;
+    background: var(--tb-surface-muted);
+    color: var(--tb-text-strong);
+    font-weight: 800;
+  }
+
+  tbody th {
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .faq {
+    background: var(--tb-surface-muted);
+    border: 1px solid var(--tb-border-soft);
+    border-radius: var(--tb-radius);
+    padding: 0.9rem 1.1rem;
+  }
+
+  .faq summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--tb-text-strong);
+  }
+
+  .faq p {
+    margin-top: 0.6rem;
+  }
+</style>

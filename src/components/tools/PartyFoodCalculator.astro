@@ -1,0 +1,623 @@
+---
+import {
+  APPETITES,
+  APPETITE_LABELS,
+  EVENT_LABELS,
+  EVENT_TYPES,
+  GROUP_LABELS,
+  ITEMS,
+  ITEM_LABELS,
+  buildShoppingList,
+  buyingHint,
+  calculateParty,
+  defaultItemsFor,
+  formatAmount,
+  formatPerPerson,
+  type Locale,
+} from '../../lib/tools/party-food-calculator';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const copy = {
+  en: {
+    formTitle: 'Your party',
+    adults: 'Adults',
+    kids: 'Kids (3–12 years)',
+    appetite: 'Appetite',
+    event: 'Event type',
+    items: 'What are you serving?',
+    itemsHint: 'Changing the event type pre-selects typical items. Adjust as you like.',
+    resultsTitle: 'How much to buy',
+    perAdult: 'per adult',
+    totalFood: 'Food total',
+    totalDrinks: 'Drinks total',
+    empty: 'Add at least one guest and one item to see quantities.',
+    listTitle: 'Shopping list',
+    listLabel: 'Shopping list text, ready to copy',
+    copyButton: 'Copy shopping list',
+    copied: 'Copied!',
+    copyFailed: 'Select the text and copy it manually.',
+    disclaimer:
+      'Estimates based on common rules of thumb. Raw weights for meat, potatoes and vegetables; dry weights for pasta and rice. Round up for big eaters or if you want leftovers.',
+  },
+  de: {
+    formTitle: 'Deine Feier',
+    adults: 'Erwachsene',
+    kids: 'Kinder (3–12 Jahre)',
+    appetite: 'Hunger',
+    event: 'Anlass',
+    items: 'Was gibt es?',
+    itemsHint: 'Beim Wechsel des Anlasses werden typische Speisen vorausgewählt. Passe sie frei an.',
+    resultsTitle: 'So viel brauchst du',
+    perAdult: 'pro Erwachsenem',
+    totalFood: 'Essen gesamt',
+    totalDrinks: 'Getränke gesamt',
+    empty: 'Mindestens einen Gast und eine Speise auswählen, um Mengen zu sehen.',
+    listTitle: 'Einkaufsliste',
+    listLabel: 'Einkaufsliste als Text zum Kopieren',
+    copyButton: 'Einkaufsliste kopieren',
+    copied: 'Kopiert!',
+    copyFailed: 'Text markieren und manuell kopieren.',
+    disclaimer:
+      'Schätzwerte nach gängigen Faustregeln. Fleisch, Kartoffeln und Gemüse als Rohgewicht, Nudeln und Reis als Trockengewicht. Bei großem Hunger oder gewünschten Resten großzügig aufrunden.',
+  },
+}[locale];
+
+const initial = { adults: 8, kids: 2, appetite: 'normal' as const, eventType: 'dinner' as const };
+const initialItems = defaultItemsFor(initial.eventType);
+const initialResult = calculateParty({ ...initial, items: initialItems });
+const foodItems = ITEMS.filter((item) => !item.isDrink);
+const drinkItems = ITEMS.filter((item) => item.isDrink);
+const isDrink = (id: string) => drinkItems.some((item) => item.id === id);
+const formatTotal = (value: number, unit: 'g' | 'ml') => `≈ ${formatAmount(value, unit, locale)}`;
+
+const scriptStrings = {
+  perAdult: copy.perAdult,
+  empty: copy.empty,
+  copied: copy.copied,
+  copyFailed: copy.copyFailed,
+  copyButton: copy.copyButton,
+  food: GROUP_LABELS[locale].food,
+  drinks: GROUP_LABELS[locale].drinks,
+};
+---
+
+<div class="pfc" data-party-calculator data-locale={locale} data-strings={JSON.stringify(scriptStrings)}>
+  <form
+    class="pfc-card pfc-form"
+    data-track-event="marketing_tool_submitted"
+    data-track-payload={JSON.stringify({ tool_name: 'party_food_calculator', locale })}
+    aria-labelledby="pfc-form-title"
+  >
+    <h2 id="pfc-form-title" class="pfc-card-title">{copy.formTitle}</h2>
+
+    <div class="pfc-grid">
+      <div class="pfc-field">
+        <label for="pfc-adults">{copy.adults}</label>
+        <input id="pfc-adults" name="adults" type="number" inputmode="numeric" min="0" max="500" step="1" value={initial.adults} />
+      </div>
+      <div class="pfc-field">
+        <label for="pfc-kids">{copy.kids}</label>
+        <input id="pfc-kids" name="kids" type="number" inputmode="numeric" min="0" max="500" step="1" value={initial.kids} />
+      </div>
+      <div class="pfc-field pfc-wide">
+        <label for="pfc-event">{copy.event}</label>
+        <select id="pfc-event" name="eventType">
+          {EVENT_TYPES.map((event) => (
+            <option value={event} selected={event === initial.eventType}>{EVENT_LABELS[locale][event]}</option>
+          ))}
+        </select>
+      </div>
+      <fieldset class="pfc-field pfc-wide pfc-appetite">
+        <legend>{copy.appetite}</legend>
+        <div class="pfc-segmented">
+          {APPETITES.map((appetite) => (
+            <label>
+              <input type="radio" name="appetite" value={appetite} checked={appetite === initial.appetite} />
+              <span>{APPETITE_LABELS[locale][appetite]}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+    </div>
+
+    <fieldset class="pfc-items">
+      <legend>{copy.items}</legend>
+      <p class="pfc-hint">{copy.itemsHint}</p>
+      <div class="pfc-item-groups">
+        {[
+          [GROUP_LABELS[locale].food, foodItems],
+          [GROUP_LABELS[locale].drinks, drinkItems],
+        ].map(([title, items]) => (
+          <div>
+            <p class="pfc-group-title">{title as string}</p>
+            <div class="pfc-checks">
+              {(items as typeof foodItems).map((item) => (
+                <label class="pfc-check">
+                  <input type="checkbox" name="items" value={item.id} checked={initialItems.includes(item.id)} />
+                  <span>{ITEM_LABELS[locale][item.id]}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </fieldset>
+  </form>
+
+  <section class="pfc-card pfc-results" aria-labelledby="pfc-results-title">
+    <h2 id="pfc-results-title" class="pfc-card-title">{copy.resultsTitle}</h2>
+    <div aria-live="polite" data-results>
+      <ul class="pfc-list" data-result-list>
+        {initialResult.items.map((item, index) => {
+          const hint = buyingHint(item, locale);
+          const firstDrink = index > 0 && isDrink(item.id) && !isDrink(initialResult.items[index - 1].id);
+          return (
+            <li class:list={['pfc-row', firstDrink && 'pfc-row-first-drink']}>
+              <span class="pfc-row-label">{ITEM_LABELS[locale][item.id]}</span>
+              <strong class="pfc-row-amount">{formatAmount(item.amount, item.unit, locale)}</strong>
+              <span class="pfc-row-meta">
+                {formatPerPerson(item.perAdult, item.unit, locale)} {copy.perAdult}{hint ? ` · ${hint}` : ''}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+      <p class="pfc-empty" data-empty hidden>{copy.empty}</p>
+      <dl class="pfc-totals">
+        <div><dt>{copy.totalFood}</dt><dd data-total-food>{formatTotal(initialResult.totalFoodGrams, 'g')}</dd></div>
+        <div><dt>{copy.totalDrinks}</dt><dd data-total-drinks>{formatTotal(initialResult.totalDrinksMl, 'ml')}</dd></div>
+      </dl>
+    </div>
+    <p class="pfc-disclaimer">{copy.disclaimer}</p>
+
+    <div class="pfc-list-box">
+      <label class="pfc-group-title" for="pfc-shopping-list">{copy.listTitle}</label>
+      <textarea id="pfc-shopping-list" rows="10" readonly aria-label={copy.listLabel} data-shopping-list>{buildShoppingList(initialResult, locale)}</textarea>
+      <div class="pfc-copy-row">
+        <button
+          type="button"
+          class="btn-primary"
+          data-copy-list
+          data-track-event="marketing_tool_result_clicked"
+          data-track-payload={JSON.stringify({ tool_name: 'party_food_calculator', result_type: 'copy_shopping_list' })}
+        >
+          {copy.copyButton}
+        </button>
+        <span class="pfc-copy-status" role="status" data-copy-status></span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style is:global>
+  /* Global because result rows are created in the browser and carry no Astro scope attribute. All classes are pfc-prefixed. */
+  .pfc {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 960px) {
+    .pfc {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+
+  .pfc-card {
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius);
+    background: var(--tb-surface-raised);
+    box-shadow: var(--tb-shadow-sm);
+    color: var(--tb-text);
+    padding: 1.25rem;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .pfc-card {
+      padding: 1.5rem;
+    }
+  }
+
+  .pfc-card-title {
+    font-size: 1.25rem;
+    font-weight: 750;
+    color: var(--tb-text-strong);
+    margin-bottom: 1rem;
+  }
+
+  .pfc-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pfc-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 0;
+  }
+
+  .pfc-field label,
+  .pfc-field legend,
+  .pfc-items legend {
+    font-size: 0.875rem;
+    font-weight: 650;
+    color: var(--tb-text);
+  }
+
+  .pfc-wide {
+    grid-column: span 2;
+  }
+
+  .pfc-field input,
+  .pfc-field select {
+    width: 100%;
+    min-height: 44px;
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius-sm);
+    background: var(--tb-surface);
+    color: var(--tb-text);
+    padding: 0.55rem 0.75rem;
+    font-size: 1rem;
+  }
+
+  .pfc-field input:focus-visible,
+  .pfc-field select:focus-visible,
+  .pfc-segmented input:focus-visible + span,
+  .pfc-check input:focus-visible,
+  .pfc textarea:focus-visible {
+    outline: 2px solid var(--tb-accent);
+    outline-offset: 2px;
+  }
+
+  .pfc-appetite {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .pfc-segmented {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius-pill);
+    padding: 3px;
+    background: var(--tb-surface-muted);
+  }
+
+  .pfc-segmented label {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .pfc-segmented input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    cursor: pointer;
+  }
+
+  .pfc-segmented span {
+    display: block;
+    text-align: center;
+    border-radius: var(--tb-radius-pill);
+    padding: 0.55rem 0.5rem;
+    font-weight: 650;
+    font-size: 0.9rem;
+    color: var(--tb-muted);
+  }
+
+  .pfc-segmented input:checked + span {
+    background: var(--tb-button-primary);
+    color: var(--tb-button-primary-text);
+  }
+
+  .pfc-items {
+    border: 0;
+    padding: 0;
+    margin: 1.25rem 0 0;
+  }
+
+  .pfc-hint,
+  .pfc-disclaimer {
+    font-size: 0.8125rem;
+    color: var(--tb-muted);
+    margin-top: 0.25rem;
+  }
+
+  .pfc-item-groups {
+    display: grid;
+    gap: 1rem;
+    margin-top: 0.75rem;
+  }
+
+  .pfc-group-title {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--tb-accent-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .pfc-checks {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .pfc-checks {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .pfc-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 40px;
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius-sm);
+    background: var(--tb-surface);
+    padding: 0.4rem 0.6rem;
+    font-size: 0.875rem;
+    line-height: 1.2;
+    cursor: pointer;
+  }
+
+  .pfc-check:has(input:checked) {
+    border-color: var(--tb-accent);
+    background: var(--tb-accent-soft);
+  }
+
+  .pfc-check input {
+    width: 1.05rem;
+    height: 1.05rem;
+    flex-shrink: 0;
+    accent-color: var(--tb-accent);
+  }
+
+  .pfc-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pfc-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 0.75rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--tb-border-soft);
+  }
+
+  .pfc-row-label {
+    font-weight: 600;
+  }
+
+  .pfc-row-amount {
+    font-size: 1.05rem;
+    font-weight: 750;
+    color: var(--tb-text-strong);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .pfc-row-meta {
+    grid-column: 1 / -1;
+    font-size: 0.8125rem;
+    color: var(--tb-muted);
+  }
+
+  .pfc-row-first-drink {
+    margin-top: 0.5rem;
+    border-top: 2px solid var(--tb-border);
+  }
+
+  .pfc-empty {
+    color: var(--tb-muted);
+    padding: 0.75rem 0;
+  }
+
+  .pfc-totals {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .pfc-totals > div {
+    border-radius: var(--tb-radius-sm);
+    background: var(--tb-accent-soft);
+    padding: 0.75rem;
+  }
+
+  .pfc-totals dt {
+    font-size: 0.8125rem;
+    color: var(--tb-text);
+  }
+
+  .pfc-totals dd {
+    font-size: 1.25rem;
+    font-weight: 750;
+    color: var(--tb-text-strong);
+  }
+
+  .pfc-list-box {
+    margin-top: 1.25rem;
+  }
+
+  .pfc textarea {
+    width: 100%;
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius-sm);
+    background: var(--tb-surface-muted);
+    color: var(--tb-text);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    padding: 0.75rem;
+    resize: vertical;
+  }
+
+  .pfc-copy-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .pfc-copy-status {
+    font-size: 0.875rem;
+    color: var(--tb-accent-text);
+  }
+</style>
+
+<script>
+  import {
+    EVENT_PROFILES,
+    ITEM_LABELS,
+    buildShoppingList,
+    buyingHint,
+    calculateParty,
+    defaultItemsFor,
+    formatAmount,
+    formatPerPerson,
+    getItem,
+    isItemId,
+    type Appetite,
+    type EventType,
+    type Locale,
+  } from '../../lib/tools/party-food-calculator';
+
+  type Strings = Record<'perAdult' | 'empty' | 'copied' | 'copyFailed' | 'copyButton' | 'food' | 'drinks', string>;
+
+  function init(root: HTMLElement) {
+    const locale = (root.dataset.locale === 'de' ? 'de' : 'en') as Locale;
+    const strings = JSON.parse(root.dataset.strings ?? '{}') as Strings;
+    const form = root.querySelector('form');
+    const list = root.querySelector<HTMLUListElement>('[data-result-list]');
+    const empty = root.querySelector<HTMLElement>('[data-empty]');
+    const totalFood = root.querySelector<HTMLElement>('[data-total-food]');
+    const totalDrinks = root.querySelector<HTMLElement>('[data-total-drinks]');
+    const textarea = root.querySelector<HTMLTextAreaElement>('[data-shopping-list]');
+    const copyButton = root.querySelector<HTMLButtonElement>('[data-copy-list]');
+    const copyStatus = root.querySelector<HTMLElement>('[data-copy-status]');
+    if (!form || !list || !empty || !totalFood || !totalDrinks || !textarea) return;
+
+    let tracked = false;
+
+    const readInput = () => {
+      const data = new FormData(form);
+      const eventType = String(data.get('eventType') ?? 'dinner');
+      return {
+        adults: Number(data.get('adults') ?? 0),
+        kids: Number(data.get('kids') ?? 0),
+        appetite: String(data.get('appetite') ?? 'normal') as Appetite,
+        eventType: (eventType in EVENT_PROFILES ? eventType : 'dinner') as EventType,
+        items: data.getAll('items').map(String).filter(isItemId),
+      };
+    };
+
+    const render = () => {
+      const result = calculateParty(readInput());
+      const visible = result.items.filter((item) => item.amount > 0);
+
+      list.replaceChildren(
+        ...visible.map((item, index) => {
+          const li = document.createElement('li');
+          const firstDrink = index > 0 && getItem(item.id).isDrink && !getItem(visible[index - 1].id).isDrink;
+          li.className = firstDrink ? 'pfc-row pfc-row-first-drink' : 'pfc-row';
+
+          const label = document.createElement('span');
+          label.className = 'pfc-row-label';
+          label.textContent = ITEM_LABELS[locale][item.id];
+
+          const amount = document.createElement('strong');
+          amount.className = 'pfc-row-amount';
+          amount.textContent = formatAmount(item.amount, item.unit, locale);
+
+          const meta = document.createElement('span');
+          meta.className = 'pfc-row-meta';
+          const hint = buyingHint(item, locale);
+          meta.textContent = `${formatPerPerson(item.perAdult, item.unit, locale)} ${strings.perAdult}${hint ? ` · ${hint}` : ''}`;
+
+          li.append(label, amount, meta);
+          return li;
+        }),
+      );
+
+      empty.hidden = visible.length > 0;
+      totalFood.textContent = `≈ ${formatAmount(result.totalFoodGrams, 'g', locale)}`;
+      totalDrinks.textContent = `≈ ${formatAmount(result.totalDrinksMl, 'ml', locale)}`;
+      textarea.value = visible.length > 0 ? buildShoppingList(result, locale) : '';
+    };
+
+    const trackOnce = () => {
+      if (tracked) return;
+      tracked = true;
+      const payload = form.getAttribute('data-track-payload');
+      try {
+        const track = (window as unknown as { tbTrack?: (event: string, payload?: unknown) => void }).tbTrack;
+        track?.('marketing_tool_submitted', payload ? JSON.parse(payload) : {});
+      } catch {
+        // Tracking must never break the tool.
+      }
+    };
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      // The site-wide tracker listens for submit on document; skip it if this visit was already counted.
+      if (tracked) event.stopPropagation();
+      tracked = true;
+      render();
+    });
+
+    form.addEventListener('input', (event) => {
+      const target = event.target;
+      if (target instanceof HTMLSelectElement && target.name === 'eventType') {
+        const defaults = defaultItemsFor(target.value as EventType);
+        form.querySelectorAll<HTMLInputElement>('input[name="items"]').forEach((box) => {
+          box.checked = isItemId(box.value) && defaults.includes(box.value);
+        });
+      }
+      render();
+      trackOnce();
+    });
+
+    copyButton?.addEventListener('click', async () => {
+      const text = textarea.value;
+      let ok = false;
+      try {
+        await navigator.clipboard.writeText(text);
+        ok = true;
+      } catch {
+        textarea.select();
+        try {
+          ok = document.execCommand('copy');
+        } catch {
+          ok = false;
+        }
+      }
+      if (copyStatus) {
+        copyStatus.textContent = ok ? strings.copied : strings.copyFailed;
+        window.setTimeout(() => {
+          copyStatus.textContent = '';
+        }, 2500);
+      }
+    });
+
+    render();
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-party-calculator]').forEach(init);
+</script>

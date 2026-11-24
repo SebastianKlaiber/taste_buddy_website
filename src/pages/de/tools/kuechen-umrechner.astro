@@ -1,0 +1,111 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import CookingUnitConverterPage from '../../../components/tools/CookingUnitConverterPage.astro';
+
+export const prerender = true;
+
+const url = 'https://taste-buddy.app/de/tools/kuechen-umrechner/';
+const alternates = {
+  en: 'https://taste-buddy.app/tools/cooking-unit-converter/',
+  de: url,
+  'x-default': 'https://taste-buddy.app/tools/cooking-unit-converter/',
+};
+
+const title = 'Cups in Gramm umrechnen – Küchen-Umrechner | TasteBuddy';
+const description =
+  'Cups in Gramm umrechnen nach Zutat, dazu ml, oz, EL, Butter-Sticks und Backofen °F in °C mit Umluft und Gasherd. Kostenloser Küchen-Umrechner mit Tabellen.';
+
+const sections = [
+  {
+    heading: 'Warum Cups in Gramm von der Zutat abhängt',
+    paragraphs: [
+      'Ein Cup misst das Volumen, Gramm messen das Gewicht. Ein Cup Wasser wiegt etwa 237 g, ein Cup Weizenmehl aber nur rund 120 g, weil Mehl locker ist und viel Luft enthält. Ein Cup Honig bringt dagegen etwa 336 g auf die Waage. Deshalb gibt es keine einzelne Formel „1 Cup = X Gramm“.',
+      'Für trockene Zutaten nutzt der Rechner die Gewichtstabelle von King Arthur Baking, für Flüssigkeiten die übliche Dichte. Die Ergebnisse sind gute Näherungswerte: Wie du den Cup füllst, macht einen Unterschied. Wer Mehl direkt mit dem Cup aus der Tüte schöpft, hat schnell 20–30 % mehr im Becher als beim lockeren Einfüllen und Glattstreichen.',
+    ],
+  },
+  {
+    heading: 'US-Cups, Esslöffel und Teelöffel',
+    paragraphs: [
+      'Alle Volumenangaben im Rechner sind amerikanische Maße: 1 Cup = 236,6 ml, 1 Esslöffel (tbsp) = 14,8 ml, 1 Teelöffel (tsp) = 4,9 ml und 1 fl oz = 29,6 ml. Ein Cup entspricht 16 Esslöffeln, ein Esslöffel 3 Teelöffeln.',
+      'Vorsicht bei der „Tasse“ in deutschen Rezepten: Sie meint meist eine Kaffeetasse mit 125 bis 150 ml und ist damit deutlich kleiner als ein US-Cup. Australische und kanadische Rezepte verwenden oft einen metrischen Cup mit 250 ml.',
+    ],
+  },
+  {
+    heading: 'Unzen (oz) und Flüssigunzen (fl oz)',
+    paragraphs: [
+      'Unzen (oz) sind ein Gewicht: 1 oz = 28,35 g und 16 oz = 1 lb (amerikanisches Pfund) = 453,6 g, also etwas weniger als ein deutsches Pfund mit 500 g. Flüssigunzen (fl oz) sind ein Volumen: 1 fl oz = 29,6 ml. Steht im Rezept „8 oz chocolate“, wiegst du 227 g ab. Bei „8 fl oz milk“ misst du 1 Cup, also 237 ml.',
+    ],
+  },
+  {
+    heading: 'Fahrenheit in Celsius: Ober-/Unterhitze und Umluft',
+    paragraphs: [
+      'Um Fahrenheit in Celsius umzurechnen, ziehst du 32 ab und multiplizierst mit 5/9. 350 °F sind 177 °C, in Rezepten meist auf 180 °C gerundet. Amerikanische Rezepte gehen von Ober-/Unterhitze aus. Mit Umluft stellst du etwa 20 °C weniger ein, also rund 160 °C. Gasherd-Stufen findest du vor allem in britischen Rezepten: Stufe 4 entspricht 180 °C Ober-/Unterhitze.',
+    ],
+  },
+  {
+    heading: 'Tipps für genaue Ergebnisse',
+    list: [
+      'Mehl, Zucker und Butter möglichst wiegen. Eine Küchenwaage ist genauer als jeder Messbecher.',
+      'Mehl mit einem Löffel locker in den Cup füllen und mit einem Messerrücken glattstreichen.',
+      'Brauner Zucker wird in US-Rezepten fest angedrückt gemessen („packed“).',
+      'Butter wird nach Gewicht verkauft: 1 Stick sind immer 113 g, egal wie weich sie ist.',
+      'Sinnvoll runden: 236,6 ml dürfen in der Suppe 240 ml sein, beim Backen lieber genau bleiben.',
+    ],
+  },
+];
+
+const faq = [
+  {
+    question: 'Wie viel Gramm sind 1 Cup Mehl?',
+    answer:
+      'Ein Cup Weizenmehl (Type 405 oder 550) wiegt etwa 120 g, wenn du es locker einfüllst und glattstreichst. Vollkornmehl liegt bei etwa 113 g pro Cup. Direkt aus der Tüte geschöpftes Mehl kann 140 g und mehr wiegen.',
+  },
+  {
+    question: 'Wie viel ml hat ein Cup?',
+    answer:
+      'Ein US-Cup hat 236,6 ml und wird auf Nährwertangaben oft auf 240 ml gerundet. Ein metrischer Cup, wie er in Australien, Neuseeland und Kanada verwendet wird, hat 250 ml.',
+  },
+  {
+    question: 'Ist eine Tasse dasselbe wie ein Cup?',
+    answer:
+      'Nein. In deutschen Rezepten meint „1 Tasse“ meist eine Kaffeetasse mit etwa 125 bis 150 ml. Ein US-Cup ist mit 236,6 ml deutlich größer. Für amerikanische Rezepte brauchst du also einen echten Cup-Messbecher oder die Umrechnung in Gramm.',
+  },
+  {
+    question: 'Wie viel Gramm ist ein Stick Butter?',
+    answer:
+      'Ein amerikanischer Stick Butter wiegt 4 oz, also 113 g. Das entspricht 8 Esslöffeln oder einem halben Cup. Zwei Sticks sind 1 Cup (227 g), ein deutsches 250-g-Päckchen sind etwa 2,2 Sticks.',
+  },
+  {
+    question: 'Wie viel Grad Celsius sind 350 °F?',
+    answer:
+      '350 °F sind 177 °C, in der Praxis meist 180 °C Ober-/Unterhitze. Mit Umluft stellst du etwa 160 °C ein. Auf dem Gasherd entspricht das Stufe 4.',
+  },
+  {
+    question: 'Warum sind die Gramm-Angaben nur ungefähr?',
+    answer:
+      'Cups messen ein Volumen. Wie viel eine Zutat wiegt, hängt davon ab, wie fest sie im Becher liegt, von der Luftfeuchtigkeit und vom Produkt. Für den Alltag reichen die Werte; beim Backen ist eine Küchenwaage am genauesten.',
+  },
+];
+---
+
+<Layout title={title} description={description} lang="de" alternates={alternates}>
+  <CookingUnitConverterPage
+    locale="de"
+    url={url}
+    name="Küchen-Umrechner"
+    description={description}
+    eyebrow="Kostenloses Küchen-Tool"
+    h1="Cups in Gramm umrechnen: der Küchen-Umrechner"
+    intro="Rechne amerikanische Cups, Löffel, Unzen und Fahrenheit in metrische Einheiten um – und zurück. Mit Cups in Gramm nach Zutat, Butter-Sticks und Backofen-Temperaturen für Ober-/Unterhitze, Umluft und Gasherd."
+    sections={sections}
+    faqTitle="Häufige Fragen zum Umrechnen"
+    faq={faq}
+    cta={{
+      heading: 'Deine Rezepte an einem Ort',
+      body: 'Ein Rezept umgerechnet, das du wieder kochen willst? Mit TasteBuddy speicherst du Rezepte von überall, planst deine Mahlzeiten für die Woche und machst daraus eine einzige Einkaufsliste.',
+      primaryLabel: 'TasteBuddy holen',
+      secondaryLabel: 'So funktioniert es',
+      secondaryHref: '/de/so-funktioniert-es/',
+    }}
+  />
+</Layout>

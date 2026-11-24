@@ -1,0 +1,263 @@
+---
+import './kitchen-tools.css';
+
+interface Props {
+  locale: 'en' | 'de';
+}
+
+const { locale } = Astro.props;
+
+const copy = {
+  en: {
+    heading: 'Scale your recipe',
+    ingredients: 'Ingredients (one per line)',
+    ingredientsHint: 'Paste from any recipe. Lines without a quantity stay as they are.',
+    sample: ['2 1/4 cups all-purpose flour', '1 tsp baking soda', '1/2 tsp salt', '1 cup butter, softened', '3/4 cup brown sugar', '2 large eggs', '200 g chocolate chips', 'Flaky sea salt for topping'].join('\n'),
+    original: 'Original servings',
+    target: 'New servings',
+    factor: 'Or scale by factor',
+    factorHint: 'e.g. 0.5, 1/2, ×2',
+    quick: 'Quick factors',
+    result: 'Scaled ingredients',
+    copy: 'Copy list',
+    copied: 'Copied!',
+    copyFailed: 'Select the list and copy it manually.',
+    status: (count: number, factor: string) => `${count} ${count === 1 ? 'line' : 'lines'} scaled by ×${factor}.`,
+    invalid: 'Enter servings or a factor greater than 0.',
+    empty: 'Paste an ingredient list to see the scaled version.',
+    eggTip: 'Tip: an egg amount is no longer a whole number. Whisk the eggs and weigh them: one large egg is about 50 g without the shell (about 3 tbsp). Or round up for richer bakes and down for lighter ones.',
+  },
+  de: {
+    heading: 'Rezept umrechnen',
+    ingredients: 'Zutaten (eine pro Zeile)',
+    ingredientsHint: 'Aus einem beliebigen Rezept einfügen. Zeilen ohne Mengenangabe bleiben unverändert.',
+    sample: ['250 g Mehl', '1 Päckchen Backpulver', '125 g Zucker', '1 Prise Salz', '2 Eier', '200 ml Milch', '1 1/2 EL Öl', 'Puderzucker zum Bestäuben'].join('\n'),
+    original: 'Personen im Rezept',
+    target: 'Personen neu',
+    factor: 'Oder mit Faktor umrechnen',
+    factorHint: 'z. B. 0,5, 1/2, ×2',
+    quick: 'Schnellauswahl',
+    result: 'Umgerechnete Zutaten',
+    copy: 'Liste kopieren',
+    copied: 'Kopiert!',
+    copyFailed: 'Bitte die Liste markieren und manuell kopieren.',
+    status: (count: number, factor: string) => `${count} ${count === 1 ? 'Zeile' : 'Zeilen'} mit ×${factor} umgerechnet.`,
+    invalid: 'Bitte Personenzahl oder einen Faktor größer als 0 eingeben.',
+    empty: 'Füge eine Zutatenliste ein, um die umgerechnete Version zu sehen.',
+    eggTip: 'Tipp: Die Eier-Menge ist keine ganze Zahl mehr. Verquirle die Eier und wiege ab: Ein Ei (Größe M) wiegt ohne Schale etwa 50 g. Alternativ bei Rührteig eher aufrunden, bei leichten Teigen abrunden.',
+  },
+}[locale];
+
+const quickFactors = [
+  { value: 0.5, label: '×½' },
+  { value: 1.5, label: '×1½' },
+  { value: 2, label: '×2' },
+  { value: 3, label: '×3' },
+];
+
+const messages = {
+  copied: copy.copied,
+  copyFailed: copy.copyFailed,
+  invalid: copy.invalid,
+  empty: copy.empty,
+  statusOne: copy.status(1, '{factor}'),
+  statusMany: copy.status(2, '{factor}').replace(/^2/, '{count}'),
+};
+---
+
+<section
+  class="tb-tool rounded-[var(--tb-radius)] border border-[var(--tb-border)] bg-[var(--tb-surface-raised)] p-5 shadow-[var(--tb-shadow-sm)] sm:p-8"
+  aria-labelledby="scaler-heading"
+  data-recipe-scaler
+  data-locale={locale}
+  data-messages={JSON.stringify(messages)}
+>
+  <h2 id="scaler-heading" class="mb-6 text-2xl font-bold text-[var(--tb-text-strong)]">{copy.heading}</h2>
+
+  <div class="grid gap-6 lg:grid-cols-2">
+    <div class="min-w-0">
+      <label for="scaler-input" class="mb-1 block font-semibold text-[var(--tb-text)]">{copy.ingredients}</label>
+      <p id="scaler-input-hint" class="mb-2 text-sm text-[var(--tb-muted)]">{copy.ingredientsHint}</p>
+      <textarea
+        id="scaler-input"
+        data-scaler-input
+        rows="10"
+        spellcheck="false"
+        aria-describedby="scaler-input-hint"
+        class="tb-field w-full resize-y font-mono text-sm leading-6"
+      >{copy.sample}</textarea>
+
+      <div class="mt-4 grid grid-cols-2 gap-3">
+        <div>
+          <label for="scaler-original" class="mb-1 block text-sm font-semibold text-[var(--tb-text)]">{copy.original}</label>
+          <input id="scaler-original" data-scaler-original type="number" inputmode="decimal" min="0.25" step="any" value="4" class="tb-field w-full" />
+        </div>
+        <div>
+          <label for="scaler-target" class="mb-1 block text-sm font-semibold text-[var(--tb-text)]">{copy.target}</label>
+          <input id="scaler-target" data-scaler-target type="number" inputmode="decimal" min="0.25" step="any" value="6" class="tb-field w-full" />
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <label for="scaler-factor" class="mb-1 block text-sm font-semibold text-[var(--tb-text)]">{copy.factor}</label>
+        <input id="scaler-factor" data-scaler-factor type="text" inputmode="decimal" autocomplete="off" placeholder={copy.factorHint} value={locale === 'de' ? '1,5' : '1.5'} class="tb-field w-full" />
+      </div>
+
+      <div class="mt-3 flex flex-wrap items-center gap-2" role="group" aria-label={copy.quick}>
+        {quickFactors.map((factor) => (
+          <button type="button" class="tb-chip" data-scaler-quick={factor.value}>{factor.label}</button>
+        ))}
+      </div>
+    </div>
+
+    <div class="min-w-0">
+      <div class="mb-2 flex items-center justify-between gap-3">
+        <h3 id="scaler-result-heading" class="font-semibold text-[var(--tb-text)]">{copy.result}</h3>
+        <button
+          type="button"
+          class="btn-primary !min-h-[40px] !px-4 !py-2 text-sm"
+          data-scaler-copy
+          data-track-event="marketing_tool_submitted"
+          data-track-payload={JSON.stringify({ tool_name: 'recipe_scaler', action: 'copy', locale })}
+        >
+          {copy.copy}
+        </button>
+      </div>
+      <output
+        for="scaler-input scaler-original scaler-target scaler-factor"
+        aria-labelledby="scaler-result-heading"
+        class="block min-h-[15rem] rounded-[var(--tb-radius-sm)] border border-[var(--tb-border)] bg-[var(--tb-page-bg-soft)] p-3"
+      >
+        <ul class="space-y-1 font-mono text-sm leading-6" data-scaler-output></ul>
+      </output>
+      <p class="mt-2 text-sm text-[var(--tb-muted)]" data-scaler-status aria-live="polite"></p>
+      <p
+        class="mt-3 hidden rounded-[var(--tb-radius-sm)] border border-[var(--tb-accent)] bg-[var(--tb-accent-soft)] p-3 text-sm text-[var(--tb-accent-text)]"
+        data-scaler-egg
+        role="note"
+      >
+        {copy.eggTip}
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { factorFromServings, parseFactor, scaleRecipe, type ScalerLocale } from '../../lib/tools/recipe-scaler';
+
+  type TrackWindow = Window & { tbTrack?: (eventName: string, payload?: Record<string, unknown>) => void };
+
+  document.querySelectorAll<HTMLElement>('[data-recipe-scaler]').forEach((root) => {
+    const locale = (root.dataset.locale === 'de' ? 'de' : 'en') as ScalerLocale;
+    const messages = JSON.parse(root.dataset.messages ?? '{}') as Record<string, string>;
+    const input = root.querySelector<HTMLTextAreaElement>('[data-scaler-input]')!;
+    const original = root.querySelector<HTMLInputElement>('[data-scaler-original]')!;
+    const target = root.querySelector<HTMLInputElement>('[data-scaler-target]')!;
+    const factorInput = root.querySelector<HTMLInputElement>('[data-scaler-factor]')!;
+    const output = root.querySelector<HTMLUListElement>('[data-scaler-output]')!;
+    const status = root.querySelector<HTMLElement>('[data-scaler-status]')!;
+    const egg = root.querySelector<HTMLElement>('[data-scaler-egg]')!;
+    const copyButton = root.querySelector<HTMLButtonElement>('[data-scaler-copy]')!;
+    const quickButtons = root.querySelectorAll<HTMLButtonElement>('[data-scaler-quick]');
+    const numberFormat = new Intl.NumberFormat(locale === 'de' ? 'de-DE' : 'en-US', { maximumFractionDigits: 3 });
+    let factor = 1.5;
+    let resultText = '';
+    let tracked = false;
+
+    const readNumber = (el: HTMLInputElement) => parseFactor(el.value);
+
+    function render() {
+      quickButtons.forEach((button) => {
+        button.setAttribute('aria-pressed', String(Math.abs(Number(button.dataset.scalerQuick) - factor) < 1e-9));
+      });
+      output.replaceChildren();
+      egg.classList.add('hidden');
+      resultText = '';
+
+      if (!(factor > 0)) {
+        status.textContent = messages.invalid;
+        return;
+      }
+      if (!input.value.trim()) {
+        status.textContent = messages.empty;
+        return;
+      }
+
+      const result = scaleRecipe(input.value, factor, locale);
+      resultText = result.text.trim();
+      for (const line of result.lines) {
+        const li = document.createElement('li');
+        li.textContent = line.text || ' ';
+        li.className = line.changed ? 'tb-line-changed' : 'tb-line-same';
+        if (line.eggWarning) li.textContent += ' *';
+        output.append(li);
+      }
+      egg.classList.toggle('hidden', !result.eggWarning);
+      const template = result.scaledCount === 1 ? messages.statusOne : messages.statusMany;
+      status.textContent = template
+        .replace('{count}', String(result.scaledCount))
+        .replace('{factor}', numberFormat.format(factor));
+    }
+
+    function track(action: string) {
+      if (tracked) return;
+      tracked = true;
+      (window as TrackWindow).tbTrack?.('marketing_tool_submitted', { tool_name: 'recipe_scaler', action, locale });
+    }
+
+    function setFactorField(value: number) {
+      factorInput.value = numberFormat.format(value);
+    }
+
+    function fromServings() {
+      const next = factorFromServings(readNumber(original) ?? 0, readNumber(target) ?? 0);
+      factor = next ?? 0;
+      if (next) setFactorField(next);
+      render();
+      track('servings');
+    }
+
+    original.addEventListener('input', fromServings);
+    target.addEventListener('input', fromServings);
+
+    factorInput.addEventListener('input', () => {
+      factor = parseFactor(factorInput.value) ?? 0;
+      const base = readNumber(original);
+      if (factor > 0 && base) target.value = String(Math.round(base * factor * 100) / 100);
+      render();
+      track('factor');
+    });
+
+    quickButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        factor = Number(button.dataset.scalerQuick);
+        setFactorField(factor);
+        const base = readNumber(original);
+        if (base) target.value = String(Math.round(base * factor * 100) / 100);
+        render();
+        track('quick_factor');
+      });
+    });
+
+    input.addEventListener('input', () => {
+      render();
+      track('ingredients');
+    });
+
+    copyButton.addEventListener('click', async () => {
+      if (!resultText) return;
+      const label = copyButton.textContent;
+      try {
+        await navigator.clipboard.writeText(resultText);
+        copyButton.textContent = messages.copied;
+      } catch {
+        status.textContent = messages.copyFailed;
+      }
+      window.setTimeout(() => {
+        copyButton.textContent = label;
+      }, 1800);
+    });
+
+    render();
+  });
+</script>

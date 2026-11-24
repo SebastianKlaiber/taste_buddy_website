@@ -1,0 +1,50 @@
+---
+import { getGoHref } from '../../lib/marketing/app-links';
+
+interface Props {
+  locale: 'en' | 'de';
+}
+
+const { locale } = Astro.props;
+const slug = 'roast-calculator-tool';
+
+const copy =
+  locale === 'de'
+    ? {
+        title: 'Das ganze Weihnachtsmenü an einem Ort',
+        body: 'Mit TasteBuddy speicherst du die Rezepte für Gans, Rotkohl und Klöße aus Websites, Videos oder Screenshots, planst das Menü und machst daraus eine einzige Einkaufsliste.',
+        primary: 'TasteBuddy kostenlos laden',
+        secondary: 'Weihnachtsmenü planen',
+        secondaryHref: '/de/blog/articles/weihnachtsmenue-planen/',
+      }
+    : {
+        title: 'Keep the whole holiday menu in one place',
+        body: 'TasteBuddy saves the recipes for the turkey, sides and dessert from websites, videos or screenshots, lets you plan the menu and turns it into one shopping list.',
+        primary: 'Get TasteBuddy free',
+        secondary: 'Holiday dinner checklist',
+        secondaryHref: '/en/blog/articles/holiday-dinner-planning-checklist/',
+      };
+---
+
+<section class="tb-panel-muted p-6 sm:p-8">
+  <h2 class="mb-3 text-2xl font-bold tb-text-strong">{copy.title}</h2>
+  <p class="mb-5 tb-text">{copy.body}</p>
+  <div class="flex flex-wrap gap-3">
+    <a
+      class="btn-primary"
+      href={getGoHref(slug)}
+      data-track-event="marketing_cta_clicked"
+      data-track-payload={JSON.stringify({ cta_slug: slug, cta_label: copy.primary, cta_variant: 'primary', destination: 'go_redirect' })}
+    >
+      {copy.primary}
+    </a>
+    <a
+      class="btn-secondary"
+      href={copy.secondaryHref}
+      data-track-event="marketing_cta_clicked"
+      data-track-payload={JSON.stringify({ cta_slug: slug, cta_label: copy.secondary, cta_variant: 'secondary', destination: 'holiday_article' })}
+    >
+      {copy.secondary}
+    </a>
+  </div>
+</section>
