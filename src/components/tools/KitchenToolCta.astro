@@ -1,0 +1,51 @@
+---
+import { getGoHref } from '../../lib/marketing/app-links';
+
+interface Props {
+  locale: 'en' | 'de';
+  /** Redirect slug in content/redirects.json (equals the tool slug). */
+  slug: string;
+}
+
+const { locale, slug } = Astro.props;
+
+const copy = {
+  en: {
+    title: 'Keep the recipes you scale in one place',
+    body: 'With the TasteBuddy app you save recipes from websites, videos and photos, plan your meals for the week and turn them into one shopping list.',
+    primary: 'Get TasteBuddy',
+    secondary: 'See the recipe organizer',
+    secondaryHref: '/features/recipe-organizer/',
+  },
+  de: {
+    title: 'Deine Rezepte an einem Ort',
+    body: 'Mit der TasteBuddy-App speicherst du Rezepte von Websites, aus Videos und Fotos, planst deine Mahlzeiten für die Woche und machst daraus eine Einkaufsliste.',
+    primary: 'TasteBuddy holen',
+    secondary: 'Rezeptverwaltung ansehen',
+    secondaryHref: '/de/so-funktioniert-es/',
+  },
+}[locale];
+---
+
+<section class="mt-12 rounded-[var(--tb-radius)] border border-[var(--tb-border)] bg-[var(--tb-banner)] p-6 sm:p-8" aria-labelledby="tool-cta-heading">
+  <h2 id="tool-cta-heading" class="mb-3 text-2xl font-bold text-[var(--tb-text-strong)]">{copy.title}</h2>
+  <p class="mb-6 max-w-2xl leading-7 text-[var(--tb-text)]">{copy.body}</p>
+  <div class="flex flex-wrap gap-3">
+    <a
+      class="btn-primary"
+      href={getGoHref(slug)}
+      data-track-event="marketing_cta_clicked"
+      data-track-payload={JSON.stringify({ cta_slug: slug, cta_label: copy.primary, cta_variant: 'primary', destination: 'go_redirect' })}
+    >
+      {copy.primary}
+    </a>
+    <a
+      class="btn-secondary"
+      href={copy.secondaryHref}
+      data-track-event="marketing_cta_clicked"
+      data-track-payload={JSON.stringify({ cta_slug: slug, cta_label: copy.secondary, cta_variant: 'secondary', destination: 'feature_page' })}
+    >
+      {copy.secondary}
+    </a>
+  </div>
+</section>

@@ -1,0 +1,126 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Main from '../../components/Main.astro';
+import PanSizeConverter from '../../components/tools/PanSizeConverter.astro';
+import PanSizeTable from '../../components/tools/PanSizeTable.astro';
+import KitchenToolFaq from '../../components/tools/KitchenToolFaq.astro';
+import KitchenToolCta from '../../components/tools/KitchenToolCta.astro';
+import { KITCHEN_TOOL_PATHS, kitchenToolAlternates, kitchenToolStructuredData, type FaqItem } from '../../lib/tools/kitchen-tool-seo';
+
+export const prerender = true;
+
+const paths = KITCHEN_TOOL_PATHS.panConverter;
+const title = 'Baking Pan Size Converter: Cake Pan Conversion | TasteBuddy';
+const description =
+  'Free cake pan size conversion: compare round, square, loaf and sheet pans in inches or cm, get the ingredient multiplier and a baking time hint for the new pan.';
+
+const faq: FaqItem[] = [
+  {
+    question: 'Can I bake a 9-inch round cake in an 8 × 8-inch square pan?',
+    answer:
+      'Yes. A 9-inch round pan has about 64 square inches of base area and an 8 × 8-inch pan has exactly 64, so you can use the same amount of batter and roughly the same baking time.',
+  },
+  {
+    question: 'How many 9-inch round pans equal a 9 × 13-inch pan?',
+    answer:
+      'A 9 × 13-inch pan holds about 1.8 times the batter of one 9-inch round pan. A recipe for two 9-inch layers fits a 9 × 13 pan, the cake will just be slightly thicker, so check it a little later than the layer time.',
+  },
+  {
+    question: 'How do I convert a recipe from a 9-inch to an 8-inch round pan?',
+    answer:
+      'An 8-inch round pan has about 79 % of the area of a 9-inch pan. Multiply the ingredients by about ¾, or keep the full recipe and expect a taller cake that needs more baking time.',
+  },
+  {
+    question: 'Does baking time change with pan size?',
+    answer:
+      'It changes with batter depth. If you scale the ingredients to the new pan, the depth and time stay about the same. Deeper batter takes longer and may need a slightly lower temperature; shallower batter bakes faster. Always check with a toothpick before the stated time.',
+  },
+  {
+    question: 'What US pan matches a 26 cm springform from a German recipe?',
+    answer:
+      'A 26 cm springform has about 531 cm² (82 in²) of base area. A 10-inch round pan (about 79 in²) or a 9 × 9-inch square pan (81 in²) is the closest match. A 9-inch round pan holds only about 77 % of the batter.',
+  },
+];
+
+const structuredData = kitchenToolStructuredData({
+  locale: 'en',
+  path: paths.en,
+  name: 'Baking Pan Size Converter',
+  description,
+  faq,
+  breadcrumbHome: 'Home',
+});
+---
+
+<Layout lang="en" title={title} description={description} alternates={kitchenToolAlternates(paths)}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+  <Main>
+    <div class="mx-auto max-w-5xl py-10 sm:py-14">
+      <nav aria-label="Breadcrumb" class="mb-6 text-sm text-[var(--tb-muted)]">
+        <ol class="flex flex-wrap gap-2">
+          <li><a class="hover:text-[var(--tb-text)]" href="/">Home</a> ›</li>
+          <li><a class="hover:text-[var(--tb-text)]" href="/tools/">Tools</a> ›</li>
+          <li aria-current="page" class="text-[var(--tb-text)]">Baking pan size converter</li>
+        </ol>
+      </nav>
+
+      <header class="mb-8 max-w-3xl">
+        <p class="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--tb-muted)]">Free kitchen tool</p>
+        <h1 class="mb-4 text-3xl font-bold text-[var(--tb-text-strong)] sm:text-5xl">Baking Pan Size Converter</h1>
+        <p class="text-lg leading-8 text-[var(--tb-text)]">
+          Your recipe calls for a 9-inch round pan but you only have a 9 × 13? Pick both pans in inches or centimeters
+          and see how much to scale the ingredients and what happens to the baking time.
+        </p>
+      </header>
+
+      <PanSizeConverter locale="en" />
+
+      <article class="tb-tool-content mt-12 max-w-3xl">
+        <h2>How cake pan size conversion works</h2>
+        <p>
+          What matters is the base area of the pan. If the new pan has 1.5 times the area, you need 1.5 times the
+          batter to get a cake of the same height, and it bakes in about the same time. The converter calculates the
+          area for each shape:
+        </p>
+        <ul>
+          <li><strong>Round and springform pans:</strong> π × radius². A 9-inch round pan has about 63.6 in².</li>
+          <li><strong>Square pans:</strong> side × side. An 8 × 8-inch pan has 64 in².</li>
+          <li><strong>Rectangular, sheet and loaf pans:</strong> width × length. A 9 × 13-inch pan has 117 in².</li>
+        </ul>
+        <p>
+          The result is the ingredient multiplier: new area ÷ original area. Paste your ingredient list into the
+          <a href="/tools/recipe-scaler/">recipe scaler</a> and use that number as the factor to get every amount.
+        </p>
+
+        <h2>Common pan sizes compared</h2>
+        <PanSizeTable locale="en" />
+
+        <h2>Baking time and temperature in a different pan</h2>
+        <p>
+          When you scale the ingredients to the new pan, the batter stays as deep as before and the baking time stays
+          close to the original. Start checking about 5 minutes early. If you keep the original amount in a smaller
+          pan, the batter gets deeper: bake longer, and for much deeper cakes lower the oven by about 25 °F (10 °C) so
+          the edges do not dry out before the center is set. In a larger pan the batter is thinner and bakes faster.
+        </p>
+
+        <h2>Tips for switching pans</h2>
+        <ul>
+          <li>Fill cake pans no more than about two thirds so the batter has room to rise.</li>
+          <li>Glass and dark metal pans brown faster than light metal; check early.</li>
+          <li>Loaf pans have sloped sides, so treat the result as a close estimate.</li>
+          <li>Bundt and tube pans are measured by volume; compare them by filling with water.</li>
+        </ul>
+      </article>
+
+      <div class="max-w-3xl">
+        <KitchenToolFaq heading="Pan size conversion FAQ" items={faq} />
+        <KitchenToolCta locale="en" slug="baking-pan-size-converter" />
+        <p class="mt-8 text-[var(--tb-text)]">
+          Need to change the servings instead? Try the
+          <a class="font-semibold underline decoration-[var(--tb-accent)] underline-offset-4" href="/tools/recipe-scaler/">recipe scaler</a>.
+        </p>
+      </div>
+    </div>
+  </Main>
+</Layout>

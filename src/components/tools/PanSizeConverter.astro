@@ -1,0 +1,278 @@
+---
+import './kitchen-tools.css';
+import { PAN_PRESETS, type PanPreset } from '../../lib/tools/pan-size';
+
+interface Props {
+  locale: 'en' | 'de';
+}
+
+const { locale } = Astro.props;
+
+const copy = {
+  en: {
+    heading: 'Convert your pan size',
+    from: 'Pan in the recipe',
+    to: 'Pan you want to use',
+    preset: 'Common size',
+    custom: 'Custom size',
+    shape: 'Shape',
+    shapes: { round: 'Round', square: 'Square', rectangle: 'Rectangle', loaf: 'Loaf' },
+    unit: 'Unit',
+    units: { in: 'inches', cm: 'cm' },
+    groupUs: 'US sizes',
+    groupDe: 'German sizes',
+    result: 'Result',
+  },
+  de: {
+    heading: 'Backform umrechnen',
+    from: 'Form im Rezept',
+    to: 'Deine Form',
+    preset: 'Gängige Größe',
+    custom: 'Eigene Größe',
+    shape: 'Form',
+    shapes: { round: 'Rund', square: 'Quadrat', rectangle: 'Rechteck', loaf: 'Kasten' },
+    unit: 'Einheit',
+    units: { in: 'Zoll', cm: 'cm' },
+    groupUs: 'US-Größen',
+    groupDe: 'Deutsche Größen',
+    result: 'Ergebnis',
+  },
+}[locale];
+
+const messages = {
+  en: {
+    labelA: { round: 'Diameter', square: 'Side length', rectangle: 'Width', loaf: 'Width' },
+    labelB: 'Length',
+    area: 'Base area',
+    factor: 'Multiply every ingredient by',
+    practical: 'In practice: about ×{value}',
+    percent: '{value} % of the original amount',
+    invalid: 'Enter the size of both pans to see the result.',
+    same: 'The batter depth stays about the same, so bake for the original time and start checking 5 minutes early.',
+    shallower: 'With the scaled amount the depth stays the same. If you keep the original amount, the batter will be shallower: check 5–10 minutes early.',
+    deeper: 'With the scaled amount the depth stays the same. If you keep the original amount, the batter will be about {value} % deeper: bake longer and check with a skewer.',
+    muchDeeper: 'Keeping the original amount would make the batter about {value} % deeper. Scale the ingredients, or bake about 10 °C (25 °F) cooler for longer and test with a skewer.',
+    timeNote: 'Smaller and shallower bakes are done sooner; check early, then in 5-minute steps.',
+  },
+  de: {
+    labelA: { round: 'Durchmesser', square: 'Seitenlänge', rectangle: 'Breite', loaf: 'Breite' },
+    labelB: 'Länge',
+    area: 'Grundfläche',
+    factor: 'Alle Zutaten multiplizieren mit',
+    practical: 'Praktisch: etwa ×{value}',
+    percent: '{value} % der ursprünglichen Menge',
+    invalid: 'Gib die Größe beider Formen ein, um das Ergebnis zu sehen.',
+    same: 'Die Teighöhe bleibt etwa gleich: Backzeit wie im Rezept, aber 5 Minuten früher mit der Stäbchenprobe prüfen.',
+    shallower: 'Mit der umgerechneten Menge bleibt die Teighöhe gleich. Behältst du die Originalmenge, wird der Teig flacher: 5–10 Minuten früher prüfen.',
+    deeper: 'Mit der umgerechneten Menge bleibt die Teighöhe gleich. Behältst du die Originalmenge, wird der Teig etwa {value} % höher: länger backen und mit der Stäbchenprobe prüfen.',
+    muchDeeper: 'Mit der Originalmenge wäre der Teig etwa {value} % höher. Zutaten umrechnen oder etwa 10 °C niedriger und dafür länger backen, Stäbchenprobe machen.',
+    timeNote: 'Kleinere, flachere Kuchen sind früher fertig: früh prüfen, dann in 5-Minuten-Schritten.',
+  },
+}[locale];
+
+const defaults =
+  locale === 'de'
+    ? { from: 'de-springform-26', to: 'de-springform-20' }
+    : { from: 'us-round-9', to: 'us-rect-9x13' };
+
+const groups: { label: string; presets: PanPreset[] }[] = (locale === 'de' ? ['de', 'us'] : ['us', 'de']).map((region) => ({
+  label: region === 'de' ? copy.groupDe : copy.groupUs,
+  presets: PAN_PRESETS.filter((preset) => preset.region === region),
+}));
+
+const panSides = [
+  { key: 'from', title: copy.from, preset: defaults.from },
+  { key: 'to', title: copy.to, preset: defaults.to },
+] as const;
+---
+
+<section
+  class="tb-tool rounded-[var(--tb-radius)] border border-[var(--tb-border)] bg-[var(--tb-surface-raised)] p-5 shadow-[var(--tb-shadow-sm)] sm:p-8"
+  aria-labelledby="pan-heading"
+  data-pan-converter
+  data-locale={locale}
+  data-messages={JSON.stringify(messages)}
+>
+  <h2 id="pan-heading" class="mb-6 text-2xl font-bold text-[var(--tb-text-strong)]">{copy.heading}</h2>
+
+  <div class="grid gap-5 md:grid-cols-2">
+    {panSides.map((side) => (
+      <fieldset class="min-w-0 rounded-[var(--tb-radius-sm)] border border-[var(--tb-border)] p-4" data-pan-side={side.key} data-default-preset={side.preset}>
+        <legend class="px-1 font-semibold text-[var(--tb-text-strong)]">{side.title}</legend>
+
+        <label for={`pan-${side.key}-preset`} class="mb-1 mt-1 block text-sm font-semibold text-[var(--tb-text)]">{copy.preset}</label>
+        <select id={`pan-${side.key}-preset`} class="tb-field mb-3 w-full" data-pan-preset>
+          <option value="">{copy.custom}</option>
+          {groups.map((group) => (
+            <optgroup label={group.label}>
+              {group.presets.map((preset) => (
+                <option value={preset.id} selected={preset.id === side.preset}>{preset.label[locale]}</option>
+              ))}
+            </optgroup>
+          ))}
+        </select>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label for={`pan-${side.key}-shape`} class="mb-1 block text-sm font-semibold text-[var(--tb-text)]">{copy.shape}</label>
+            <select id={`pan-${side.key}-shape`} class="tb-field w-full" data-pan-shape>
+              {(Object.entries(copy.shapes) as [string, string][]).map(([value, label]) => (
+                <option value={value}>{label}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label for={`pan-${side.key}-unit`} class="mb-1 block text-sm font-semibold text-[var(--tb-text)]">{copy.unit}</label>
+            <select id={`pan-${side.key}-unit`} class="tb-field w-full" data-pan-unit>
+              <option value="cm">{copy.units.cm}</option>
+              <option value="in">{copy.units.in}</option>
+            </select>
+          </div>
+          <div>
+            <label for={`pan-${side.key}-a`} class="mb-1 block text-sm font-semibold text-[var(--tb-text)]" data-pan-label-a>{messages.labelA.round}</label>
+            <input id={`pan-${side.key}-a`} type="number" inputmode="decimal" min="0" step="any" class="tb-field w-full" data-pan-a />
+          </div>
+          <div data-pan-b-wrap>
+            <label for={`pan-${side.key}-b`} class="mb-1 block text-sm font-semibold text-[var(--tb-text)]">{messages.labelB}</label>
+            <input id={`pan-${side.key}-b`} type="number" inputmode="decimal" min="0" step="any" class="tb-field w-full" data-pan-b />
+          </div>
+        </div>
+        <p class="mt-3 text-sm text-[var(--tb-muted)]" data-pan-area aria-live="polite"></p>
+      </fieldset>
+    ))}
+  </div>
+
+  <output
+    for="pan-from-a pan-from-b pan-to-a pan-to-b"
+    class="mt-5 block rounded-[var(--tb-radius-sm)] border border-[var(--tb-accent)] bg-[var(--tb-accent-soft)] p-4 text-[var(--tb-accent-text)]"
+    aria-live="polite"
+    aria-label={copy.result}
+  >
+    <p class="text-sm font-semibold" data-pan-factor-label>{messages.factor}</p>
+    <p class="text-4xl font-bold tabular-nums" data-pan-factor>–</p>
+    <p class="mt-1 text-sm" data-pan-details></p>
+    <p class="mt-3 text-sm" data-pan-time></p>
+  </output>
+  <p class="mt-2 text-xs text-[var(--tb-muted)]">{messages.timeNote}</p>
+</section>
+
+<script>
+  import { convertPan, getPreset, panAreaCm2, practicalFactor, CM_PER_INCH, type LengthUnit, type PanInput, type PanShape } from '../../lib/tools/pan-size';
+
+  type Messages = {
+    labelA: Record<PanShape, string>;
+    area: string;
+    practical: string;
+    percent: string;
+    invalid: string;
+    same: string;
+    shallower: string;
+    deeper: string;
+    muchDeeper: string;
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-pan-converter]').forEach((root) => {
+    const locale = root.dataset.locale === 'de' ? 'de' : 'en';
+    const messages = JSON.parse(root.dataset.messages ?? '{}') as Messages;
+    const format = (value: number, digits = 2) =>
+      new Intl.NumberFormat(locale === 'de' ? 'de-DE' : 'en-US', { maximumFractionDigits: digits }).format(value);
+    const factorOut = root.querySelector<HTMLElement>('[data-pan-factor]')!;
+    const details = root.querySelector<HTMLElement>('[data-pan-details]')!;
+    const time = root.querySelector<HTMLElement>('[data-pan-time]')!;
+    let tracked = false;
+
+    const sides = Array.from(root.querySelectorAll<HTMLFieldSetElement>('[data-pan-side]')).map((fieldset) => ({
+      fieldset,
+      preset: fieldset.querySelector<HTMLSelectElement>('[data-pan-preset]')!,
+      shape: fieldset.querySelector<HTMLSelectElement>('[data-pan-shape]')!,
+      unit: fieldset.querySelector<HTMLSelectElement>('[data-pan-unit]')!,
+      a: fieldset.querySelector<HTMLInputElement>('[data-pan-a]')!,
+      b: fieldset.querySelector<HTMLInputElement>('[data-pan-b]')!,
+      bWrap: fieldset.querySelector<HTMLElement>('[data-pan-b-wrap]')!,
+      labelA: fieldset.querySelector<HTMLElement>('[data-pan-label-a]')!,
+      area: fieldset.querySelector<HTMLElement>('[data-pan-area]')!,
+    }));
+    type Side = (typeof sides)[number];
+
+    function readSide(side: Side): PanInput {
+      return {
+        shape: side.shape.value as PanShape,
+        unit: side.unit.value as LengthUnit,
+        a: Number(side.a.value.replace(',', '.')),
+        b: Number(side.b.value.replace(',', '.')),
+      };
+    }
+
+    function applyPreset(side: Side, id: string) {
+      const preset = getPreset(id);
+      if (!preset) return;
+      side.shape.value = preset.shape;
+      side.unit.value = preset.unit;
+      side.a.value = String(preset.a);
+      side.b.value = preset.b ? String(preset.b) : '';
+    }
+
+    function syncLabels(side: Side) {
+      const shape = side.shape.value as PanShape;
+      side.labelA.textContent = messages.labelA[shape];
+      const needsB = shape === 'rectangle' || shape === 'loaf';
+      side.bWrap.hidden = !needsB;
+    }
+
+    function areaText(area: number | null) {
+      if (!area) return '';
+      return `${messages.area}: ${format(area, 0)} cm² (${format(area / CM_PER_INCH ** 2, 0)} in²)`;
+    }
+
+    function render() {
+      sides.forEach((side) => {
+        syncLabels(side);
+        side.area.textContent = areaText(panAreaCm2(readSide(side)));
+      });
+      const result = convertPan(readSide(sides[0]), readSide(sides[1]));
+      if (!result) {
+        factorOut.textContent = '–';
+        details.textContent = messages.invalid;
+        time.textContent = '';
+        return;
+      }
+      factorOut.textContent = `×${format(result.factor)}`;
+      details.textContent = `${messages.percent.replace('{value}', format(result.factor * 100, 0))} · ${messages.practical.replace('{value}', format(practicalFactor(result.factor)))}`;
+      const deeperPercent = format((result.depthRatioSameAmount - 1) * 100, 0);
+      const hint = {
+        same: messages.same,
+        shallower: messages.shallower,
+        deeper: messages.deeper,
+        'much-deeper': messages.muchDeeper,
+      }[result.timeHint];
+      time.textContent = hint.replace('{value}', deeperPercent);
+    }
+
+    function track() {
+      if (tracked) return;
+      tracked = true;
+      (window as Window & { tbTrack?: (name: string, payload?: Record<string, unknown>) => void }).tbTrack?.(
+        'marketing_tool_submitted',
+        { tool_name: 'baking_pan_size_converter', locale },
+      );
+    }
+
+    sides.forEach((side) => {
+      applyPreset(side, side.fieldset.dataset.defaultPreset ?? '');
+      side.preset.addEventListener('change', () => {
+        applyPreset(side, side.preset.value);
+        render();
+        track();
+      });
+      [side.shape, side.unit, side.a, side.b].forEach((el) => {
+        el.addEventListener('input', () => {
+          side.preset.value = '';
+          render();
+          track();
+        });
+      });
+    });
+
+    render();
+  });
+</script>

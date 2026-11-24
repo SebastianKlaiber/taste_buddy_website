@@ -128,5 +128,25 @@
     "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=cooking-unit-converter&mt=8",
     "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dtool_cta%26utm_campaign%3Dcooking-unit-converter%26utm_content%3Dunit-converter",
     "fallback_url": "https://taste-buddy.app/tools/cooking-unit-converter/"
+  },
+  {
+    "slug": "recipe-scaler",
+    "source": "website",
+    "medium": "seo_cta",
+    "campaign": "recipe-scaler",
+    "content": "kitchen-tool",
+    "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=recipe-scaler&mt=8",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dseo_cta%26utm_campaign%3Drecipe-scaler%26utm_content%3Dkitchen-tool",
+    "fallback_url": "https://taste-buddy.app/features/recipe-organizer/"
+  },
+  {
+    "slug": "baking-pan-size-converter",
+    "source": "website",
+    "medium": "seo_cta",
+    "campaign": "baking-pan-size-converter",
+    "content": "kitchen-tool",
+    "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=baking-pan-size-converter&mt=8",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dseo_cta%26utm_campaign%3Dbaking-pan-size-converter%26utm_content%3Dkitchen-tool",
+    "fallback_url": "https://taste-buddy.app/features/recipe-organizer/"
   }
 ]
