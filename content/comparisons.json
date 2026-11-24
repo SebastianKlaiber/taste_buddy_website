@@ -638,5 +638,89 @@
     "review_status": "approved",
     "best_for_tastebuddy": "Haushalte mit iPhone und Android sowie alle, die viel aus Social Media speichern.",
     "best_for_competitor": "Reine Apple-Haushalte, die einen ausgefeilten Kochmodus auf iPhone, iPad, Apple Watch und Vision Pro wollen."
+  },
+  {
+    "slug": "tastebuddy-vs-anylist",
+    "locale": "en",
+    "title": "TasteBuddy vs AnyList",
+    "description": "Compare TasteBuddy and AnyList for shared grocery lists, saving recipes from social media and websites, and planning meals from your recipe collection.",
+    "primary_keyword": "tastebuddy vs anylist",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": [
+      "public/app-info.md",
+      "https://www.anylist.com/",
+      "https://play.google.com/store/apps/details?id=com.purplecover.anylist"
+    ],
+    "claims": [
+      "TasteBuddy starts from saved recipes and builds the plan and shopping list from them.",
+      "TasteBuddy imports recipes from social media and websites."
+    ],
+    "cta_variant": "shopping-from-plan",
+    "last_reviewed_at": "2026-10-19",
+    "competitor": "AnyList",
+    "use_case": "moving from a list-first app to a recipe-first planning workflow",
+    "strengths": [
+      "Saves recipes from TikTok, Instagram, Pinterest, YouTube, food blogs, screenshots, and notes",
+      "Shopping lists come straight from the meal plan you build from saved recipes",
+      "One searchable personal recipe collection on iOS, Android, and web"
+    ],
+    "weaknesses": [
+      "AnyList has more grocery-specific tools, such as store layouts, item prices, and location reminders",
+      "People who mainly need a shared shopping list may not need a recipe-first app"
+    ],
+    "migration_notes": [
+      "Add the recipes you cook most to TasteBuddy first, ideally from their original links.",
+      "Build one week's plan from those recipes and let TasteBuddy generate the shopping list."
+    ],
+    "proof_points": [
+      "TasteBuddy generates shopping lists from planned recipes.",
+      "TasteBuddy supports import from websites and social platforms."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "People whose weekly shopping starts with the recipes they saved from social media and food blogs.",
+    "best_for_competitor": "Couples and families who mainly want a fast, shared grocery list with advanced store features."
+  },
+  {
+    "slug": "tastebuddy-vs-anylist",
+    "locale": "de",
+    "title": "TasteBuddy oder AnyList im Vergleich",
+    "description": "Vergleichen Sie TasteBuddy und AnyList für geteilte Einkaufslisten, Rezepte aus Social Media und Websites und die Wochenplanung aus der eigenen Rezeptsammlung.",
+    "primary_keyword": "tastebuddy vs anylist",
+    "search_intent": "comparison",
+    "page_type": "comparison",
+    "source_of_truth": [
+      "public/app-info.md",
+      "https://www.anylist.com/",
+      "https://play.google.com/store/apps/details?id=com.purplecover.anylist"
+    ],
+    "claims": [
+      "TasteBuddy startet bei gespeicherten Rezepten und baut daraus Plan und Einkaufsliste.",
+      "TasteBuddy importiert Rezepte aus Social Media und von Websites."
+    ],
+    "cta_variant": "shopping-from-plan",
+    "last_reviewed_at": "2026-10-19",
+    "competitor": "AnyList",
+    "use_case": "Wechsel von einer Listen-App zu einem rezeptbasierten Planungs-Workflow",
+    "strengths": [
+      "Speichert Rezepte aus TikTok, Instagram, Pinterest, YouTube, Food-Blogs, Screenshots und Notizen",
+      "Die Einkaufsliste entsteht direkt aus dem Wochenplan Ihrer gespeicherten Rezepte",
+      "Eine durchsuchbare persönliche Rezeptsammlung auf iOS, Android und im Web"
+    ],
+    "weaknesses": [
+      "AnyList hat mehr Funktionen speziell für Einkaufslisten, etwa Ladenlayouts, Artikelpreise und standortbasierte Erinnerungen",
+      "Wer vor allem eine geteilte Einkaufsliste braucht, benötigt nicht unbedingt eine Rezept-App"
+    ],
+    "migration_notes": [
+      "Legen Sie zuerst die Rezepte in TasteBuddy an, die Sie am häufigsten kochen, am besten über den Original-Link.",
+      "Planen Sie daraus eine Woche und lassen Sie TasteBuddy die Einkaufsliste erstellen."
+    ],
+    "proof_points": [
+      "TasteBuddy erzeugt Einkaufslisten aus geplanten Rezepten.",
+      "TasteBuddy unterstützt Import aus Websites und Social Media."
+    ],
+    "review_status": "approved",
+    "best_for_tastebuddy": "Alle, deren Wocheneinkauf bei den Rezepten beginnt, die sie aus Social Media und Food-Blogs gespeichert haben.",
+    "best_for_competitor": "Paare und Familien, die vor allem eine schnelle, geteilte Einkaufsliste mit erweiterten Ladenfunktionen wollen."
   }
 ]

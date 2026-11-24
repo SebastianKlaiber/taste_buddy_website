@@ -350,5 +350,55 @@
     "tradeoff": "Nur für Apple-Geräte, daher ungeeignet für Haushalte mit iPhone und Android",
     "source_of_truth": ["https://apps.apple.com/us/app/id1574776971"],
     "last_reviewed_at": "2026-11-07"
+  },
+  {
+    "slug": "anylist",
+    "locale": "en",
+    "name": "AnyList",
+    "website_url": "https://www.anylist.com/",
+    "platforms": [
+      "iOS",
+      "Android",
+      "Mac",
+      "Web"
+    ],
+    "pricing_model": "Free, optional AnyList Complete subscription",
+    "best_for": "Couples and families who mainly want a fast, shared grocery list with a recipe box attached",
+    "highlights": [
+      "Shared grocery lists that sync in real time and sort by store section",
+      "Recipe box that adds all ingredients to the shopping list in one tap",
+      "Voice entry through Alexa, plus home screen widgets"
+    ],
+    "tradeoff": "Web recipe import, the meal planning calendar, and desktop access are part of the paid Complete subscription",
+    "source_of_truth": [
+      "https://www.anylist.com/",
+      "https://play.google.com/store/apps/details?id=com.purplecover.anylist"
+    ],
+    "last_reviewed_at": "2026-10-19"
+  },
+  {
+    "slug": "anylist",
+    "locale": "de",
+    "name": "AnyList",
+    "website_url": "https://www.anylist.com/",
+    "platforms": [
+      "iOS",
+      "Android",
+      "Mac",
+      "Web"
+    ],
+    "pricing_model": "Kostenlos, optionales AnyList Complete Abo",
+    "best_for": "Paare und Familien, die vor allem eine schnelle, geteilte Einkaufsliste mit angeschlossener Rezeptbox wollen",
+    "highlights": [
+      "Geteilte Einkaufslisten, die sich in Echtzeit synchronisieren und nach Ladenbereichen sortieren",
+      "Rezeptbox, die alle Zutaten mit einem Tipp auf die Einkaufsliste setzt",
+      "Spracheingabe über Alexa und Widgets für den Startbildschirm"
+    ],
+    "tradeoff": "Web-Import von Rezepten, Essensplan-Kalender und Desktop-Zugriff gibt es nur im kostenpflichtigen Complete-Abo",
+    "source_of_truth": [
+      "https://www.anylist.com/",
+      "https://play.google.com/store/apps/details?id=com.purplecover.anylist"
+    ],
+    "last_reviewed_at": "2026-10-19"
   }
 ]

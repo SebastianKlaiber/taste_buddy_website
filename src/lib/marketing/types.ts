@@ -165,6 +165,8 @@ export interface ArticleRecord {
   slug: string;
   locale: Locale;
   template_type: 'consumer_how_to' | 'comparison_migration' | 'data_story' | 'technical_authority';
+  /** Shared by an article and its translation so hreflang alternates pair correctly. */
+  translation_key?: string;
   target_query: string;
   source_refs: string[];
   publish_status: 'draft' | 'approved';
