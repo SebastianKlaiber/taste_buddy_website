@@ -1,0 +1,183 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Main from '../../../components/Main.astro';
+import YeastConverter from '../../../components/tools/YeastConverter.astro';
+import YeastReferenceTables from '../../../components/tools/YeastReferenceTables.astro';
+import { getGoHref, SITE_URL } from '../../../lib/marketing/app-links';
+import '../../../components/tools/yeast-tool-page.css';
+
+export const prerender = true;
+
+const title = 'Hefe umrechnen: Frischhefe ↔ Trockenhefe | TasteBuddy';
+const description =
+  'Hefe-Umrechner: Frischhefe in Trockenhefe umrechnen und umgekehrt – in Gramm, Würfeln, Päckchen und TL. Mit Sauerteig statt Hefe und Backpulver vs. Natron.';
+const url = `${SITE_URL}/de/tools/hefe-umrechner/`;
+const enUrl = `${SITE_URL}/tools/yeast-converter/`;
+const alternates = {
+  en: enUrl,
+  de: url,
+  'x-default': enUrl,
+};
+
+const faq = [
+  {
+    question: 'Wie rechne ich Frischhefe in Trockenhefe um?',
+    answer:
+      'Teile die Menge Frischhefe durch 3. Ein Würfel Frischhefe (42 g) entspricht also etwa 14 g Trockenhefe, das sind 2 Päckchen à 7 g. Umgekehrt nimmst du die dreifache Menge Frischhefe. Das ist eine bewährte Faustregel, kein exakter Wert.',
+  },
+  {
+    question: 'Wie viel Frischhefe entspricht einem Päckchen Trockenhefe?',
+    answer:
+      'Ein Päckchen Trockenhefe (7 g) ersetzt etwa 21 g Frischhefe, also einen halben Würfel. Ein Päckchen ist laut Packung für 500 g Mehl gedacht.',
+  },
+  {
+    question: 'Wie viel Hefe brauche ich für 500 g Mehl?',
+    answer:
+      'Für einen normalen Hefeteig mit 1–2 Stunden Gehzeit: 1 Päckchen Trockenhefe (7 g) oder einen halben Würfel Frischhefe (21 g). Für schwere, süße Teige nehmen manche Rezepte etwas mehr, für lange oder kalte Teigführung deutlich weniger.',
+  },
+  {
+    question: 'Was ist der Unterschied zwischen Trockenhefe und Active Dry Yeast?',
+    answer:
+      'Die in Deutschland übliche Trockenhefe ist Instant-Hefe und kommt direkt ins Mehl. Active Dry Yeast aus US-Rezepten wird zuerst in warmem Wasser aufgelöst und ist etwas schwächer: Man braucht rund 25 % mehr davon. Ein US-Packet (7 g, 2¼ TL) Active Dry entspricht etwa 5,6 g Trockenhefe.',
+  },
+  {
+    question: 'Wie ersetze ich Hefe durch Sauerteig?',
+    answer:
+      'Als Faustregel nimmst du aktiven Sauerteig in Höhe von etwa 20 % des Mehlgewichts (100 g auf 500 g Mehl), ziehst das darin enthaltene Mehl und Wasser vom Rezept ab und lässt die Hefe weg. Die Gare dauert mehrere Stunden länger. Das ist ein Startwert, den du an deinen Sauerteig anpasst.',
+  },
+  {
+    question: 'Kann ich Natron statt Backpulver verwenden?',
+    answer:
+      'Nur zusammen mit einer Säure. Natron ist etwa 3- bis 4-mal so stark: 1 TL Backpulver lässt sich grob durch ¼ TL Natron plus ½ TL Weinstein ersetzen, oder durch ¼ TL Natron mit einer sauren Zutat wie Buttermilch oder Joghurt.',
+  },
+];
+
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+
+const appStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Hefe-Umrechner',
+  url,
+  description,
+  inLanguage: 'de',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  browserRequirements: 'Requires JavaScript',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+  publisher: { '@type': 'Organization', name: 'TasteBuddy', url: SITE_URL },
+};
+---
+
+<Layout title={title} description={description} lang="de" alternates={alternates}>
+  <script type="application/ld+json" set:html={JSON.stringify(appStructuredData)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
+  <Main>
+    <div class="ytool mx-auto max-w-4xl py-10 sm:py-14">
+      <header class="mb-8">
+        <p class="ytool-eyebrow">Kostenloses Küchen-Tool</p>
+        <h1 class="ytool-h1">Hefe-Umrechner: Frischhefe in Trockenhefe umrechnen</h1>
+        <p class="ytool-lead">
+          Rechne Frischhefe in Trockenhefe um und umgekehrt, in Gramm, Würfeln, Päckchen, Teelöffeln oder Unzen.
+          Finde heraus, wie viel Hefe dein Mehl braucht, ersetze Hefe durch Sauerteig und prüfe Backpulver gegen
+          Natron.
+        </p>
+      </header>
+
+      <YeastConverter lang="de" />
+
+      <div class="mt-12">
+        <YeastReferenceTables lang="de" />
+      </div>
+
+      <article class="ytool-prose mt-12">
+        <h2>So funktioniert die Hefe-Umrechnung</h2>
+        <p>
+          Frischhefe, Trockenhefe und Active Dry sind dieselbe Backhefe (<em>Saccharomyces cerevisiae</em>). Sie
+          unterscheiden sich vor allem im Wassergehalt: Frischhefe besteht zu rund 70 % aus Wasser, deshalb brauchst
+          du davon am meisten. Getrocknete Hefe ist konzentrierter.
+        </p>
+        <p>
+          Der Rechner nutzt die gängigen Verhältnisse: <strong>Frischhefe ≈ 3 × Trockenhefe</strong> und
+          <strong>Active Dry ≈ 1,25 × Trockenhefe</strong> (nach Gewicht). Das sind Faustregeln. Die Triebkraft
+          schwankt je nach Marke und Alter der Hefe, und die Teigtemperatur beeinflusst die Gehzeit stärker als ein
+          Gramm mehr oder weniger.
+        </p>
+
+        <h2>Würfel, Päckchen und Teelöffel</h2>
+        <p>
+          Ein Würfel Frischhefe wiegt 42 g, ein Päckchen Trockenhefe 7 g. Damit gilt: 1 Würfel Frischhefe ≈
+          2 Päckchen Trockenhefe, und 1 Päckchen ersetzt einen halben Würfel. In amerikanischen Rezepten steht oft
+          „1 packet“ oder „2¼ tsp“: Das sind ebenfalls 7 g, meist Active Dry. Ein Teelöffel Trockenhefe wiegt etwa
+          3,1 g. Für Frischhefe bietet der Rechner keine Teelöffel an, weil sie sich krümelig nicht zuverlässig
+          abmessen lässt.
+        </p>
+
+        <h2>Hefe richtig verwenden</h2>
+        <ul>
+          <li><strong>Trockenhefe (Instant)</strong> mischst du direkt unter das Mehl.</li>
+          <li><strong>Active Dry</strong> löst du zuerst 5–10 Minuten in warmem Wasser (etwa 40 °C) auf.</li>
+          <li><strong>Frischhefe</strong> zerbröselst du in lauwarmer Flüssigkeit oder im Mehl. Sie gehört in den Kühlschrank und hält etwa zwei Wochen.</li>
+        </ul>
+        <p>
+          Zu heiße Flüssigkeit schadet der Hefe: Bleib beim Auflösen unter etwa 45 °C. Für eine lange, kalte Gare
+          über Nacht reduzierst du die Hefemenge; die Umrechnung zwischen den Hefesorten bleibt dabei gleich.
+        </p>
+
+        <h2>Sauerteig, Backpulver und Natron</h2>
+        <p>
+          Sauerteig ist kein direkter Ersatz: Die wilden Hefen arbeiten langsamer und der Sauerteig bringt selbst
+          Mehl und Wasser mit. Die 20-%-Regel oben ist ein üblicher Startwert, beim ersten Backen siehst du, ob dein
+          Anstellgut mehr Zeit oder einen größeren Anteil braucht. Backpulver und Natron sind chemische Triebmittel
+          und ersetzen keine Hefe im Brot. Natron wirkt nur mit Säure im Teig und schmeckt überdosiert seifig,
+          deshalb zeigt der Helfer oben Richtwerte statt exakter Umrechnungen.
+        </p>
+      </article>
+
+      <section class="ytool-faq mt-12" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Häufige Fragen zum Hefe umrechnen</h2>
+        {faq.map((item) => (
+          <details>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </section>
+
+      <section class="ytool-cta mt-12" aria-labelledby="cta-heading">
+        <h2 id="cta-heading">Alle Backrezepte an einem Ort</h2>
+        <p>
+          TasteBuddy speichert Rezepte von Websites, Social-Media-Posts, Screenshots und handgeschriebenen Karten,
+          hilft dir beim Planen, was du backst und kochst, und macht aus deinem Plan eine Einkaufsliste.
+        </p>
+        <div class="mt-5 flex flex-wrap gap-3">
+          <a
+            class="btn-primary"
+            href={getGoHref('yeast-converter')}
+            data-track-event="marketing_cta_clicked"
+            data-track-payload={JSON.stringify({ cta_slug: 'yeast-converter', cta_label: 'TasteBuddy laden', cta_variant: 'primary', destination: 'go_redirect' })}
+          >
+            TasteBuddy laden
+          </a>
+          <a
+            class="btn-secondary"
+            href="/de/so-funktioniert-es/"
+            data-track-event="marketing_cta_clicked"
+            data-track-payload={JSON.stringify({ cta_slug: 'yeast-converter', cta_label: 'So funktioniert TasteBuddy', cta_variant: 'secondary', destination: 'how_it_works_de' })}
+          >
+            So funktioniert TasteBuddy
+          </a>
+        </div>
+      </section>
+    </div>
+  </Main>
+</Layout>

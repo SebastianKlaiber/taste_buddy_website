@@ -1,0 +1,656 @@
+---
+/**
+ * Interactive yeast & leavening converter. Static markup with live client-side
+ * results; all math lives in src/lib/tools/yeast-converter.ts.
+ */
+import {
+  SOURDOUGH_DEFAULT_STARTER_HYDRATION,
+  SOURDOUGH_DEFAULT_STARTER_PERCENT,
+  type YeastType,
+} from '../../lib/tools/yeast-converter';
+
+interface Props {
+  lang: 'en' | 'de';
+}
+
+const { lang } = Astro.props;
+
+const copy = {
+  en: {
+    yeastHeading: 'Convert fresh, active dry and instant yeast',
+    yeastIntro: 'Enter the yeast your recipe calls for. Results update as you type.',
+    typeLabel: 'Yeast in your recipe',
+    amountLabel: 'Amount',
+    unitLabel: 'Unit',
+    types: { fresh: 'Fresh yeast (cake)', instant: 'Instant yeast (rapid rise)', active: 'Active dry yeast' } as Record<YeastType, string>,
+    units: { g: 'grams (g)', oz: 'ounces (oz)', tsp: 'teaspoons (tsp)', packet: 'packets (7 g)', cube: 'cubes (42 g)' },
+    youNeed: 'Equivalent amounts',
+    flourHeading: 'How much yeast for my flour?',
+    flourIntro: 'Typical package dosage for a standard yeast dough that rises 1–2 hours at room temperature.',
+    flourLabel: 'Flour',
+    flourUnits: { g: 'grams (g)', kg: 'kilograms (kg)', cup: 'cups (≈125 g)' },
+    sourdoughHeading: 'Swap yeast for sourdough starter',
+    sourdoughIntro:
+      'Guideline only: about 20% of the flour weight as active, bubbly starter. The flour and water inside the starter are taken out of the dough so the totals stay the same.',
+    sdFlourLabel: 'Total flour in recipe (g)',
+    sdWaterLabel: 'Total water/liquid in recipe (g, optional)',
+    sdPercentLabel: 'Starter as % of flour',
+    sdHydrationLabel: 'Starter hydration (%)',
+    sdStarter: 'Active starter',
+    sdFlour: 'Flour to add',
+    sdWater: 'Water to add',
+    sdWaterMissing: 'enter water above',
+    sdNote:
+      'Leave out the commercial yeast. Expect a much longer rise: roughly 4–8 hours bulk fermentation at 24–26 °C, or overnight in the fridge. Watch the dough (about 50–75% bigger, airy), not the clock.',
+    sdReplaces: 'Replaces about',
+    bpHeading: 'Baking powder and baking soda helper',
+    bpIntro:
+      'Rough starting points for cakes, muffins and quick breads, not an exact conversion: the right amount depends on the recipe and its acidity.',
+    bpFlourLabel: 'Flour (g)',
+    bpPowder: 'Baking powder',
+    bpSoda: 'Or: baking soda',
+    bpSodaPlus: 'plus an acid, e.g.',
+    bpTartar: 'cream of tartar',
+    bpOrButtermilk: 'or swap some liquid for buttermilk/yogurt',
+    invalid: 'Enter a number, e.g. 7 or 1.5',
+    unitNotForType: 'This unit does not apply to this yeast type.',
+    gram: 'g',
+    oz: 'oz',
+    tsp: 'tsp',
+    packets: 'packets',
+    cubes: 'cubes',
+    approx: '≈',
+  },
+  de: {
+    yeastHeading: 'Frischhefe, Trockenhefe und Active Dry umrechnen',
+    yeastIntro: 'Gib die Hefe aus deinem Rezept ein. Das Ergebnis erscheint sofort.',
+    typeLabel: 'Hefe im Rezept',
+    amountLabel: 'Menge',
+    unitLabel: 'Einheit',
+    types: {
+      fresh: 'Frischhefe',
+      instant: 'Trockenhefe (Instant)',
+      active: 'Aktive Trockenhefe (Active Dry)',
+    } as Record<YeastType, string>,
+    units: { g: 'Gramm (g)', oz: 'Unzen (oz)', tsp: 'Teelöffel (TL)', packet: 'Päckchen (7 g)', cube: 'Würfel (42 g)' },
+    youNeed: 'Entspricht',
+    flourHeading: 'Wie viel Hefe für mein Mehl?',
+    flourIntro: 'Übliche Packungsdosierung für einen normalen Hefeteig, der 1–2 Stunden bei Zimmertemperatur geht.',
+    flourLabel: 'Mehl',
+    flourUnits: { g: 'Gramm (g)', kg: 'Kilogramm (kg)', cup: 'Cups (≈125 g)' },
+    sourdoughHeading: 'Hefe durch Sauerteig ersetzen',
+    sourdoughIntro:
+      'Nur eine Faustregel: etwa 20 % des Mehlgewichts als aktives, triebstarkes Anstellgut. Mehl und Wasser im Sauerteig werden vom Teig abgezogen, damit die Gesamtmengen gleich bleiben.',
+    sdFlourLabel: 'Mehl im Rezept gesamt (g)',
+    sdWaterLabel: 'Wasser/Flüssigkeit im Rezept gesamt (g, optional)',
+    sdPercentLabel: 'Sauerteig in % vom Mehl',
+    sdHydrationLabel: 'Hydration des Sauerteigs (%)',
+    sdStarter: 'Aktiver Sauerteig',
+    sdFlour: 'Mehl zugeben',
+    sdWater: 'Wasser zugeben',
+    sdWaterMissing: 'oben Wasser eingeben',
+    sdNote:
+      'Die Hefe komplett weglassen. Die Gare dauert deutlich länger: grob 4–8 Stunden Stockgare bei 24–26 °C oder über Nacht im Kühlschrank. Richte dich nach dem Teig (etwa 50–75 % größer, luftig), nicht nach der Uhr.',
+    sdReplaces: 'Ersetzt etwa',
+    bpHeading: 'Backpulver und Natron: Hilfe zur Dosierung',
+    bpIntro:
+      'Grobe Richtwerte für Rührkuchen, Muffins und schnelle Brote, keine exakte Umrechnung: Die richtige Menge hängt vom Rezept und seiner Säure ab.',
+    bpFlourLabel: 'Mehl (g)',
+    bpPowder: 'Backpulver',
+    bpSoda: 'Oder: Natron',
+    bpSodaPlus: 'plus Säure, z. B.',
+    bpTartar: 'Weinstein',
+    bpOrButtermilk: 'oder einen Teil der Flüssigkeit durch Buttermilch/Joghurt ersetzen',
+    invalid: 'Bitte eine Zahl eingeben, z. B. 7 oder 1,5',
+    unitNotForType: 'Diese Einheit passt nicht zu dieser Hefe.',
+    gram: 'g',
+    oz: 'oz',
+    tsp: 'TL',
+    packets: 'Päckchen',
+    cubes: 'Würfel',
+    approx: '≈',
+  },
+}[lang];
+
+const typeOrder: YeastType[] = lang === 'de' ? ['fresh', 'instant', 'active'] : ['active', 'instant', 'fresh'];
+const defaults =
+  lang === 'de'
+    ? { type: 'fresh', amount: '1', unit: 'cube', flour: '500', flourUnit: 'g' }
+    : { type: 'active', amount: '1', unit: 'packet', flour: '500', flourUnit: 'g' };
+
+const unitLabels = JSON.stringify(copy.units);
+const strings = JSON.stringify({
+  invalid: copy.invalid,
+  unitNotForType: copy.unitNotForType,
+  gram: copy.gram,
+  oz: copy.oz,
+  tsp: copy.tsp,
+  packets: copy.packets,
+  cubes: copy.cubes,
+  sdWaterMissing: copy.sdWaterMissing,
+});
+
+const resultCard = (type: YeastType, prefix: string) => ({ type, id: `${prefix}-${type}` });
+---
+
+<div class="yc" data-yeast-converter data-lang={lang} data-unit-labels={unitLabels} data-strings={strings}>
+  <!-- 1. Yeast type converter -->
+  <section class="yc-panel" aria-labelledby="yc-yeast-heading">
+    <h2 id="yc-yeast-heading" class="yc-h2">{copy.yeastHeading}</h2>
+    <p class="yc-intro">{copy.yeastIntro}</p>
+    <form class="yc-form" data-mode="yeast" novalidate>
+      <div class="yc-field">
+        <label for="yc-type">{copy.typeLabel}</label>
+        <select id="yc-type" name="type">
+          {typeOrder.map((type) => <option value={type} selected={type === defaults.type}>{copy.types[type]}</option>)}
+        </select>
+      </div>
+      <div class="yc-row">
+        <div class="yc-field">
+          <label for="yc-amount">{copy.amountLabel}</label>
+          <input id="yc-amount" name="amount" type="text" inputmode="decimal" autocomplete="off" value={defaults.amount} aria-describedby="yc-amount-error" />
+        </div>
+        <div class="yc-field">
+          <label for="yc-unit">{copy.unitLabel}</label>
+          <select id="yc-unit" name="unit" data-default={defaults.unit}></select>
+        </div>
+      </div>
+      <p id="yc-amount-error" class="yc-error" role="alert" hidden></p>
+    </form>
+    <h3 class="yc-h3">{copy.youNeed}</h3>
+    <div class="yc-results" aria-live="polite">
+      {typeOrder.map((type) => {
+        const card = resultCard(type, 'yc-out');
+        return (
+          <div class="yc-result" data-result-type={card.type} id={card.id}>
+            <span class="yc-result-label">{copy.types[type]}</span>
+            <span class="yc-result-value" data-out="main">–</span>
+            <span class="yc-result-sub" data-out="sub"></span>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- 2. Yeast for flour -->
+  <section class="yc-panel" aria-labelledby="yc-flour-heading">
+    <h2 id="yc-flour-heading" class="yc-h2">{copy.flourHeading}</h2>
+    <p class="yc-intro">{copy.flourIntro}</p>
+    <form class="yc-form" data-mode="flour" novalidate>
+      <div class="yc-row">
+        <div class="yc-field">
+          <label for="yc-flour">{copy.flourLabel}</label>
+          <input id="yc-flour" name="flour" type="text" inputmode="decimal" autocomplete="off" value={defaults.flour} aria-describedby="yc-flour-error" />
+        </div>
+        <div class="yc-field">
+          <label for="yc-flour-unit">{copy.unitLabel}</label>
+          <select id="yc-flour-unit" name="flourUnit">
+            {(['g', 'kg', 'cup'] as const).map((unit) => (
+              <option value={unit} selected={unit === defaults.flourUnit}>{copy.flourUnits[unit]}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <p id="yc-flour-error" class="yc-error" role="alert" hidden></p>
+    </form>
+    <div class="yc-results" aria-live="polite">
+      {typeOrder.map((type) => (
+        <div class="yc-result" data-flour-type={type}>
+          <span class="yc-result-label">{copy.types[type]}</span>
+          <span class="yc-result-value" data-out="main">–</span>
+          <span class="yc-result-sub" data-out="sub"></span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 3. Sourdough -->
+  <section class="yc-panel" aria-labelledby="yc-sd-heading">
+    <h2 id="yc-sd-heading" class="yc-h2">{copy.sourdoughHeading}</h2>
+    <p class="yc-intro">{copy.sourdoughIntro}</p>
+    <form class="yc-form" data-mode="sourdough" novalidate>
+      <div class="yc-row">
+        <div class="yc-field">
+          <label for="yc-sd-flour">{copy.sdFlourLabel}</label>
+          <input id="yc-sd-flour" name="flour" type="text" inputmode="decimal" autocomplete="off" value="500" aria-describedby="yc-sd-error" />
+        </div>
+        <div class="yc-field">
+          <label for="yc-sd-water">{copy.sdWaterLabel}</label>
+          <input id="yc-sd-water" name="water" type="text" inputmode="decimal" autocomplete="off" value="350" aria-describedby="yc-sd-error" />
+        </div>
+      </div>
+      <div class="yc-row">
+        <div class="yc-field">
+          <label for="yc-sd-percent">{copy.sdPercentLabel}</label>
+          <input id="yc-sd-percent" name="percent" type="text" inputmode="decimal" autocomplete="off" value={String(SOURDOUGH_DEFAULT_STARTER_PERCENT)} aria-describedby="yc-sd-error" />
+        </div>
+        <div class="yc-field">
+          <label for="yc-sd-hydration">{copy.sdHydrationLabel}</label>
+          <input id="yc-sd-hydration" name="hydration" type="text" inputmode="decimal" autocomplete="off" value={String(SOURDOUGH_DEFAULT_STARTER_HYDRATION)} aria-describedby="yc-sd-error" />
+        </div>
+      </div>
+      <p id="yc-sd-error" class="yc-error" role="alert" hidden></p>
+    </form>
+    <div class="yc-results" aria-live="polite">
+      <div class="yc-result" data-sd="starter">
+        <span class="yc-result-label">{copy.sdStarter}</span>
+        <span class="yc-result-value" data-out="main">–</span>
+      </div>
+      <div class="yc-result" data-sd="flour">
+        <span class="yc-result-label">{copy.sdFlour}</span>
+        <span class="yc-result-value" data-out="main">–</span>
+      </div>
+      <div class="yc-result" data-sd="water">
+        <span class="yc-result-label">{copy.sdWater}</span>
+        <span class="yc-result-value" data-out="main">–</span>
+      </div>
+    </div>
+    <p class="yc-note"><span data-sd-replaces data-prefix={copy.sdReplaces}></span> {copy.sdNote}</p>
+  </section>
+
+  <!-- 4. Baking powder / soda helper -->
+  <section class="yc-panel" aria-labelledby="yc-bp-heading">
+    <h2 id="yc-bp-heading" class="yc-h2">{copy.bpHeading}</h2>
+    <p class="yc-intro">{copy.bpIntro}</p>
+    <form class="yc-form" data-mode="leavening" novalidate>
+      <div class="yc-field yc-field-narrow">
+        <label for="yc-bp-flour">{copy.bpFlourLabel}</label>
+        <input id="yc-bp-flour" name="flour" type="text" inputmode="decimal" autocomplete="off" value="500" aria-describedby="yc-bp-error" />
+      </div>
+      <p id="yc-bp-error" class="yc-error" role="alert" hidden></p>
+    </form>
+    <div class="yc-results yc-results-2" aria-live="polite">
+      <div class="yc-result" data-bp="powder">
+        <span class="yc-result-label">{copy.bpPowder}</span>
+        <span class="yc-result-value" data-out="main">–</span>
+        <span class="yc-result-sub" data-out="sub"></span>
+      </div>
+      <div class="yc-result" data-bp="soda">
+        <span class="yc-result-label">{copy.bpSoda}</span>
+        <span class="yc-result-value" data-out="main">–</span>
+        <span class="yc-result-sub" data-out="sub" data-plus={copy.bpSodaPlus} data-tartar={copy.bpTartar} data-alt={copy.bpOrButtermilk}></span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  .yc {
+    display: grid;
+    gap: 1.5rem;
+  }
+  .yc-panel {
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius);
+    background: var(--tb-surface-raised);
+    box-shadow: var(--tb-shadow-sm);
+    padding: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .yc-panel {
+      padding: 1.75rem;
+    }
+  }
+  .yc-h2 {
+    color: var(--tb-text-strong);
+    font-size: 1.375rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 0.375rem;
+  }
+  .yc-h3 {
+    color: var(--tb-text-strong);
+    font-size: 1rem;
+    font-weight: 650;
+    margin: 1.25rem 0 0.75rem;
+  }
+  .yc-intro,
+  .yc-note {
+    color: var(--tb-muted);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .yc-note {
+    margin-top: 1rem;
+  }
+  .yc-form {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.125rem;
+  }
+  .yc-row {
+    display: grid;
+    gap: 1rem;
+  }
+  @media (min-width: 560px) {
+    .yc-row {
+      grid-template-columns: 1fr 1fr;
+    }
+    .yc-field-narrow {
+      max-width: 50%;
+    }
+  }
+  .yc-field {
+    display: grid;
+    gap: 0.375rem;
+  }
+  .yc-field label {
+    color: var(--tb-text);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  .yc-field input,
+  .yc-field select {
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius-sm);
+    background: var(--tb-surface);
+    color: var(--tb-text);
+    font-size: 1rem;
+    padding: 0.625rem 0.875rem;
+  }
+  .yc-field input:focus-visible,
+  .yc-field select:focus-visible {
+    outline: 2px solid var(--tb-accent);
+    outline-offset: 1px;
+  }
+  .yc-field input[aria-invalid='true'] {
+    border-color: #d14343;
+  }
+  .yc-error {
+    color: #d14343;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  .yc-results {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  @media (min-width: 640px) {
+    .yc-results {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .yc-results-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .yc-result {
+    display: grid;
+    gap: 0.25rem;
+    align-content: start;
+    border-radius: var(--tb-radius-sm);
+    background: var(--tb-accent-soft);
+    padding: 0.875rem 1rem;
+  }
+  .yc-result-label {
+    color: var(--tb-accent-text);
+    font-size: 0.8125rem;
+    font-weight: 650;
+  }
+  .yc-result-value {
+    color: var(--tb-text-strong);
+    font-size: 1.5rem;
+    font-weight: 750;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+  }
+  .yc-result-sub {
+    color: var(--tb-text);
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+  .yc-result-sub:empty {
+    display: none;
+  }
+</style>
+
+<script>
+  import {
+    convertYeast,
+    flourToGrams,
+    formatNumber,
+    formatSpoons,
+    leaveningForFlour,
+    parseAmount,
+    sourdoughSwap,
+    unitsFor,
+    yeastForFlour,
+    DRY_YEAST_GRAMS_PER_TSP,
+    GRAMS_PER_CUBE,
+    GRAMS_PER_OZ,
+    GRAMS_PER_PACKET,
+    type FlourUnit,
+    type YeastGrams,
+    type YeastType,
+    type YeastUnit,
+  } from '../../lib/tools/yeast-converter';
+
+  type Strings = {
+    invalid: string;
+    unitNotForType: string;
+    gram: string;
+    oz: string;
+    tsp: string;
+    packets: string;
+    cubes: string;
+    sdWaterMissing: string;
+  };
+
+  type Track = (event: string, payload?: Record<string, unknown>) => void;
+
+  function init(root: HTMLElement) {
+    const lang = root.dataset.lang === 'de' ? 'de' : 'en';
+    const unitLabels = JSON.parse(root.dataset.unitLabels ?? '{}') as Record<YeastUnit, string>;
+    const s = JSON.parse(root.dataset.strings ?? '{}') as Strings;
+    const fmt = (value: number, digits = 1) => formatNumber(value, lang, digits);
+    const g = (value: number) => `${fmt(value)} ${s.gram}`;
+
+    const tracked = new Set<string>();
+    const track = (mode: string) => {
+      if (tracked.has(mode)) return;
+      tracked.add(mode);
+      (window as unknown as { tbTrack?: Track }).tbTrack?.('marketing_tool_submitted', { tool_name: 'yeast_converter', mode, lang });
+    };
+
+    const setError = (input: HTMLInputElement | null, errorEl: HTMLElement | null, message: string) => {
+      if (input) input.setAttribute('aria-invalid', message ? 'true' : 'false');
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.hidden = !message;
+      }
+    };
+
+    const setCard = (card: Element | null, main: string, sub = '') => {
+      if (!card) return;
+      const mainEl = card.querySelector('[data-out="main"]');
+      const subEl = card.querySelector('[data-out="sub"]');
+      if (mainEl) mainEl.textContent = main;
+      if (subEl) subEl.textContent = sub;
+    };
+
+    const yeastDetails = (type: YeastType, grams: number) => {
+      const oz = `${fmt(grams / GRAMS_PER_OZ, 2)} ${s.oz}`;
+      if (type === 'fresh') {
+        return `${fmt(grams / GRAMS_PER_CUBE, 2)} ${s.cubes} · ${oz}`;
+      }
+      return `${formatSpoons(grams / DRY_YEAST_GRAMS_PER_TSP)} ${s.tsp} · ${fmt(grams / GRAMS_PER_PACKET, 2)} ${s.packets} · ${oz}`;
+    };
+
+    const fillYeastCards = (selector: string, values: YeastGrams | null) => {
+      root.querySelectorAll<HTMLElement>(selector).forEach((card) => {
+        const type = (card.dataset.resultType ?? card.dataset.flourType) as YeastType;
+        if (!values) return setCard(card, '–');
+        setCard(card, g(values[type]), yeastDetails(type, values[type]));
+      });
+    };
+
+    /* 1. Yeast converter */
+    const typeSelect = root.querySelector<HTMLSelectElement>('#yc-type');
+    const unitSelect = root.querySelector<HTMLSelectElement>('#yc-unit');
+    const amountInput = root.querySelector<HTMLInputElement>('#yc-amount');
+    const amountError = root.querySelector<HTMLElement>('#yc-amount-error');
+
+    const populateUnits = (preferred?: string) => {
+      if (!typeSelect || !unitSelect) return;
+      const type = typeSelect.value as YeastType;
+      const current = preferred ?? unitSelect.value;
+      const units = unitsFor(type);
+      unitSelect.innerHTML = '';
+      for (const unit of units) {
+        const option = document.createElement('option');
+        option.value = unit;
+        option.textContent = unitLabels[unit];
+        unitSelect.append(option);
+      }
+      unitSelect.value = units.includes(current as YeastUnit) ? current : 'g';
+    };
+
+    const updateYeast = () => {
+      if (!typeSelect || !unitSelect || !amountInput) return;
+      const raw = amountInput.value;
+      const amount = parseAmount(raw, lang);
+      if (amount === null) {
+        setError(amountInput, amountError, raw.trim() ? s.invalid : '');
+        return fillYeastCards('[data-result-type]', null);
+      }
+      const result = convertYeast(amount, unitSelect.value as YeastUnit, typeSelect.value as YeastType);
+      setError(amountInput, amountError, result ? '' : s.unitNotForType);
+      fillYeastCards('[data-result-type]', result);
+    };
+
+    populateUnits(unitSelect?.dataset.default);
+    typeSelect?.addEventListener('change', () => {
+      populateUnits();
+      updateYeast();
+      track('yeast');
+    });
+    unitSelect?.addEventListener('change', () => {
+      updateYeast();
+      track('yeast');
+    });
+    amountInput?.addEventListener('input', () => {
+      updateYeast();
+      track('yeast');
+    });
+    updateYeast();
+
+    /* 2. Yeast for flour */
+    const flourInput = root.querySelector<HTMLInputElement>('#yc-flour');
+    const flourUnit = root.querySelector<HTMLSelectElement>('#yc-flour-unit');
+    const flourError = root.querySelector<HTMLElement>('#yc-flour-error');
+    const updateFlour = () => {
+      if (!flourInput || !flourUnit) return;
+      const amount = parseAmount(flourInput.value, lang);
+      const grams = amount === null ? null : flourToGrams(amount, flourUnit.value as FlourUnit);
+      setError(flourInput, flourError, grams === null && flourInput.value.trim() ? s.invalid : '');
+      fillYeastCards('[data-flour-type]', grams === null ? null : yeastForFlour(grams));
+    };
+    flourInput?.addEventListener('input', () => {
+      updateFlour();
+      track('flour');
+    });
+    flourUnit?.addEventListener('change', () => {
+      updateFlour();
+      track('flour');
+    });
+    updateFlour();
+
+    /* 3. Sourdough */
+    const sdInputs = {
+      flour: root.querySelector<HTMLInputElement>('#yc-sd-flour'),
+      water: root.querySelector<HTMLInputElement>('#yc-sd-water'),
+      percent: root.querySelector<HTMLInputElement>('#yc-sd-percent'),
+      hydration: root.querySelector<HTMLInputElement>('#yc-sd-hydration'),
+    };
+    const sdError = root.querySelector<HTMLElement>('#yc-sd-error');
+    const sdReplaces = root.querySelector<HTMLElement>('[data-sd-replaces]');
+    const updateSourdough = () => {
+      const flour = parseAmount(sdInputs.flour?.value ?? '', lang);
+      const waterRaw = sdInputs.water?.value.trim() ?? '';
+      const water = waterRaw ? parseAmount(waterRaw, lang) : null;
+      const percent = parseAmount(sdInputs.percent?.value ?? '', lang);
+      const hydration = parseAmount(sdInputs.hydration?.value ?? '', lang);
+      const invalid =
+        flour === null ||
+        (waterRaw && water === null) ||
+        percent === null ||
+        hydration === null;
+      Object.values(sdInputs).forEach((input) => input?.setAttribute('aria-invalid', 'false'));
+      if (invalid) {
+        const firstBad = [
+          [sdInputs.flour, flour],
+          [sdInputs.water, waterRaw ? water : 0],
+          [sdInputs.percent, percent],
+          [sdInputs.hydration, hydration],
+        ].find(([, value]) => value === null)?.[0] as HTMLInputElement | undefined;
+        setError(firstBad ?? null, sdError, s.invalid);
+        root.querySelectorAll('[data-sd]').forEach((card) => setCard(card, '–'));
+        if (sdReplaces) sdReplaces.textContent = '';
+        return;
+      }
+      setError(null, sdError, '');
+      const result = sourdoughSwap({
+        flourGrams: flour,
+        waterGrams: water,
+        starterPercent: percent,
+        starterHydration: hydration,
+      });
+      setCard(root.querySelector('[data-sd="starter"]'), g(result.starterGrams));
+      setCard(root.querySelector('[data-sd="flour"]'), g(result.flourToAddGrams));
+      setCard(
+        root.querySelector('[data-sd="water"]'),
+        result.waterToAddGrams === null ? s.sdWaterMissing : g(result.waterToAddGrams),
+      );
+      if (sdReplaces) {
+        const y = result.replacesYeast;
+        sdReplaces.textContent = `${sdReplaces.dataset.prefix} ${g(y.fresh)} / ${g(y.instant)} (${lang === 'de' ? 'Frisch-/Trockenhefe' : 'fresh/instant yeast'}).`;
+      }
+    };
+    Object.values(sdInputs).forEach((input) =>
+      input?.addEventListener('input', () => {
+        updateSourdough();
+        track('sourdough');
+      }),
+    );
+    updateSourdough();
+
+    /* 4. Baking powder / soda */
+    const bpInput = root.querySelector<HTMLInputElement>('#yc-bp-flour');
+    const bpError = root.querySelector<HTMLElement>('#yc-bp-error');
+    const powderCard = root.querySelector<HTMLElement>('[data-bp="powder"]');
+    const sodaCard = root.querySelector<HTMLElement>('[data-bp="soda"]');
+    const updateLeavening = () => {
+      if (!bpInput) return;
+      const flour = parseAmount(bpInput.value, lang);
+      setError(bpInput, bpError, flour === null && bpInput.value.trim() ? s.invalid : '');
+      if (flour === null) {
+        setCard(powderCard, '–');
+        setCard(sodaCard, '–');
+        return;
+      }
+      const result = leaveningForFlour(flour);
+      setCard(
+        powderCard,
+        `${g(result.bakingPowderGrams)}`,
+        `${formatSpoons(result.bakingPowderTsp)} ${s.tsp} · ${fmt(result.bakingPowderPackets, 2)} ${s.packets} (15 g)`,
+      );
+      const subEl = sodaCard?.querySelector<HTMLElement>('[data-out="sub"]');
+      setCard(
+        sodaCard,
+        `${formatSpoons(result.bakingSodaTsp)} ${s.tsp}`,
+        `${subEl?.dataset.plus} ${formatSpoons(result.creamOfTartarTsp)} ${s.tsp} ${subEl?.dataset.tartar}, ${subEl?.dataset.alt}`,
+      );
+    };
+    bpInput?.addEventListener('input', () => {
+      updateLeavening();
+      track('leavening');
+    });
+    updateLeavening();
+
+    root.querySelectorAll('form').forEach((form) => form.addEventListener('submit', (event) => event.preventDefault()));
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-yeast-converter]').forEach(init);
+</script>
