@@ -1,0 +1,588 @@
+---
+import { MEAT_IDS, type RoastLocale } from '../../lib/tools/roast-calculator';
+
+interface Props {
+  locale: RoastLocale;
+}
+
+const { locale } = Astro.props;
+const isDe = locale === 'de';
+
+const copy = isDe
+  ? {
+      formLabel: 'Braten-Rechner',
+      meat: 'Fleisch',
+      meats: {
+        turkey: 'Pute',
+        goose: 'Gans',
+        duck: 'Ente',
+        chicken: 'Hähnchen',
+        beef: 'Rinderschmorbraten',
+        pork: 'Schweinebraten',
+        ham: 'Schinken (vorgegart, mit Knochen)',
+      },
+      weight: 'Gewicht',
+      unit: 'Einheit',
+      guests: 'Gäste (optional)',
+      guestsHint: 'Für die Einkaufsmenge',
+      stuffed: 'Gefüllt',
+      frozen: 'Tiefgekühlt (muss noch auftauen)',
+      oven: 'Ofen',
+      conventional: 'Ober-/Unterhitze',
+      fan: 'Umluft',
+      serveAt: 'Essen um',
+      submit: 'Zeitplan berechnen',
+      results: 'Dein Ergebnis',
+      buyTitle: 'Einkaufsmenge',
+      buyEmpty: 'Gästezahl eingeben, um die Menge zu sehen.',
+      buyNone: 'Für Hähnchen haben wir keinen verlässlichen Richtwert gefunden. Als grobe Orientierung: ein ganzes Hähnchen reicht meist für 2 bis 4 Personen – je nach Größe und Beilagen.',
+      thawTitle: 'Auftauen',
+      thawNone: 'Frisch gekauft? Dann entfällt das Auftauen.',
+      ovenTitle: 'Ofen und Garzeit',
+      fanNote: 'Umluft: Temperatur um ca. 20 °C gesenkt. Früher messen, Umluft gart oft schneller.',
+      stuffedNote: 'Füllung eingerechnet. Auch die Füllung muss mindestens 70 °C erreichen.',
+      extrapolatedNote: 'Gewicht außerhalb der Richtwerttabelle – Zeit hochgerechnet, besonders früh messen.',
+      restTitle: 'Ruhezeit',
+      coreTitle: 'Kerntemperatur',
+      timelineTitle: 'Zeitplan rückwärts ab dem Essen',
+      dayBefore: 'Vortag',
+      steps: {
+        fridge: 'Aus dem Kühlschrank nehmen',
+        preheat: 'Ofen vorheizen',
+        ovenIn: 'In den Ofen',
+        check: 'Erste Messung mit dem Thermometer',
+        ovenOut: 'Aus dem Ofen, ruhen lassen',
+        carve: 'Tranchieren und servieren',
+      },
+      disclaimer: 'Alle Zeiten sind Schätzungen. Entscheidend ist das Fleischthermometer an der dicksten Stelle (bei Geflügel ohne Knochenkontakt).',
+      kg: 'kg',
+      lb: 'lb',
+    }
+  : {
+      formLabel: 'Roast calculator',
+      meat: 'Meat',
+      meats: {
+        turkey: 'Turkey',
+        goose: 'Goose',
+        duck: 'Duck',
+        chicken: 'Chicken',
+        beef: 'Beef rib roast',
+        pork: 'Pork loin roast (bone-in)',
+        ham: 'Ham (fully cooked, reheat)',
+      },
+      weight: 'Weight',
+      unit: 'Unit',
+      guests: 'Guests (optional)',
+      guestsHint: 'For how much to buy',
+      stuffed: 'Stuffed',
+      frozen: 'Frozen (still needs thawing)',
+      oven: 'Oven',
+      conventional: 'Conventional',
+      fan: 'Fan / convection',
+      serveAt: 'Serve at',
+      submit: 'Calculate my timeline',
+      results: 'Your results',
+      buyTitle: 'How much to buy',
+      buyEmpty: 'Enter the number of guests to see how much to buy.',
+      buyNone: 'We found no published per-person figure for whole chicken, so we don\'t give one here. Plan by the bird size and your sides.',
+      thawTitle: 'Thawing',
+      thawNone: 'Bought fresh? No thawing needed.',
+      ovenTitle: 'Oven time and temperature',
+      fanNote: 'Fan oven: USDA has no separate convection table and advises not to roast below 325 °F, so the temperature stays the same. Convection often finishes faster, so the first check is earlier. Follow your oven manual.',
+      stuffedNote: 'Stuffing included. The center of the stuffing must also reach 165 °F (74 °C).',
+      extrapolatedNote: 'Weight is outside the USDA table, so the time is extrapolated. Check the temperature early.',
+      restTitle: 'Resting time',
+      coreTitle: 'Safe internal temperature',
+      timelineTitle: 'Timeline, counted back from serving',
+      dayBefore: 'day before',
+      steps: {
+        fridge: 'Take out of the fridge',
+        preheat: 'Preheat the oven',
+        ovenIn: 'Into the oven',
+        check: 'First thermometer check',
+        ovenOut: 'Out of the oven, rest',
+        carve: 'Carve and serve',
+      },
+      disclaimer: 'All times are estimates. The meat thermometer in the thickest part (not touching bone) decides when it is done.',
+      kg: 'kg',
+      lb: 'lb',
+    };
+
+const defaults = isDe
+  ? { meat: 'goose', weight: 4.5, unit: 'kg', guests: 6, serveAt: '18:00' }
+  : { meat: 'turkey', weight: 14, unit: 'lb', guests: 10, serveAt: '17:00' };
+
+const clientCopy = copy;
+---
+
+<section class="roast-tool tb-card p-5 sm:p-8" aria-labelledby="roast-tool-title" data-locale={locale}>
+  <h2 id="roast-tool-title" class="sr-only">{copy.formLabel}</h2>
+  <form
+    class="roast-form grid gap-5 sm:grid-cols-2"
+    data-track-event="marketing_tool_submitted"
+    data-track-payload={JSON.stringify({ tool_name: 'roast_calculator', locale })}
+    novalidate
+  >
+    <div class="field sm:col-span-2">
+      <label for="roast-meat">{copy.meat}</label>
+      <select id="roast-meat" name="meat">
+        {MEAT_IDS.map((id) => (
+          <option value={id} selected={id === defaults.meat}>{copy.meats[id]}</option>
+        ))}
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="roast-weight">{copy.weight}</label>
+      <div class="flex gap-2">
+        <input
+          id="roast-weight"
+          name="weight"
+          type="number"
+          inputmode="decimal"
+          min="0.5"
+          max="40"
+          step="0.1"
+          value={defaults.weight}
+          required
+        />
+        <label class="sr-only" for="roast-unit">{copy.unit}</label>
+        <select id="roast-unit" name="unit" class="unit-select">
+          <option value="kg" selected={defaults.unit === 'kg'}>{copy.kg}</option>
+          <option value="lb" selected={defaults.unit === 'lb'}>{copy.lb}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="roast-guests">{copy.guests}</label>
+      <input
+        id="roast-guests"
+        name="guests"
+        type="number"
+        inputmode="numeric"
+        min="1"
+        max="60"
+        step="1"
+        value={defaults.guests}
+        aria-describedby="roast-guests-hint"
+      />
+      <span id="roast-guests-hint" class="hint">{copy.guestsHint}</span>
+    </div>
+
+    <fieldset class="field">
+      <legend>{copy.oven}</legend>
+      <div class="segmented">
+        <label><input type="radio" name="oven" value="conventional" checked /> <span>{copy.conventional}</span></label>
+        <label><input type="radio" name="oven" value="fan" /> <span>{copy.fan}</span></label>
+      </div>
+    </fieldset>
+
+    <div class="field">
+      <label for="roast-serve">{copy.serveAt}</label>
+      <input id="roast-serve" name="serveAt" type="time" value={defaults.serveAt} required />
+    </div>
+
+    <div class="field poultry-only sm:col-span-2 flex flex-wrap gap-x-6 gap-y-3">
+      <label class="check stuffed-option"><input type="checkbox" name="stuffed" /> <span>{copy.stuffed}</span></label>
+      <label class="check"><input type="checkbox" name="frozen" checked /> <span>{copy.frozen}</span></label>
+    </div>
+
+    <div class="sm:col-span-2">
+      <button class="btn-primary w-full sm:w-auto" type="submit">{copy.submit}</button>
+    </div>
+  </form>
+
+  <div class="roast-results mt-8" aria-live="polite">
+    <h3 class="mb-4 text-xl font-bold tb-text-strong">{copy.results}</h3>
+    <div class="grid gap-4 sm:grid-cols-2">
+      <div class="result-card" data-out="oven">
+        <h4>{copy.ovenTitle}</h4>
+        <p data-field="oven"></p>
+        <p class="note" data-field="ovenNotes"></p>
+      </div>
+      <div class="result-card" data-out="core">
+        <h4>{copy.coreTitle}</h4>
+        <p data-field="core"></p>
+        <p class="note" data-field="coreTarget"></p>
+      </div>
+      <div class="result-card" data-out="rest">
+        <h4>{copy.restTitle}</h4>
+        <p data-field="rest"></p>
+      </div>
+      <div class="result-card" data-out="buy">
+        <h4>{copy.buyTitle}</h4>
+        <p data-field="buy"></p>
+      </div>
+      <div class="result-card sm:col-span-2" data-out="thaw">
+        <h4>{copy.thawTitle}</h4>
+        <p data-field="thaw"></p>
+      </div>
+    </div>
+
+    <div class="result-card mt-4">
+      <h4>{copy.timelineTitle}</h4>
+      <ol class="timeline" data-field="timeline"></ol>
+    </div>
+
+    <p class="mt-4 text-sm tb-text-muted">{copy.disclaimer}</p>
+  </div>
+
+  <script type="application/json" class="roast-copy" set:html={JSON.stringify(clientCopy)} />
+</section>
+
+<script>
+  import {
+    calculateRoast,
+    formatDurationRange,
+    kgToLb,
+    lbToKg,
+    type MeatId,
+    type OvenType,
+    type RoastLocale,
+  } from '../../lib/tools/roast-calculator';
+
+  type Track = (event: string, payload?: Record<string, unknown>) => void;
+  const track: Track = (event, payload) => (window as unknown as { tbTrack?: Track }).tbTrack?.(event, payload);
+
+  const fmtNum = (value: number, locale: RoastLocale, digits = 1) =>
+    new Intl.NumberFormat(locale === 'de' ? 'de-DE' : 'en-US', { maximumFractionDigits: digits }).format(value);
+
+  function init(root: HTMLElement) {
+    const locale = (root.dataset.locale === 'de' ? 'de' : 'en') as RoastLocale;
+    const isDe = locale === 'de';
+    const form = root.querySelector<HTMLFormElement>('.roast-form');
+    const copyEl = root.querySelector<HTMLScriptElement>('.roast-copy');
+    if (!form || !copyEl) return;
+    const copy = JSON.parse(copyEl.textContent || '{}');
+
+    const field = (name: string) => root.querySelector<HTMLElement>(`[data-field="${name}"]`)!;
+    const unitSelect = form.elements.namedItem('unit') as HTMLSelectElement;
+    const weightInput = form.elements.namedItem('weight') as HTMLInputElement;
+    const poultryOnly = root.querySelector<HTMLElement>('.poultry-only');
+    const stuffedLabel = root.querySelector<HTMLElement>('.stuffed-option');
+    let previousUnit = unitSelect.value;
+    let tracked = false;
+
+    const weightText = (kg: number, unit: string) =>
+      unit === 'lb' ? `${fmtNum(kgToLb(kg), locale)} lb` : `${fmtNum(kg, locale)} kg`;
+
+    const tempText = (c: number, f: number) => (isDe ? `${c} °C` : `${f} °F (${c} °C)`);
+
+    function render() {
+      const data = new FormData(form!);
+      const meat = String(data.get('meat') || 'turkey') as MeatId;
+      const unit = String(data.get('unit') || 'kg');
+      const rawWeight = Number.parseFloat(String(data.get('weight') || '').replace(',', '.'));
+      const weightKg = unit === 'lb' ? lbToKg(rawWeight) : rawWeight;
+      const guestsRaw = Number.parseInt(String(data.get('guests') || ''), 10);
+
+      const result = calculateRoast({
+        locale,
+        meat,
+        weightKg: Number.isFinite(weightKg) && weightKg > 0 ? weightKg : 1,
+        stuffed: data.get('stuffed') === 'on',
+        frozen: data.get('frozen') === 'on',
+        oven: (data.get('oven') === 'fan' ? 'fan' : 'conventional') as OvenType,
+        guests: Number.isFinite(guestsRaw) ? guestsRaw : null,
+        serveAt: String(data.get('serveAt') || '18:00'),
+      });
+
+      poultryOnly?.toggleAttribute('hidden', !result.profile.poultry);
+      stuffedLabel?.toggleAttribute('hidden', !result.profile.canStuff);
+
+      field('oven').textContent = isDe
+        ? `${tempText(result.ovenTempC, result.ovenTempF)}, etwa ${formatDurationRange(result.cookMinutes, locale)}`
+        : `${tempText(result.ovenTempC, result.ovenTempF)}, about ${formatDurationRange(result.cookMinutes, locale)}`;
+      const notes: string[] = [];
+      if (data.get('oven') === 'fan') notes.push(copy.fanNote);
+      if (result.stuffedApplied) notes.push(copy.stuffedNote);
+      if (result.extrapolated) notes.push(copy.extrapolatedNote);
+      field('ovenNotes').textContent = notes.join(' ');
+
+      const hold = result.profile.safeHoldMinutes;
+      field('core').textContent = isDe
+        ? `Sicher: mindestens ${result.safeCoreC} °C im Kern${hold ? `, ${hold} Minuten lang` : ''} (BfR).`
+        : `At least ${result.safeCoreF} °F (${result.safeCoreC} °C)${hold ? `, then rest ${hold} minutes` : ''} (USDA).`;
+      const target = result.targetCoreC;
+      const targetText = target ? (target[0] === target[1] ? `${target[0]} °C` : `${target[0]}–${target[1]} °C`) : '';
+      field('coreTarget').textContent = target
+        ? isDe
+          ? `Übliches Garziel (Küchen-Richtwert): ${targetText} an der dicksten Stelle.`
+          : `Common doneness target: ${targetText}.`
+        : '';
+
+      field('rest').textContent = isDe
+        ? `${result.rest[0]}–${result.rest[1]} Min. locker abgedeckt ruhen lassen, dann tranchieren.`
+        : `Rest ${result.rest[0]}–${result.rest[1]} min, loosely tented with foil, before carving.`;
+
+      const rangeText = (lo: number, hi: number) =>
+        lo === hi ? weightText(lo, unit) : `${weightText(lo, unit)} – ${weightText(hi, unit)}`;
+      field('buy').textContent = !result.profile.buyPerGuestKg
+        ? copy.buyNone
+        : result.buy
+          ? isDe
+            ? `Für ${result.buy.guests} Personen etwa ${rangeText(result.buy.totalKg[0], result.buy.totalKg[1])} Rohgewicht (Faustregel).`
+            : `For ${result.buy.guests} guests, buy about ${rangeText(result.buy.totalKg[0], result.buy.totalKg[1])} (raw weight, rule of thumb).`
+          : copy.buyEmpty;
+
+      const thawCard = root.querySelector<HTMLElement>('[data-out="thaw"]');
+      thawCard?.toggleAttribute('hidden', !result.profile.poultry);
+      if (result.thaw) {
+        const days = result.thaw.fridgeDays[0] === result.thaw.fridgeDays[1] ? `${result.thaw.fridgeDays[0]}` : `${result.thaw.fridgeDays[0]}–${result.thaw.fridgeDays[1]}`;
+        const hours = fmtNum(result.thaw.coldWaterHours, locale);
+        field('thaw').innerHTML = '';
+        const lines = isDe
+          ? [
+              `Im Kühlschrank (≤ 4 °C): etwa ${days} Tage. Also spätestens ${result.thaw.fridgeDays[1]} Tage vor dem Essen in den Kühlschrank legen.`,
+              `Schneller im kalten Wasser (verpackt, Wasser alle 30 Min. wechseln): etwa ${hours} Std., danach sofort garen.`,
+            ]
+          : [
+              `In the fridge (40 °F / 4 °C or below): about ${days} days, so move it to the fridge at least ${result.thaw.fridgeDays[1]} days before dinner.`,
+              `Faster in cold water (wrapped, change the water every 30 min): about ${hours} h, then cook right away.`,
+            ];
+        for (const line of lines) {
+          const p = document.createElement('p');
+          p.textContent = line;
+          field('thaw').append(p);
+        }
+      } else {
+        field('thaw').textContent = copy.thawNone;
+      }
+
+      const list = field('timeline');
+      list.innerHTML = '';
+      for (const step of result.timeline) {
+        const li = document.createElement('li');
+        const time = document.createElement('span');
+        time.className = 'time';
+        time.textContent = step.dayOffset < 0 ? `${step.clock} (${copy.dayBefore})` : step.clock;
+        const label = document.createElement('span');
+        label.textContent = copy.steps[step.key];
+        if (step.key === 'check' || step.key === 'ovenIn') {
+          const extra = document.createElement('span');
+          extra.className = 'note block';
+          extra.textContent =
+            step.key === 'ovenIn'
+              ? formatDurationRange(result.cookMinutes, locale)
+              : isDe
+                ? `Ziel: mind. ${result.safeCoreC} °C`
+                : `Target: ${result.safeCoreF} °F`;
+          label.append(extra);
+        }
+        li.append(time, label);
+        list.append(li);
+      }
+    }
+
+    const meatSelect = form.elements.namedItem('meat') as HTMLSelectElement;
+    // Typical sizes so switching from a goose to a chicken doesn't keep a 4.5 kg weight.
+    const typicalKg: Record<string, number> = isDe
+      ? { turkey: 6, goose: 4.5, duck: 2.5, chicken: 1.5, beef: 1.5, pork: 1.5, ham: 3.5 }
+      : { turkey: lbToKg(14), goose: lbToKg(10), duck: lbToKg(5), chicken: lbToKg(4), beef: lbToKg(6), pork: lbToKg(4), ham: lbToKg(8) };
+    meatSelect.addEventListener('change', () => {
+      const kg = typicalKg[meatSelect.value];
+      if (kg) {
+        const value = unitSelect.value === 'lb' ? kgToLb(kg) : kg;
+        weightInput.value = String(Math.round(value * 2) / 2);
+      }
+      render();
+    });
+
+    unitSelect.addEventListener('change', () => {
+      const value = Number.parseFloat(weightInput.value.replace(',', '.'));
+      if (Number.isFinite(value) && unitSelect.value !== previousUnit) {
+        const converted = unitSelect.value === 'lb' ? kgToLb(value) : lbToKg(value);
+        weightInput.value = String(Math.round(converted * 10) / 10);
+      }
+      previousUnit = unitSelect.value;
+      render();
+    });
+
+    form.addEventListener('input', () => {
+      render();
+      if (!tracked) {
+        tracked = true;
+        track('marketing_tool_submitted', { tool_name: 'roast_calculator', locale, trigger: 'live' });
+      }
+    });
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      render();
+      root.querySelector('.roast-results')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    render();
+  }
+
+  document.querySelectorAll<HTMLElement>('.roast-tool').forEach(init);
+</script>
+
+<style>
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 0;
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .field > label,
+  .field > legend {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--tb-text-strong);
+    margin-bottom: 0.15rem;
+  }
+
+  .field input[type='number'],
+  .field input[type='time'],
+  .field select {
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius-sm);
+    background: var(--tb-surface);
+    color: var(--tb-text);
+    padding: 0.65rem 0.8rem;
+    font-size: 1rem;
+  }
+
+  .field .unit-select {
+    width: 5.5rem;
+    flex: none;
+  }
+
+  .field input:focus-visible,
+  .field select:focus-visible,
+  .segmented input:focus-visible + span,
+  .check input:focus-visible {
+    outline: 2px solid var(--tb-accent);
+    outline-offset: 2px;
+  }
+
+  .hint {
+    font-size: 0.8rem;
+    color: var(--tb-muted);
+  }
+
+  .segmented {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+  }
+
+  .segmented label {
+    position: relative;
+  }
+
+  .segmented input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+  }
+
+  .segmented span {
+    display: flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius-sm);
+    background: var(--tb-surface);
+    color: var(--tb-text);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.4rem 0.5rem;
+    cursor: pointer;
+  }
+
+  .segmented input:checked + span {
+    border-color: var(--tb-accent);
+    background: var(--tb-accent-soft);
+    color: var(--tb-text-strong);
+  }
+
+  .check {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    font-weight: 600;
+    color: var(--tb-text);
+    cursor: pointer;
+  }
+
+  .check input {
+    width: 1.25rem;
+    height: 1.25rem;
+    accent-color: var(--tb-accent);
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  .result-card {
+    background: var(--tb-surface-muted);
+    border: 1px solid var(--tb-border-soft);
+    border-radius: var(--tb-radius);
+    padding: 1rem 1.1rem;
+    color: var(--tb-text);
+  }
+
+  .result-card h4 {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--tb-accent-text);
+    margin-bottom: 0.4rem;
+  }
+
+  .result-card p {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .result-card p + p {
+    margin-top: 0.35rem;
+  }
+
+  .note {
+    font-size: 0.85rem;
+    color: var(--tb-muted);
+    margin-top: 0.35rem;
+  }
+
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .timeline :global(li) {
+    display: grid;
+    grid-template-columns: minmax(5.5rem, auto) 1fr;
+    gap: 0.75rem;
+    padding: 0.55rem 0;
+    border-top: 1px solid var(--tb-border-soft);
+  }
+
+  .timeline :global(li:first-child) {
+    border-top: 0;
+  }
+
+  .timeline :global(.time) {
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    color: var(--tb-text-strong);
+  }
+
+  .timeline :global(.note) {
+    margin-top: 0.1rem;
+  }
+</style>

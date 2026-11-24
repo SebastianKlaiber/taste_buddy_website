@@ -98,5 +98,15 @@
     "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=ingredient-guides&mt=8",
     "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dseo_cta%26utm_campaign%3Dingredient-guides%26utm_content%3Dingredient-guide",
     "fallback_url": "https://taste-buddy.app/features/recipe-organizer/"
+  },
+  {
+    "slug": "roast-calculator-tool",
+    "source": "website",
+    "medium": "tool_cta",
+    "campaign": "turkey-cooking-time-calculator",
+    "content": "holiday-roast",
+    "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=roast-calculator-tool&mt=8",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dtool_cta%26utm_campaign%3Dturkey-cooking-time-calculator%26utm_content%3Dholiday-roast",
+    "fallback_url": "https://taste-buddy.app/features/meal-planning/"
   }
 ]
