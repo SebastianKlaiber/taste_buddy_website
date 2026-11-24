@@ -1,0 +1,126 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Main from '../../../components/Main.astro';
+import PanSizeConverter from '../../../components/tools/PanSizeConverter.astro';
+import PanSizeTable from '../../../components/tools/PanSizeTable.astro';
+import KitchenToolFaq from '../../../components/tools/KitchenToolFaq.astro';
+import KitchenToolCta from '../../../components/tools/KitchenToolCta.astro';
+import { KITCHEN_TOOL_PATHS, kitchenToolAlternates, kitchenToolStructuredData, type FaqItem } from '../../../lib/tools/kitchen-tool-seo';
+
+export const prerender = true;
+
+const paths = KITCHEN_TOOL_PATHS.panConverter;
+const title = 'Backform umrechnen: Springform & Kastenform | TasteBuddy';
+const description =
+  'Backform umrechnen leicht gemacht: Springform, Kastenform oder Blech wählen, Umrechnungsfaktor für die Zutaten erhalten und Tipps zur Backzeit. Auch für Zoll.';
+
+const faq: FaqItem[] = [
+  {
+    question: 'Wie rechne ich ein Rezept von 26 cm auf 18 cm Springform um?',
+    answer:
+      'Eine 18-cm-Springform hat etwa 254 cm² Grundfläche, eine 26-cm-Form etwa 531 cm². Der Faktor ist 0,48: Du brauchst knapp die Hälfte aller Zutaten. Bei halbierten Zutaten bleibt die Teighöhe gleich, die Backzeit ist etwas kürzer.',
+  },
+  {
+    question: 'Wie rechne ich von 26 cm auf 28 cm Springform um?',
+    answer:
+      'Eine 28-cm-Springform hat rund 16 % mehr Fläche als eine 26-cm-Form. Multipliziere die Zutaten mit etwa 1,15. Behältst du die Originalmenge, wird der Kuchen etwas flacher und ist ein paar Minuten früher fertig.',
+  },
+  {
+    question: 'Wie viel Teig brauche ich für ein Blech statt einer Springform?',
+    answer:
+      'Ein Backblech von etwa 40 × 30 cm hat rund 1200 cm², also etwa das 2,25-Fache einer 26-cm-Springform. Für Blechkuchen nach einem Springform-Rezept nimmst du ungefähr die doppelte Menge plus ein Viertel.',
+  },
+  {
+    question: 'Ändert sich die Backzeit bei einer anderen Backform?',
+    answer:
+      'Entscheidend ist die Teighöhe. Rechnest du die Zutaten passend zur Form um, bleibt die Backzeit etwa gleich. Höherer Teig braucht länger und eventuell etwa 10 °C weniger, flacher Teig ist schneller fertig. Mach immer die Stäbchenprobe.',
+  },
+  {
+    question: 'Welche deutsche Form passt zu einer amerikanischen 9-inch-Form?',
+    answer:
+      'Eine 9-inch-Form hat 23 cm Durchmesser und etwa 410 cm² Fläche. Am nächsten kommen eine 22- oder 24-cm-Springform. Gegenüber einer 26-cm-Springform brauchst du etwa 77 % der Zutaten.',
+  },
+];
+
+const structuredData = kitchenToolStructuredData({
+  locale: 'de',
+  path: paths.de,
+  name: 'Backform-Umrechner',
+  description,
+  faq,
+  breadcrumbHome: 'Startseite',
+});
+---
+
+<Layout lang="de" title={title} description={description} alternates={kitchenToolAlternates(paths)}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+  <Main>
+    <div class="mx-auto max-w-5xl py-10 sm:py-14">
+      <nav aria-label="Breadcrumb" class="mb-6 text-sm text-[var(--tb-muted)]">
+        <ol class="flex flex-wrap gap-2">
+          <li><a class="hover:text-[var(--tb-text)]" href="/de/">Startseite</a> ›</li>
+          <li aria-current="page" class="text-[var(--tb-text)]">Backform-Umrechner</li>
+        </ol>
+      </nav>
+
+      <header class="mb-8 max-w-3xl">
+        <p class="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--tb-muted)]">Kostenloses Küchen-Tool</p>
+        <h1 class="mb-4 text-3xl font-bold text-[var(--tb-text-strong)] sm:text-5xl">Backform umrechnen: Springform, Kastenform & Blech</h1>
+        <p class="text-lg leading-8 text-[var(--tb-text)]">
+          Das Rezept ist für eine 26er Springform, du hast aber nur eine 20er? Wähle beide Formen in Zentimetern oder
+          Zoll und sieh sofort, mit welchem Faktor du die Zutaten umrechnest und was mit der Backzeit passiert.
+        </p>
+      </header>
+
+      <PanSizeConverter locale="de" />
+
+      <article class="tb-tool-content mt-12 max-w-3xl">
+        <h2>So rechnest du eine Backform um</h2>
+        <p>
+          Entscheidend ist die Grundfläche der Form. Hat die neue Form die 1,5-fache Fläche, brauchst du die 1,5-fache
+          Teigmenge, damit der Kuchen gleich hoch wird und in etwa gleich lange backt. Der Rechner nutzt diese Formeln:
+        </p>
+        <ul>
+          <li><strong>Springform und runde Formen:</strong> π × Radius². Eine 26-cm-Springform hat rund 531 cm².</li>
+          <li><strong>Quadratische Formen:</strong> Seite × Seite. 20 × 20 cm sind 400 cm².</li>
+          <li><strong>Kastenform und Blech:</strong> Länge × Breite. Ein Blech von 40 × 30 cm hat 1200 cm².</li>
+        </ul>
+        <p>
+          Der Umrechnungsfaktor ist neue Fläche ÷ alte Fläche. Mit dem
+          <a href="/de/tools/rezept-umrechner/">Rezept-Umrechner</a> gibst du diesen Faktor ein und bekommst alle
+          Zutatenmengen auf einmal umgerechnet.
+        </p>
+
+        <h2>Backformgrößen im Vergleich</h2>
+        <PanSizeTable locale="de" />
+
+        <h2>Backzeit und Temperatur anpassen</h2>
+        <p>
+          Rechnest du die Zutaten passend zur neuen Form um, bleibt die Teighöhe gleich und die Backzeit ändert sich
+          kaum. Prüfe trotzdem etwa 5 Minuten früher mit der Stäbchenprobe. Kommt die Originalmenge in eine kleinere
+          Form, wird der Teig höher: länger backen und bei deutlich höherem Teig etwa 10 °C weniger einstellen, damit
+          der Rand nicht austrocknet, bevor die Mitte gar ist. In einer größeren Form wird der Kuchen flacher und ist
+          früher fertig.
+        </p>
+
+        <h2>Tipps zum Formwechsel</h2>
+        <ul>
+          <li>Rührteig höchstens zu zwei Dritteln einfüllen, damit er Platz zum Aufgehen hat.</li>
+          <li>Kastenformen haben schräge Wände; das Ergebnis ist ein guter Näherungswert.</li>
+          <li>Gugelhupf- und Kranzformen vergleichst du am besten über das Volumen: mit Wasser auslitern.</li>
+          <li>Dunkle Formen und Glasformen bräunen schneller; früher nachsehen.</li>
+        </ul>
+      </article>
+
+      <div class="max-w-3xl">
+        <KitchenToolFaq heading="Häufige Fragen zum Backform umrechnen" items={faq} />
+        <KitchenToolCta locale="de" slug="baking-pan-size-converter" />
+        <p class="mt-8 text-[var(--tb-text)]">
+          Für mehr oder weniger Personen kochen? Nutze den
+          <a class="font-semibold underline decoration-[var(--tb-accent)] underline-offset-4" href="/de/tools/rezept-umrechner/">Rezept-Umrechner</a>.
+        </p>
+      </div>
+    </div>
+  </Main>
+</Layout>

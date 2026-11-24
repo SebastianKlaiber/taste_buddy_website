@@ -1,0 +1,136 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Main from '../../components/Main.astro';
+import RecipeScaler from '../../components/tools/RecipeScaler.astro';
+import KitchenToolFaq from '../../components/tools/KitchenToolFaq.astro';
+import KitchenToolCta from '../../components/tools/KitchenToolCta.astro';
+import { KITCHEN_TOOL_PATHS, kitchenToolAlternates, kitchenToolStructuredData, type FaqItem } from '../../lib/tools/kitchen-tool-seo';
+
+export const prerender = true;
+
+const paths = KITCHEN_TOOL_PATHS.recipeScaler;
+const title = 'Recipe Scaler: Change Servings for Any Recipe | TasteBuddy';
+const description =
+  'Free recipe scaler: paste your ingredient list, set the servings and get every amount scaled instantly. Handles fractions, cups, grams and eggs. No sign-up.';
+
+const faq: FaqItem[] = [
+  {
+    question: 'How do I scale a recipe up or down?',
+    answer:
+      'Divide the servings you want by the servings in the recipe to get the scaling factor, then multiply every ingredient by it. Going from 4 to 6 servings is a factor of 1.5, so 2 cups of flour become 3 cups. The recipe scaler above does this for every line at once.',
+  },
+  {
+    question: 'How do I halve a recipe that uses 3 eggs?',
+    answer:
+      'Half of 3 eggs is 1½ eggs. Beat 2 eggs, weigh them and use three quarters of the mixture, or use 1 whole egg plus 1 egg yolk. A large egg is about 50 g (3 tablespoons) without the shell, so 1½ eggs is about 75 g.',
+  },
+  {
+    question: 'Does the baking time change when I double a recipe?',
+    answer:
+      'It depends on the pan. If you bake the double batch in two pans of the original size, the time stays about the same. If you use one bigger pan, the time depends on how deep the batter is. Use the baking pan size converter to pick a pan that keeps the depth the same.',
+  },
+  {
+    question: 'Can I scale recipes with metric or German units?',
+    answer:
+      'Yes. The scaler understands grams, kilograms, milliliters and liters as well as German units like EL, TL, Prise, Päckchen, Becher and Stück, and decimal commas such as 1,5 kg. Metric amounts are rounded to sensible steps, US cups and spoons are shown as fractions.',
+  },
+  {
+    question: 'Should I scale salt, spices and baking powder exactly?',
+    answer:
+      'For small changes, yes. When you double or triple a recipe, start with about 1.5 to 2 times the salt and strong spices and adjust to taste. Leavening such as baking powder can usually be scaled exactly in normal home-baking quantities.',
+  },
+];
+
+const structuredData = kitchenToolStructuredData({
+  locale: 'en',
+  path: paths.en,
+  name: 'Recipe Scaler',
+  description,
+  faq,
+  breadcrumbHome: 'Home',
+});
+---
+
+<Layout lang="en" title={title} description={description} alternates={kitchenToolAlternates(paths)}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+  <Main>
+    <div class="mx-auto max-w-5xl py-10 sm:py-14">
+      <nav aria-label="Breadcrumb" class="mb-6 text-sm text-[var(--tb-muted)]">
+        <ol class="flex flex-wrap gap-2">
+          <li><a class="hover:text-[var(--tb-text)]" href="/">Home</a> ›</li>
+          <li><a class="hover:text-[var(--tb-text)]" href="/tools/">Tools</a> ›</li>
+          <li aria-current="page" class="text-[var(--tb-text)]">Recipe scaler</li>
+        </ol>
+      </nav>
+
+      <header class="mb-8 max-w-3xl">
+        <p class="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--tb-muted)]">Free kitchen tool</p>
+        <h1 class="mb-4 text-3xl font-bold text-[var(--tb-text-strong)] sm:text-5xl">Recipe Scaler: Resize Any Recipe by Servings</h1>
+        <p class="text-lg leading-8 text-[var(--tb-text)]">
+          Paste an ingredient list, enter how many servings the recipe makes and how many you need. Every quantity is
+          converted as you type, including fractions, ranges and metric units.
+        </p>
+      </header>
+
+      <RecipeScaler locale="en" />
+
+      <article class="tb-tool-content mt-12 max-w-3xl">
+        <h2>How to use the recipe scaler</h2>
+        <ol>
+          <li>Copy the ingredient list from a recipe and paste it into the box, one ingredient per line.</li>
+          <li>Enter the servings the recipe makes and the servings you want, or type a factor such as 0.5 or 2.</li>
+          <li>Check the scaled list on the right. Changed lines are bold, lines without an amount stay as they are.</li>
+          <li>Copy the list and take it to the kitchen or your shopping list.</li>
+        </ol>
+
+        <h2>How recipe scaling works</h2>
+        <p>
+          Scaling a recipe means multiplying every ingredient by the same factor: new servings divided by original
+          servings. A recipe for 4 that you want to cook for 6 has a factor of 6 ÷ 4 = 1.5, so 1½ cups of milk become
+          2¼ cups and 200 g of pasta become 300 g. Halving is a factor of 0.5, doubling a factor of 2.
+        </p>
+        <p>
+          The scaler reads the amount at the start of each line, including mixed numbers (1 1/2), unicode fractions (½),
+          decimals (1.5 or 1,5) and ranges (2–3 cloves). It recognizes common units such as cups, tablespoons,
+          teaspoons, ounces, pounds, grams, milliliters and liters.
+        </p>
+
+        <h2>Rounding: fractions for cups, decimals for grams</h2>
+        <p>
+          Nobody measures 0.37 cups. Amounts in cups, spoons, ounces and pounds are rounded to the nearest kitchen
+          fraction (⅛, ¼, ⅓, ½, ⅔, ¾). Metric amounts are rounded to steps you can weigh: whole grams below 100 g and
+          5 g steps above. Countable items such as cans, packets or cloves are rounded to halves and quarters.
+        </p>
+
+        <h2>What to watch when you scale a recipe</h2>
+        <h3>Eggs</h3>
+        <p>
+          When eggs end up as a fraction, the tool shows a tip. Beat the eggs and measure by weight: a large egg is about
+          50 g without the shell.
+        </p>
+        <h3>Salt, spices and heat</h3>
+        <p>
+          Seasoning does not always scale in a straight line. When you double or triple a dish, add about 1.5 times the
+          salt and chili first, then taste and adjust.
+        </p>
+        <h3>Pans and cooking time</h3>
+        <p>
+          A bigger batch in a bigger pan is deeper or wider, which changes the baking time. Use the
+          <a href="/tools/baking-pan-size-converter/">baking pan size converter</a> to find a pan that matches your new
+          amount, or to scale a recipe to the pan you own. Stovetop dishes mostly need a larger pot and a few extra
+          minutes to come to a boil.
+        </p>
+      </article>
+
+      <div class="max-w-3xl">
+        <KitchenToolFaq heading="Recipe scaling FAQ" items={faq} />
+        <KitchenToolCta locale="en" slug="recipe-scaler" />
+        <p class="mt-8 text-[var(--tb-text)]">
+          Baking in a different pan? Try the
+          <a class="font-semibold underline decoration-[var(--tb-accent)] underline-offset-4" href="/tools/baking-pan-size-converter/">baking pan size converter</a>.
+        </p>
+      </div>
+    </div>
+  </Main>
+</Layout>

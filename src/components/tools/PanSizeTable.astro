@@ -1,0 +1,44 @@
+---
+import { buildPanTable, getPreset, REFERENCE_PAN } from '../../lib/tools/pan-size';
+
+interface Props {
+  locale: 'en' | 'de';
+}
+
+const { locale } = Astro.props;
+const rows = buildPanTable(locale);
+const reference = getPreset(REFERENCE_PAN[locale])!.label[locale];
+const number = (value: number, digits = 0) =>
+  new Intl.NumberFormat(locale === 'de' ? 'de-DE' : 'en-US', { maximumFractionDigits: digits }).format(value);
+
+const copy = {
+  en: { pan: 'Pan', size: 'Size', area: 'Area', factor: `× vs ${reference}`, caption: `Base area of common pans and the ingredient multiplier compared with a ${reference}.` },
+  de: { pan: 'Form', size: 'Maße', area: 'Fläche', factor: `× ggü. ${reference}`, caption: `Grundfläche gängiger Backformen und der Mengenfaktor im Vergleich zur ${reference}.` },
+}[locale];
+---
+
+<div class="overflow-x-auto">
+  <table>
+    <caption class="mb-2 text-left text-sm text-[var(--tb-muted)]">{copy.caption}</caption>
+    <thead>
+      <tr>
+        <th scope="col">{copy.pan}</th>
+        <th scope="col">{copy.size}</th>
+        <th scope="col" class="whitespace-nowrap">{copy.area}</th>
+        <th scope="col">{copy.factor}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr>
+          <td>{row.label}</td>
+          <td class="whitespace-nowrap">{row.dimensions}</td>
+          <td class="whitespace-nowrap tabular-nums">
+            {locale === 'de' ? `${number(row.areaCm2)} cm²` : `${number(row.areaIn2)} in² (${number(row.areaCm2)} cm²)`}
+          </td>
+          <td class="tabular-nums">×{number(row.factor, 2)}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
