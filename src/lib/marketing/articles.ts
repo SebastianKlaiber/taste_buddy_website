@@ -45,9 +45,10 @@ export function getArticle(locale: Locale, slug: string) {
 export function getArticleAlternates(locale: Locale, slug: string) {
   const current = getArticle(locale, slug);
   const otherLocale: Locale = locale === 'en' ? 'de' : 'en';
-  const paired = listArticles(otherLocale).find(
-    (entry) => entry.frontmatter.template_type === current.frontmatter.template_type,
-  );
+  const key = current.frontmatter.translation_key;
+  const paired = key
+    ? listArticles(otherLocale).find((entry) => entry.frontmatter.translation_key === key)
+    : undefined;
 
   const enSlug = locale === 'en' ? current.slug : paired?.slug;
   const deSlug = locale === 'de' ? current.slug : paired?.slug;

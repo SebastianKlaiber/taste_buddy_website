@@ -810,5 +810,135 @@
       { "href": "/de/best/apps-to-save-recipes/", "label": "Die besten Apps zum Rezepte speichern" },
       { "href": "/de/import/tiktok/", "label": "Rezepte aus TikTok speichern" }
     ]
+  },
+  {
+    "slug": "anylist",
+    "locale": "en",
+    "title": "Best AnyList Alternatives in 2026",
+    "description": "Looking for an AnyList alternative? Compare five apps for shared grocery lists, saving recipes from social media and websites, and meal planning.",
+    "primary_keyword": "anylist alternative",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": [
+      "content/comparisons.json",
+      "content/alternative_apps.json"
+    ],
+    "claims": [
+      "TasteBuddy starts from saved recipes and builds the plan and shopping list from them.",
+      "TasteBuddy imports recipes from social media and websites."
+    ],
+    "cta_variant": "shopping-from-plan",
+    "last_reviewed_at": "2026-10-19",
+    "competitor": "AnyList",
+    "comparison_slug": "tastebuddy-vs-anylist",
+    "intro": "AnyList is one of the most popular shared grocery list apps, with a recipe box and meal planner on top. If your shopping starts with recipes you saved from social media, or you would rather not pay for Complete to plan meals, these alternatives fit different households.",
+    "switch_reasons": [
+      "Web recipe import and the meal planning calendar require AnyList Complete",
+      "Most of your recipes come from TikTok and Instagram, not from recipe blogs",
+      "You want the shopping list to come from a weekly plan, not the other way around",
+      "You want a full recipe collection, not only a recipe box next to a list"
+    ],
+    "selection_criteria": [
+      "Shared shopping lists for the whole household",
+      "Shopping list generated from planned recipes",
+      "Saves recipes from websites and social media",
+      "Clear free tier or pricing"
+    ],
+    "app_slugs": [
+      "tastebuddy",
+      "samsung-food",
+      "plan-to-eat",
+      "recipe-keeper",
+      "paprika"
+    ],
+    "faq": [
+      {
+        "question": "What is the best AnyList alternative?",
+        "answer": "If you plan meals from recipes you saved on social media and food blogs, TasteBuddy is the closest fit because the shopping list comes straight from your weekly plan. If you want a free app with a large recipe catalog and shared lists, Samsung Food is a strong option."
+      },
+      {
+        "question": "Is there a free AnyList alternative?",
+        "answer": "TasteBuddy and Samsung Food are free to start, with optional paid upgrades. AnyList itself has a free version, while web recipe import and the meal planning calendar are part of AnyList Complete."
+      },
+      {
+        "question": "Should I switch from AnyList?",
+        "answer": "If AnyList is mainly your shared grocery list and that works well, there is little reason to switch. A recipe-first app makes more sense when most of your shopping comes from recipes you plan to cook."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/solutions/recipe-app-with-shopping-list/",
+        "label": "Recipe app with shopping list"
+      },
+      {
+        "href": "/features/meal-planning/",
+        "label": "Meal planning features"
+      }
+    ]
+  },
+  {
+    "slug": "anylist",
+    "locale": "de",
+    "title": "Die besten AnyList-Alternativen 2026",
+    "description": "Sie suchen eine Alternative zu AnyList? Fünf Apps im Vergleich: geteilte Einkaufslisten, Rezepte aus Social Media und Websites speichern, Essen planen.",
+    "primary_keyword": "anylist alternative",
+    "search_intent": "comparison",
+    "page_type": "alternatives",
+    "source_of_truth": [
+      "content/comparisons.json",
+      "content/alternative_apps.json"
+    ],
+    "claims": [
+      "TasteBuddy startet bei gespeicherten Rezepten und baut daraus Plan und Einkaufsliste.",
+      "TasteBuddy importiert Rezepte aus Social Media und von Websites."
+    ],
+    "cta_variant": "shopping-from-plan",
+    "last_reviewed_at": "2026-10-19",
+    "competitor": "AnyList",
+    "comparison_slug": "tastebuddy-vs-anylist",
+    "intro": "AnyList ist eine der beliebtesten Apps für geteilte Einkaufslisten, mit Rezeptbox und Essensplaner. Wenn Ihr Einkauf bei Rezepten aus Social Media beginnt oder Sie für die Essensplanung kein Complete-Abo abschließen wollen, passen diese Alternativen zu unterschiedlichen Haushalten.",
+    "switch_reasons": [
+      "Web-Import von Rezepten und der Essensplan-Kalender brauchen AnyList Complete",
+      "Die meisten Rezepte kommen aus TikTok und Instagram, nicht von Rezept-Blogs",
+      "Die Einkaufsliste soll aus dem Wochenplan entstehen, nicht umgekehrt",
+      "Gesucht ist eine vollständige Rezeptsammlung statt nur einer Rezeptbox neben der Liste"
+    ],
+    "selection_criteria": [
+      "Geteilte Einkaufslisten für den ganzen Haushalt",
+      "Einkaufsliste aus geplanten Rezepten",
+      "Speichert Rezepte von Websites und aus Social Media",
+      "Klare kostenlose Version oder klares Preismodell"
+    ],
+    "app_slugs": [
+      "tastebuddy",
+      "samsung-food",
+      "plan-to-eat",
+      "recipe-keeper",
+      "paprika"
+    ],
+    "faq": [
+      {
+        "question": "Was ist die beste Alternative zu AnyList?",
+        "answer": "Wenn Sie Mahlzeiten aus Rezepten planen, die Sie auf Social Media und Food-Blogs gespeichert haben, passt TasteBuddy am besten, weil die Einkaufsliste direkt aus dem Wochenplan entsteht. Wer eine kostenlose App mit großem Rezeptkatalog und geteilten Listen sucht, ist mit Samsung Food gut beraten."
+      },
+      {
+        "question": "Gibt es eine kostenlose AnyList-Alternative?",
+        "answer": "TasteBuddy und Samsung Food können Sie kostenlos starten, Upgrades sind optional. AnyList selbst hat eine kostenlose Version, Web-Import von Rezepten und der Essensplan-Kalender gehören aber zu AnyList Complete."
+      },
+      {
+        "question": "Lohnt sich der Wechsel von AnyList?",
+        "answer": "Wenn AnyList vor allem Ihre geteilte Einkaufsliste ist und das gut funktioniert, gibt es wenig Grund zu wechseln. Eine rezeptbasierte App lohnt sich, wenn der Großteil Ihres Einkaufs aus Rezepten kommt, die Sie kochen wollen."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/de/solutions/recipe-app-with-shopping-list/",
+        "label": "Rezept-App mit Einkaufsliste"
+      },
+      {
+        "href": "/de/solutions/organize-saved-recipes/",
+        "label": "Gespeicherte Rezepte organisieren"
+      }
+    ]
   }
 ]
