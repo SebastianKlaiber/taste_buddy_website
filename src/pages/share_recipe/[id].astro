@@ -9,6 +9,10 @@ export const prerender = false;
 const { id } = Astro.params;
 const shareId = String(id ?? '').trim();
 const shareUrl = `https://taste-buddy.app/share_recipe/${shareId}`;
+// Passed to the iOS app via the Smart App Banner so "Open" lands on this recipe.
+const appArgument = shareId
+  ? `https://taste-buddy.app/share_recipe/${encodeURIComponent(shareId)}`
+  : undefined;
 
 const iosStoreUrl = 'https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=SharedRecipe&mt=8';
 const androidStoreUrl = buildGooglePlayHref({
@@ -191,6 +195,7 @@ const pageDescription = recipe
   description={pageDescription}
   socialImage={imageUrl || undefined}
   socialImageAlt={title}
+  appArgument={appArgument}
 >
   <Main>
     <section class="py-8 sm:py-12">
