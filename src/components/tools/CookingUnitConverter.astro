@@ -1,0 +1,835 @@
+---
+/**
+ * Cooking unit converter UI + static reference tables.
+ * Used by /tools/cooking-unit-converter/ (en) and /de/tools/kuechen-umrechner/ (de).
+ * First results are rendered at build time, so the page is useful without JS;
+ * the client script below makes them update live.
+ */
+import {
+  BUTTER_UNIT_ORDER,
+  BUTTER_UNITS,
+  GAS_MARKS,
+  FAN_OFFSET_C,
+  INGREDIENTS,
+  INGREDIENT_UNIT_IDS,
+  butterLabel,
+  convertUnits,
+  describeButter,
+  describeGeneral,
+  describeIngredient,
+  describeOven,
+  formatNumber,
+  getUnit,
+  unitSymbol,
+  unitsForDimension,
+  type ButterUnitId,
+  type ConverterLocale,
+  type ResultText,
+  type UnitId,
+} from '../../lib/tools/cooking-unit-converter';
+
+interface Props {
+  locale: ConverterLocale;
+}
+
+const { locale } = Astro.props;
+const de = locale === 'de';
+
+const t = de
+  ? {
+      nav: 'Rechner',
+      generalTitle: 'Maßeinheiten umrechnen',
+      generalIntro: 'Volumen oder Gewicht zwischen US-Maßen und metrischen Einheiten umrechnen.',
+      amount: 'Menge',
+      from: 'Von',
+      to: 'In',
+      swap: 'Einheiten tauschen',
+      volume: 'Volumen',
+      weight: 'Gewicht',
+      ingredientTitle: 'Cups in Gramm (nach Zutat)',
+      ingredientIntro: 'Cups, Esslöffel oder Teelöffel in Gramm umrechnen – oder Gramm zurück in Cups.',
+      ingredient: 'Zutat',
+      unit: 'Einheit',
+      approxNote: 'Ungefähre Werte: Mehl und Pulver locker eingefüllt und glatt gestrichen.',
+      butterTitle: 'Butter: Sticks, Gramm, EL, Cups',
+      butterIntro: 'US-Rezepte messen Butter in Sticks. 1 Stick = 113 g = 8 EL = ½ Cup.',
+      ovenTitle: 'Backofen-Temperatur: °F in °C',
+      ovenIntro: 'Fahrenheit in Celsius umrechnen, inklusive Umluft und Gasherd-Stufe.',
+      temperature: 'Temperatur',
+      ovenMode: 'Heizart',
+      conventional: 'Ober-/Unterhitze',
+      fan: 'Umluft',
+      tablesTitle: 'Umrechnungstabellen zum Nachschlagen',
+      cupsTableTitle: 'Cups und Löffel in Milliliter',
+      ozTableTitle: 'Unzen (oz) und Pfund (lb) in Gramm',
+      ovenTableTitle: 'Backofen-Temperaturen: °F, °C und Gasherd',
+      ingredientTableTitle: 'Gewicht pro Cup: Zutaten-Tabelle (ca.)',
+      butterTableTitle: 'Butter-Tabelle',
+      usMeasure: 'US-Maß',
+      millilitres: 'Milliliter',
+      ounces: 'Unzen',
+      grams: 'Gramm',
+      gasMark: 'Gasherd-Stufe',
+      fahrenheit: '°F',
+      celsiusConventional: '°C Ober-/Unterhitze',
+      celsiusFan: '°C Umluft',
+      perCup: '1 Cup',
+      perHalfCup: '½ Cup',
+      perTbsp: '1 EL',
+      sourceNote:
+        'Quellen: trockene Zutaten nach der Gewichtstabelle von King Arthur Baking; Wasser, Milch, Öl, Honig und Sahne über ihre typische Dichte berechnet.',
+      butter: 'Butter',
+      invalid: 'Bitte eine Zahl eingeben, z. B. 1, 0,5, 1/2 oder 1 1/2.',
+    }
+  : {
+      nav: 'Converters',
+      generalTitle: 'Convert cooking measurements',
+      generalIntro: 'Convert volume or weight between US customary units and metric.',
+      amount: 'Amount',
+      from: 'From',
+      to: 'To',
+      swap: 'Swap units',
+      volume: 'Volume',
+      weight: 'Weight',
+      ingredientTitle: 'Cups to grams by ingredient',
+      ingredientIntro: 'Turn cups, tablespoons or teaspoons into grams – or grams back into cups.',
+      ingredient: 'Ingredient',
+      unit: 'Unit',
+      approxNote: 'Approximate values: flour and powders spooned into the cup and levelled.',
+      butterTitle: 'Butter: sticks, grams, tablespoons, cups',
+      butterIntro: 'US recipes measure butter in sticks. 1 stick = 113 g = 8 tbsp = ½ cup.',
+      ovenTitle: 'Oven temperature: °F to °C',
+      ovenIntro: 'Convert Fahrenheit and Celsius, including fan/convection ovens and gas marks.',
+      temperature: 'Temperature',
+      ovenMode: 'Oven type',
+      conventional: 'Conventional',
+      fan: 'Fan / convection',
+      tablesTitle: 'Cooking conversion charts',
+      cupsTableTitle: 'Cups and spoons to millilitres',
+      ozTableTitle: 'Ounces and pounds to grams',
+      ovenTableTitle: 'Oven temperatures: °F, °C and gas mark',
+      ingredientTableTitle: 'Cups to grams chart by ingredient (approx.)',
+      butterTableTitle: 'Butter conversion chart',
+      usMeasure: 'US measure',
+      millilitres: 'Millilitres',
+      ounces: 'Ounces',
+      grams: 'Grams',
+      gasMark: 'Gas mark',
+      fahrenheit: '°F',
+      celsiusConventional: '°C conventional',
+      celsiusFan: '°C fan',
+      perCup: '1 cup',
+      perHalfCup: '½ cup',
+      perTbsp: '1 tbsp',
+      sourceNote:
+        "Sources: dry ingredients from King Arthur Baking's ingredient weight chart; water, milk, oil, honey and cream calculated from their typical density.",
+      butter: 'Butter',
+      invalid: 'Enter a number like 1, 0.5, 1/2 or 1 1/2.',
+    };
+
+const n = (value: number, decimals?: number) => formatNumber(value, locale, decimals);
+const sym = (id: UnitId, amount = 1) => unitSymbol(id, amount, locale);
+
+// Defaults (also the static first render).
+const defaults = {
+  general: { amount: '1', from: 'cup' as UnitId, to: 'ml' as UnitId },
+  ingredient: { amount: '1', unit: 'cup' as UnitId, id: 'ap-flour' },
+  butter: { amount: '1', unit: 'stick' as ButterUnitId },
+  oven: de
+    ? { value: '180', unit: 'C' as const, mode: 'conventional' as const }
+    : { value: '350', unit: 'F' as const, mode: 'conventional' as const },
+};
+
+const initial: Record<'general' | 'ingredient' | 'butter' | 'oven', ResultText | null> = {
+  general: describeGeneral(1, defaults.general.from, defaults.general.to, locale),
+  ingredient: describeIngredient(1, defaults.ingredient.unit, defaults.ingredient.id, locale),
+  butter: describeButter(1, defaults.butter.unit, locale),
+  oven: describeOven(Number(defaults.oven.value), defaults.oven.unit, defaults.oven.mode, locale),
+};
+
+const volumeUnits = unitsForDimension('volume');
+const weightUnits = unitsForDimension('weight');
+const defaultFromDimension = getUnit(defaults.general.from)?.dimension ?? 'volume';
+
+// Static reference tables.
+const cupRows: Array<{ label: string; ml: number }> = [
+  { label: `1 ${sym('tsp')}`, ml: convertUnits(1, 'tsp', 'ml') ?? 0 },
+  { label: `1 ${sym('tbsp')}`, ml: convertUnits(1, 'tbsp', 'ml') ?? 0 },
+  { label: '1 fl oz', ml: convertUnits(1, 'floz', 'ml') ?? 0 },
+  ...([
+    ['⅛', 1 / 8],
+    ['¼', 1 / 4],
+    ['⅓', 1 / 3],
+    ['½', 1 / 2],
+    ['⅔', 2 / 3],
+    ['¾', 3 / 4],
+    ['1', 1],
+    ['2', 2],
+    ['4', 4],
+  ] as const).map(([label, cups]) => ({ label: `${label} ${sym('cup', cups)}`, ml: cups * 236.588 })),
+  { label: `1 pint (US)`, ml: convertUnits(1, 'pint', 'ml') ?? 0 },
+  { label: `1 quart (US)`, ml: convertUnits(1, 'quart', 'ml') ?? 0 },
+  { label: de ? '1 Gallone (US)' : '1 gallon (US)', ml: convertUnits(1, 'gallon', 'ml') ?? 0 },
+];
+
+const ozRows: Array<{ label: string; g: number }> = [
+  ...[0.5, 1, 2, 3, 4, 5, 6, 8, 10, 12].map((oz) => ({ label: `${n(oz)} oz`, g: oz * 28.3495 })),
+  { label: '16 oz = 1 lb', g: 453.592 },
+  { label: `${n(1.5)} lb`, g: 1.5 * 453.592 },
+  { label: '2 lb', g: 2 * 453.592 },
+];
+
+const butterRows: Array<{ label: string; g: number }> = [
+  { label: `1 ${butterLabel('tbsp', 1, locale)}`, g: BUTTER_UNITS.tbsp },
+  { label: `2 ${butterLabel('tbsp', 2, locale)}`, g: BUTTER_UNITS.tbsp * 2 },
+  { label: `½ ${butterLabel('stick', 1, locale)} (4 ${butterLabel('tbsp', 4, locale)})`, g: BUTTER_UNITS.stick / 2 },
+  { label: `1 ${butterLabel('stick', 1, locale)} (½ ${butterLabel('cup', 1, locale)})`, g: BUTTER_UNITS.stick },
+  { label: `2 ${butterLabel('stick', 2, locale)} (1 ${butterLabel('cup', 1, locale)})`, g: BUTTER_UNITS.stick * 2 },
+  { label: `4 ${butterLabel('stick', 4, locale)} (1 lb)`, g: BUTTER_UNITS.stick * 4 },
+];
+
+const toolPayload = (mode: string) => JSON.stringify({ tool_name: 'cooking_unit_converter', mode, locale });
+const scriptConfig = JSON.stringify({ locale, invalid: t.invalid });
+---
+
+<div class="cuc" data-cuc-root data-config={scriptConfig}>
+  <nav class="cuc-jump" aria-label={t.nav}>
+    <a href="#converter-general">{t.generalTitle}</a>
+    <a href="#converter-ingredients">{t.ingredientTitle}</a>
+    <a href="#converter-butter">{t.butterTitle}</a>
+    <a href="#converter-oven">{t.ovenTitle}</a>
+  </nav>
+
+  <div class="cuc-grid">
+    <!-- General converter -->
+    <section class="cuc-card" id="converter-general" aria-labelledby="cuc-general-title">
+      <h2 id="cuc-general-title">{t.generalTitle}</h2>
+      <p class="cuc-intro">{t.generalIntro}</p>
+      <form class="cuc-form" data-cuc-tool="general" data-track-payload={toolPayload('general')} novalidate>
+        <div class="cuc-field">
+          <label for="cuc-general-amount">{t.amount}</label>
+          <input id="cuc-general-amount" name="amount" type="text" inputmode="decimal" autocomplete="off" value={defaults.general.amount} />
+        </div>
+        <div class="cuc-row">
+          <div class="cuc-field">
+            <label for="cuc-general-from">{t.from}</label>
+            <select id="cuc-general-from" name="from">
+              <optgroup label={t.volume}>
+                {volumeUnits.map((unit) => <option value={unit.id} data-dimension="volume" selected={unit.id === defaults.general.from}>{unit.label[locale]}</option>)}
+              </optgroup>
+              <optgroup label={t.weight}>
+                {weightUnits.map((unit) => <option value={unit.id} data-dimension="weight" selected={unit.id === defaults.general.from}>{unit.label[locale]}</option>)}
+              </optgroup>
+            </select>
+          </div>
+          <button type="button" class="cuc-swap" data-cuc-swap aria-label={t.swap} title={t.swap}>⇄</button>
+          <div class="cuc-field">
+            <label for="cuc-general-to">{t.to}</label>
+            <select id="cuc-general-to" name="to">
+              {unitsForDimension(defaultFromDimension).map((unit) => (
+                <option value={unit.id} selected={unit.id === defaults.general.to}>{unit.label[locale]}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <output class="cuc-output" for="cuc-general-amount cuc-general-from cuc-general-to" aria-live="polite" data-cuc-output>
+          <p class="cuc-main" data-cuc-main>{initial.general?.main}</p>
+          <ul class="cuc-details" data-cuc-details>{initial.general?.details.map((d) => <li>{d}</li>)}</ul>
+        </output>
+      </form>
+    </section>
+
+    <!-- Ingredient converter -->
+    <section class="cuc-card" id="converter-ingredients" aria-labelledby="cuc-ingredient-title">
+      <h2 id="cuc-ingredient-title">{t.ingredientTitle}</h2>
+      <p class="cuc-intro">{t.ingredientIntro}</p>
+      <form class="cuc-form" data-cuc-tool="ingredient" data-track-payload={toolPayload('ingredient')} novalidate>
+        <div class="cuc-field">
+          <label for="cuc-ingredient-id">{t.ingredient}</label>
+          <select id="cuc-ingredient-id" name="ingredient">
+            {INGREDIENTS.map((item) => <option value={item.id} selected={item.id === defaults.ingredient.id}>{item.name[locale]}</option>)}
+          </select>
+        </div>
+        <div class="cuc-row cuc-row-2">
+          <div class="cuc-field">
+            <label for="cuc-ingredient-amount">{t.amount}</label>
+            <input id="cuc-ingredient-amount" name="amount" type="text" inputmode="decimal" autocomplete="off" value={defaults.ingredient.amount} />
+          </div>
+          <div class="cuc-field">
+            <label for="cuc-ingredient-unit">{t.unit}</label>
+            <select id="cuc-ingredient-unit" name="unit">
+              {INGREDIENT_UNIT_IDS.map((id) => <option value={id} selected={id === defaults.ingredient.unit}>{getUnit(id)?.label[locale]}</option>)}
+            </select>
+          </div>
+        </div>
+        <output class="cuc-output" for="cuc-ingredient-id cuc-ingredient-amount cuc-ingredient-unit" aria-live="polite" data-cuc-output>
+          <p class="cuc-main" data-cuc-main>{initial.ingredient?.main}</p>
+          <ul class="cuc-details" data-cuc-details>{initial.ingredient?.details.map((d) => <li>{d}</li>)}</ul>
+        </output>
+        <p class="cuc-note">{t.approxNote}</p>
+      </form>
+    </section>
+
+    <!-- Butter converter -->
+    <section class="cuc-card" id="converter-butter" aria-labelledby="cuc-butter-title">
+      <h2 id="cuc-butter-title">{t.butterTitle}</h2>
+      <p class="cuc-intro">{t.butterIntro}</p>
+      <form class="cuc-form" data-cuc-tool="butter" data-track-payload={toolPayload('butter')} novalidate>
+        <div class="cuc-row cuc-row-2">
+          <div class="cuc-field">
+            <label for="cuc-butter-amount">{t.amount}</label>
+            <input id="cuc-butter-amount" name="amount" type="text" inputmode="decimal" autocomplete="off" value={defaults.butter.amount} />
+          </div>
+          <div class="cuc-field">
+            <label for="cuc-butter-unit">{t.unit}</label>
+            <select id="cuc-butter-unit" name="unit">
+              {BUTTER_UNIT_ORDER.map((id) => <option value={id} selected={id === defaults.butter.unit}>{butterLabel(id, 2, locale)}</option>)}
+            </select>
+          </div>
+        </div>
+        <output class="cuc-output" for="cuc-butter-amount cuc-butter-unit" aria-live="polite" data-cuc-output>
+          <p class="cuc-main" data-cuc-main>{initial.butter?.main}</p>
+          <ul class="cuc-details" data-cuc-details>{initial.butter?.details.map((d) => <li>{d}</li>)}</ul>
+        </output>
+      </form>
+    </section>
+
+    <!-- Oven converter -->
+    <section class="cuc-card" id="converter-oven" aria-labelledby="cuc-oven-title">
+      <h2 id="cuc-oven-title">{t.ovenTitle}</h2>
+      <p class="cuc-intro">{t.ovenIntro}</p>
+      <form class="cuc-form" data-cuc-tool="oven" data-track-payload={toolPayload('oven')} novalidate>
+        <div class="cuc-row cuc-row-2">
+          <div class="cuc-field">
+            <label for="cuc-oven-value">{t.temperature}</label>
+            <input id="cuc-oven-value" name="value" type="text" inputmode="decimal" autocomplete="off" value={defaults.oven.value} />
+          </div>
+          <div class="cuc-field">
+            <label for="cuc-oven-unit">{t.unit}</label>
+            <select id="cuc-oven-unit" name="unit">
+              <option value="F" selected={defaults.oven.unit === 'F'}>°F (Fahrenheit)</option>
+              <option value="C" selected={defaults.oven.unit === 'C'}>°C (Celsius)</option>
+            </select>
+          </div>
+        </div>
+        <fieldset class="cuc-field cuc-radios">
+          <legend>{t.ovenMode}</legend>
+          <label><input type="radio" name="mode" value="conventional" checked={defaults.oven.mode === 'conventional'} /> {t.conventional}</label>
+          <label><input type="radio" name="mode" value="fan" /> {t.fan}</label>
+        </fieldset>
+        <output class="cuc-output" for="cuc-oven-value cuc-oven-unit" aria-live="polite" data-cuc-output>
+          <p class="cuc-main" data-cuc-main>{initial.oven?.main}</p>
+          <ul class="cuc-details" data-cuc-details>{initial.oven?.details.map((d) => <li>{d}</li>)}</ul>
+        </output>
+      </form>
+    </section>
+  </div>
+
+  <!-- Static reference tables: crawlable and usable without JavaScript -->
+  <section class="cuc-tables" aria-labelledby="cuc-tables-title">
+    <h2 id="cuc-tables-title">{t.tablesTitle}</h2>
+
+    <div class="cuc-table-grid">
+      <div class="cuc-card">
+        <h3>{t.cupsTableTitle}</h3>
+        <div class="cuc-table-wrap">
+          <table>
+            <thead><tr><th scope="col">{t.usMeasure}</th><th scope="col">{t.millilitres}</th></tr></thead>
+            <tbody>
+              {cupRows.map((row) => <tr><th scope="row">{row.label}</th><td>{n(row.ml, row.ml < 100 ? 1 : 0)} ml</td></tr>)}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="cuc-card">
+        <h3>{t.ozTableTitle}</h3>
+        <div class="cuc-table-wrap">
+          <table>
+            <thead><tr><th scope="col">{t.ounces}</th><th scope="col">{t.grams}</th></tr></thead>
+            <tbody>
+              {ozRows.map((row) => <tr><th scope="row">{row.label}</th><td>{n(row.g, row.g < 100 ? 1 : 0)} g</td></tr>)}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="cuc-card">
+        <h3>{t.ovenTableTitle}</h3>
+        <div class="cuc-table-wrap">
+          <table>
+            <thead>
+              <tr><th scope="col">{t.fahrenheit}</th><th scope="col">{t.celsiusConventional}</th><th scope="col">{t.celsiusFan}</th><th scope="col">{t.gasMark}</th></tr>
+            </thead>
+            <tbody>
+              {GAS_MARKS.map((gas) => (
+                <tr><th scope="row">{gas.fahrenheit} °F</th><td>{gas.celsius} °C</td><td>{gas.celsius - FAN_OFFSET_C} °C</td><td>{gas.mark}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="cuc-card">
+        <h3>{t.butterTableTitle}</h3>
+        <div class="cuc-table-wrap">
+          <table>
+            <thead><tr><th scope="col">{t.butter}</th><th scope="col">{t.grams}</th><th scope="col">oz</th></tr></thead>
+            <tbody>
+              {butterRows.map((row) => <tr><th scope="row">{row.label}</th><td>{n(row.g, row.g < 100 ? 1 : 0)} g</td><td>{n(row.g / 28.3495, 1)} oz</td></tr>)}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="cuc-card cuc-wide">
+      <h3>{t.ingredientTableTitle}</h3>
+      <div class="cuc-table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">{t.ingredient}</th><th scope="col">{t.perCup}</th><th scope="col">{t.perHalfCup}</th><th scope="col">{t.perTbsp}</th></tr>
+          </thead>
+          <tbody>
+            {INGREDIENTS.map((item) => (
+              <tr>
+                <th scope="row">{item.name[locale]}</th>
+                <td>{n(Math.round(item.gramsPerCup), 0)} g</td>
+                <td>{n(Math.round(item.gramsPerCup / 2), 0)} g</td>
+                <td>{n(item.gramsPerCup / 16, 0)} g</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="cuc-note">{t.approxNote} {t.sourceNote}</p>
+    </div>
+  </section>
+</div>
+
+<script>
+  import {
+    describeButter,
+    describeGeneral,
+    describeIngredient,
+    describeOven,
+    getUnit,
+    parseAmount,
+    unitsForDimension,
+    type ButterUnitId,
+    type ConverterLocale,
+    type OvenMode,
+    type ResultText,
+    type TempUnit,
+    type UnitId,
+  } from '../../lib/tools/cooking-unit-converter';
+
+  type ToolName = 'general' | 'ingredient' | 'butter' | 'oven';
+
+  const root = document.querySelector<HTMLElement>('[data-cuc-root]');
+  if (root) init(root);
+
+  function init(rootEl: HTMLElement) {
+    const config = JSON.parse(rootEl.dataset.config ?? '{}') as { locale: ConverterLocale; invalid: string };
+    const locale = config.locale === 'de' ? 'de' : 'en';
+    const tracked = new Set<ToolName>();
+    const trackTimers = new Map<ToolName, number>();
+
+    const forms = rootEl.querySelectorAll<HTMLFormElement>('form[data-cuc-tool]');
+    forms.forEach((form) => {
+      const tool = form.dataset.cucTool as ToolName;
+      const run = () => render(form, compute(tool, form));
+      form.addEventListener('input', () => {
+        if (tool === 'general') syncTargetUnits(form);
+        const ok = run();
+        if (ok) scheduleTrack(tool, form);
+      });
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        run();
+      });
+      if (tool === 'general') {
+        form.querySelector<HTMLButtonElement>('[data-cuc-swap]')?.addEventListener('click', () => {
+          swapUnits(form);
+          if (run()) scheduleTrack(tool, form);
+        });
+      }
+    });
+
+    function compute(tool: ToolName, form: HTMLFormElement): ResultText | null {
+      const data = new FormData(form);
+      const amount = parseAmount(String(data.get(tool === 'oven' ? 'value' : 'amount') ?? ''));
+      if (amount === null) return null;
+      switch (tool) {
+        case 'general':
+          return describeGeneral(amount, String(data.get('from')) as UnitId, String(data.get('to')) as UnitId, locale);
+        case 'ingredient':
+          return describeIngredient(amount, String(data.get('unit')) as UnitId, String(data.get('ingredient')), locale);
+        case 'butter':
+          return describeButter(amount, String(data.get('unit')) as ButterUnitId, locale);
+        case 'oven':
+          return describeOven(amount, String(data.get('unit')) as TempUnit, String(data.get('mode') ?? 'conventional') as OvenMode, locale);
+      }
+    }
+
+    function render(form: HTMLFormElement, result: ResultText | null): boolean {
+      const main = form.querySelector<HTMLElement>('[data-cuc-main]');
+      const details = form.querySelector<HTMLElement>('[data-cuc-details]');
+      const output = form.querySelector<HTMLElement>('[data-cuc-output]');
+      if (!main || !details || !output) return false;
+      output.classList.toggle('is-invalid', result === null);
+      main.textContent = result ? result.main : config.invalid;
+      details.replaceChildren(
+        ...(result?.details ?? []).map((text) => {
+          const li = document.createElement('li');
+          li.textContent = text;
+          return li;
+        }),
+      );
+      return result !== null;
+    }
+
+    /** Keeps the "to" list limited to units of the same dimension as "from". */
+    function syncTargetUnits(form: HTMLFormElement) {
+      const from = form.querySelector<HTMLSelectElement>('select[name="from"]');
+      const to = form.querySelector<HTMLSelectElement>('select[name="to"]');
+      if (!from || !to) return;
+      const dimension = getUnit(from.value)?.dimension;
+      if (!dimension) return;
+      const units = unitsForDimension(dimension);
+      const previous = to.value;
+      const sameDimension = units.some((unit) => unit.id === previous);
+      if (!sameDimension) {
+        // Rebuild the list: only units of the same dimension can be converted.
+        to.replaceChildren(...units.map((unit) => new Option(unit.label[locale], unit.id)));
+        to.value = dimension === 'weight' ? (from.value === 'g' ? 'oz' : 'g') : from.value === 'ml' ? 'cup' : 'ml';
+      }
+    }
+
+    function swapUnits(form: HTMLFormElement) {
+      const from = form.querySelector<HTMLSelectElement>('select[name="from"]');
+      const to = form.querySelector<HTMLSelectElement>('select[name="to"]');
+      if (!from || !to) return;
+      const previousFrom = from.value;
+      from.value = to.value;
+      syncTargetUnits(form);
+      to.value = previousFrom;
+    }
+
+    /** One analytics event per converter per page view, after the visitor pauses typing. */
+    function scheduleTrack(tool: ToolName, form: HTMLFormElement) {
+      if (tracked.has(tool)) return;
+      window.clearTimeout(trackTimers.get(tool));
+      trackTimers.set(
+        tool,
+        window.setTimeout(() => {
+          if (tracked.has(tool)) return;
+          tracked.add(tool);
+          const tbTrack = (window as unknown as { tbTrack?: (event: string, payload: Record<string, unknown>) => void }).tbTrack;
+          let payload: Record<string, unknown> = { tool_name: 'cooking_unit_converter', mode: tool };
+          try {
+            payload = JSON.parse(form.dataset.trackPayload ?? '') as Record<string, unknown>;
+          } catch {
+            // keep default payload
+          }
+          tbTrack?.('marketing_tool_submitted', payload);
+        }, 1500),
+      );
+    }
+  }
+</script>
+
+<style>
+  .cuc {
+    color: var(--tb-text);
+  }
+
+  .cuc-jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cuc-jump a {
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius-pill);
+    background: var(--tb-surface);
+    color: var(--tb-text);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.4rem 0.85rem;
+    text-decoration: none;
+  }
+
+  .cuc-jump a:hover,
+  .cuc-jump a:focus-visible {
+    border-color: var(--tb-accent);
+    background: var(--tb-accent-soft);
+  }
+
+  .cuc-grid,
+  .cuc-table-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 900px) {
+    .cuc-grid,
+    .cuc-table-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .cuc-card {
+    min-width: 0;
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius);
+    background: var(--tb-surface-raised);
+    box-shadow: var(--tb-shadow-sm);
+    padding: 1.25rem;
+    scroll-margin-top: 6rem;
+  }
+
+  @media (min-width: 640px) {
+    .cuc-card {
+      padding: 1.5rem;
+    }
+  }
+
+  .cuc-card h2 {
+    color: var(--tb-text-strong);
+    font-size: 1.3rem;
+    font-weight: 750;
+    line-height: 1.25;
+    margin: 0 0 0.35rem;
+  }
+
+  .cuc-card h3 {
+    color: var(--tb-text-strong);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem;
+  }
+
+  .cuc-intro,
+  .cuc-note {
+    color: var(--tb-muted);
+    font-size: 0.925rem;
+    margin: 0 0 1rem;
+  }
+
+  .cuc-note {
+    margin: 0.75rem 0 0;
+    font-size: 0.825rem;
+  }
+
+  .cuc-form {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .cuc-row {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: end;
+  }
+
+  .cuc-row-2 {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .cuc-field {
+    display: grid;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+
+  .cuc-field label,
+  .cuc-radios legend {
+    color: var(--tb-text);
+    font-size: 0.85rem;
+    font-weight: 650;
+  }
+
+  .cuc input[type='text'],
+  .cuc select {
+    width: 100%;
+    min-height: 46px;
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius-sm);
+    background: var(--tb-surface);
+    color: var(--tb-text);
+    font-size: 1rem;
+    padding: 0.6rem 0.75rem;
+  }
+
+  .cuc select option {
+    background: var(--tb-surface);
+    color: var(--tb-text);
+  }
+
+  .cuc input[type='text']:focus-visible,
+  .cuc select:focus-visible,
+  .cuc-swap:focus-visible,
+  .cuc-radios input:focus-visible {
+    outline: 2px solid var(--tb-accent);
+    outline-offset: 2px;
+  }
+
+  .cuc-swap {
+    min-width: 46px;
+    min-height: 46px;
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius-pill);
+    background: var(--tb-surface-muted);
+    color: var(--tb-text);
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  .cuc-swap:hover {
+    border-color: var(--tb-accent);
+  }
+
+  .cuc-radios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cuc-radios legend {
+    width: 100%;
+    margin-bottom: 0.35rem;
+  }
+
+  .cuc-radios label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 32px;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+
+  .cuc-radios input {
+    accent-color: var(--tb-accent);
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .cuc-output {
+    display: block;
+    border-radius: var(--tb-radius-sm);
+    background: var(--tb-accent-soft);
+    padding: 0.9rem 1rem;
+  }
+
+  .cuc-output.is-invalid {
+    background: var(--tb-surface-muted);
+  }
+
+  .cuc-main {
+    color: var(--tb-text-strong);
+    font-size: 1.2rem;
+    font-weight: 750;
+    line-height: 1.35;
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .cuc-output.is-invalid .cuc-main {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .cuc-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+  }
+
+  .cuc-details:empty {
+    display: none;
+  }
+
+  .cuc-details li {
+    border: 1px solid var(--tb-border-soft);
+    border-radius: var(--tb-radius-pill);
+    background: var(--tb-surface);
+    color: var(--tb-text);
+    font-size: 0.85rem;
+    padding: 0.2rem 0.6rem;
+  }
+
+  .cuc-tables {
+    margin-top: 3rem;
+  }
+
+  .cuc-tables > h2 {
+    color: var(--tb-text-strong);
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin: 0 0 1.25rem;
+  }
+
+  .cuc-wide {
+    margin-top: 1.25rem;
+  }
+
+  .cuc-table-wrap {
+    overflow-x: auto;
+  }
+
+  .cuc table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  .cuc th,
+  .cuc td {
+    border-bottom: 1px solid var(--tb-border-soft);
+    padding: 0.5rem 0.5rem 0.5rem 0;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .cuc thead th {
+    color: var(--tb-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .cuc tbody th {
+    color: var(--tb-text-strong);
+    font-weight: 600;
+    white-space: normal;
+  }
+
+  .cuc tbody td {
+    color: var(--tb-text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Narrow phones: stack "from" / swap / "to" so unit names are not cut off. */
+  @media (max-width: 520px) {
+    .cuc-row:not(.cuc-row-2) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cuc-swap {
+      justify-self: center;
+      transform: rotate(90deg);
+    }
+  }
+</style>

@@ -1,0 +1,111 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CookingUnitConverterPage from '../../components/tools/CookingUnitConverterPage.astro';
+
+export const prerender = true;
+
+const url = 'https://taste-buddy.app/tools/cooking-unit-converter/';
+const alternates = {
+  en: url,
+  de: 'https://taste-buddy.app/de/tools/kuechen-umrechner/',
+  'x-default': url,
+};
+
+const title = 'Cups to Grams & Cooking Unit Converter | TasteBuddy';
+const description =
+  'Free cooking converter: cups to grams by ingredient, ml, oz, tbsp, sticks of butter and oven °F to °C with fan and gas mark. Charts included, no sign-up.';
+
+const sections = [
+  {
+    heading: 'Why cups to grams depends on the ingredient',
+    paragraphs: [
+      'A cup measures volume, a gram measures weight. One cup of water weighs about 237 g, but a cup of all-purpose flour weighs only about 120 g because flour is light and full of air, while a cup of honey weighs about 336 g. That is why there is no single "1 cup = X grams" number.',
+      'The converter uses the King Arthur Baking ingredient weight chart for dry ingredients and typical densities for liquids. Treat the results as close approximations: how you fill the cup matters. Scooping flour straight from the bag can pack in 20–30 % more than spooning it in and levelling it off.',
+    ],
+  },
+  {
+    heading: 'US cups, metric cups and spoons',
+    paragraphs: [
+      'All volume units here are US customary measures: 1 cup = 236.6 ml, 1 tablespoon = 14.8 ml, 1 teaspoon = 4.9 ml and 1 fluid ounce = 29.6 ml. A cup holds 16 tablespoons, and a tablespoon holds 3 teaspoons.',
+      'Recipes from Australia, New Zealand and Canada often use a 250 ml metric cup, and the Australian tablespoon is 20 ml. For soups and stews the difference does not matter; in baking it can, so check where a recipe comes from. UK pints are also bigger (568 ml) than US pints (473 ml).',
+    ],
+  },
+  {
+    heading: 'Ounces vs. fluid ounces',
+    paragraphs: [
+      'Ounces (oz) measure weight: 1 oz = 28.35 g and 16 oz = 1 lb = 453.6 g. Fluid ounces (fl oz) measure volume: 1 fl oz = 29.6 ml. They line up for water but not for flour, chocolate or honey. If a US recipe asks for "8 oz chocolate", weigh 227 g. If it asks for "8 fl oz milk", measure 1 cup (237 ml).',
+    ],
+  },
+  {
+    heading: 'Converting oven temperatures for fan ovens and gas marks',
+    paragraphs: [
+      'To convert Fahrenheit to Celsius, subtract 32 and multiply by 5/9. 350 °F is 177 °C, which most recipes round to 180 °C. American recipes assume a conventional oven. In a fan (convection) oven, lower the temperature by about 20 °C or 25 °F, or keep it and start checking for doneness earlier. Gas marks appear in older British recipes: gas mark 4 equals 350 °F or 180 °C.',
+    ],
+  },
+  {
+    heading: 'Tips for accurate kitchen conversions',
+    list: [
+      'Weigh flour, sugar and butter when you can. A kitchen scale beats any measuring cup.',
+      'Spoon flour into the cup and level it with a knife instead of scooping.',
+      'Pack brown sugar firmly. Most US recipes assume packed brown sugar.',
+      'Butter is sold by weight: 1 stick is always 113 g, no matter how soft it is.',
+      'Round sensibly. 236.6 ml can be 240 ml in a soup, but stay precise for bread and cakes.',
+    ],
+  },
+];
+
+const faq = [
+  {
+    question: 'How many grams is 1 cup of flour?',
+    answer:
+      'One cup of all-purpose flour weighs about 120 g when spooned into the cup and levelled, based on the King Arthur Baking weight chart. Whole wheat flour is about 113 g per cup. Flour scooped straight from the bag can weigh 140 g or more.',
+  },
+  {
+    question: 'How many ml is 1 cup?',
+    answer:
+      'One US cup is 236.6 ml, often rounded to 240 ml on nutrition labels. A metric cup used in Australia, New Zealand and Canada is 250 ml.',
+  },
+  {
+    question: 'How many grams is a stick of butter?',
+    answer:
+      'One US stick of butter weighs 4 oz, which is 113 g. It equals 8 tablespoons or ½ cup. Two sticks make 1 cup (227 g), and four sticks make 1 pound (454 g).',
+  },
+  {
+    question: 'What is 350 °F in Celsius?',
+    answer:
+      '350 °F is 177 °C, usually rounded to 180 °C for a conventional oven. For a fan or convection oven, use about 160 °C. 350 °F also matches gas mark 4.',
+  },
+  {
+    question: 'Is a tablespoon the same size everywhere?',
+    answer:
+      'No. A US tablespoon is 14.8 ml, the UK and most metric countries use 15 ml, and Australia uses 20 ml. This converter uses US measures, so 1 tbsp = 14.8 ml and 3 teaspoons.',
+  },
+  {
+    question: 'Why are the gram results marked as approximate?',
+    answer:
+      'Cups measure volume, so the weight depends on how densely an ingredient is packed, on humidity and on the brand. The values are good for everyday cooking; for precise baking, weigh your ingredients.',
+  },
+];
+---
+
+<Layout title={title} description={description} lang="en" alternates={alternates}>
+  <CookingUnitConverterPage
+    locale="en"
+    url={url}
+    name="Cooking Unit Converter"
+    description={description}
+    eyebrow="Free kitchen tool"
+    h1="Cups to Grams & Cooking Unit Converter"
+    intro="Convert US cups, spoons, ounces and Fahrenheit to metric and back. Includes cups-to-grams by ingredient, butter sticks and oven temperatures for fan ovens and gas marks."
+    sections={sections}
+    faqTitle="Cooking conversion FAQ"
+    faq={faq}
+    cta={{
+      heading: 'Keep your recipes in one place',
+      body: 'Converted a recipe you want to cook again? TasteBuddy lets you save recipes from anywhere, plan your meals for the week and turn them into one shopping list.',
+      primaryLabel: 'Get TasteBuddy',
+      secondaryLabel: 'See how it works',
+      secondaryHref: '/how-it-works/',
+    }}
+  />
+</Layout>
