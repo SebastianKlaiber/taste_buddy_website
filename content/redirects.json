@@ -77,7 +77,7 @@
     "content": "baking-recipes",
     "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=yeast-converter&mt=8",
     "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dtool_cta%26utm_campaign%3Dyeast-converter%26utm_content%3Dbaking-recipes",
-    "fallback_url": "https://taste-buddy.app/"
+    "fallback_url": "https://taste-buddy.app/features/recipe-organizer/"
   },
   {
     "slug": "how-it-works",
@@ -112,11 +112,11 @@
   {
     "slug": "party-food-calculator",
     "source": "website",
-    "medium": "seo_cta",
+    "medium": "tool_cta",
     "campaign": "party-food-calculator",
     "content": "party-planner-cta",
     "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=party-food-calculator&mt=8",
-    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dseo_cta%26utm_campaign%3Dparty-food-calculator%26utm_content%3Dparty-planner-cta",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dtool_cta%26utm_campaign%3Dparty-food-calculator%26utm_content%3Dparty-planner-cta",
     "fallback_url": "https://taste-buddy.app/features/meal-planning/"
   },
   {
@@ -127,26 +127,26 @@
     "content": "unit-converter",
     "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=cooking-unit-converter&mt=8",
     "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dtool_cta%26utm_campaign%3Dcooking-unit-converter%26utm_content%3Dunit-converter",
-    "fallback_url": "https://taste-buddy.app/tools/cooking-unit-converter/"
+    "fallback_url": "https://taste-buddy.app/features/recipe-organizer/"
   },
   {
     "slug": "recipe-scaler",
     "source": "website",
-    "medium": "seo_cta",
+    "medium": "tool_cta",
     "campaign": "recipe-scaler",
     "content": "kitchen-tool",
     "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=recipe-scaler&mt=8",
-    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dseo_cta%26utm_campaign%3Drecipe-scaler%26utm_content%3Dkitchen-tool",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dtool_cta%26utm_campaign%3Drecipe-scaler%26utm_content%3Dkitchen-tool",
     "fallback_url": "https://taste-buddy.app/features/recipe-organizer/"
   },
   {
     "slug": "baking-pan-size-converter",
     "source": "website",
-    "medium": "seo_cta",
+    "medium": "tool_cta",
     "campaign": "baking-pan-size-converter",
     "content": "kitchen-tool",
     "ios_url": "https://apps.apple.com/app/apple-store/id6554007741?pt=127208178&ct=baking-pan-size-converter&mt=8",
-    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dseo_cta%26utm_campaign%3Dbaking-pan-size-converter%26utm_content%3Dkitchen-tool",
+    "android_url": "https://play.google.com/store/apps/details?id=app.tastebuddy&referrer=utm_source%3Dwebsite%26utm_medium%3Dtool_cta%26utm_campaign%3Dbaking-pan-size-converter%26utm_content%3Dkitchen-tool",
     "fallback_url": "https://taste-buddy.app/features/recipe-organizer/"
   },
   {
