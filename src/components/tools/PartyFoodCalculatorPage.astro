@@ -1,0 +1,489 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Main from '../Main.astro';
+import PartyFoodCalculator from './PartyFoodCalculator.astro';
+import { SITE_URL, getGoHref } from '../../lib/marketing/app-links';
+import { referenceRows, type Locale } from '../../lib/tools/party-food-calculator';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const TOOL_SLUG = 'party-food-calculator';
+
+const alternates = {
+  en: `${SITE_URL}/tools/party-food-calculator/`,
+  de: `${SITE_URL}/de/tools/portionsrechner/`,
+  'x-default': `${SITE_URL}/tools/party-food-calculator/`,
+};
+
+const content = {
+  en: {
+    title: 'Party Food Calculator: How Much Food per Person',
+    description:
+      'Free party food calculator: enter guests, appetite and event type to see how much pasta, rice, meat, sides, dessert and drinks to buy, plus a shopping list.',
+    eyebrow: 'Free party planning tool',
+    h1: 'Party food calculator: how much food per person?',
+    intro:
+      'Enter your guests, pick the event and tick what you are serving. The calculator shows how much pasta, rice, potatoes, meat, sides, dessert, cookies and drinks to buy, live, with a shopping list you can copy.',
+    tableTitle: 'Food per person: reference values',
+    tableIntro:
+      'These are the starting amounts per adult at a sit-down dinner with normal appetite, when the item is the only choice of its kind. Kids (about 3–12) get roughly half; with two or more starches or meats the calculator splits the portion and adds a little extra because guests take some of each.',
+    tableItem: 'Item',
+    tableAdult: 'Per adult',
+    tableKid: 'Per child',
+    sections: [
+      {
+        h2: 'How much pasta, rice and meat per person?',
+        body: [
+          'For pasta as the main dish, plan about 100 g of dry pasta per adult; as a side, 60–75 g is enough. Rice works the same way at about 75 g dry per adult for a main and 50 g as a side. Raw potatoes need more weight because they contain water: 200–250 g per adult.',
+          'For meat, count 150–200 g boneless per adult when there are sides. Bone-in cuts like chicken legs, chops or ribs need about 300 g because the bone does not get eaten. A whole turkey or goose needs even more, around 450–750 g per adult, because the carcass is heavy. Fish fillet sits at about 150–180 g.',
+        ],
+      },
+      {
+        h2: 'Planning a buffet, BBQ, brunch or Christmas dinner',
+        body: [
+          'The event type changes the numbers. At a buffet, guests try a bit of everything and the last guest in line should still find food, so the calculator adds about 10 % on top. At a BBQ, meat is the star: it gets about 40 % more meat and more salad and bread, but fewer starchy sides. A brunch leans on bread, spreads and coffee, while a cookie or dessert table plans about six cookies and a generous slice of cake per guest.',
+          'Appetite matters too. Choose “light” for an afternoon event or older guests and “hearty” for teenagers, sports teams or a long evening. The calculator always rounds up to amounts you can actually buy.',
+        ],
+      },
+      {
+        h2: 'How many drinks per person?',
+        body: [
+          'A good rule of thumb is about one drink per guest per hour, plus water on every table. The calculator plans 0.75 l of water and 0.5 l of soft drinks or juice per adult, half a bottle of wine, about 1 l of beer or two mugs of mulled wine. Alcohol is only counted for adults, and if you offer several alcoholic drinks the amount is split between them.',
+        ],
+      },
+    ],
+    linksTitle: 'Plan the rest of the party',
+    links: [
+      {
+        href: '/en/blog/articles/holiday-dinner-planning-checklist/',
+        label: 'Holiday dinner planning checklist',
+        text: 'A countdown from three weeks out to serving day, including turkey thawing times.',
+      },
+      {
+        href: '/en/blog/articles/how-to-use-up-leftovers/',
+        label: 'How to use up leftovers',
+        text: 'A simple weekly system for whatever is left after the party.',
+      },
+    ],
+    ctaTitle: 'Keep your party recipes and shopping list in one place',
+    ctaText:
+      'TasteBuddy is a free recipe app. Save the recipes for your menu from websites, social media or photos, add them to your meal plan and collect the ingredients in one shopping list.',
+    ctaPrimary: 'Get TasteBuddy',
+    ctaSecondary: 'See meal planning',
+    ctaSecondaryHref: '/features/meal-planning/',
+    faqTitle: 'Frequently asked questions',
+    faq: [
+      {
+        question: 'How much pasta per person do I need?',
+        answer:
+          'Plan about 100 g (3.5 oz) of dry pasta per adult when pasta is the main dish and 60–75 g as a side. Children eat roughly half. For 10 adults that is about 1 kg, or two 500 g packs.',
+      },
+      {
+        question: 'How much food per person for a party?',
+        answer:
+          'For a full sit-down meal, plan per adult about 150–200 g of boneless meat or fish, one starch (100 g dry pasta, 75 g dry rice or 250 g raw potatoes), 150 g of vegetables, 100 g of salad, 75 g of bread and one dessert. That adds up to roughly 700–900 g of ingredients per adult. Buffets need about 10 % more.',
+      },
+      {
+        question: 'How much meat per person for a BBQ?',
+        answer:
+          'At a barbecue with salads and bread, plan about 250 g of boneless meat or 400 g of bone-in meat such as ribs or chicken legs per adult. Big eaters and long evenings need more, so round up.',
+      },
+      {
+        question: 'How much rice per person?',
+        answer:
+          'Count about 75 g of uncooked rice per adult for a main dish and around 50 g as a side. Rice roughly triples in weight when cooked.',
+      },
+      {
+        question: 'How many drinks per person for a party?',
+        answer:
+          'Plan about one drink per guest per hour, plus water. For an evening that means roughly 0.75 l of water, 0.5 l of soft drinks and half a bottle of wine or about 1 l of beer per adult who drinks alcohol.',
+      },
+      {
+        question: 'How accurate are these quantities?',
+        answer:
+          'They are rules of thumb, not exact science. Appetite, age, the time of day and how many dishes you serve all change how much people eat. Use the numbers as a starting point and round up if you want leftovers.',
+      },
+    ],
+    appName: 'Party Food Calculator',
+  },
+  de: {
+    title: 'Portionsrechner: Wie viel Essen pro Person?',
+    description:
+      'Kostenloser Portionsrechner: Gäste, Hunger und Anlass eingeben und sehen, wie viel Nudeln, Reis, Fleisch, Beilagen, Dessert und Getränke du pro Person brauchst.',
+    eyebrow: 'Kostenloses Tool für deine Feier',
+    h1: 'Portionsrechner: Wie viel Essen pro Person?',
+    intro:
+      'Gib die Zahl deiner Gäste ein, wähle den Anlass und hake an, was es gibt. Der Rechner zeigt sofort, wie viel Nudeln, Reis, Kartoffeln, Fleisch, Beilagen, Dessert, Plätzchen und Getränke du kaufen solltest, inklusive Einkaufsliste zum Kopieren.',
+    tableTitle: 'Mengen pro Person: die Richtwerte',
+    tableIntro:
+      'Das sind die Ausgangsmengen pro Erwachsenem bei einem Abendessen mit normalem Hunger, wenn es nur eine Speise dieser Art gibt. Kinder (etwa 3–12 Jahre) essen ungefähr die Hälfte. Bei zwei oder mehr Beilagen oder Fleischsorten teilt der Rechner die Portion auf und plant etwas mehr ein, weil alle von allem probieren.',
+    tableItem: 'Speise / Getränk',
+    tableAdult: 'Pro Erwachsenem',
+    tableKid: 'Pro Kind',
+    sections: [
+      {
+        h2: 'Wie viel Nudeln, Reis und Fleisch pro Person?',
+        body: [
+          'Als Hauptgericht rechnest du mit etwa 100 g trockenen Nudeln pro Erwachsenem, als Beilage reichen 60–75 g. Bei Reis sind es rund 75 g ungekocht als Hauptgericht und 50 g als Beilage. Rohe Kartoffeln brauchen mehr Gewicht, weil sie viel Wasser enthalten: 200–250 g pro Person.',
+          'Fleisch ohne Knochen plant man mit 150–200 g pro Erwachsenem, wenn es Beilagen gibt. Fleisch mit Knochen wie Hähnchenschenkel, Koteletts oder Rippchen braucht etwa 300 g. Für eine ganze Gans oder Pute rechnet man sogar 500–750 g pro Person, weil die Karkasse schwer ist. Fischfilet liegt bei etwa 150–180 g.',
+        ],
+      },
+      {
+        h2: 'Buffet, Grillfest, Brunch oder Weihnachtsessen planen',
+        body: [
+          'Der Anlass verändert die Mengen. Am Buffet probieren alle von allem, und auch der letzte Gast soll noch etwas finden, deshalb schlägt der Rechner rund 10 % auf. Beim Grillen steht das Fleisch im Mittelpunkt: etwa 40 % mehr Fleisch, mehr Salat und Brot, dafür weniger Sättigungsbeilagen. Ein Brunch setzt auf Brot, Aufstriche und Kaffee, und für ein Plätzchen- oder Kuchenbuffet plant der Rechner etwa sechs Plätzchen und ein großzügiges Stück Kuchen pro Gast.',
+          'Auch der Hunger zählt. Wähle „wenig“ für einen Nachmittag oder ältere Gäste und „viel“ für Jugendliche, Sportvereine oder einen langen Abend. Die Ergebnisse werden immer auf Mengen aufgerundet, die du auch kaufen kannst.',
+        ],
+      },
+      {
+        h2: 'Wie viele Getränke pro Person?',
+        body: [
+          'Als Faustregel gilt etwa ein Getränk pro Gast und Stunde, dazu Wasser auf jedem Tisch. Der Rechner plant 0,75 l Wasser und 0,5 l Softdrinks oder Saft pro Erwachsenem, eine halbe Flasche Wein, etwa 1 l Bier oder zwei Becher Glühwein. Alkohol wird nur für Erwachsene gerechnet, und bei mehreren alkoholischen Getränken wird die Menge aufgeteilt.',
+        ],
+      },
+    ],
+    linksTitle: 'Den Rest der Feier planen',
+    links: [
+      {
+        href: '/de/blog/articles/weihnachtsmenue-planen/',
+        label: 'Weihnachtsmenü planen',
+        text: 'Zeitplan, Mengen für Gans und Braten und eine Einkaufsliste ohne Stress.',
+      },
+      {
+        href: '/de/blog/articles/resteverwertung-ideen/',
+        label: 'Resteverwertung: Ideen und System',
+        text: 'Was du mit den Resten nach der Feier machst, statt sie wegzuwerfen.',
+      },
+    ],
+    ctaTitle: 'Rezepte und Einkaufsliste für die Feier an einem Ort',
+    ctaText:
+      'TasteBuddy ist eine kostenlose Rezept-App. Speichere die Rezepte für dein Menü von Websites, Social Media oder Fotos, plane sie in deinen Essensplan ein und sammle die Zutaten in einer Einkaufsliste.',
+    ctaPrimary: 'TasteBuddy laden',
+    ctaSecondary: 'So funktioniert es',
+    ctaSecondaryHref: '/de/so-funktioniert-es/',
+    faqTitle: 'Häufige Fragen',
+    faq: [
+      {
+        question: 'Wie viel Nudeln pro Person?',
+        answer:
+          'Rechne mit etwa 100 g trockenen Nudeln pro Erwachsenem, wenn Nudeln das Hauptgericht sind, und mit 60–75 g als Beilage. Kinder essen ungefähr die Hälfte. Für 10 Erwachsene sind das etwa 1 kg, also zwei 500-g-Packungen.',
+      },
+      {
+        question: 'Wie viel Essen pro Person bei einer Feier?',
+        answer:
+          'Für ein vollständiges Essen plant man pro Erwachsenem etwa 150–200 g Fleisch ohne Knochen oder Fisch, eine Sättigungsbeilage (100 g trockene Nudeln, 75 g Reis oder 250 g rohe Kartoffeln), 150 g Gemüse, 100 g Salat, 75 g Brot und ein Dessert. Zusammen sind das rund 700–900 g Zutaten pro Person. Für ein Buffet etwa 10 % mehr einplanen.',
+      },
+      {
+        question: 'Wie viel Fleisch pro Person beim Grillen?',
+        answer:
+          'Beim Grillen mit Salaten und Brot rechnet man etwa 250 g Fleisch ohne Knochen oder 400 g mit Knochen, etwa Rippchen oder Hähnchenschenkel, pro Erwachsenem. Bei großem Hunger und langen Abenden lieber aufrunden.',
+      },
+      {
+        question: 'Wie viel Reis pro Person?',
+        answer:
+          'Rechne mit etwa 75 g ungekochtem Reis pro Erwachsenem als Hauptgericht und rund 50 g als Beilage. Beim Kochen verdreifacht sich das Gewicht ungefähr.',
+      },
+      {
+        question: 'Wie viele Getränke pro Person für eine Party?',
+        answer:
+          'Plane etwa ein Getränk pro Gast und Stunde plus Wasser. Für einen Abend sind das ungefähr 0,75 l Wasser, 0,5 l Softdrinks und eine halbe Flasche Wein oder etwa 1 l Bier pro Erwachsenem, der Alkohol trinkt.',
+      },
+      {
+        question: 'Wie genau sind die Mengen?',
+        answer:
+          'Es sind Faustregeln, keine exakte Wissenschaft. Hunger, Alter, Tageszeit und die Zahl der Gerichte verändern, wie viel gegessen wird. Nimm die Werte als Ausgangspunkt und runde auf, wenn du Reste möchtest.',
+      },
+    ],
+    appName: 'Portionsrechner',
+  },
+}[locale];
+
+const canonical = locale === 'de' ? alternates.de : alternates.en;
+const rows = referenceRows(locale);
+
+const appStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: content.appName,
+  url: canonical,
+  description: content.description,
+  applicationCategory: 'LifestyleApplication',
+  operatingSystem: 'Any (web browser)',
+  browserRequirements: 'Requires JavaScript',
+  inLanguage: locale,
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: locale === 'de' ? 'EUR' : 'USD' },
+  publisher: { '@type': 'Organization', name: 'TasteBuddy', url: SITE_URL },
+};
+
+const faqStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: content.faq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+---
+
+<Layout title={content.title} description={content.description} lang={locale} alternates={alternates}>
+  <script type="application/ld+json" set:html={JSON.stringify(appStructuredData)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
+
+  <Main>
+    <article class="pfp">
+      <header class="pfp-hero">
+        <p class="pfp-eyebrow">{content.eyebrow}</p>
+        <h1>{content.h1}</h1>
+        <p class="pfp-lead">{content.intro}</p>
+      </header>
+
+      <PartyFoodCalculator locale={locale} />
+
+      <div class="pfp-content">
+        <section aria-labelledby="pfp-reference">
+          <h2 id="pfp-reference">{content.tableTitle}</h2>
+          <p>{content.tableIntro}</p>
+          <div class="pfp-table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">{content.tableItem}</th>
+                  <th scope="col">{content.tableAdult}</th>
+                  <th scope="col">{content.tableKid}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row) => (
+                  <tr>
+                    <th scope="row">{row.label}</th>
+                    <td>{row.perAdult}</td>
+                    <td>{row.perKid}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {content.sections.map((section) => (
+          <section>
+            <h2>{section.h2}</h2>
+            {section.body.map((paragraph) => <p>{paragraph}</p>)}
+          </section>
+        ))}
+
+        <section aria-labelledby="pfp-links">
+          <h2 id="pfp-links">{content.linksTitle}</h2>
+          <ul class="pfp-links">
+            {content.links.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+                <span>{link.text}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="pfp-cta" aria-labelledby="pfp-cta">
+          <h2 id="pfp-cta">{content.ctaTitle}</h2>
+          <p>{content.ctaText}</p>
+          <div class="pfp-cta-buttons">
+            <a
+              class="btn-primary"
+              href={getGoHref(TOOL_SLUG)}
+              data-track-event="marketing_cta_clicked"
+              data-track-payload={JSON.stringify({ cta_slug: TOOL_SLUG, cta_label: content.ctaPrimary, cta_variant: 'primary', destination: 'go_redirect', locale })}
+            >
+              {content.ctaPrimary}
+            </a>
+            <a
+              class="btn-secondary"
+              href={content.ctaSecondaryHref}
+              data-track-event="marketing_cta_clicked"
+              data-track-payload={JSON.stringify({ cta_slug: TOOL_SLUG, cta_label: content.ctaSecondary, cta_variant: 'secondary', destination: content.ctaSecondaryHref, locale })}
+            >
+              {content.ctaSecondary}
+            </a>
+          </div>
+        </section>
+
+        <section aria-labelledby="pfp-faq">
+          <h2 id="pfp-faq">{content.faqTitle}</h2>
+          <div class="pfp-faq">
+            {content.faq.map((item) => (
+              <details>
+                <summary>{item.question}</summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+      </div>
+    </article>
+  </Main>
+</Layout>
+
+<style>
+  .pfp {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 2.5rem 0 4rem;
+    color: var(--tb-text);
+  }
+
+  .pfp-hero {
+    max-width: 48rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .pfp-eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tb-accent-text);
+    margin-bottom: 0.75rem;
+  }
+
+  .pfp h1 {
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    line-height: 1.1;
+    font-weight: 800;
+    color: var(--tb-text-strong);
+    margin-bottom: 1rem;
+  }
+
+  .pfp-lead {
+    font-size: 1.125rem;
+    color: var(--tb-muted);
+  }
+
+  .pfp-content {
+    max-width: 48rem;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .pfp-content h2 {
+    font-size: 1.5rem;
+    line-height: 1.25;
+    font-weight: 750;
+    color: var(--tb-text-strong);
+    margin-bottom: 0.75rem;
+  }
+
+  .pfp-content p {
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+
+  .pfp-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius);
+    margin-top: 1rem;
+  }
+
+  .pfp table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .pfp th,
+  .pfp td {
+    text-align: left;
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid var(--tb-border-soft);
+  }
+
+  .pfp thead th {
+    background: var(--tb-surface-muted);
+    font-weight: 700;
+    color: var(--tb-text-strong);
+  }
+
+  .pfp tbody th {
+    font-weight: 600;
+  }
+
+  .pfp td {
+    white-space: nowrap;
+  }
+
+  .pfp tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+
+  .pfp-links {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .pfp-links li {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius-sm);
+    padding: 0.9rem 1rem;
+    background: var(--tb-surface-raised);
+  }
+
+  .pfp-links a {
+    font-weight: 700;
+    color: var(--tb-text-strong);
+    text-decoration: underline;
+    text-decoration-color: var(--tb-accent);
+    text-underline-offset: 3px;
+  }
+
+  .pfp-links span {
+    color: var(--tb-muted);
+    font-size: 0.9375rem;
+  }
+
+  .pfp-cta {
+    border-radius: var(--tb-radius);
+    background: var(--tb-accent-soft);
+    padding: 1.5rem;
+  }
+
+  .pfp-cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .pfp-faq {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .pfp-faq details {
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius-sm);
+    background: var(--tb-surface-raised);
+    padding: 0.85rem 1rem;
+  }
+
+  .pfp-faq summary {
+    cursor: pointer;
+    font-weight: 650;
+    color: var(--tb-text-strong);
+  }
+
+  .pfp-faq details p {
+    margin: 0.6rem 0 0;
+    color: var(--tb-text);
+  }
+</style>
