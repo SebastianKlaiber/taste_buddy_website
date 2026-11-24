@@ -4,8 +4,14 @@ import Layout from "../layouts/Layout.astro";
 const title = "Join this cookbook on TasteBuddy | TasteBuddy";
 const description = "Accept a TasteBuddy cookbook invite, see who invited you, and jump into the app with the right permissions.";
 const supportEmail = "support@tastebuddy.app";
+
+// Passed to the iOS app via the Smart App Banner so "Open" lands on this invite.
+const inviteToken = Astro.url.searchParams.get("token")?.trim();
+const appArgument = inviteToken
+  ? `https://taste-buddy.app/cookbook-invite?${new URLSearchParams({ token: inviteToken }).toString()}`
+  : undefined;
 ---
-<Layout title={title} description={description} robots="noindex, follow" skipDefaultStructuredData={true}>
+<Layout title={title} description={description} robots="noindex, follow" skipDefaultStructuredData={true} appArgument={appArgument}>
   <section class="relative overflow-hidden py-16 px-4 sm:px-6 lg:px-8">
     <div class="max-w-5xl mx-auto space-y-12">
       <header class="text-center space-y-5">

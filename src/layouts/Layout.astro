@@ -15,6 +15,8 @@ interface Props {
   socialImage?: string;
   socialImageAlt?: string;
   lang?: 'en' | 'de';
+  /** URL passed to the iOS app when opened from the Safari Smart App Banner. */
+  appArgument?: string;
 }
 
 const {
@@ -28,7 +30,14 @@ const {
   socialImage,
   socialImageAlt,
   lang,
+  appArgument,
 } = Astro.props;
+
+// Safari Smart App Banner. app-argument reaches the app when the user taps "Open" on the banner.
+const IOS_APP_STORE_ID = '6554007741';
+const smartAppBannerContent = appArgument
+  ? `app-id=${IOS_APP_STORE_ID}, app-argument=${appArgument}`
+  : `app-id=${IOS_APP_STORE_ID}`;
 
 // Language detection and hreflang generation
 const currentPath = Astro.url.pathname;
@@ -98,6 +107,7 @@ const websiteStructuredData = {
     <meta name="robots" content={robots} />
     <meta name="color-scheme" content="light dark" />
     <meta id="tb-theme-color" name="theme-color" content="#FFFFFF" />
+    <meta name="apple-itunes-app" content={smartAppBannerContent} />
     <script is:inline>
       (() => {
         const storageKey = "tastebuddy-theme";
@@ -190,6 +200,14 @@ const websiteStructuredData = {
         const isIOS = /iPad|iPhone|iPod/.test(ua) || (platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
         document.documentElement.dataset.mobilePlatform = isAndroid ? "android" : isIOS ? "ios" : "fallback";
+
+        // Real iOS Safari shows the native Smart App Banner, so the sticky download bar would be a second prompt.
+        // In-app browsers and other iOS browsers never show the banner and keep the bar.
+        const isIOSSafari =
+          isIOS &&
+          /Version\/[\d.]+.*Safari\//.test(ua) &&
+          !/CriOS|FxiOS|EdgiOS|OPiOS|GSA|FBAN|FBAV|Instagram|musical_ly|BytedanceWebview|Twitter|Line\/|LinkedInApp|Pinterest|Snapchat/.test(ua);
+        if (isIOSSafari) document.documentElement.dataset.smartAppBanner = "true";
       })();
     </script>
   </head>
@@ -626,6 +644,14 @@ const websiteStructuredData = {
 
     html[data-mobile-platform="android"] .mobile-store-badge-android {
       display: inline-flex;
+    }
+
+    html[data-smart-app-banner] #mobile-download-bar {
+      display: none;
+    }
+
+    html[data-smart-app-banner] body.tb-site-shell {
+      padding-bottom: 0;
     }
   }
 </style>
