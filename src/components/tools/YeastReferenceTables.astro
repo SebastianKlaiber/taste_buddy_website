@@ -1,0 +1,282 @@
+---
+/** Static, crawlable conversion tables generated from the same logic as the live tool. */
+import {
+  convertYeastGrams,
+  DRY_YEAST_GRAMS_PER_TSP,
+  FLOUR_REFERENCE_GRAMS,
+  FRESH_REFERENCE_GRAMS,
+  formatNumber,
+  formatSpoons,
+  GRAMS_PER_CUBE,
+  GRAMS_PER_PACKET,
+  leaveningForFlour,
+  PACKET_REFERENCE_COUNTS,
+  sourdoughSwap,
+  yeastForFlour,
+} from '../../lib/tools/yeast-converter';
+
+interface Props {
+  lang: 'en' | 'de';
+}
+
+const { lang } = Astro.props;
+const n = (value: number, digits = 1) => formatNumber(value, lang, digits);
+const tsp = (grams: number) => formatSpoons(grams / DRY_YEAST_GRAMS_PER_TSP);
+
+const t = {
+  en: {
+    heading: 'Yeast conversion charts',
+    freshTitle: 'Fresh yeast to dry yeast',
+    freshCaption: 'Fresh yeast converted to instant and active dry yeast (by weight, rounded).',
+    packetTitle: 'Dry yeast packets to fresh yeast',
+    packetCaption: 'Packets of instant yeast (7 g, 2¼ tsp) converted to fresh and active dry yeast.',
+    flourTitle: 'How much yeast per amount of flour',
+    flourCaption: 'Typical package dosage for a standard yeast dough (1–2 h rise). Use less for long or cold fermentation.',
+    sourdoughTitle: 'Sourdough starter instead of yeast (rule of thumb)',
+    sourdoughCaption: '20% active starter at 100% hydration; the flour and water in the starter are subtracted from the dough.',
+    leavenTitle: 'Baking powder and baking soda',
+    leavenCaption: 'Approximate starting points for cakes and quick breads. Exact amounts depend on the recipe.',
+    unitsTitle: 'Handy yeast equivalents',
+    fresh: 'Fresh yeast',
+    instant: 'Instant yeast',
+    active: 'Active dry yeast',
+    packets: 'Packets (instant)',
+    flour: 'Flour',
+    starter: 'Starter',
+    flourAdd: 'Flour to add',
+    waterNote: 'Water to subtract',
+    bp: 'Baking powder',
+    soda: 'Baking soda + acid',
+    tspUnit: 'tsp',
+    cube: 'cube',
+    cubes: 'cubes',
+    tartar: 'cream of tartar',
+    units: [
+      ['1 US packet of dry yeast', '¼ oz = 7 g = 2¼ tsp'],
+      ['1 tsp instant or active dry yeast', '≈ 3.1 g'],
+      ['1 European cube of fresh yeast (Würfel)', '42 g'],
+      ['1 US cake of fresh yeast', '0.6 oz ≈ 17 g ≈ 1 packet active dry'],
+      ['1 German packet of dry yeast (Päckchen Trockenhefe)', '7 g instant ≈ ½ cube fresh, for 500 g flour'],
+      ['1 tsp baking powder', '≈ ¼ tsp baking soda + ½ tsp cream of tartar'],
+      ['1 tsp baking soda', '≈ 3 tsp baking powder (leaves acid unneutralised)'],
+    ],
+  },
+  de: {
+    heading: 'Hefe-Umrechnungstabellen',
+    freshTitle: 'Frischhefe in Trockenhefe umrechnen',
+    freshCaption: 'Frischhefe umgerechnet in Trockenhefe (Instant) und aktive Trockenhefe (nach Gewicht, gerundet).',
+    packetTitle: 'Päckchen Trockenhefe in Frischhefe',
+    packetCaption: 'Päckchen Trockenhefe (7 g, Instant) umgerechnet in Frischhefe und Active Dry.',
+    flourTitle: 'Wie viel Hefe auf wie viel Mehl',
+    flourCaption: 'Übliche Packungsdosierung für einen normalen Hefeteig (1–2 Std. Gare). Für lange oder kalte Führung weniger nehmen.',
+    sourdoughTitle: 'Sauerteig statt Hefe (Faustregel)',
+    sourdoughCaption: '20 % aktiver Sauerteig mit 100 % Hydration; Mehl und Wasser im Sauerteig werden vom Teig abgezogen.',
+    leavenTitle: 'Backpulver und Natron',
+    leavenCaption: 'Ungefähre Richtwerte für Kuchen und schnelle Brote. Die genaue Menge hängt vom Rezept ab.',
+    unitsTitle: 'Praktische Hefe-Äquivalente',
+    fresh: 'Frischhefe',
+    instant: 'Trockenhefe (Instant)',
+    active: 'Active Dry',
+    packets: 'Päckchen Trockenhefe',
+    flour: 'Mehl',
+    starter: 'Sauerteig',
+    flourAdd: 'Mehl zugeben',
+    waterNote: 'Wasser abziehen',
+    bp: 'Backpulver',
+    soda: 'Natron + Säure',
+    tspUnit: 'TL',
+    cube: 'Würfel',
+    cubes: 'Würfel',
+    tartar: 'Weinstein',
+    units: [
+      ['1 Würfel Frischhefe', '42 g ≈ 2 Päckchen Trockenhefe (14 g)'],
+      ['1 Päckchen Trockenhefe', '7 g ≈ ½ Würfel Frischhefe (21 g), für 500 g Mehl'],
+      ['1 TL Trockenhefe', '≈ 3,1 g'],
+      ['1 US-Packet Dry Yeast', '¼ oz = 7 g = 2¼ TL'],
+      ['1 Päckchen Backpulver', '≈ 15 g, für 500 g Mehl'],
+      ['1 TL Backpulver', '≈ ¼ TL Natron + ½ TL Weinstein'],
+      ['1 TL Natron', '≈ 3 TL Backpulver (Säure bleibt dann übrig)'],
+    ],
+  },
+}[lang];
+
+const freshRows = FRESH_REFERENCE_GRAMS.map((fresh) => convertYeastGrams(fresh, 'fresh'));
+const packetRows = PACKET_REFERENCE_COUNTS.map((count) => ({
+  count,
+  ...convertYeastGrams(count * GRAMS_PER_PACKET, 'instant'),
+}));
+const flourRows = FLOUR_REFERENCE_GRAMS.map((flour) => ({ flour, ...yeastForFlour(flour) }));
+const sourdoughRows = FLOUR_REFERENCE_GRAMS.map((flour) => ({ flour, ...sourdoughSwap({ flourGrams: flour, waterGrams: 0 }) }));
+const leavenRows = FLOUR_REFERENCE_GRAMS.map((flour) => ({ flour, ...leaveningForFlour(flour) }));
+const cubeLabel = (grams: number) => {
+  const cubes = grams / GRAMS_PER_CUBE;
+  return `${n(cubes, 2)} ${cubes === 1 ? t.cube : t.cubes}`;
+};
+---
+
+<section class="yrt" aria-labelledby="yrt-heading">
+  <h2 id="yrt-heading" class="yrt-h2">{t.heading}</h2>
+
+  <h3 class="yrt-h3">{t.freshTitle}</h3>
+  <div class="yrt-scroll">
+    <table>
+      <caption>{t.freshCaption}</caption>
+      <thead>
+        <tr><th scope="col">{t.fresh}</th><th scope="col">{t.instant}</th><th scope="col">{t.active}</th></tr>
+      </thead>
+      <tbody>
+        {freshRows.map((row) => (
+          <tr>
+            <th scope="row">{n(row.fresh)} g{row.fresh === GRAMS_PER_CUBE ? ` (1 ${t.cube})` : row.fresh === 21 ? ` (½ ${t.cube})` : ''}</th>
+            <td>{n(row.instant)} g · {tsp(row.instant)} {t.tspUnit}</td>
+            <td>{n(row.active)} g · {tsp(row.active)} {t.tspUnit}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="yrt-h3">{t.packetTitle}</h3>
+  <div class="yrt-scroll">
+    <table>
+      <caption>{t.packetCaption}</caption>
+      <thead>
+        <tr><th scope="col">{t.packets}</th><th scope="col">{t.fresh}</th><th scope="col">{t.active}</th></tr>
+      </thead>
+      <tbody>
+        {packetRows.map((row) => (
+          <tr>
+            <th scope="row">{n(row.count)} ({n(row.instant)} g)</th>
+            <td>{n(row.fresh)} g ({cubeLabel(row.fresh)})</td>
+            <td>{n(row.active)} g · {tsp(row.active)} {t.tspUnit}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="yrt-h3">{t.flourTitle}</h3>
+  <div class="yrt-scroll">
+    <table>
+      <caption>{t.flourCaption}</caption>
+      <thead>
+        <tr><th scope="col">{t.flour}</th><th scope="col">{t.fresh}</th><th scope="col">{t.instant}</th><th scope="col">{t.active}</th></tr>
+      </thead>
+      <tbody>
+        {flourRows.map((row) => (
+          <tr>
+            <th scope="row">{n(row.flour)} g</th>
+            <td>{n(row.fresh)} g</td>
+            <td>{n(row.instant)} g</td>
+            <td>{n(row.active)} g</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="yrt-h3">{t.sourdoughTitle}</h3>
+  <div class="yrt-scroll">
+    <table>
+      <caption>{t.sourdoughCaption}</caption>
+      <thead>
+        <tr><th scope="col">{t.flour}</th><th scope="col">{t.starter}</th><th scope="col">{t.flourAdd}</th><th scope="col">{t.waterNote}</th></tr>
+      </thead>
+      <tbody>
+        {sourdoughRows.map((row) => (
+          <tr>
+            <th scope="row">{n(row.flour)} g</th>
+            <td>{n(row.starterGrams)} g</td>
+            <td>{n(row.flourToAddGrams)} g</td>
+            <td>{n(row.starterWaterGrams)} g</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="yrt-h3">{t.leavenTitle}</h3>
+  <div class="yrt-scroll">
+    <table>
+      <caption>{t.leavenCaption}</caption>
+      <thead>
+        <tr><th scope="col">{t.flour}</th><th scope="col">{t.bp}</th><th scope="col">{t.soda}</th></tr>
+      </thead>
+      <tbody>
+        {leavenRows.map((row) => (
+          <tr>
+            <th scope="row">{n(row.flour)} g</th>
+            <td>≈ {n(row.bakingPowderGrams)} g · {formatSpoons(row.bakingPowderTsp)} {t.tspUnit}</td>
+            <td>≈ {formatSpoons(row.bakingSodaTsp)} {t.tspUnit} + {formatSpoons(row.creamOfTartarTsp)} {t.tspUnit} {t.tartar}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="yrt-h3">{t.unitsTitle}</h3>
+  <div class="yrt-scroll">
+    <table>
+      <tbody>
+        {t.units.map(([label, value]) => (
+          <tr>
+            <th scope="row">{label}</th>
+            <td>{value}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<style>
+  .yrt-h2 {
+    color: var(--tb-text-strong);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .yrt-h3 {
+    color: var(--tb-text-strong);
+    font-size: 1.125rem;
+    font-weight: 650;
+    margin: 1.75rem 0 0.5rem;
+  }
+  .yrt-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--tb-border);
+    border-radius: var(--tb-radius-sm);
+    background: var(--tb-surface);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    color: var(--tb-text);
+    font-variant-numeric: tabular-nums;
+  }
+  caption {
+    caption-side: top;
+    text-align: left;
+    padding: 0.625rem 0.875rem;
+    color: var(--tb-muted);
+    font-size: 0.85rem;
+  }
+  th,
+  td {
+    padding: 0.5rem 0.875rem;
+    text-align: left;
+    border-top: 1px solid var(--tb-border);
+    vertical-align: top;
+  }
+  thead th {
+    background: var(--tb-surface-muted);
+    color: var(--tb-text-strong);
+    font-weight: 650;
+    white-space: nowrap;
+  }
+  tbody th {
+    font-weight: 600;
+    color: var(--tb-text-strong);
+  }
+</style>
