@@ -407,7 +407,10 @@ const appArgument = inviteToken
 
     function attemptDeepLink({ auto = false } = {}) {
       if (!state.token) return;
-      const deepLink = `tastebuddy://invite?token=${encodeURIComponent(state.token)}`;
+      // The app routes custom-scheme links by path only (host is ignored), and the
+      // Android manifest only accepts host "cookbook-receive-invitation". The path
+      // opens the invite page and keeps the token through onboarding and sign-in.
+      const deepLink = `tastebuddy://cookbook-receive-invitation/cookbook-receive-invitation?token=${encodeURIComponent(state.token)}`;
       const start = Date.now();
       track("invite_deeplink_attempt", { auto });
 
